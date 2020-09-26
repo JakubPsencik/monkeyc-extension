@@ -7,7 +7,8 @@ import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationConte
 import { MonkeyCListener } from './MonkeyCListener';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
-import { languages, Diagnostic, DiagnosticSeverity } from 'vscode';
+import { languages, Diagnostic } from 'vscode';
+import { MonkeyCVisitor } from './MonkeyCVisitor';
 
 
 /** String to detect in the text document. */
@@ -15,6 +16,7 @@ const PROGRAM = 'program';
 
 /** Code that is used to associate diagnostic entries with code actions. */
 export const PROGRAM_MENTION = 'program_mention';
+
 
 class EnterFunctionListener implements MonkeyCListener {
 	// Assuming a parser rule with name: `Program`
@@ -79,11 +81,6 @@ class EnterFunctionListener implements MonkeyCListener {
   */
   let diagnosticCollection: vscode.DiagnosticCollection;
 
-
-  function onChange() {
-	  
-  }
-
   /**
  * Analyzes the text document for problems. 
  * This demo diagnostic problem provider finds all mentions of 'emoji'.
@@ -143,20 +140,12 @@ export function subscribeToDocumentChanges(context: vscode.ExtensionContext, pro
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "test" is now active!');
-
-	diagnosticCollection = languages.createDiagnosticCollection("MonkeyC_collection");
+	diagnosticCollection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
 	let diagnostics : Diagnostic[] = [];
 
 	let documentUri = vscode.Uri.file("code_snippets\\test0.txt");
 
-
 	let file = readFileSync('e:\\BP\\test\\test\\src\\code_snippets\\test0.txt','utf8');
-
-
-	let message = "new Diagnostic pushed...";
 	
 	//diagnostics.push(new Diagnostic(file, message, DiagnosticSeverity.Warning));
 	
@@ -177,55 +166,10 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log('testing...');
 	});
 
+	const f = readFileSync('e:\\GitHub\\monkeyc-extension\\src\\code_snippets\\helloWorldView.mc', 'utf-8');
 	let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => {
-			// Create the lexer and parser
 
-	//const file = readFileSync('test0.txt', 'utf-8');
-	let code =
-			`class SimpleAnalogApp extends App.AppBase {
-
-			function initialize() {
-				AppBase.initialize();
-				$.gDeviceSettings = System.getDeviceSettings();
-			}
-
-			// onStart() is called on application start up
-			function onStart(state) {
-			}
-
-			// onStop() is called when your application is exiting
-			function onStop(state) {
-			}
-
-			// New app settings have been received so trigger a UI update
-			function onSettingsChanged() {
-				$.gSettingsChanged = true;
-				$.gDeviceSettings = System.getDeviceSettings();
-				Ui.requestUpdate();
-			}
-
-			// Return the initial view of your application here
-			function getInitialView() {
-				return [ new SimpleAnalogView() ];
-			}
-
-			function getBooleanProperty(key, initial) {
-				var value = getProperty(key);
-				if (value != null) {
-					if (value instanceof Lang.Boolean) {
-						return value;
-					} else if (value instanceof Lang.String) {
-						// added to work around GCM Android problems
-						return value.toNumber() != 0;
-					}
-				}
-				return initial;
-			}
-
-		}`;
-	
-	let inputStream = new ANTLRInputStream(code);
-
+	let inputStream = new ANTLRInputStream(f);
 
 	let lexer = new MonkeyCLexer(inputStream);
 	let tokenStream = new CommonTokenStream(lexer);
@@ -241,7 +185,33 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable,testFunc,ScanCode);
 	//context.subscriptions.push(diagnosticCollection);
 
+
+    context.subscriptions.push(diagnosticCollection);
+
+	if (vscode.window.activeTextEditor) {
+		//updateDiagnostics
+	}
+
 }
+
+function onChange(document : vscode.TextDocument, goConfig: vscode.WorkspaceConfiguration) {
+	let uri = document.uri;
+	check(uri.fsPath, goConfig).then((errors: any[]) => {
+	  diagnosticCollection.clear();
+	  let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
+	  errors.forEach(error => {
+		let canonicalFile = vscode.Uri.file(error.file).toString();
+		let range = new vscode.Range(error.line-1, error.startColumn, error.line-1, error.endColumn);
+		let diagnostics = diagnosticMap.get(canonicalFile);
+		if (!diagnostics) { diagnostics = []; }
+		diagnostics.push(new vscode.Diagnostic(range, error.msg, error.severity));
+		diagnosticMap.set(canonicalFile, diagnostics);
+	  });
+	  diagnosticMap.forEach((diags, file) => {
+		diagnosticCollection.set(vscode.Uri.parse(file), diags);
+	  });
+	});
+  }
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
