@@ -4,7 +4,8 @@ using Toybox.WatchUi as Ui;
 var gDeviceSettings;
 var gSettingsChanged = true;*/
 
-class SimpleAnalogApp extends App.AppBase {
+class SimpleAnalogApp extends App.AppBase 
+{
 
     function initialize() {
         AppBase.initialize();
@@ -31,7 +32,7 @@ class SimpleAnalogApp extends App.AppBase {
         return [ new SimpleAnalogView() ];
     }
 
-	function getBooleanProperty(key, initial) {
+	func getBooleanProperty(key, initial) {
 		var value = getProperty(key);
 		if (value != null) {
 			if (value instanceof Lang.Boolean) {
@@ -43,5 +44,4 @@ class SimpleAnalogApp extends App.AppBase {
 		}
 		return initial;
 	}
-
 }
