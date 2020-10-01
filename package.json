@@ -11,7 +11,6 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:monkeyc-extension.helloWorld",
 		"onCommand:monkeyc-extension.testFunc",
 		"onCommand:monkeyc-extension.ScanCode"
 	],
@@ -19,20 +18,13 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "monkeyc-extension.helloWorld",
-				"title": "Hello World"
-			},
-
-			{
 				"command": "monkeyc-extension.testFunc",
 				"title": "Run test"
 			},
-
 			{
 				"command": "monkeyc-extension.ScanCode",
 				"title": "Scan code"
 			},
-
 			{
 				"command": "monkeyc-extension.createDiagnostic",
 				"title": "createDiagnostic"
