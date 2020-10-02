@@ -19,6 +19,7 @@ import { Console } from 'console';
 import { cpuUsage } from 'process';
 import { EDQUOT, SSL_OP_CISCO_ANYCONNECT } from 'constants';
 import { ErrorInfo } from 'antlr4ts/atn/ErrorInfo';
+import { isUndefined } from 'util';
 
 
 interface ErrorDescription {
@@ -120,23 +121,22 @@ export function activate(context: vscode.ExtensionContext) {
 	* vytvoreni nove kolekce s diagnostikou
 	* pokud dochazi, k uprave textu, spusti se metoda updateDiagnostics
 	*/
-	const collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
-	const diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
+	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
+	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	
 	let errorListener = new MyErrorListener();
 
 
 	if (vscode.window.activeTextEditor) {
 	//activeTextEditor.document - dokument, ktery mam prave otevreny, a ktery edituji...
-		context.subscriptions.push(collection);
-	}
 	context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(editor => 
 		{
 		if (editor) {		
-			//updateDiagnostics(editor.document, collection);
+			context.subscriptions.push(collection);
 		}
 	}));
-	
+	}
+
 	let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () => {
 		var editor = vscode.window.activeTextEditor;
 		
@@ -144,11 +144,15 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
 	});
 
-	const f = readFileSync('e:\\GitHub\\monkeyc-extension\\src\\code_snippets\\test0.txt', 'utf-8');
-
 	let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => 
 	{
-
+	collection.clear();
+	diagnosticMap.clear();
+	let f = "";
+	if (vscode.window.activeTextEditor) {
+		f = vscode.window.activeTextEditor.document.uri.fsPath;
+		f = readFileSync(f, 'utf-8');
+	}	
 	let inputStream = new ANTLRInputStream(f);
 	let lexer = new MonkeyCLexer(inputStream);
 	lexer.removeErrorListeners();
@@ -170,8 +174,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	
 	errors.forEach(err => {
-
-		collection.clear();
 		//console.log('offendingSymbol: ' + err.offendingSymbol + '\n' + 'line: ' + err.line + '\n' + 'msg: ' + err.msg + '\n' + 'exc: ' + err.e + '\n');
 		let data = (err.offendingSymbol).toString();
 		let offSymbol = data.substring(data.indexOf("'")+1,data.lastIndexOf("'"));

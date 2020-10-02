@@ -7,7 +7,7 @@ var gSettingsChanged = true;*/
 class SimpleAnalogApp extends App.AppBase 
 {
 
-    function initialize() {
+    func initialize() {
         AppBase.initialize();
 		$.gDeviceSettings = System.getDeviceSettings();
     }
