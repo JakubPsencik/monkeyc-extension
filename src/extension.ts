@@ -4,7 +4,8 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { ANTLRErrorListener, ANTLRInputStream, CommonTokenStream, ConsoleErrorListener, IntStream, LexerInterpreter, Parser, ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
 import { MonkeyCLexer } from './MonkeyCLexer';
-import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, ExpressionContext, FieldDeclarationContext, FunctionDeclarationContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
+import {MonkeycErrorListener} from '../ErrorListener/MonkeycErrorListener';
+import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, ExpressionContext, FieldDeclarationContext, FunctionDeclarationContext, InstanceOfExpressionContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
 import { MonkeyCListener } from './MonkeyCListener';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
@@ -16,23 +17,43 @@ import { Override } from 'antlr4ts/Decorators';
 import { throws } from 'assert';
 import { Console } from 'console';
 import { cpuUsage } from 'process';
-import { EDQUOT } from 'constants';
+import { EDQUOT, SSL_OP_CISCO_ANYCONNECT } from 'constants';
+import { ErrorInfo } from 'antlr4ts/atn/ErrorInfo';
 
 
-class MyErrorListener extends ConsoleErrorListener {
+interface ErrorDescription {
+    offendingSymbol: any;
+	line: number;
+	charPositionInLine: number;
+	msg : string
+	e: RecognitionException | undefined
+}
 
-	@Override
-	syntaxError<T>(recognizer: Recognizer<T, any>, offendingSymbol: T, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void {
-		throw new Error("line " + line + ":" + charPositionInLine + " " + msg);
+class MyErrorListener extends MonkeycErrorListener {
+
+	syntaxErrors: ErrorDescription[] = [];
+
+	getSyntaxErrors() {
+		return this.syntaxErrors;
 	}
 
+	syntaxError<T>(recognizer: Recognizer<T, any>, offendingSymbol: T, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void {
+		
+		console.error(`line ${line}:${charPositionInLine} ${msg}`);
+
+		let temp : ErrorDescription = { 
+			offendingSymbol: offendingSymbol,
+			line: line,
+			charPositionInLine: charPositionInLine,
+			msg: msg,
+			e: e
+		};
+
+		this.syntaxErrors.push(temp);
+	}
 }
 
 class EnterFunctionListener implements MonkeyCListener {
-
-	constructor(public collection: vscode.DiagnosticCollection) {
-		collection.clear();
-	}
 
 	// Assuming a parser rule with name: `Program`
 	enterProgram(context: ProgramContext) {
@@ -87,7 +108,6 @@ class EnterFunctionListener implements MonkeyCListener {
 	}
 
 	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
-		
 		console.log(`Function start line number ${context._start.line}`);		
 		// ..		
 	}
@@ -101,26 +121,18 @@ export function activate(context: vscode.ExtensionContext) {
 	* pokud dochazi, k uprave textu, spusti se metoda updateDiagnostics
 	*/
 	const collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
+	const diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	
+	let errorListener = new MyErrorListener();
+
 
 	if (vscode.window.activeTextEditor) {
 	//activeTextEditor.document - dokument, ktery mam prave otevreny, a ktery edituji...
-		updateDiagnostics(vscode.window.activeTextEditor.document, collection);
+		context.subscriptions.push(collection);
 	}
 	context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(editor => 
 		{
-		if (editor) {
-				collection.set(editor.document.uri, [{
-					code: '',
-					message: 'what a huge document this is',			
-					range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(47, 1)),				
-					severity: vscode.DiagnosticSeverity.Error,				
-					source: '',
-					relatedInformation: [
-						new vscode.DiagnosticRelatedInformation(new vscode.Location(editor.document.uri, new vscode.Range(new vscode.Position(1, 8), new vscode.Position(1, 9))), 'first assignment to `x`')
-					]
-				}]);
-			
+		if (editor) {		
 			//updateDiagnostics(editor.document, collection);
 		}
 	}));
@@ -136,28 +148,51 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => 
 	{
+
 	let inputStream = new ANTLRInputStream(f);
 	let lexer = new MonkeyCLexer(inputStream);
-
-	//*****/
-	/*lexer.removeErrorListeners();
-	lexer.addErrorListener(ConsoleErrorListener.INSTANCE);*/
-
+	lexer.removeErrorListeners();
+	lexer.addErrorListener(errorListener);
 	let tokenStream = new CommonTokenStream(lexer);
-
 	let parser = new MonkeyCParser(tokenStream);
 	parser.buildParseTree = true;
-
-	//*****/
-	/*parser.removeErrorListeners();
-	parser.addErrorListener(ConsoleErrorListener.INSTANCE);*/
+	parser.removeErrorListeners();
+	parser.addErrorListener(errorListener);
 
 	// Parse the input, where `compilationUnit` is whatever entry point you defined
 	let tree = parser.program();
 
-	const listener: MonkeyCListener = new EnterFunctionListener(collection);
+	const listener: MonkeyCListener = new EnterFunctionListener();
 
-	ParseTreeWalker.DEFAULT.walk(listener,tree);	
+	ParseTreeWalker.DEFAULT.walk(listener,tree);
+	let errors = errorListener.getSyntaxErrors();
+
+
+	
+	errors.forEach(err => {
+
+		collection.clear();
+		//console.log('offendingSymbol: ' + err.offendingSymbol + '\n' + 'line: ' + err.line + '\n' + 'msg: ' + err.msg + '\n' + 'exc: ' + err.e + '\n');
+		let data = (err.offendingSymbol).toString();
+		let offSymbol = data.substring(data.indexOf("'")+1,data.lastIndexOf("'"));
+
+		if (vscode.window.activeTextEditor) {
+
+			let diagnostics = diagnosticMap.get(vscode.window.activeTextEditor.document.uri.toString());
+			if (!diagnostics) { diagnostics = []; }
+				diagnostics.push(new vscode.Diagnostic(			
+					new vscode.Range(new vscode.Position(err.line-1, err.charPositionInLine), new vscode.Position(err.line-1,((err.charPositionInLine)+offSymbol.length))),
+						err.msg,
+						vscode.DiagnosticSeverity.Error)		
+					);
+			  	diagnosticMap.set(vscode.window.activeTextEditor.document.uri.toString(), diagnostics);		
+		}
+	});
+
+	diagnosticMap.forEach((diags, file) => {
+		collection.set(vscode.Uri.parse(file), diags);
+	  });
+
 	});
 
 	context.subscriptions.push(testFunc,ScanCode);
@@ -165,25 +200,3 @@ export function activate(context: vscode.ExtensionContext) {
 }
 // this method is called when your extension is deactivated
 export function deactivate() {}
-
-function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
-	if (document /*&& path.basename(document.uri.fsPath) === 'sample-demo.rs'*/) {
-		collection.set(document.uri, [{
-			//code: kod detekovane chyby
-			code: '',
-			message: 'cannot assign twice to immutable variable `x`',
-			//range: vyvolava typicke cervene podtrzeni pod chybou
-			range: new vscode.Range(new vscode.Position(3, 4), new vscode.Position(3, 10)),
-			//severity: druh problemu (error, warning) nebo nejakeho doporuceni
-			severity: vscode.DiagnosticSeverity.Error,
-			//A human-readable string describing the source of this diagnostic, e.g. 'typescript' or 'super lint'.
-			source: '',
-			//An array of related diagnostic information, e.g. when symbol-names within a scope collide all definitions can be marked via this property.
-			relatedInformation: [
-				new vscode.DiagnosticRelatedInformation(new vscode.Location(document.uri, new vscode.Range(new vscode.Position(1, 8), new vscode.Position(1, 9))), 'first assignment to `x`')
-			]
-		}]);
-	} else {
-		collection.clear();	
-	}
-}	

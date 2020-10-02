@@ -32,7 +32,7 @@ class SimpleAnalogApp extends App.AppBase
         return [ new SimpleAnalogView() ];
     }
 
-	func getBooleanProperty(key, initial) {
+	function getBooleanProperty(key, initial) {
 		var value = getProperty(key);
 		if (value != null) {
 			if (value instanceof Lang.Boolean) {
