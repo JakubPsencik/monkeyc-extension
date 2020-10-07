@@ -9,18 +9,10 @@ import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationConte
 import { MonkeyCListener } from './MonkeyCListener';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
-import { languages, Diagnostic } from 'vscode';
-import { MonkeyCVisitor } from './MonkeyCVisitor';
-import { Interval } from 'antlr4ts/misc/Interval';
-import { parse } from 'path';
-import { Override } from 'antlr4ts/Decorators';
-import { throws } from 'assert';
-import { Console } from 'console';
-import { cpuUsage } from 'process';
-import { EDQUOT, SSL_OP_CISCO_ANYCONNECT } from 'constants';
-import { ErrorInfo } from 'antlr4ts/atn/ErrorInfo';
-import { isUndefined } from 'util';
+import * as os from "os";
+import { spawn } from 'child_process';
 
+var clang = require("clang-format");
 
 interface ErrorDescription {
     offendingSymbol: any;
@@ -117,6 +109,23 @@ class EnterFunctionListener implements MonkeyCListener {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	
+	vscode.languages.registerDocumentFormattingEditProvider("monkeyc", {
+		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
+			const exePackageLocation = path.dirname(clang.location);
+			console.log(exePackageLocation);
+			var exe;
+			if (os.platform() === "win32") {
+				exe = path.join(exePackageLocation, "/bin/win32/clang-format.exe");
+			} else {
+				exe = path.join(exePackageLocation, `/bin/${os.platform()}_${os.arch()}/clang-format`);				
+			}
+
+			var child = spawn(exe, [document.fileName, "-i", "--style=file", "--fallback-style=google"]);
+			return [];
+		}
+	});
+
 	/*
 	* vytvoreni nove kolekce s diagnostikou
 	* pokud dochazi, k uprave textu, spusti se metoda updateDiagnostics
@@ -125,16 +134,34 @@ export function activate(context: vscode.ExtensionContext) {
 	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	
 	let errorListener = new MyErrorListener();
-
+	/*document.onDidChangeContent((change : any) => {
+		let diagnostics: vscode.Diagnostic[] = [];
+		let lines = change.document.getText().split(/\r?\n/g);
+		lines.forEach((line : any, i : any) => {
+			let index = line.indexOf('typescript');
+			if (index >= 0) {
+				diagnostics.push({
+					severity: vscode.DiagnosticSeverity.Warning,
+					range: {
+						start: { line: i, character: index},
+						end: { line: i, character: index + 10 }
+					},
+					message: `${line.substr(index, 10)} should be spelled TypeScript`,
+					source: 'ex'
+				});
+			}
+		});
+		// Send the computed diagnostics to VS Code.
+		//connection.sendDiagnostics({ uri: change.document.uri, diagnostics });
+	});*/
 
 	if (vscode.window.activeTextEditor) {
 	//activeTextEditor.document - dokument, ktery mam prave otevreny, a ktery edituji...
-	context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(editor => 
-		{
-		if (editor) {		
-			context.subscriptions.push(collection);
-		}
-	}));
+
+	vscode.workspace.onDidChangeTextDocument((event) => {
+		console.log('\n\n change: ', event.contentChanges);
+		context.subscriptions.push(collection);
+	});
 	}
 
 	let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () => {
@@ -144,8 +171,8 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
 	});
 
-	let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => 
-	{
+	//let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => 
+	//{
 	collection.clear();
 	diagnosticMap.clear();
 	let f = "";
@@ -171,15 +198,12 @@ export function activate(context: vscode.ExtensionContext) {
 	ParseTreeWalker.DEFAULT.walk(listener,tree);
 	let errors = errorListener.getSyntaxErrors();
 
-
-	
 	errors.forEach(err => {
 		//console.log('offendingSymbol: ' + err.offendingSymbol + '\n' + 'line: ' + err.line + '\n' + 'msg: ' + err.msg + '\n' + 'exc: ' + err.e + '\n');
 		let data = (err.offendingSymbol).toString();
 		let offSymbol = data.substring(data.indexOf("'")+1,data.lastIndexOf("'"));
 
 		if (vscode.window.activeTextEditor) {
-
 			let diagnostics = diagnosticMap.get(vscode.window.activeTextEditor.document.uri.toString());
 			if (!diagnostics) { diagnostics = []; }
 				diagnostics.push(new vscode.Diagnostic(			
@@ -195,10 +219,11 @@ export function activate(context: vscode.ExtensionContext) {
 		collection.set(vscode.Uri.parse(file), diags);
 	  });
 
-	});
+	//});
 
-	context.subscriptions.push(testFunc,ScanCode);
+	context.subscriptions.push(testFunc,/*ScanCode*/);
 
 }
+
 // this method is called when your extension is deactivated
 export function deactivate() {}
