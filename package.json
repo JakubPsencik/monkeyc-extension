@@ -11,8 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:monkeyc-extension.testFunc",
-		"onCommand:monkeyc-extension.ScanCode"
+		"onLanguage:monkeyc"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -35,7 +34,8 @@
                 "id": "monkeyc",
                 "aliases": [
                     "Monkey C",
-                    "monkeyc",
+					"monkeyc",
+					"monkeyC",
                     "garmin",
                     "Connect IQ",
                     "connect iq",

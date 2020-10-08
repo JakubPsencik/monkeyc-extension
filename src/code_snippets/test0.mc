@@ -1,19 +1,20 @@
-/*using Toybox.Application as App;
+using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
 var gDeviceSettings;
-var gSettingsChanged = true;*/
+var gSettingsChanged = true;
 
 class SimpleAnalogApp extends App.AppBase 
 {
 
-    func initialize() {
+    function  initialize() {
         AppBase.initialize();
 		$.gDeviceSettings = System.getDeviceSettings();
     }
 
     // onStart() is called on application start up
     function onStart(state) {
+		$.gSettingsChanged = true;
     }
 
     // onStop() is called when your application is exiting
@@ -23,7 +24,7 @@ class SimpleAnalogApp extends App.AppBase
     // New app settings have been received so trigger a UI update
 	function onSettingsChanged() {
 		$.gSettingsChanged = true;
-		$.gDeviceSettings  System.getDeviceSettings();
+		$.gDeviceSettings = System.getDeviceSettings();
 		Ui.requestUpdate();
 	}
 

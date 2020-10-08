@@ -2,10 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { ANTLRErrorListener, ANTLRInputStream, CommonTokenStream, ConsoleErrorListener, IntStream, LexerInterpreter, Parser, ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
+import { ANTLRInputStream, CommonTokenStream, RecognitionException, Recognizer } from 'antlr4ts';
 import { MonkeyCLexer } from './MonkeyCLexer';
 import {MonkeycErrorListener} from '../ErrorListener/MonkeycErrorListener';
-import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, ExpressionContext, FieldDeclarationContext, FunctionDeclarationContext, InstanceOfExpressionContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
+import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, ExpressionContext, FieldDeclarationContext, FunctionDeclarationContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
 import { MonkeyCListener } from './MonkeyCListener';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
@@ -32,6 +32,7 @@ class MyErrorListener extends MonkeycErrorListener {
 
 	syntaxError<T>(recognizer: Recognizer<T, any>, offendingSymbol: T, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void {
 		
+		console.clear();
 		console.error(`line ${line}:${charPositionInLine} ${msg}`);
 
 		let temp : ErrorDescription = { 
@@ -50,65 +51,73 @@ class EnterFunctionListener implements MonkeyCListener {
 
 	// Assuming a parser rule with name: `Program`
 	enterProgram(context: ProgramContext) {
-		console.log(`Program start line number ${context._start.line}`);
+		//console.log(`Program start line number ${context._start.line}`);
 		
 		// ...
 	}
 
 	enterUsingDeclaration(context: UsingDeclarationContext) {
-		console.log(`Using start line number ${context._start.line}`);		
+		//console.log(`Using start line number ${context._start.line}`);		
 		// ...
 	}
 
 	enterFieldDeclaration(context: FieldDeclarationContext) {
-		console.log(`Field start line number ${context._start.line}`);		
+		//console.log(`Field start line number ${context._start.line}`);		
 	}
 
 
 	enterArguments(context: ArgumentsContext) {
-		console.log(`Argument start line number ${context._start.line}`);		
+		//console.log(`Argument start line number ${context._start.line}`);		
 	}
 
 	enterBlock(context: BlockContext) {
-		console.log(`Block start line number ${context._start.line}`);		
+		//console.log(`Block start line number ${context._start.line}`);		
 	}
 
 	enterExpression(context: ExpressionContext) {
-		console.log(`Expression start line number ${context._start.line}`);		
+		//console.log(`Expression start line number ${context._start.line}`);		
 	}
 
 	enterCompilationUnit(context: CompilationUnitContext) {
-		console.log(`CompilationUnit start line number ${context._start.line}`);		
+		//console.log(`CompilationUnit start line number ${context._start.line}`);		
 	}
 
 	enterVariableDeclaration(context: VariableDeclarationContext) {
-		console.log(`Variable start line number ${context._start.line}`);
+		//console.log(`Variable start line number ${context._start.line}`);
 		// ...
 	}
 
 	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
-		console.log(`Variable or field start line number ${context._start.line}`);
+		//console.log(`Variable or field start line number ${context._start.line}`);
 		// ...
 	}
 
 	enterClassDeclaration(context: ClassDeclarationContext) {
-		console.log(`Class start line number ${context._start.line}`);
+		//console.log(`Class start line number ${context._start.line}`);
 		// ...
 	}
 
 	enterClassBody(context: ClassBodyContext) {
-		console.log(`Stepping into class on line ${context._start.line}`);
+		//console.log(`Stepping into class on line ${context._start.line}`);
 	}
 
 	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
-		console.log(`Function start line number ${context._start.line}`);		
+		//console.log(`Function start line number ${context._start.line}`);		
 		// ..		
 	}
-  }
+}
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+	/*
+	* vytvoreni nove kolekce s diagnostikou
+	*/
+	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
+
+	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
+	const errorListener = new MyErrorListener();
+
+
 export function activate(context: vscode.ExtensionContext) {
+	//highlighting provider
 	
 	vscode.languages.registerDocumentFormattingEditProvider("monkeyc", {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
@@ -120,67 +129,63 @@ export function activate(context: vscode.ExtensionContext) {
 			} else {
 				exe = path.join(exePackageLocation, `/bin/${os.platform()}_${os.arch()}/clang-format`);				
 			}
-
 			var child = spawn(exe, [document.fileName, "-i", "--style=file", "--fallback-style=google"]);
 			return [];
 		}
 	});
-
-	/*
-	* vytvoreni nove kolekce s diagnostikou
-	* pokud dochazi, k uprave textu, spusti se metoda updateDiagnostics
-	*/
-	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
-	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	
-	let errorListener = new MyErrorListener();
-	/*document.onDidChangeContent((change : any) => {
-		let diagnostics: vscode.Diagnostic[] = [];
-		let lines = change.document.getText().split(/\r?\n/g);
-		lines.forEach((line : any, i : any) => {
-			let index = line.indexOf('typescript');
-			if (index >= 0) {
-				diagnostics.push({
-					severity: vscode.DiagnosticSeverity.Warning,
-					range: {
-						start: { line: i, character: index},
-						end: { line: i, character: index + 10 }
-					},
-					message: `${line.substr(index, 10)} should be spelled TypeScript`,
-					source: 'ex'
-				});
-			}
-		});
-		// Send the computed diagnostics to VS Code.
-		//connection.sendDiagnostics({ uri: change.document.uri, diagnostics });
+	if (vscode.window.activeTextEditor) {
+		//parses the edited file after extension starts
+		let document = vscode.window.activeTextEditor.document;
+		ParseCode(document);
+		UpdateCollection(document,errorListener.getSyntaxErrors());
+	}
+		
+	/*vscode.languages.onDidChangeDiagnostics((change) => {
+		//collection.clear();
+		//diagnosticMap.clear();
+		if (vscode.window.activeTextEditor) {
+			let document = vscode.window.activeTextEditor.document;
+			ParseCode(document);
+			let errors = errorListener.getSyntaxErrors();
+			UpdateCollection(document,errors);
+		}
+			
+
 	});*/
 
-	if (vscode.window.activeTextEditor) {
-	//activeTextEditor.document - dokument, ktery mam prave otevreny, a ktery edituji...
+	//vscode.workspace.onDidSaveTextDocument()
+	vscode.workspace.onDidChangeTextDocument((change) => {
+		if (vscode.window.activeTextEditor) {
 
-	vscode.workspace.onDidChangeTextDocument((event) => {
-		console.log('\n\n change: ', event.contentChanges);
-		context.subscriptions.push(collection);
+			console.log('\n\n change: ', change.contentChanges);
+			let document = vscode.window.activeTextEditor.document;
+			console.log(document.getText());
+			document.save();
+			collection.clear();
+			diagnosticMap.clear();
+			
+			ParseCode(document);
+			let errors = errorListener.getSyntaxErrors();
+			UpdateCollection(document,errors );
+			
+			context.subscriptions.push(collection);
+		}
 	});
-	}
 
-	let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () => {
-		var editor = vscode.window.activeTextEditor;
-		
-		let file = editor?.document.uri.fsPath;
-		console.log('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
-	});
 
-	//let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => 
-	//{
-	collection.clear();
-	diagnosticMap.clear();
-	let f = "";
-	if (vscode.window.activeTextEditor) {
-		f = vscode.window.activeTextEditor.document.uri.fsPath;
-		f = readFileSync(f, 'utf-8');
-	}	
-	let inputStream = new ANTLRInputStream(f);
+	context.subscriptions.push(testFunc,/*ScanCode*/);
+}
+
+// this method is called when your extension is deactivated
+export function deactivate() {}
+
+
+function ParseCode(document: vscode.TextDocument) {
+
+	let listener: MonkeyCListener = new EnterFunctionListener();
+
+	let inputStream = new ANTLRInputStream(readFileSync(document.uri.fsPath, 'utf-8'));
 	let lexer = new MonkeyCLexer(inputStream);
 	lexer.removeErrorListeners();
 	lexer.addErrorListener(errorListener);
@@ -190,40 +195,34 @@ export function activate(context: vscode.ExtensionContext) {
 	parser.removeErrorListeners();
 	parser.addErrorListener(errorListener);
 
-	// Parse the input, where `compilationUnit` is whatever entry point you defined
-	let tree = parser.program();
+	ParseTreeWalker.DEFAULT.walk(listener, parser.program());
 
-	const listener: MonkeyCListener = new EnterFunctionListener();
+}
 
-	ParseTreeWalker.DEFAULT.walk(listener,tree);
-	let errors = errorListener.getSyntaxErrors();
-
+function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescription[]) {
+	
+	let diagnostics = diagnosticMap.get(document.uri.toString());
 	errors.forEach(err => {
-		//console.log('offendingSymbol: ' + err.offendingSymbol + '\n' + 'line: ' + err.line + '\n' + 'msg: ' + err.msg + '\n' + 'exc: ' + err.e + '\n');
 		let data = (err.offendingSymbol).toString();
 		let offSymbol = data.substring(data.indexOf("'")+1,data.lastIndexOf("'"));
-
-		if (vscode.window.activeTextEditor) {
-			let diagnostics = diagnosticMap.get(vscode.window.activeTextEditor.document.uri.toString());
-			if (!diagnostics) { diagnostics = []; }
-				diagnostics.push(new vscode.Diagnostic(			
-					new vscode.Range(new vscode.Position(err.line-1, err.charPositionInLine), new vscode.Position(err.line-1,((err.charPositionInLine)+offSymbol.length))),
-						err.msg,
-						vscode.DiagnosticSeverity.Error)		
-					);
-			  	diagnosticMap.set(vscode.window.activeTextEditor.document.uri.toString(), diagnostics);		
-		}
+	
+		if (!diagnostics) { diagnostics = []; }
+			diagnostics.push(new vscode.Diagnostic(			
+				new vscode.Range(new vscode.Position(err.line-1, err.charPositionInLine), new vscode.Position(err.line-1,((err.charPositionInLine)+offSymbol.length))),
+					err.msg,
+					vscode.DiagnosticSeverity.Error)		
+				);
+			diagnosticMap.set(document.uri.toString(), diagnostics);		
 	});
 
 	diagnosticMap.forEach((diags, file) => {
 		collection.set(vscode.Uri.parse(file), diags);
 	  });
-
-	//});
-
-	context.subscriptions.push(testFunc,/*ScanCode*/);
-
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () => {
+	var editor = vscode.window.activeTextEditor;
+	
+	let file = editor?.document.uri.fsPath;
+	console.log('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
+});
