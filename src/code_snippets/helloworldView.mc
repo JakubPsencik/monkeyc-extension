@@ -24,13 +24,12 @@ class helloworldView extends WatchUi.WatchFace {
     function onUpdate(dc) {
         // Get and show the current time
         var clockTime = System.getClockTime();
-        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
-        var view = View.findDrawableById("TimeLabel");
+        //var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
+        //var view = View.findDrawableById("TimeLabel");
         view.setText(timeString);
 
         // Call the parent onUpdate function to redraw the layout
-        View.onUpdate(dc);
-        
+        View.onUpdate();
     }
 
     // Called when this View is removed from the screen. Save the

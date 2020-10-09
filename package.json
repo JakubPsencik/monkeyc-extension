@@ -27,6 +27,10 @@
 			{
 				"command": "monkeyc-extension.createDiagnostic",
 				"title": "createDiagnostic"
+			},
+			{
+				"command": "monkeyc-extension.clearConsole",
+				"title": "clearConsole"
 			}
 		],
 		"languages": [

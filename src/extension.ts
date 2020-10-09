@@ -11,6 +11,8 @@ import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
 import * as os from "os";
 import { spawn } from 'child_process';
+import { Console } from 'console';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 var clang = require("clang-format");
 
@@ -30,9 +32,25 @@ class MyErrorListener extends MonkeycErrorListener {
 		return this.syntaxErrors;
 	}
 
+	clearSyntaxErrors() {
+		for (let i = (this.syntaxError.length); i >= 0; i--) {
+			this.syntaxErrors.pop();
+		}
+	}
+
+	clear() {
+		//console.log('\u001b[' + 91 + 'm' + 'hello stack' + '\u001b[0m');
+	}
+
+	printSyntaxErrors() {
+		console.log('List of syntax errors: ');
+		this.syntaxErrors.forEach(err => {
+			console.log(err.offendingSymbol.toString(),' ',err.line.toString(),' ',err.charPositionInLine.toString(),' ',err.msg.toString());
+		});
+		console.log('-------------------------------------------------------------');
+	}
+
 	syntaxError<T>(recognizer: Recognizer<T, any>, offendingSymbol: T, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void {
-		
-		console.clear();
 		console.error(`line ${line}:${charPositionInLine} ${msg}`);
 
 		let temp : ErrorDescription = { 
@@ -111,9 +129,9 @@ class EnterFunctionListener implements MonkeyCListener {
 	* vytvoreni nove kolekce s diagnostikou
 	*/
 	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
-
 	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
-	const errorListener = new MyErrorListener();
+	let errorListener = new MyErrorListener();
+	let started = true;
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -134,37 +152,32 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	
-	if (vscode.window.activeTextEditor) {
-		//parses the edited file after extension starts
-		let document = vscode.window.activeTextEditor.document;
-		ParseCode(document);
-		UpdateCollection(document,errorListener.getSyntaxErrors());
-	}
-		
-	/*vscode.languages.onDidChangeDiagnostics((change) => {
-		//collection.clear();
-		//diagnosticMap.clear();
-		if (vscode.window.activeTextEditor) {
+	if (started) {
+		vscode.window.showInformationMessage('Extension started!');
+		//parse the edited file after extension starts
+		if (vscode.window.activeTextEditor) {		
 			let document = vscode.window.activeTextEditor.document;
+			document.save();
+
 			ParseCode(document);
-			let errors = errorListener.getSyntaxErrors();
-			UpdateCollection(document,errors);
+			UpdateCollection(document,errorListener.getSyntaxErrors());
+			context.subscriptions.push(collection);
 		}
-			
-
-	});*/
-
-	//vscode.workspace.onDidSaveTextDocument()
+		started = false;
+	}
+	
 	vscode.workspace.onDidChangeTextDocument((change) => {
 		if (vscode.window.activeTextEditor) {
-
-			console.log('\n\n change: ', change.contentChanges);
-			let document = vscode.window.activeTextEditor.document;
-			console.log(document.getText());
-			document.save();
+			errorListener.clear();
+			errorListener.clearSyntaxErrors();
 			collection.clear();
 			diagnosticMap.clear();
-			
+
+			//console.log('\n\n change: ', change.contentChanges);
+			let document = vscode.window.activeTextEditor.document;
+			//console.log(document.getText());
+			document.save();
+				
 			ParseCode(document);
 			let errors = errorListener.getSyntaxErrors();
 			UpdateCollection(document,errors );
@@ -173,8 +186,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-
-	context.subscriptions.push(testFunc,/*ScanCode*/);
+	context.subscriptions.push(testFunc,ScanCode);
 }
 
 // this method is called when your extension is deactivated
@@ -184,7 +196,6 @@ export function deactivate() {}
 function ParseCode(document: vscode.TextDocument) {
 
 	let listener: MonkeyCListener = new EnterFunctionListener();
-
 	let inputStream = new ANTLRInputStream(readFileSync(document.uri.fsPath, 'utf-8'));
 	let lexer = new MonkeyCLexer(inputStream);
 	lexer.removeErrorListeners();
@@ -196,7 +207,6 @@ function ParseCode(document: vscode.TextDocument) {
 	parser.addErrorListener(errorListener);
 
 	ParseTreeWalker.DEFAULT.walk(listener, parser.program());
-
 }
 
 function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescription[]) {
@@ -214,7 +224,6 @@ function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescriptio
 				);
 			diagnosticMap.set(document.uri.toString(), diagnostics);		
 	});
-
 	diagnosticMap.forEach((diags, file) => {
 		collection.set(vscode.Uri.parse(file), diags);
 	  });
@@ -224,5 +233,32 @@ let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () 
 	var editor = vscode.window.activeTextEditor;
 	
 	let file = editor?.document.uri.fsPath;
-	console.log('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
+	console.error('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
+});
+
+
+let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => {
+
+	if (vscode.window.activeTextEditor) {
+
+		let doc = vscode.window.activeTextEditor.document;
+		doc.save();
+	
+		ParseCode(doc);
+		let errors = errorListener.getSyntaxErrors();
+		if (errors.length === 0) {
+			console.log('no errors detected, clean code!');
+		} else {
+			console.log(errors.length,' errors detected!');
+		}
+
+		UpdateCollection(doc,errors);
+		errorListener.printSyntaxErrors();
+		
+	}
+});
+
+let clearConsole = vscode.commands.registerCommand('monkeyc-extension.clearConsole',() => {
+	console.clear();
+	console.log('cleared');
 });
