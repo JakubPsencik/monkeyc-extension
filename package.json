@@ -34,30 +34,30 @@
 			}
 		],
 		"languages": [
-            {
-                "id": "monkeyc",
-                "aliases": [
-                    "Monkey C",
+			{
+				"id": "monkeyc",
+				"aliases": [
+					"Monkey C",
 					"monkeyc",
 					"monkeyC",
-                    "garmin",
-                    "Connect IQ",
-                    "connect iq",
-                    "connectiq"
-                ],
-                "extensions": [
-                    ".mc"
-                ],
-                "configuration": "./language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "monkeyc",
-                "scopeName": "source.mc",
-                "path": "./syntaxes/monkeyc.tmLanguage.json"
-            }
-        ]
+					"garmin",
+					"Connect IQ",
+					"connect iq",
+					"connectiq"
+				],
+				"extensions": [
+					".mc"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "monkeyc",
+				"scopeName": "source.mc",
+				"path": "./syntaxes/monkeyc.tmLanguage.json"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "tsc",
@@ -71,7 +71,7 @@
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.11.0",
+		"@types/node": "^13.13.25",
 		"@types/vscode": "^1.49.0",
 		"@typescript-eslint/eslint-plugin": "^2.30.0",
 		"@typescript-eslint/parser": "^2.30.0",
