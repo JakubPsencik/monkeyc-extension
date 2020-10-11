@@ -11,7 +11,9 @@ import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
 import * as os from "os";
 import { spawn } from 'child_process';
-import { Console } from 'console';
+import * as c3 from 'antlr4-c3';
+import { CodeCompletionCore, ScopedSymbol } from 'antlr4-c3';
+import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 var clang = require("clang-format");
@@ -168,14 +170,11 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	vscode.workspace.onDidChangeTextDocument((change) => {
 		if (vscode.window.activeTextEditor) {
-			errorListener.clear();
 			errorListener.clearSyntaxErrors();
 			collection.clear();
 			diagnosticMap.clear();
-
-			//console.log('\n\n change: ', change.contentChanges);
+			
 			let document = vscode.window.activeTextEditor.document;
-			//console.log(document.getText());
 			document.save();
 				
 			ParseCode(document);
@@ -187,11 +186,21 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(testFunc,ScanCode);
+
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
 
+export type CaretPosition = { line: number, column: number };
+
+export function computeTokenIndex(parseTree: ParseTree, caretPosition: CaretPosition): number | undefined {
+	if (parseTree instanceof TerminalNode) {
+		return computeTokenIndexOfTerminalNode(parseTree, caretPosition);
+	} else {
+		return computeTokenIndexOfChildNode(parseTree, caretPosition);
+	}
+}
 
 function ParseCode(document: vscode.TextDocument) {
 
@@ -206,7 +215,59 @@ function ParseCode(document: vscode.TextDocument) {
 	parser.removeErrorListeners();
 	parser.addErrorListener(errorListener);
 
-	ParseTreeWalker.DEFAULT.walk(listener, parser.program());
+	let parseTree = parser.program();
+
+	ParseTreeWalker.DEFAULT.walk(listener,parseTree);
+
+	/*
+	 *  inicialize ANTLR4 Code Completion Core
+	*/
+	let core = new c3.CodeCompletionCore(parser);
+	core.showResult = true;
+
+	core.ignoredTokens = new Set([
+		/*			 ID*/
+		MonkeyCLexer.IDENTIFIER,
+		/*			 +                  - */
+		MonkeyCLexer.PLUS, MonkeyCLexer.SUB,
+		/*			 MULTIPLY			DIVIDE*/
+		MonkeyCLexer.STAR, MonkeyCLexer.SLASH,
+		/*           == */
+		MonkeyCLexer.EQEQ,
+		/*           (                    )*/
+		MonkeyCLexer.LPAREN, MonkeyCLexer.RPAREN,
+	  ]);
+
+	let caretPosition = getCursorPosition();
+	let symb : ScopedSymbol;
+	symb = new ScopedSymbol("FUNCTION");
+
+
+
+	let	index = computeTokenIndex(parseTree,caretPosition);
+	
+
+	if (index !== undefined) {
+		console.log('index: ',index);
+		let candidates = core.collectCandidates(index);
+		let candidateStrings: string[] = [];
+		/*let completions : any = []; 
+		candidates.tokens.forEach((_, k) => {
+			completions.push(parser.vocabulary.getSymbolicName(k)?.toLowerCase());
+		});
+		//return completions;
+		for(let i = 0; i < completions.length; i++) {
+			console.log(completions[i].toString());
+		}*/
+		candidateStrings = getCompletionStrings(parser, candidates, symb);
+		/*console.log('candidate strings:\n');
+		candidateStrings.forEach(str => {
+			console.log(str);
+		});
+		console.log('----------------------------------------');*/
+	}		
+	
+	//printCandidates(candidates);
 }
 
 function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescription[]) {
@@ -229,13 +290,123 @@ function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescriptio
 	  });
 }
 
+function computeTokenIndexOfTerminalNode(parseTree: TerminalNode, caretPosition: CaretPosition) {
+	let start = parseTree.symbol.charPositionInLine;
+	let stop = parseTree.symbol.charPositionInLine + parseTree.text.length;
+
+	if (parseTree.symbol.line === caretPosition.line && start <= caretPosition.column && stop >= caretPosition.column) {
+		return parseTree.symbol.tokenIndex;
+	} else {
+		return undefined;
+	}
+}
+
+function computeTokenIndexOfChildNode(parseTree: ParseTree, caretPosition: CaretPosition) {
+    for (let i = 0; i < parseTree.childCount; i++) {
+        let index = computeTokenIndex(parseTree.getChild(i), caretPosition);
+        if (index !== undefined) {
+            return index;
+        }
+    }
+    return undefined;
+}
+
+function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCollection, symbol: ScopedSymbol) {
+
+	let keywords: string[] = [];
+
+	for (let candidate of candidates.tokens) {
+		keywords.push(parser.vocabulary.getDisplayName(candidate[0]));
+	}
+
+	let functionNames: string[] = [];
+	let variableNames: string[] = [];
+
+	for (let candidate of candidates.rules) {
+
+		switch (candidate[0]) {
+
+			case MonkeyCParser.RULE_functionDeclaration: {
+				//symbol that covers the caret position.
+				let functions = symbol.getSymbolsOfType(c3.MethodSymbol);
+				for (let func of functions) {
+					functionNames.push(func.name);
+				}					
+				break;
+			}
+
+			case MonkeyCParser.RULE_varOrFieldDeclaration: {
+
+				let variables = symbol.getSymbolsOfType(c3.FieldSymbol);
+				for (let variable of variables) {
+					variableNames.push(variable.name);
+				}				
+				break;
+				}
+			}
+	}
+
+	// Finally combine all found lists into one for the UI.
+	// We do that in separate steps so that you can apply some ordering to each of your sublists.
+	// Then you also can order symbols groups as a whole depending their importance.
+	let candidateStrings: string[] = [];
+	candidateStrings.push(...keywords);
+	candidateStrings.push(...functionNames);
+	candidateStrings.push(...variableNames);
+
+	return candidateStrings;
+}
+
+function printCandidates(candidates : c3.CandidatesCollection) {
+
+	console.log('candidate list');
+	candidates.rules.forEach((rule) => {
+
+		console.log(rule.values);
+		
+
+	});
+	console.log('----------------------------EXIT CANDIDATES----------------------------');
+
+	console.log('token list');
+	candidates.tokens.forEach((token) => {
+
+		console.log(token.values);
+		
+
+	});
+	console.log('----------------------------EXIT TOKENS----------------------------');
+}
+
+function getCursorPosition() : CaretPosition {
+
+	// current editor
+	const editor = vscode.window.activeTextEditor;
+	let pos : CaretPosition;
+	// check if there is no selection
+	if (editor?.selection.isEmpty) {
+	// the Position object gives you the line and character where the cursor is
+	const position = editor.selection.active;
+	pos = { line: position.line, column: position.character };
+
+	//position.
+	return pos;
+	// move cursor to this new position?
+	//var newPosition = position.with(position.line, 0);
+	} else {
+		pos = { line: -1, column: -1};
+		return pos;
+	}
+}
+
+
+
 let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () => {
 	var editor = vscode.window.activeTextEditor;
 	
 	let file = editor?.document.uri.fsPath;
 	console.error('currently edited file: ' + file?.substring(file?.lastIndexOf("\\")+1));
 });
-
 
 let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () => {
 
@@ -256,9 +427,4 @@ let ScanCode = vscode.commands.registerCommand('monkeyc-extension.ScanCode', () 
 		errorListener.printSyntaxErrors();
 		
 	}
-});
-
-let clearConsole = vscode.commands.registerCommand('monkeyc-extension.clearConsole',() => {
-	console.clear();
-	console.log('cleared');
 });

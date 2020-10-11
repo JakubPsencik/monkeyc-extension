@@ -12,7 +12,7 @@ class helloworldView extends WatchUi.WatchFace {
     // Load your resources here
     function onLayout(dc) {
         setLayout(Rez.Layouts.WatchFace(dc));
-    }
+    } 
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
@@ -25,7 +25,7 @@ class helloworldView extends WatchUi.WatchFace {
         // Get and show the current time
         var clockTime = System.getClockTime();
         //var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
-        //var view = View.findDrawableById("TimeLabel");
+        var view = View.findDrawableById("TimeLabel");
         view.setText(timeString);
 
         // Call the parent onUpdate function to redraw the layout
