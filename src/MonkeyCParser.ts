@@ -24,8 +24,6 @@ import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
 import * as Utils from "antlr4ts/misc/Utils";
 
 import { MonkeyCListener } from "./MonkeyCListener";
-import { MonkeyCVisitor } from "./MonkeyCVisitor";
-
 
 export class MonkeyCParser extends Parser {
 	public static readonly DOT = 1;
@@ -47,81 +45,84 @@ export class MonkeyCParser extends Parser {
 	public static readonly NATIVE = 17;
 	public static readonly HIDDEN_TOKEN = 18;
 	public static readonly STATIC = 19;
-	public static readonly INSTANCEOF = 20;
-	public static readonly HAS = 21;
-	public static readonly IF = 22;
-	public static readonly ELSE = 23;
-	public static readonly DO = 24;
-	public static readonly WHILE = 25;
-	public static readonly FOR = 26;
-	public static readonly BREAK = 27;
-	public static readonly CONTINUE = 28;
-	public static readonly SWITCH = 29;
-	public static readonly DEFAULT = 30;
-	public static readonly CASE = 31;
-	public static readonly TRY = 32;
-	public static readonly CATCH = 33;
-	public static readonly FINALLY = 34;
-	public static readonly THROW = 35;
-	public static readonly AND = 36;
-	public static readonly OR = 37;
-	public static readonly TRUE = 38;
-	public static readonly FALSE = 39;
-	public static readonly THIS = 40;
-	public static readonly SELF = 41;
-	public static readonly SUPER = 42;
-	public static readonly VOID = 43;
-	public static readonly BLING = 44;
-	public static readonly MULTI_LINE_COMMENT_START = 45;
-	public static readonly MULTI_LINE_COMMENT_END = 46;
-	public static readonly STRING_A = 47;
-	public static readonly STRING_B = 48;
-	public static readonly LBRACE = 49;
-	public static readonly RBRACE = 50;
-	public static readonly LBRACKET = 51;
-	public static readonly RBRACKET = 52;
-	public static readonly LPAREN = 53;
-	public static readonly RPAREN = 54;
-	public static readonly COMMA = 55;
-	public static readonly STAR = 56;
-	public static readonly BAR = 57;
-	public static readonly LT = 58;
-	public static readonly GT = 59;
-	public static readonly EQGT = 60;
-	public static readonly AMP = 61;
-	public static readonly BARBAR = 62;
-	public static readonly AMPAMP = 63;
-	public static readonly PLUSPLUS = 64;
-	public static readonly SUBSUB = 65;
-	public static readonly EQ = 66;
-	public static readonly EQEQ = 67;
-	public static readonly BANGEQ = 68;
-	public static readonly PLUSEQ = 69;
-	public static readonly SUBEQ = 70;
-	public static readonly STAREQ = 71;
-	public static readonly SLASHEQ = 72;
-	public static readonly AMPEQ = 73;
-	public static readonly CARETEQ = 74;
-	public static readonly PERCENTEQ = 75;
-	public static readonly CARET = 76;
-	public static readonly PERCENT = 77;
-	public static readonly TILDE = 78;
-	public static readonly BANG = 79;
-	public static readonly PLUS = 80;
-	public static readonly SUB = 81;
-	public static readonly SLASH = 82;
-	public static readonly WHITE_SPACE = 83;
-	public static readonly SINGLE_LINE_COMMENT = 84;
-	public static readonly SINGLE_LINE_DOC_COMMENT = 85;
-	public static readonly BLOCK_COMMENT = 86;
-	public static readonly IDENTIFIER = 87;
-	public static readonly LONGLITERAL = 88;
-	public static readonly INTLITERAL = 89;
-	public static readonly HEX_LITERAL = 90;
-	public static readonly FLOATLITERAL = 91;
-	public static readonly DOUBLELITERAL = 92;
-	public static readonly CHARLITERAL = 93;
-	public static readonly DoubleStringCharacter = 94;
+	public static readonly PRIVATE = 20;
+	public static readonly PROTECTED = 21;
+	public static readonly PUBLIC = 22;
+	public static readonly INSTANCEOF = 23;
+	public static readonly HAS = 24;
+	public static readonly IF = 25;
+	public static readonly ELSE = 26;
+	public static readonly DO = 27;
+	public static readonly WHILE = 28;
+	public static readonly FOR = 29;
+	public static readonly BREAK = 30;
+	public static readonly CONTINUE = 31;
+	public static readonly SWITCH = 32;
+	public static readonly DEFAULT = 33;
+	public static readonly CASE = 34;
+	public static readonly TRY = 35;
+	public static readonly CATCH = 36;
+	public static readonly FINALLY = 37;
+	public static readonly THROW = 38;
+	public static readonly AND = 39;
+	public static readonly OR = 40;
+	public static readonly TRUE = 41;
+	public static readonly FALSE = 42;
+	public static readonly THIS = 43;
+	public static readonly SELF = 44;
+	public static readonly SUPER = 45;
+	public static readonly VOID = 46;
+	public static readonly BLING = 47;
+	public static readonly MULTI_LINE_COMMENT_START = 48;
+	public static readonly MULTI_LINE_COMMENT_END = 49;
+	public static readonly STRING_A = 50;
+	public static readonly STRING_B = 51;
+	public static readonly LBRACE = 52;
+	public static readonly RBRACE = 53;
+	public static readonly LBRACKET = 54;
+	public static readonly RBRACKET = 55;
+	public static readonly LPAREN = 56;
+	public static readonly RPAREN = 57;
+	public static readonly COMMA = 58;
+	public static readonly STAR = 59;
+	public static readonly BAR = 60;
+	public static readonly LT = 61;
+	public static readonly GT = 62;
+	public static readonly EQGT = 63;
+	public static readonly AMP = 64;
+	public static readonly BARBAR = 65;
+	public static readonly AMPAMP = 66;
+	public static readonly PLUSPLUS = 67;
+	public static readonly SUBSUB = 68;
+	public static readonly EQ = 69;
+	public static readonly EQEQ = 70;
+	public static readonly BANGEQ = 71;
+	public static readonly PLUSEQ = 72;
+	public static readonly SUBEQ = 73;
+	public static readonly STAREQ = 74;
+	public static readonly SLASHEQ = 75;
+	public static readonly AMPEQ = 76;
+	public static readonly CARETEQ = 77;
+	public static readonly PERCENTEQ = 78;
+	public static readonly CARET = 79;
+	public static readonly PERCENT = 80;
+	public static readonly TILDE = 81;
+	public static readonly BANG = 82;
+	public static readonly PLUS = 83;
+	public static readonly SUB = 84;
+	public static readonly SLASH = 85;
+	public static readonly WHITE_SPACE = 86;
+	public static readonly SINGLE_LINE_COMMENT = 87;
+	public static readonly SINGLE_LINE_DOC_COMMENT = 88;
+	public static readonly BLOCK_COMMENT = 89;
+	public static readonly IDENTIFIER = 90;
+	public static readonly LONGLITERAL = 91;
+	public static readonly INTLITERAL = 92;
+	public static readonly HEX_LITERAL = 93;
+	public static readonly FLOATLITERAL = 94;
+	public static readonly DOUBLELITERAL = 95;
+	public static readonly CHARLITERAL = 96;
+	public static readonly DoubleStringCharacter = 97;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_string = 1;
 	public static readonly RULE_compilationUnit = 2;
@@ -232,30 +233,31 @@ export class MonkeyCParser extends Parser {
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
 		undefined, "'.'", "';'", "'?'", "':'", "'class'", "'function'", "'return'", 
 		"'new'", "'var'", "'const'", "'module'", "'using'", "'as'", "'enum'", 
-		"'extends'", "'null'", "'native'", "'hidden'", "'static'", "'instanceof'", 
-		"'has'", "'if'", "'else'", "'do'", "'while'", "'for'", "'break'", "'continue'", 
-		"'switch'", "'default'", "'case'", "'try'", "'catch'", "'finally'", "'throw'", 
-		"'and'", "'or'", "'true'", "'false'", "'this'", "'self'", "'super'", "'void'", 
-		"'$'", "'/*'", "'*/'", "'\"'", "'''", "'{'", "'}'", "'['", "']'", "'('", 
-		"')'", "','", "'*'", "'|'", "'<'", "'>'", "'=>'", "'&'", "'||'", "'&&'", 
-		"'++'", "'--'", "'='", "'=='", "'!='", "'+='", "'-='", "'*='", "'/='", 
-		"'&='", "'|='", "'%='", "'^'", "'%'", "'~'", "'!'", "'+'", "'-'", "'/'",
+		"'extends'", "'null'", "'native'", "'hidden'", "'static'", "'private'", 
+		"'protected'", "'public'", "'instanceof'", "'has'", "'if'", "'else'", 
+		"'do'", "'while'", "'for'", "'break'", "'continue'", "'switch'", "'default'", 
+		"'case'", "'try'", "'catch'", "'finally'", "'throw'", "'and'", "'or'", 
+		"'true'", "'false'", "'this'", "'self'", "'super'", "'void'", "'$'", "'/*'", 
+		"'*/'", "'\"'", "'''", "'{'", "'}'", "'['", "']'", "'('", "')'", "','", 
+		"'*'", "'|'", "'<'", "'>'", "'=>'", "'&'", "'||'", "'&&'", "'++'", "'--'", 
+		"'='", "'=='", "'!='", "'+='", "'-='", "'*='", "'/='", "'&='", "'|='", 
+		"'%='", "'^'", "'%'", "'~'", "'!'", "'+'", "'-'", "'/'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "DOT", "SEMI", "QUES", "COLON", "CLASS", "FUNCTION", "RETURN", 
 		"NEW", "VAR", "CONST", "MODULE", "USING", "AS", "ENUM", "EXTENDS", "NULL", 
-		"NATIVE", "HIDDEN_TOKEN", "STATIC", "INSTANCEOF", "HAS", "IF", "ELSE", 
-		"DO", "WHILE", "FOR", "BREAK", "CONTINUE", "SWITCH", "DEFAULT", "CASE", 
-		"TRY", "CATCH", "FINALLY", "THROW", "AND", "OR", "TRUE", "FALSE", "THIS", 
-		"SELF", "SUPER", "VOID", "BLING", "MULTI_LINE_COMMENT_START", "MULTI_LINE_COMMENT_END", 
-		"STRING_A", "STRING_B", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", "LPAREN", 
-		"RPAREN", "COMMA", "STAR", "BAR", "LT", "GT", "EQGT", "AMP", "BARBAR", 
-		"AMPAMP", "PLUSPLUS", "SUBSUB", "EQ", "EQEQ", "BANGEQ", "PLUSEQ", "SUBEQ", 
-		"STAREQ", "SLASHEQ", "AMPEQ", "CARETEQ", "PERCENTEQ", "CARET", "PERCENT", 
-		"TILDE", "BANG", "PLUS", "SUB", "SLASH", "WHITE_SPACE", "SINGLE_LINE_COMMENT", 
-		"SINGLE_LINE_DOC_COMMENT", "BLOCK_COMMENT", "IDENTIFIER", "LONGLITERAL", 
-		"INTLITERAL", "HEX_LITERAL", "FLOATLITERAL", "DOUBLELITERAL", "CHARLITERAL", 
-		"DoubleStringCharacter",
+		"NATIVE", "HIDDEN_TOKEN", "STATIC", "PRIVATE", "PROTECTED", "PUBLIC", 
+		"INSTANCEOF", "HAS", "IF", "ELSE", "DO", "WHILE", "FOR", "BREAK", "CONTINUE", 
+		"SWITCH", "DEFAULT", "CASE", "TRY", "CATCH", "FINALLY", "THROW", "AND", 
+		"OR", "TRUE", "FALSE", "THIS", "SELF", "SUPER", "VOID", "BLING", "MULTI_LINE_COMMENT_START", 
+		"MULTI_LINE_COMMENT_END", "STRING_A", "STRING_B", "LBRACE", "RBRACE", 
+		"LBRACKET", "RBRACKET", "LPAREN", "RPAREN", "COMMA", "STAR", "BAR", "LT", 
+		"GT", "EQGT", "AMP", "BARBAR", "AMPAMP", "PLUSPLUS", "SUBSUB", "EQ", "EQEQ", 
+		"BANGEQ", "PLUSEQ", "SUBEQ", "STAREQ", "SLASHEQ", "AMPEQ", "CARETEQ", 
+		"PERCENTEQ", "CARET", "PERCENT", "TILDE", "BANG", "PLUS", "SUB", "SLASH", 
+		"WHITE_SPACE", "SINGLE_LINE_COMMENT", "SINGLE_LINE_DOC_COMMENT", "BLOCK_COMMENT", 
+		"IDENTIFIER", "LONGLITERAL", "INTLITERAL", "HEX_LITERAL", "FLOATLITERAL", 
+		"DOUBLELITERAL", "CHARLITERAL", "DoubleStringCharacter",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(MonkeyCParser._LITERAL_NAMES, MonkeyCParser._SYMBOLIC_NAMES, []);
 
@@ -290,7 +292,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 169;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.SEMI) | (1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.CLASS) | (1 << MonkeyCParser.FUNCTION) | (1 << MonkeyCParser.RETURN) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.CONST) | (1 << MonkeyCParser.MODULE) | (1 << MonkeyCParser.USING) | (1 << MonkeyCParser.ENUM) | (1 << MonkeyCParser.NULL) | (1 << MonkeyCParser.HIDDEN_TOKEN) | (1 << MonkeyCParser.STATIC) | (1 << MonkeyCParser.IF) | (1 << MonkeyCParser.DO) | (1 << MonkeyCParser.WHILE) | (1 << MonkeyCParser.FOR) | (1 << MonkeyCParser.BREAK) | (1 << MonkeyCParser.CONTINUE) | (1 << MonkeyCParser.SWITCH))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (MonkeyCParser.TRY - 32)) | (1 << (MonkeyCParser.THROW - 32)) | (1 << (MonkeyCParser.TRUE - 32)) | (1 << (MonkeyCParser.FALSE - 32)) | (1 << (MonkeyCParser.THIS - 32)) | (1 << (MonkeyCParser.SELF - 32)) | (1 << (MonkeyCParser.VOID - 32)) | (1 << (MonkeyCParser.BLING - 32)) | (1 << (MonkeyCParser.STRING_A - 32)) | (1 << (MonkeyCParser.LBRACE - 32)) | (1 << (MonkeyCParser.LBRACKET - 32)) | (1 << (MonkeyCParser.LPAREN - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (MonkeyCParser.PLUSPLUS - 64)) | (1 << (MonkeyCParser.SUBSUB - 64)) | (1 << (MonkeyCParser.TILDE - 64)) | (1 << (MonkeyCParser.BANG - 64)) | (1 << (MonkeyCParser.PLUS - 64)) | (1 << (MonkeyCParser.SUB - 64)) | (1 << (MonkeyCParser.IDENTIFIER - 64)) | (1 << (MonkeyCParser.LONGLITERAL - 64)) | (1 << (MonkeyCParser.INTLITERAL - 64)) | (1 << (MonkeyCParser.HEX_LITERAL - 64)) | (1 << (MonkeyCParser.FLOATLITERAL - 64)) | (1 << (MonkeyCParser.DOUBLELITERAL - 64)) | (1 << (MonkeyCParser.CHARLITERAL - 64)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.SEMI) | (1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.CLASS) | (1 << MonkeyCParser.FUNCTION) | (1 << MonkeyCParser.RETURN) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.CONST) | (1 << MonkeyCParser.MODULE) | (1 << MonkeyCParser.USING) | (1 << MonkeyCParser.ENUM) | (1 << MonkeyCParser.NULL) | (1 << MonkeyCParser.HIDDEN_TOKEN) | (1 << MonkeyCParser.STATIC) | (1 << MonkeyCParser.PRIVATE) | (1 << MonkeyCParser.PROTECTED) | (1 << MonkeyCParser.PUBLIC) | (1 << MonkeyCParser.IF) | (1 << MonkeyCParser.DO) | (1 << MonkeyCParser.WHILE) | (1 << MonkeyCParser.FOR) | (1 << MonkeyCParser.BREAK) | (1 << MonkeyCParser.CONTINUE))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (MonkeyCParser.SWITCH - 32)) | (1 << (MonkeyCParser.TRY - 32)) | (1 << (MonkeyCParser.THROW - 32)) | (1 << (MonkeyCParser.TRUE - 32)) | (1 << (MonkeyCParser.FALSE - 32)) | (1 << (MonkeyCParser.THIS - 32)) | (1 << (MonkeyCParser.SELF - 32)) | (1 << (MonkeyCParser.VOID - 32)) | (1 << (MonkeyCParser.BLING - 32)) | (1 << (MonkeyCParser.STRING_A - 32)) | (1 << (MonkeyCParser.LBRACE - 32)) | (1 << (MonkeyCParser.LBRACKET - 32)) | (1 << (MonkeyCParser.LPAREN - 32)))) !== 0) || ((((_la - 67)) & ~0x1F) === 0 && ((1 << (_la - 67)) & ((1 << (MonkeyCParser.PLUSPLUS - 67)) | (1 << (MonkeyCParser.SUBSUB - 67)) | (1 << (MonkeyCParser.TILDE - 67)) | (1 << (MonkeyCParser.BANG - 67)) | (1 << (MonkeyCParser.PLUS - 67)) | (1 << (MonkeyCParser.SUB - 67)) | (1 << (MonkeyCParser.IDENTIFIER - 67)) | (1 << (MonkeyCParser.LONGLITERAL - 67)) | (1 << (MonkeyCParser.INTLITERAL - 67)) | (1 << (MonkeyCParser.HEX_LITERAL - 67)) | (1 << (MonkeyCParser.FLOATLITERAL - 67)) | (1 << (MonkeyCParser.DOUBLELITERAL - 67)) | (1 << (MonkeyCParser.CHARLITERAL - 67)))) !== 0)) {
 				{
 				{
 				this.state = 166;
@@ -561,7 +563,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 213;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.CLASS) | (1 << MonkeyCParser.FUNCTION) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.CONST) | (1 << MonkeyCParser.MODULE) | (1 << MonkeyCParser.ENUM) | (1 << MonkeyCParser.HIDDEN_TOKEN) | (1 << MonkeyCParser.STATIC))) !== 0) || _la === MonkeyCParser.LPAREN) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.CLASS) | (1 << MonkeyCParser.FUNCTION) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.CONST) | (1 << MonkeyCParser.MODULE) | (1 << MonkeyCParser.ENUM) | (1 << MonkeyCParser.HIDDEN_TOKEN) | (1 << MonkeyCParser.STATIC) | (1 << MonkeyCParser.PRIVATE) | (1 << MonkeyCParser.PROTECTED) | (1 << MonkeyCParser.PUBLIC))) !== 0) || _la === MonkeyCParser.LPAREN) {
 				{
 				{
 				this.state = 210;
@@ -785,7 +787,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 247;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.CLASS) | (1 << MonkeyCParser.FUNCTION) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.CONST) | (1 << MonkeyCParser.MODULE) | (1 << MonkeyCParser.ENUM) | (1 << MonkeyCParser.HIDDEN_TOKEN) | (1 << MonkeyCParser.STATIC))) !== 0) || _la === MonkeyCParser.LPAREN) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.CLASS) | (1 << MonkeyCParser.FUNCTION) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.CONST) | (1 << MonkeyCParser.MODULE) | (1 << MonkeyCParser.ENUM) | (1 << MonkeyCParser.HIDDEN_TOKEN) | (1 << MonkeyCParser.STATIC) | (1 << MonkeyCParser.PRIVATE) | (1 << MonkeyCParser.PROTECTED) | (1 << MonkeyCParser.PUBLIC))) !== 0) || _la === MonkeyCParser.LPAREN) {
 				{
 				{
 				this.state = 244;
@@ -1227,7 +1229,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 325;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.SEMI) | (1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.RETURN) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.NULL) | (1 << MonkeyCParser.IF) | (1 << MonkeyCParser.DO) | (1 << MonkeyCParser.WHILE) | (1 << MonkeyCParser.FOR) | (1 << MonkeyCParser.BREAK) | (1 << MonkeyCParser.CONTINUE) | (1 << MonkeyCParser.SWITCH))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (MonkeyCParser.TRY - 32)) | (1 << (MonkeyCParser.THROW - 32)) | (1 << (MonkeyCParser.TRUE - 32)) | (1 << (MonkeyCParser.FALSE - 32)) | (1 << (MonkeyCParser.THIS - 32)) | (1 << (MonkeyCParser.SELF - 32)) | (1 << (MonkeyCParser.VOID - 32)) | (1 << (MonkeyCParser.BLING - 32)) | (1 << (MonkeyCParser.STRING_A - 32)) | (1 << (MonkeyCParser.LBRACE - 32)) | (1 << (MonkeyCParser.LBRACKET - 32)) | (1 << (MonkeyCParser.LPAREN - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (MonkeyCParser.PLUSPLUS - 64)) | (1 << (MonkeyCParser.SUBSUB - 64)) | (1 << (MonkeyCParser.TILDE - 64)) | (1 << (MonkeyCParser.BANG - 64)) | (1 << (MonkeyCParser.PLUS - 64)) | (1 << (MonkeyCParser.SUB - 64)) | (1 << (MonkeyCParser.IDENTIFIER - 64)) | (1 << (MonkeyCParser.LONGLITERAL - 64)) | (1 << (MonkeyCParser.INTLITERAL - 64)) | (1 << (MonkeyCParser.HEX_LITERAL - 64)) | (1 << (MonkeyCParser.FLOATLITERAL - 64)) | (1 << (MonkeyCParser.DOUBLELITERAL - 64)) | (1 << (MonkeyCParser.CHARLITERAL - 64)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.SEMI) | (1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.RETURN) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.NULL) | (1 << MonkeyCParser.IF) | (1 << MonkeyCParser.DO) | (1 << MonkeyCParser.WHILE) | (1 << MonkeyCParser.FOR) | (1 << MonkeyCParser.BREAK) | (1 << MonkeyCParser.CONTINUE))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (MonkeyCParser.SWITCH - 32)) | (1 << (MonkeyCParser.TRY - 32)) | (1 << (MonkeyCParser.THROW - 32)) | (1 << (MonkeyCParser.TRUE - 32)) | (1 << (MonkeyCParser.FALSE - 32)) | (1 << (MonkeyCParser.THIS - 32)) | (1 << (MonkeyCParser.SELF - 32)) | (1 << (MonkeyCParser.VOID - 32)) | (1 << (MonkeyCParser.BLING - 32)) | (1 << (MonkeyCParser.STRING_A - 32)) | (1 << (MonkeyCParser.LBRACE - 32)) | (1 << (MonkeyCParser.LBRACKET - 32)) | (1 << (MonkeyCParser.LPAREN - 32)))) !== 0) || ((((_la - 67)) & ~0x1F) === 0 && ((1 << (_la - 67)) & ((1 << (MonkeyCParser.PLUSPLUS - 67)) | (1 << (MonkeyCParser.SUBSUB - 67)) | (1 << (MonkeyCParser.TILDE - 67)) | (1 << (MonkeyCParser.BANG - 67)) | (1 << (MonkeyCParser.PLUS - 67)) | (1 << (MonkeyCParser.SUB - 67)) | (1 << (MonkeyCParser.IDENTIFIER - 67)) | (1 << (MonkeyCParser.LONGLITERAL - 67)) | (1 << (MonkeyCParser.INTLITERAL - 67)) | (1 << (MonkeyCParser.HEX_LITERAL - 67)) | (1 << (MonkeyCParser.FLOATLITERAL - 67)) | (1 << (MonkeyCParser.DOUBLELITERAL - 67)) | (1 << (MonkeyCParser.CHARLITERAL - 67)))) !== 0)) {
 				{
 				{
 				this.state = 322;
@@ -1510,7 +1512,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 372;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 				{
 				this.state = 364;
 				this.variableInitializer();
@@ -1672,7 +1674,7 @@ export class MonkeyCParser extends Parser {
 				this.state = 407;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 					{
 					this.state = 406;
 					this.expression();
@@ -1832,7 +1834,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 443;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.SEMI) | (1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.RETURN) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.NULL) | (1 << MonkeyCParser.IF) | (1 << MonkeyCParser.DO) | (1 << MonkeyCParser.WHILE) | (1 << MonkeyCParser.FOR) | (1 << MonkeyCParser.BREAK) | (1 << MonkeyCParser.CONTINUE) | (1 << MonkeyCParser.SWITCH))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (MonkeyCParser.TRY - 32)) | (1 << (MonkeyCParser.THROW - 32)) | (1 << (MonkeyCParser.TRUE - 32)) | (1 << (MonkeyCParser.FALSE - 32)) | (1 << (MonkeyCParser.THIS - 32)) | (1 << (MonkeyCParser.SELF - 32)) | (1 << (MonkeyCParser.VOID - 32)) | (1 << (MonkeyCParser.BLING - 32)) | (1 << (MonkeyCParser.STRING_A - 32)) | (1 << (MonkeyCParser.LBRACE - 32)) | (1 << (MonkeyCParser.LBRACKET - 32)) | (1 << (MonkeyCParser.LPAREN - 32)))) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & ((1 << (MonkeyCParser.PLUSPLUS - 64)) | (1 << (MonkeyCParser.SUBSUB - 64)) | (1 << (MonkeyCParser.TILDE - 64)) | (1 << (MonkeyCParser.BANG - 64)) | (1 << (MonkeyCParser.PLUS - 64)) | (1 << (MonkeyCParser.SUB - 64)) | (1 << (MonkeyCParser.IDENTIFIER - 64)) | (1 << (MonkeyCParser.LONGLITERAL - 64)) | (1 << (MonkeyCParser.INTLITERAL - 64)) | (1 << (MonkeyCParser.HEX_LITERAL - 64)) | (1 << (MonkeyCParser.FLOATLITERAL - 64)) | (1 << (MonkeyCParser.DOUBLELITERAL - 64)) | (1 << (MonkeyCParser.CHARLITERAL - 64)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.SEMI) | (1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.RETURN) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.NULL) | (1 << MonkeyCParser.IF) | (1 << MonkeyCParser.DO) | (1 << MonkeyCParser.WHILE) | (1 << MonkeyCParser.FOR) | (1 << MonkeyCParser.BREAK) | (1 << MonkeyCParser.CONTINUE))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (MonkeyCParser.SWITCH - 32)) | (1 << (MonkeyCParser.TRY - 32)) | (1 << (MonkeyCParser.THROW - 32)) | (1 << (MonkeyCParser.TRUE - 32)) | (1 << (MonkeyCParser.FALSE - 32)) | (1 << (MonkeyCParser.THIS - 32)) | (1 << (MonkeyCParser.SELF - 32)) | (1 << (MonkeyCParser.VOID - 32)) | (1 << (MonkeyCParser.BLING - 32)) | (1 << (MonkeyCParser.STRING_A - 32)) | (1 << (MonkeyCParser.LBRACE - 32)) | (1 << (MonkeyCParser.LBRACKET - 32)) | (1 << (MonkeyCParser.LPAREN - 32)))) !== 0) || ((((_la - 67)) & ~0x1F) === 0 && ((1 << (_la - 67)) & ((1 << (MonkeyCParser.PLUSPLUS - 67)) | (1 << (MonkeyCParser.SUBSUB - 67)) | (1 << (MonkeyCParser.TILDE - 67)) | (1 << (MonkeyCParser.BANG - 67)) | (1 << (MonkeyCParser.PLUS - 67)) | (1 << (MonkeyCParser.SUB - 67)) | (1 << (MonkeyCParser.IDENTIFIER - 67)) | (1 << (MonkeyCParser.LONGLITERAL - 67)) | (1 << (MonkeyCParser.INTLITERAL - 67)) | (1 << (MonkeyCParser.HEX_LITERAL - 67)) | (1 << (MonkeyCParser.FLOATLITERAL - 67)) | (1 << (MonkeyCParser.DOUBLELITERAL - 67)) | (1 << (MonkeyCParser.CHARLITERAL - 67)))) !== 0)) {
 				{
 				{
 				this.state = 440;
@@ -2088,7 +2090,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 486;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.VAR) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 				{
 				this.state = 485;
 				this.forInit();
@@ -2100,7 +2102,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 490;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 				{
 				this.state = 489;
 				this.expression();
@@ -2112,7 +2114,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 494;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 				{
 				this.state = 493;
 				this.expressionList();
@@ -2397,7 +2399,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 528;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (((((_la - 58)) & ~0x1F) === 0 && ((1 << (_la - 58)) & ((1 << (MonkeyCParser.LT - 58)) | (1 << (MonkeyCParser.GT - 58)) | (1 << (MonkeyCParser.EQ - 58)) | (1 << (MonkeyCParser.PLUSEQ - 58)) | (1 << (MonkeyCParser.SUBEQ - 58)) | (1 << (MonkeyCParser.STAREQ - 58)) | (1 << (MonkeyCParser.SLASHEQ - 58)) | (1 << (MonkeyCParser.AMPEQ - 58)) | (1 << (MonkeyCParser.CARETEQ - 58)) | (1 << (MonkeyCParser.PERCENTEQ - 58)))) !== 0)) {
+			if (((((_la - 61)) & ~0x1F) === 0 && ((1 << (_la - 61)) & ((1 << (MonkeyCParser.LT - 61)) | (1 << (MonkeyCParser.GT - 61)) | (1 << (MonkeyCParser.EQ - 61)) | (1 << (MonkeyCParser.PLUSEQ - 61)) | (1 << (MonkeyCParser.SUBEQ - 61)) | (1 << (MonkeyCParser.STAREQ - 61)) | (1 << (MonkeyCParser.SLASHEQ - 61)) | (1 << (MonkeyCParser.AMPEQ - 61)) | (1 << (MonkeyCParser.CARETEQ - 61)) | (1 << (MonkeyCParser.PERCENTEQ - 61)))) !== 0)) {
 				{
 				this.state = 525;
 				this.assignmentOperator();
@@ -3214,12 +3216,12 @@ export class MonkeyCParser extends Parser {
 			this.state = 664;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (((((_la - 56)) & ~0x1F) === 0 && ((1 << (_la - 56)) & ((1 << (MonkeyCParser.STAR - 56)) | (1 << (MonkeyCParser.PERCENT - 56)) | (1 << (MonkeyCParser.SLASH - 56)))) !== 0)) {
+			while (((((_la - 59)) & ~0x1F) === 0 && ((1 << (_la - 59)) & ((1 << (MonkeyCParser.STAR - 59)) | (1 << (MonkeyCParser.PERCENT - 59)) | (1 << (MonkeyCParser.SLASH - 59)))) !== 0)) {
 				{
 				{
 				this.state = 660;
 				_la = this._input.LA(1);
-				if (!(((((_la - 56)) & ~0x1F) === 0 && ((1 << (_la - 56)) & ((1 << (MonkeyCParser.STAR - 56)) | (1 << (MonkeyCParser.PERCENT - 56)) | (1 << (MonkeyCParser.SLASH - 56)))) !== 0))) {
+				if (!(((((_la - 59)) & ~0x1F) === 0 && ((1 << (_la - 59)) & ((1 << (MonkeyCParser.STAR - 59)) | (1 << (MonkeyCParser.PERCENT - 59)) | (1 << (MonkeyCParser.SLASH - 59)))) !== 0))) {
 				this._errHandler.recoverInline(this);
 				} else {
 					if (this._input.LA(1) === Token.EOF) {
@@ -3307,7 +3309,7 @@ export class MonkeyCParser extends Parser {
 			{
 			this.state = 676;
 			_la = this._input.LA(1);
-			if (!(((((_la - 57)) & ~0x1F) === 0 && ((1 << (_la - 57)) & ((1 << (MonkeyCParser.BAR - 57)) | (1 << (MonkeyCParser.AMP - 57)) | (1 << (MonkeyCParser.CARET - 57)))) !== 0))) {
+			if (!(((((_la - 60)) & ~0x1F) === 0 && ((1 << (_la - 60)) & ((1 << (MonkeyCParser.BAR - 60)) | (1 << (MonkeyCParser.AMP - 60)) | (1 << (MonkeyCParser.CARET - 60)))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -3939,7 +3941,7 @@ export class MonkeyCParser extends Parser {
 				this.state = 777;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 					{
 					this.state = 769;
 					this.expression();
@@ -4018,7 +4020,7 @@ export class MonkeyCParser extends Parser {
 				this.state = 795;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)))) !== 0) || ((((_la - 87)) & ~0x1F) === 0 && ((1 << (_la - 87)) & ((1 << (MonkeyCParser.IDENTIFIER - 87)) | (1 << (MonkeyCParser.LONGLITERAL - 87)) | (1 << (MonkeyCParser.INTLITERAL - 87)) | (1 << (MonkeyCParser.HEX_LITERAL - 87)) | (1 << (MonkeyCParser.FLOATLITERAL - 87)) | (1 << (MonkeyCParser.DOUBLELITERAL - 87)) | (1 << (MonkeyCParser.CHARLITERAL - 87)))) !== 0)) {
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)))) !== 0) || ((((_la - 90)) & ~0x1F) === 0 && ((1 << (_la - 90)) & ((1 << (MonkeyCParser.IDENTIFIER - 90)) | (1 << (MonkeyCParser.LONGLITERAL - 90)) | (1 << (MonkeyCParser.INTLITERAL - 90)) | (1 << (MonkeyCParser.HEX_LITERAL - 90)) | (1 << (MonkeyCParser.FLOATLITERAL - 90)) | (1 << (MonkeyCParser.DOUBLELITERAL - 90)) | (1 << (MonkeyCParser.CHARLITERAL - 90)))) !== 0)) {
 					{
 					this.state = 787;
 					this.keyValueInitializer();
@@ -4105,7 +4107,7 @@ export class MonkeyCParser extends Parser {
 			this.state = 806;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (MonkeyCParser.TRUE - 38)) | (1 << (MonkeyCParser.FALSE - 38)) | (1 << (MonkeyCParser.THIS - 38)) | (1 << (MonkeyCParser.SELF - 38)) | (1 << (MonkeyCParser.VOID - 38)) | (1 << (MonkeyCParser.BLING - 38)) | (1 << (MonkeyCParser.STRING_A - 38)) | (1 << (MonkeyCParser.LBRACE - 38)) | (1 << (MonkeyCParser.LBRACKET - 38)) | (1 << (MonkeyCParser.LPAREN - 38)) | (1 << (MonkeyCParser.PLUSPLUS - 38)) | (1 << (MonkeyCParser.SUBSUB - 38)))) !== 0) || ((((_la - 78)) & ~0x1F) === 0 && ((1 << (_la - 78)) & ((1 << (MonkeyCParser.TILDE - 78)) | (1 << (MonkeyCParser.BANG - 78)) | (1 << (MonkeyCParser.PLUS - 78)) | (1 << (MonkeyCParser.SUB - 78)) | (1 << (MonkeyCParser.IDENTIFIER - 78)) | (1 << (MonkeyCParser.LONGLITERAL - 78)) | (1 << (MonkeyCParser.INTLITERAL - 78)) | (1 << (MonkeyCParser.HEX_LITERAL - 78)) | (1 << (MonkeyCParser.FLOATLITERAL - 78)) | (1 << (MonkeyCParser.DOUBLELITERAL - 78)) | (1 << (MonkeyCParser.CHARLITERAL - 78)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MonkeyCParser.COLON) | (1 << MonkeyCParser.NEW) | (1 << MonkeyCParser.NULL))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (MonkeyCParser.TRUE - 41)) | (1 << (MonkeyCParser.FALSE - 41)) | (1 << (MonkeyCParser.THIS - 41)) | (1 << (MonkeyCParser.SELF - 41)) | (1 << (MonkeyCParser.VOID - 41)) | (1 << (MonkeyCParser.BLING - 41)) | (1 << (MonkeyCParser.STRING_A - 41)) | (1 << (MonkeyCParser.LBRACE - 41)) | (1 << (MonkeyCParser.LBRACKET - 41)) | (1 << (MonkeyCParser.LPAREN - 41)) | (1 << (MonkeyCParser.PLUSPLUS - 41)) | (1 << (MonkeyCParser.SUBSUB - 41)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (MonkeyCParser.TILDE - 81)) | (1 << (MonkeyCParser.BANG - 81)) | (1 << (MonkeyCParser.PLUS - 81)) | (1 << (MonkeyCParser.SUB - 81)) | (1 << (MonkeyCParser.IDENTIFIER - 81)) | (1 << (MonkeyCParser.LONGLITERAL - 81)) | (1 << (MonkeyCParser.INTLITERAL - 81)) | (1 << (MonkeyCParser.HEX_LITERAL - 81)) | (1 << (MonkeyCParser.FLOATLITERAL - 81)) | (1 << (MonkeyCParser.DOUBLELITERAL - 81)) | (1 << (MonkeyCParser.CHARLITERAL - 81)))) !== 0)) {
 				{
 				this.state = 805;
 				this.argumentsList();
@@ -4193,19 +4195,49 @@ export class MonkeyCParser extends Parser {
 			this.state = 822;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === MonkeyCParser.STATIC) {
+			if (_la === MonkeyCParser.PRIVATE) {
 				{
 				this.state = 821;
-				this.match(MonkeyCParser.STATIC);
+				this.match(MonkeyCParser.PRIVATE);
 				}
 			}
 
 			this.state = 825;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === MonkeyCParser.HIDDEN_TOKEN) {
+			if (_la === MonkeyCParser.PROTECTED) {
 				{
 				this.state = 824;
+				this.match(MonkeyCParser.PROTECTED);
+				}
+			}
+
+			this.state = 828;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === MonkeyCParser.PUBLIC) {
+				{
+				this.state = 827;
+				this.match(MonkeyCParser.PUBLIC);
+				}
+			}
+
+			this.state = 831;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === MonkeyCParser.STATIC) {
+				{
+				this.state = 830;
+				this.match(MonkeyCParser.STATIC);
+				}
+			}
+
+			this.state = 834;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === MonkeyCParser.HIDDEN_TOKEN) {
+				{
+				this.state = 833;
 				this.match(MonkeyCParser.HIDDEN_TOKEN);
 				}
 			}
@@ -4233,11 +4265,11 @@ export class MonkeyCParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 827;
+			this.state = 836;
 			this.match(MonkeyCParser.LPAREN);
-			this.state = 828;
+			this.state = 837;
 			this.symbol();
-			this.state = 829;
+			this.state = 838;
 			this.match(MonkeyCParser.RPAREN);
 			}
 		}
@@ -4262,9 +4294,9 @@ export class MonkeyCParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 831;
+			this.state = 840;
 			this.match(MonkeyCParser.COLON);
-			this.state = 832;
+			this.state = 841;
 			this.referenceExpression();
 			}
 		}
@@ -4290,21 +4322,21 @@ export class MonkeyCParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 834;
+			this.state = 843;
 			this.componentName();
-			this.state = 839;
+			this.state = 848;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === MonkeyCParser.DOT) {
 				{
 				{
-				this.state = 835;
+				this.state = 844;
 				this.match(MonkeyCParser.DOT);
-				this.state = 836;
+				this.state = 845;
 				this.componentName();
 				}
 				}
-				this.state = 841;
+				this.state = 850;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -4331,7 +4363,7 @@ export class MonkeyCParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 842;
+			this.state = 851;
 			this.id();
 			}
 		}
@@ -4356,7 +4388,7 @@ export class MonkeyCParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 844;
+			this.state = 853;
 			this.match(MonkeyCParser.IDENTIFIER);
 			}
 		}
@@ -4379,76 +4411,76 @@ export class MonkeyCParser extends Parser {
 		let _localctx: LiteralContext = new LiteralContext(this._ctx, this.state);
 		this.enterRule(_localctx, 164, MonkeyCParser.RULE_literal);
 		try {
-			this.state = 856;
+			this.state = 865;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case MonkeyCParser.INTLITERAL:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 846;
+				this.state = 855;
 				this.match(MonkeyCParser.INTLITERAL);
 				}
 				break;
 			case MonkeyCParser.LONGLITERAL:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 847;
+				this.state = 856;
 				this.match(MonkeyCParser.LONGLITERAL);
 				}
 				break;
 			case MonkeyCParser.FLOATLITERAL:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 848;
+				this.state = 857;
 				this.match(MonkeyCParser.FLOATLITERAL);
 				}
 				break;
 			case MonkeyCParser.DOUBLELITERAL:
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 849;
+				this.state = 858;
 				this.match(MonkeyCParser.DOUBLELITERAL);
 				}
 				break;
 			case MonkeyCParser.HEX_LITERAL:
 				this.enterOuterAlt(_localctx, 5);
 				{
-				this.state = 850;
+				this.state = 859;
 				this.match(MonkeyCParser.HEX_LITERAL);
 				}
 				break;
 			case MonkeyCParser.CHARLITERAL:
 				this.enterOuterAlt(_localctx, 6);
 				{
-				this.state = 851;
+				this.state = 860;
 				this.match(MonkeyCParser.CHARLITERAL);
 				}
 				break;
 			case MonkeyCParser.STRING_A:
 				this.enterOuterAlt(_localctx, 7);
 				{
-				this.state = 852;
+				this.state = 861;
 				this.string();
 				}
 				break;
 			case MonkeyCParser.TRUE:
 				this.enterOuterAlt(_localctx, 8);
 				{
-				this.state = 853;
+				this.state = 862;
 				this.match(MonkeyCParser.TRUE);
 				}
 				break;
 			case MonkeyCParser.FALSE:
 				this.enterOuterAlt(_localctx, 9);
 				{
-				this.state = 854;
+				this.state = 863;
 				this.match(MonkeyCParser.FALSE);
 				}
 				break;
 			case MonkeyCParser.NULL:
 				this.enterOuterAlt(_localctx, 10);
 				{
-				this.state = 855;
+				this.state = 864;
 				this.match(MonkeyCParser.NULL);
 				}
 				break;
@@ -4473,7 +4505,7 @@ export class MonkeyCParser extends Parser {
 
 	private static readonly _serializedATNSegments: number = 2;
 	private static readonly _serializedATNSegment0: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03`\u035D\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03c\u0366\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -4548,210 +4580,210 @@ export class MonkeyCParser extends Parser {
 		"J\x03J\x03J\x03J\x03J\x07J\u0319\nJ\fJ\x0EJ\u031C\vJ\x05J\u031E\nJ\x03" +
 		"J\x05J\u0321\nJ\x03K\x03K\x03K\x03K\x03L\x03L\x05L\u0329\nL\x03L\x03L" +
 		"\x03M\x03M\x03M\x07M\u0330\nM\fM\x0EM\u0333\vM\x03N\x05N\u0336\nN\x03" +
-		"N\x05N\u0339\nN\x03N\x05N\u033C\nN\x03O\x03O\x03O\x03O\x03P\x03P\x03P" +
-		"\x03Q\x03Q\x03Q\x07Q\u0348\nQ\fQ\x0EQ\u034B\vQ\x03R\x03R\x03S\x03S\x03" +
-		"T\x03T\x03T\x03T\x03T\x03T\x03T\x03T\x03T\x03T\x05T\u035B\nT\x03T\x02" +
-		"\x02\x02U\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12" +
-		"\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02&" +
-		"\x02(\x02*\x02,\x02.\x020\x022\x024\x026\x028\x02:\x02<\x02>\x02@\x02" +
-		"B\x02D\x02F\x02H\x02J\x02L\x02N\x02P\x02R\x02T\x02V\x02X\x02Z\x02\\\x02" +
-		"^\x02`\x02b\x02d\x02f\x02h\x02j\x02l\x02n\x02p\x02r\x02t\x02v\x02x\x02" +
-		"z\x02|\x02~\x02\x80\x02\x82\x02\x84\x02\x86\x02\x88\x02\x8A\x02\x8C\x02" +
-		"\x8E\x02\x90\x02\x92\x02\x94\x02\x96\x02\x98\x02\x9A\x02\x9C\x02\x9E\x02" +
-		"\xA0\x02\xA2\x02\xA4\x02\xA6\x02\x02\n\x03\x02RS\x03\x02*+\x04\x02\'\'" +
-		"@@\x04\x02&&AA\x03\x02EF\x05\x02::OOTT\x05\x02;;??NN\x03\x02BC\x02\u039A" +
-		"\x02\xAB\x03\x02\x02\x02\x04\xB0\x03\x02\x02\x02\x06\xC1\x03\x02\x02\x02" +
-		"\b\xC3\x03\x02\x02\x02\n\xCB\x03\x02\x02\x02\f\xD0\x03\x02\x02\x02\x0E" +
-		"\xD7\x03\x02\x02\x02\x10\xE0\x03\x02\x02\x02\x12\xE2\x03\x02\x02\x02\x14" +
-		"\xE9\x03\x02\x02\x02\x16\xF2\x03\x02\x02\x02\x18\xF9\x03\x02\x02\x02\x1A" +
-		"\u0101\x03\x02\x02\x02\x1C\u0103\x03\x02\x02\x02\x1E\u0111\x03\x02\x02" +
-		"\x02 \u0115\x03\x02\x02\x02\"\u011A\x03\x02\x02\x02$\u0123\x03\x02\x02" +
-		"\x02&\u012F\x03\x02\x02\x02(\u0131\x03\x02\x02\x02*\u013B\x03\x02\x02" +
-		"\x02,\u0143\x03\x02\x02\x02.\u0150\x03\x02\x02\x020\u0152\x03\x02\x02" +
-		"\x022\u015B\x03\x02\x02\x024\u015D\x03\x02\x02\x026\u016B\x03\x02\x02" +
-		"\x028\u016D\x03\x02\x02\x02:\u01B1\x03\x02\x02\x02<\u01B6\x03\x02\x02" +
-		"\x02>\u01B9\x03\x02\x02\x02@\u01C6\x03\x02\x02\x02B\u01C8\x03\x02\x02" +
-		"\x02D\u01D3\x03\x02\x02\x02F\u01DA\x03\x02\x02\x02H\u01E0\x03\x02\x02" +
-		"\x02J\u01E5\x03\x02\x02\x02L\u01F7\x03\x02\x02\x02N\u01F9\x03\x02\x02" +
-		"\x02P\u0201\x03\x02\x02\x02R\u0205\x03\x02\x02\x02T\u0207\x03\x02\x02" +
-		"\x02V\u020C\x03\x02\x02\x02X\u020E\x03\x02\x02\x02Z\u0226\x03\x02\x02" +
-		"\x02\\\u0228\x03\x02\x02\x02^\u0230\x03\x02\x02\x02`\u0238\x03\x02\x02" +
-		"\x02b\u0240\x03\x02\x02\x02d\u0248\x03\x02\x02\x02f\u0250\x03\x02\x02" +
-		"\x02h\u0258\x03\x02\x02\x02j\u0260\x03\x02\x02\x02l\u0265\x03\x02\x02" +
-		"\x02n\u026A\x03\x02\x02\x02p\u0279\x03\x02\x02\x02r\u027B\x03\x02\x02" +
-		"\x02t\u028B\x03\x02\x02\x02v\u028D\x03\x02\x02\x02x\u0295\x03\x02\x02" +
-		"\x02z\u029D\x03\x02\x02\x02|\u02A6\x03\x02\x02\x02~\u02B1\x03\x02\x02" +
-		"\x02\x80\u02C1\x03\x02\x02\x02\x82\u02CE\x03\x02\x02\x02\x84\u02D0\x03" +
-		"\x02\x02\x02\x86\u02D3\x03\x02\x02\x02\x88\u02E6\x03\x02\x02\x02\x8A\u02F1" +
-		"\x03\x02\x02\x02\x8C\u02F5\x03\x02\x02\x02\x8E\u02F7\x03\x02\x02\x02\x90" +
-		"\u030F\x03\x02\x02\x02\x92\u0320\x03\x02\x02\x02\x94\u0322\x03\x02\x02" +
-		"\x02\x96\u0326\x03\x02\x02\x02\x98\u032C\x03\x02\x02\x02\x9A\u0335\x03" +
-		"\x02\x02\x02\x9C\u033D\x03\x02\x02\x02\x9E\u0341\x03\x02\x02\x02\xA0\u0344" +
-		"\x03\x02\x02\x02\xA2\u034C\x03\x02\x02\x02\xA4\u034E\x03\x02\x02\x02\xA6" +
-		"\u035A\x03\x02\x02\x02\xA8\xAA\x05\x06\x04\x02\xA9\xA8\x03\x02\x02\x02" +
-		"\xAA\xAD\x03\x02\x02\x02\xAB\xA9\x03\x02\x02\x02\xAB\xAC\x03\x02\x02\x02" +
-		"\xAC\xAE\x03\x02\x02\x02\xAD\xAB\x03\x02\x02\x02\xAE\xAF\x07\x02\x02\x03" +
-		"\xAF\x03\x03\x02\x02\x02\xB0\xB4\x071\x02\x02\xB1\xB3\x07`\x02\x02\xB2" +
-		"\xB1\x03\x02\x02\x02\xB3\xB6\x03\x02\x02\x02\xB4\xB2\x03\x02\x02\x02\xB4" +
-		"\xB5\x03\x02\x02\x02\xB5\xB7\x03\x02\x02\x02\xB6\xB4\x03\x02\x02\x02\xB7" +
-		"\xB8\x071\x02\x02\xB8\x05\x03\x02\x02\x02\xB9\xC2\x05\b\x05\x02\xBA\xC2" +
-		"\x05\n\x06\x02\xBB\xC2\x05\x14\v\x02\xBC\xC2\x05\x1C\x0F\x02\xBD\xC2\x05" +
-		"\"\x12\x02\xBE\xC2\x05$\x13\x02\xBF\xC2\x05(\x15\x02\xC0\xC2\x05.\x18" +
-		"\x02\xC1\xB9\x03\x02\x02\x02\xC1\xBA\x03\x02\x02\x02\xC1\xBB\x03\x02\x02" +
-		"\x02\xC1\xBC\x03\x02\x02\x02\xC1\xBD\x03\x02\x02\x02\xC1\xBE\x03\x02\x02" +
-		"\x02\xC1\xBF\x03\x02\x02\x02\xC1\xC0\x03\x02\x02\x02\xC2\x07\x03\x02\x02" +
-		"\x02\xC3\xC4\x07\x0E\x02\x02\xC4\xC7\x05\x12\n\x02\xC5\xC6\x07\x0F\x02" +
-		"\x02\xC6\xC8\x05\xA2R\x02\xC7\xC5\x03\x02\x02\x02\xC7\xC8\x03\x02\x02" +
-		"\x02\xC8\xC9\x03\x02\x02\x02\xC9\xCA\x07\x04\x02\x02\xCA\t\x03\x02\x02" +
-		"\x02\xCB\xCC\x05\x9AN\x02\xCC\xCD\x07\r\x02\x02\xCD\xCE\x05\xA2R\x02\xCE" +
-		"\xCF\x05\f\x07\x02\xCF\v\x03\x02\x02\x02\xD0\xD1\x073\x02\x02\xD1\xD2" +
-		"\x05\x0E\b\x02\xD2\xD3\x074\x02\x02\xD3\r\x03\x02\x02\x02\xD4\xD6\x05" +
-		"\x10\t\x02\xD5\xD4\x03\x02\x02\x02\xD6\xD9\x03\x02\x02\x02\xD7\xD5\x03" +
-		"\x02\x02\x02\xD7\xD8\x03\x02\x02\x02\xD8\x0F\x03\x02\x02\x02\xD9\xD7\x03" +
-		"\x02\x02\x02\xDA\xE1\x05\"\x12\x02\xDB\xE1\x05$\x13\x02\xDC\xE1\x05(\x15" +
-		"\x02\xDD\xE1\x05\x14\v\x02\xDE\xE1\x05\x1C\x0F\x02\xDF\xE1\x05\n\x06\x02" +
-		"\xE0\xDA\x03\x02\x02\x02\xE0\xDB\x03\x02\x02\x02\xE0\xDC\x03\x02\x02\x02" +
-		"\xE0\xDD\x03\x02\x02\x02\xE0\xDE\x03\x02\x02\x02\xE0\xDF\x03\x02\x02\x02" +
-		"\xE1\x11\x03\x02\x02\x02\xE2\xE6\x05V,\x02\xE3\xE5\x05\x84C\x02\xE4\xE3" +
-		"\x03\x02\x02\x02\xE5\xE8\x03\x02\x02\x02\xE6\xE4\x03\x02\x02\x02\xE6\xE7" +
-		"\x03\x02\x02\x02\xE7\x13\x03\x02\x02\x02\xE8\xE6\x03\x02\x02\x02\xE9\xEA" +
-		"\x05\x9AN\x02\xEA\xEB\x07\x07\x02\x02\xEB\xEE\x05\xA2R\x02\xEC\xED\x07" +
-		"\x11\x02\x02\xED\xEF\x05\x12\n\x02\xEE\xEC\x03\x02\x02\x02\xEE\xEF\x03" +
-		"\x02\x02\x02\xEF\xF0\x03\x02\x02\x02\xF0\xF1\x05\x16\f\x02\xF1\x15\x03" +
-		"\x02\x02\x02\xF2\xF3\x073\x02\x02\xF3\xF4\x05\x18\r\x02\xF4\xF5\x074\x02" +
-		"\x02\xF5\x17\x03\x02\x02\x02\xF6\xF8\x05\x1A\x0E\x02\xF7\xF6\x03\x02\x02" +
-		"\x02\xF8\xFB\x03\x02\x02\x02\xF9\xF7\x03\x02\x02\x02\xF9\xFA\x03\x02\x02" +
-		"\x02\xFA\x19\x03\x02\x02\x02\xFB\xF9\x03\x02\x02\x02\xFC\u0102\x05\"\x12" +
-		"\x02\xFD\u0102\x05$\x13\x02\xFE\u0102\x05(\x15\x02\xFF\u0102\x05\x14\v" +
-		"\x02\u0100\u0102\x05\x1C\x0F\x02\u0101\xFC\x03\x02\x02\x02\u0101\xFD\x03" +
-		"\x02\x02\x02\u0101\xFE\x03\x02\x02\x02\u0101\xFF\x03\x02\x02\x02\u0101" +
-		"\u0100\x03\x02\x02\x02\u0102\x1B\x03\x02\x02\x02\u0103\u0104\x05\x9AN" +
-		"\x02\u0104\u0105\x07\x10\x02\x02\u0105\u0106\x073\x02\x02\u0106\u010B" +
-		"\x05 \x11\x02\u0107\u0108\x079\x02\x02\u0108\u010A\x05 \x11\x02\u0109" +
-		"\u0107\x03\x02\x02\x02\u010A\u010D\x03\x02\x02\x02\u010B\u0109\x03\x02" +
-		"\x02\x02\u010B\u010C\x03\x02\x02\x02\u010C\u010E\x03\x02\x02\x02\u010D" +
-		"\u010B\x03\x02\x02\x02\u010E\u010F\x074\x02\x02\u010F\x1D\x03\x02\x02" +
-		"\x02\u0110\u0112\t\x02\x02\x02\u0111\u0110\x03\x02\x02\x02\u0111\u0112" +
-		"\x03\x02\x02\x02\u0112\u0113\x03\x02\x02\x02\u0113\u0114\x07[\x02\x02" +
-		"\u0114\x1F\x03\x02\x02\x02\u0115\u0118\x05\xA2R\x02\u0116\u0117\x07D\x02" +
-		"\x02\u0117\u0119\x05\x1E\x10\x02\u0118\u0116\x03\x02\x02\x02\u0118\u0119" +
-		"\x03\x02\x02\x02\u0119!\x03\x02\x02\x02\u011A\u011B\x05\x9AN\x02\u011B" +
-		"\u011C\x07\f\x02\x02\u011C\u011F\x05\xA2R\x02\u011D\u011E\x07D\x02\x02" +
-		"\u011E\u0120\x05X-\x02\u011F\u011D\x03\x02\x02\x02\u011F\u0120\x03\x02" +
-		"\x02\x02\u0120\u0121\x03\x02\x02\x02\u0121\u0122\x07\x04\x02\x02\u0122" +
-		"#\x03\x02\x02\x02\u0123\u0124\x05\x9AN\x02\u0124\u0125\x07\v\x02\x02\u0125" +
-		"\u012A\x05&\x14\x02\u0126\u0127\x079\x02\x02\u0127\u0129\x05&\x14\x02" +
-		"\u0128\u0126\x03\x02\x02\x02\u0129\u012C\x03\x02\x02\x02\u012A\u0128\x03" +
-		"\x02\x02\x02\u012A\u012B\x03\x02\x02\x02\u012B\u012D\x03\x02\x02\x02\u012C" +
-		"\u012A\x03\x02\x02\x02\u012D\u012E\x07\x04\x02\x02\u012E%\x03\x02\x02" +
-		"\x02\u012F\u0130\x054\x1B\x02\u0130\'\x03\x02\x02\x02\u0131\u0132\x05" +
-		"\x9AN\x02\u0132\u0133\x07\b\x02\x02\u0133\u0134\x05\xA2R\x02\u0134\u0136" +
-		"\x077\x02\x02\u0135\u0137\x05*\x16\x02\u0136\u0135\x03\x02\x02\x02\u0136" +
-		"\u0137\x03\x02\x02\x02\u0137\u0138\x03\x02\x02\x02\u0138\u0139\x078\x02" +
-		"\x02\u0139\u013A\x05,\x17\x02\u013A)\x03\x02\x02\x02\u013B\u0140\x05\xA2" +
-		"R\x02\u013C\u013D\x079\x02\x02\u013D\u013F\x05\xA2R\x02\u013E\u013C\x03" +
-		"\x02\x02\x02\u013F\u0142\x03\x02\x02\x02\u0140\u013E\x03\x02\x02\x02\u0140" +
-		"\u0141\x03\x02\x02\x02\u0141+\x03\x02\x02\x02\u0142\u0140\x03\x02\x02" +
-		"\x02\u0143\u0147\x073\x02\x02\u0144\u0146\x05.\x18\x02\u0145\u0144\x03" +
-		"\x02\x02\x02\u0146\u0149\x03\x02\x02\x02\u0147\u0145\x03\x02\x02\x02\u0147" +
-		"\u0148\x03\x02\x02\x02\u0148\u014A\x03\x02\x02\x02\u0149\u0147\x03\x02" +
-		"\x02\x02\u014A\u014B\x074\x02\x02\u014B-\x03\x02\x02\x02\u014C\u014D\x05" +
-		"0\x19\x02\u014D\u014E\x07\x04\x02\x02\u014E\u0151\x03\x02\x02\x02\u014F" +
-		"\u0151\x05:\x1E\x02\u0150\u014C\x03\x02\x02\x02\u0150\u014F\x03\x02\x02" +
-		"\x02\u0151/\x03\x02\x02\x02\u0152\u0153\x07\v\x02\x02\u0153\u0158\x05" +
-		"2\x1A\x02\u0154\u0155\x079\x02\x02\u0155\u0157\x052\x1A\x02\u0156\u0154" +
-		"\x03\x02\x02\x02\u0157\u015A\x03\x02\x02\x02\u0158\u0156\x03\x02\x02\x02" +
-		"\u0158\u0159\x03\x02\x02\x02\u01591\x03\x02\x02\x02\u015A\u0158\x03\x02" +
-		"\x02\x02\u015B\u015C\x054\x1B\x02\u015C3\x03\x02\x02\x02\u015D\u0162\x05" +
-		"\xA2R\x02\u015E\u015F\x075\x02\x02\u015F\u0161\x076\x02\x02\u0160\u015E" +
-		"\x03\x02\x02\x02\u0161\u0164\x03\x02\x02\x02\u0162\u0160\x03\x02\x02\x02" +
-		"\u0162\u0163\x03\x02\x02\x02\u0163\u0167\x03\x02\x02\x02\u0164\u0162\x03" +
-		"\x02\x02\x02\u0165\u0166\x07D\x02\x02\u0166\u0168\x056\x1C\x02\u0167\u0165" +
-		"\x03\x02\x02\x02\u0167\u0168\x03\x02\x02\x02\u01685\x03\x02\x02\x02\u0169" +
-		"\u016C\x058\x1D\x02\u016A\u016C\x05X-\x02\u016B\u0169\x03\x02\x02\x02" +
-		"\u016B\u016A\x03\x02\x02\x02\u016C7\x03\x02\x02\x02\u016D\u0176\x073\x02" +
-		"\x02\u016E\u0173\x056\x1C\x02\u016F\u0170\x079\x02\x02\u0170\u0172\x05" +
-		"6\x1C\x02\u0171\u016F\x03\x02\x02\x02\u0172\u0175\x03\x02\x02\x02\u0173" +
-		"\u0171\x03\x02\x02\x02\u0173\u0174\x03\x02\x02\x02\u0174\u0177\x03\x02" +
-		"\x02\x02\u0175\u0173\x03\x02\x02\x02\u0176\u016E\x03\x02\x02\x02\u0176" +
-		"\u0177\x03\x02\x02\x02\u0177\u0179\x03\x02\x02\x02\u0178\u017A\x079\x02" +
-		"\x02\u0179\u0178\x03\x02\x02\x02\u0179\u017A\x03\x02\x02\x02\u017A\u017B" +
-		"\x03\x02\x02\x02\u017B\u017C\x074\x02\x02\u017C9\x03\x02\x02\x02\u017D" +
-		"\u01B2\x05,\x17\x02\u017E\u017F\x07\x18\x02\x02\u017F\u0180\x05P)\x02" +
-		"\u0180\u0183\x05:\x1E\x02\u0181\u0182\x07\x19\x02\x02\u0182\u0184\x05" +
-		":\x1E\x02\u0183\u0181\x03\x02\x02\x02\u0183\u0184\x03\x02\x02\x02\u0184" +
-		"\u01B2\x03\x02\x02\x02\u0185\u01B2\x05J&\x02\u0186\u0187\x07\x1B\x02\x02" +
-		"\u0187\u0188\x05P)\x02\u0188\u0189\x05:\x1E\x02\u0189\u01B2\x03\x02\x02" +
-		"\x02\u018A\u018B\x07\x1A\x02\x02\u018B\u018C\x05:\x1E\x02\u018C\u018D" +
-		"\x07\x1B\x02\x02\u018D\u018E\x05P)\x02\u018E\u018F\x07\x04\x02\x02\u018F" +
-		"\u01B2\x03\x02\x02\x02\u0190\u01B2\x05B\"\x02\u0191\u0192\x07\x1F\x02" +
-		"\x02\u0192\u0193\x05P)\x02\u0193\u0194\x073\x02\x02\u0194\u0195\x05<\x1F" +
-		"\x02\u0195\u0196\x074\x02\x02\u0196\u01B2\x03\x02\x02\x02\u0197\u0199" +
-		"\x07\t\x02\x02\u0198\u019A\x05X-\x02\u0199\u0198\x03\x02\x02\x02\u0199" +
-		"\u019A\x03\x02\x02\x02\u019A\u019B\x03\x02\x02\x02\u019B\u01B2\x07\x04" +
-		"\x02\x02\u019C\u019D\x07%\x02\x02\u019D\u019E\x05X-\x02\u019E\u019F\x07" +
-		"\x04\x02\x02\u019F\u01B2\x03\x02\x02\x02\u01A0\u01A2\x07\x1D\x02\x02\u01A1" +
-		"\u01A3\x05\x86D\x02\u01A2\u01A1\x03\x02\x02\x02\u01A2\u01A3\x03\x02\x02" +
-		"\x02\u01A3\u01A4\x03\x02\x02\x02\u01A4\u01B2\x07\x04\x02\x02\u01A5\u01A7" +
-		"\x07\x1E\x02\x02\u01A6\u01A8\x05\x86D\x02\u01A7\u01A6\x03\x02\x02\x02" +
-		"\u01A7\u01A8\x03\x02\x02\x02\u01A8\u01A9\x03\x02\x02\x02\u01A9\u01B2\x07" +
-		"\x04\x02\x02\u01AA\u01AB\x05X-\x02\u01AB\u01AC\x07\x04\x02\x02\u01AC\u01B2" +
-		"\x03\x02\x02\x02\u01AD\u01AE\x07Y\x02\x02\u01AE\u01AF\x07\x06\x02\x02" +
-		"\u01AF\u01B2\x05:\x1E\x02\u01B0\u01B2\x07\x04\x02\x02\u01B1\u017D\x03" +
-		"\x02\x02\x02\u01B1\u017E\x03\x02\x02\x02\u01B1\u0185\x03\x02\x02\x02\u01B1" +
-		"\u0186\x03\x02\x02\x02\u01B1\u018A\x03\x02\x02\x02\u01B1\u0190\x03\x02" +
-		"\x02\x02\u01B1\u0191\x03\x02\x02\x02\u01B1\u0197\x03\x02\x02\x02\u01B1" +
-		"\u019C\x03\x02\x02\x02\u01B1\u01A0\x03\x02\x02\x02\u01B1\u01A5\x03\x02" +
-		"\x02\x02\u01B1\u01AA\x03\x02\x02\x02\u01B1\u01AD\x03\x02\x02\x02\u01B1" +
-		"\u01B0\x03\x02\x02\x02\u01B2;\x03\x02\x02\x02\u01B3\u01B5\x05> \x02\u01B4" +
-		"\u01B3\x03\x02\x02\x02\u01B5\u01B8\x03\x02\x02\x02\u01B6\u01B4\x03\x02" +
-		"\x02\x02\u01B6\u01B7\x03\x02\x02\x02\u01B7=\x03\x02\x02\x02\u01B8\u01B6" +
-		"\x03\x02\x02\x02\u01B9\u01BD\x05@!\x02\u01BA\u01BC\x05.\x18\x02\u01BB" +
-		"\u01BA\x03\x02\x02\x02\u01BC\u01BF\x03\x02\x02\x02\u01BD\u01BB\x03\x02" +
-		"\x02\x02\u01BD\u01BE\x03\x02\x02\x02\u01BE?\x03\x02\x02\x02\u01BF\u01BD" +
-		"\x03\x02\x02\x02\u01C0\u01C1\x07!\x02\x02\u01C1\u01C2\x05X-\x02\u01C2" +
-		"\u01C3\x07\x06\x02\x02\u01C3\u01C7\x03\x02\x02\x02\u01C4\u01C5\x07 \x02" +
-		"\x02\u01C5\u01C7\x07\x06\x02\x02\u01C6\u01C0\x03\x02\x02\x02\u01C6\u01C4" +
-		"\x03\x02\x02\x02\u01C7A\x03\x02\x02\x02\u01C8\u01C9\x07\"\x02\x02\u01C9" +
-		"\u01D1\x05,\x17\x02\u01CA\u01CB\x05D#\x02\u01CB\u01CC\x07$\x02\x02\u01CC" +
-		"\u01CD\x05,\x17\x02\u01CD\u01D2\x03\x02\x02\x02\u01CE\u01D2\x05D#\x02" +
-		"\u01CF\u01D0\x07$\x02\x02\u01D0\u01D2\x05,\x17\x02\u01D1\u01CA\x03\x02" +
-		"\x02\x02\u01D1\u01CE\x03\x02\x02\x02\u01D1\u01CF\x03\x02\x02\x02\u01D2" +
-		"C\x03\x02\x02\x02\u01D3\u01D7\x05F$\x02\u01D4\u01D6\x05F$\x02\u01D5\u01D4" +
-		"\x03\x02\x02\x02\u01D6\u01D9\x03\x02\x02\x02\u01D7\u01D5\x03\x02\x02\x02" +
-		"\u01D7\u01D8\x03\x02\x02\x02\u01D8E\x03\x02\x02\x02\u01D9\u01D7\x03\x02" +
-		"\x02\x02\u01DA\u01DB\x07#\x02\x02\u01DB\u01DC\x077\x02\x02\u01DC\u01DD" +
-		"\x05H%\x02\u01DD\u01DE\x078\x02\x02\u01DE\u01DF\x05,\x17\x02\u01DFG\x03" +
-		"\x02\x02\x02\u01E0\u01E3\x05\xA4S\x02\u01E1\u01E2\x07\x16\x02\x02\u01E2" +
-		"\u01E4\x05\xA0Q\x02\u01E3\u01E1\x03\x02\x02\x02\u01E3\u01E4\x03\x02\x02" +
-		"\x02\u01E4I\x03\x02\x02\x02\u01E5\u01E6\x07\x1C\x02\x02\u01E6\u01E8\x07" +
-		"7\x02\x02\u01E7\u01E9\x05L\'\x02\u01E8\u01E7\x03\x02\x02\x02\u01E8\u01E9" +
-		"\x03\x02\x02\x02\u01E9\u01EA\x03\x02\x02\x02\u01EA\u01EC\x07\x04\x02\x02" +
-		"\u01EB\u01ED\x05X-\x02\u01EC\u01EB\x03\x02\x02\x02\u01EC\u01ED\x03\x02" +
-		"\x02\x02\u01ED\u01EE\x03\x02\x02\x02\u01EE\u01F0\x07\x04\x02\x02\u01EF" +
-		"\u01F1\x05N(\x02\u01F0\u01EF\x03\x02\x02\x02\u01F0\u01F1\x03\x02\x02\x02" +
-		"\u01F1\u01F2\x03\x02\x02\x02\u01F2\u01F3\x078\x02\x02\u01F3\u01F4\x05" +
-		":\x1E\x02\u01F4K\x03\x02\x02\x02\u01F5\u01F8\x050\x19\x02\u01F6\u01F8" +
-		"\x05N(\x02\u01F7\u01F5\x03\x02\x02\x02\u01F7\u01F6\x03\x02\x02\x02\u01F8" +
-		"M\x03\x02\x02\x02\u01F9\u01FE\x05X-\x02\u01FA\u01FB\x079\x02";
+		"N\x05N\u0339\nN\x03N\x05N\u033C\nN\x03N\x05N\u033F\nN\x03N\x05N\u0342" +
+		"\nN\x03N\x05N\u0345\nN\x03O\x03O\x03O\x03O\x03P\x03P\x03P\x03Q\x03Q\x03" +
+		"Q\x07Q\u0351\nQ\fQ\x0EQ\u0354\vQ\x03R\x03R\x03S\x03S\x03T\x03T\x03T\x03" +
+		"T\x03T\x03T\x03T\x03T\x03T\x03T\x05T\u0364\nT\x03T\x02\x02\x02U\x02\x02" +
+		"\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16" +
+		"\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02&\x02(\x02*\x02,\x02" +
+		".\x020\x022\x024\x026\x028\x02:\x02<\x02>\x02@\x02B\x02D\x02F\x02H\x02" +
+		"J\x02L\x02N\x02P\x02R\x02T\x02V\x02X\x02Z\x02\\\x02^\x02`\x02b\x02d\x02" +
+		"f\x02h\x02j\x02l\x02n\x02p\x02r\x02t\x02v\x02x\x02z\x02|\x02~\x02\x80" +
+		"\x02\x82\x02\x84\x02\x86\x02\x88\x02\x8A\x02\x8C\x02\x8E\x02\x90\x02\x92" +
+		"\x02\x94\x02\x96\x02\x98\x02\x9A\x02\x9C\x02\x9E\x02\xA0\x02\xA2\x02\xA4" +
+		"\x02\xA6\x02\x02\n\x03\x02UV\x03\x02-.\x04\x02**CC\x04\x02))DD\x03\x02" +
+		"HI\x05\x02==RRWW\x05\x02>>BBQQ\x03\x02EF\x02\u03A6\x02\xAB\x03\x02\x02" +
+		"\x02\x04\xB0\x03\x02\x02\x02\x06\xC1\x03\x02\x02\x02\b\xC3\x03\x02\x02" +
+		"\x02\n\xCB\x03\x02\x02\x02\f\xD0\x03\x02\x02\x02\x0E\xD7\x03\x02\x02\x02" +
+		"\x10\xE0\x03\x02\x02\x02\x12\xE2\x03\x02\x02\x02\x14\xE9\x03\x02\x02\x02" +
+		"\x16\xF2\x03\x02\x02\x02\x18\xF9\x03\x02\x02\x02\x1A\u0101\x03\x02\x02" +
+		"\x02\x1C\u0103\x03\x02\x02\x02\x1E\u0111\x03\x02\x02\x02 \u0115\x03\x02" +
+		"\x02\x02\"\u011A\x03\x02\x02\x02$\u0123\x03\x02\x02\x02&\u012F\x03\x02" +
+		"\x02\x02(\u0131\x03\x02\x02\x02*\u013B\x03\x02\x02\x02,\u0143\x03\x02" +
+		"\x02\x02.\u0150\x03\x02\x02\x020\u0152\x03\x02\x02\x022\u015B\x03\x02" +
+		"\x02\x024\u015D\x03\x02\x02\x026\u016B\x03\x02\x02\x028\u016D\x03\x02" +
+		"\x02\x02:\u01B1\x03\x02\x02\x02<\u01B6\x03\x02\x02\x02>\u01B9\x03\x02" +
+		"\x02\x02@\u01C6\x03\x02\x02\x02B\u01C8\x03\x02\x02\x02D\u01D3\x03\x02" +
+		"\x02\x02F\u01DA\x03\x02\x02\x02H\u01E0\x03\x02\x02\x02J\u01E5\x03\x02" +
+		"\x02\x02L\u01F7\x03\x02\x02\x02N\u01F9\x03\x02\x02\x02P\u0201\x03\x02" +
+		"\x02\x02R\u0205\x03\x02\x02\x02T\u0207\x03\x02\x02\x02V\u020C\x03\x02" +
+		"\x02\x02X\u020E\x03\x02\x02\x02Z\u0226\x03\x02\x02\x02\\\u0228\x03\x02" +
+		"\x02\x02^\u0230\x03\x02\x02\x02`\u0238\x03\x02\x02\x02b\u0240\x03\x02" +
+		"\x02\x02d\u0248\x03\x02\x02\x02f\u0250\x03\x02\x02\x02h\u0258\x03\x02" +
+		"\x02\x02j\u0260\x03\x02\x02\x02l\u0265\x03\x02\x02\x02n\u026A\x03\x02" +
+		"\x02\x02p\u0279\x03\x02\x02\x02r\u027B\x03\x02\x02\x02t\u028B\x03\x02" +
+		"\x02\x02v\u028D\x03\x02\x02\x02x\u0295\x03\x02\x02\x02z\u029D\x03\x02" +
+		"\x02\x02|\u02A6\x03\x02\x02\x02~\u02B1\x03\x02\x02\x02\x80\u02C1\x03\x02" +
+		"\x02\x02\x82\u02CE\x03\x02\x02\x02\x84\u02D0\x03\x02\x02\x02\x86\u02D3" +
+		"\x03\x02\x02\x02\x88\u02E6\x03\x02\x02\x02\x8A\u02F1\x03\x02\x02\x02\x8C" +
+		"\u02F5\x03\x02\x02\x02\x8E\u02F7\x03\x02\x02\x02\x90\u030F\x03\x02\x02" +
+		"\x02\x92\u0320\x03\x02\x02\x02\x94\u0322\x03\x02\x02\x02\x96\u0326\x03" +
+		"\x02\x02\x02\x98\u032C\x03\x02\x02\x02\x9A\u0335\x03\x02\x02\x02\x9C\u0346" +
+		"\x03\x02\x02\x02\x9E\u034A\x03\x02\x02\x02\xA0\u034D\x03\x02\x02\x02\xA2" +
+		"\u0355\x03\x02\x02\x02\xA4\u0357\x03\x02\x02\x02\xA6\u0363\x03\x02\x02" +
+		"\x02\xA8\xAA\x05\x06\x04\x02\xA9\xA8\x03\x02\x02\x02\xAA\xAD\x03\x02\x02" +
+		"\x02\xAB\xA9\x03\x02\x02\x02\xAB\xAC\x03\x02\x02\x02\xAC\xAE\x03\x02\x02" +
+		"\x02\xAD\xAB\x03\x02\x02\x02\xAE\xAF\x07\x02\x02\x03\xAF\x03\x03\x02\x02" +
+		"\x02\xB0\xB4\x074\x02\x02\xB1\xB3\x07c\x02\x02\xB2\xB1\x03\x02\x02\x02" +
+		"\xB3\xB6\x03\x02\x02\x02\xB4\xB2\x03\x02\x02\x02\xB4\xB5\x03\x02\x02\x02" +
+		"\xB5\xB7\x03\x02\x02\x02\xB6\xB4\x03\x02\x02\x02\xB7\xB8\x074\x02\x02" +
+		"\xB8\x05\x03\x02\x02\x02\xB9\xC2\x05\b\x05\x02\xBA\xC2\x05\n\x06\x02\xBB" +
+		"\xC2\x05\x14\v\x02\xBC\xC2\x05\x1C\x0F\x02\xBD\xC2\x05\"\x12\x02\xBE\xC2" +
+		"\x05$\x13\x02\xBF\xC2\x05(\x15\x02\xC0\xC2\x05.\x18\x02\xC1\xB9\x03\x02" +
+		"\x02\x02\xC1\xBA\x03\x02\x02\x02\xC1\xBB\x03\x02\x02\x02\xC1\xBC\x03\x02" +
+		"\x02\x02\xC1\xBD\x03\x02\x02\x02\xC1\xBE\x03\x02\x02\x02\xC1\xBF\x03\x02" +
+		"\x02\x02\xC1\xC0\x03\x02\x02\x02\xC2\x07\x03\x02\x02\x02\xC3\xC4\x07\x0E" +
+		"\x02\x02\xC4\xC7\x05\x12\n\x02\xC5\xC6\x07\x0F\x02\x02\xC6\xC8\x05\xA2" +
+		"R\x02\xC7\xC5\x03\x02\x02\x02\xC7\xC8\x03\x02\x02\x02\xC8\xC9\x03\x02" +
+		"\x02\x02\xC9\xCA\x07\x04\x02\x02\xCA\t\x03\x02\x02\x02\xCB\xCC\x05\x9A" +
+		"N\x02\xCC\xCD\x07\r\x02\x02\xCD\xCE\x05\xA2R\x02\xCE\xCF\x05\f\x07\x02" +
+		"\xCF\v\x03\x02\x02\x02\xD0\xD1\x076\x02\x02\xD1\xD2\x05\x0E\b\x02\xD2" +
+		"\xD3\x077\x02\x02\xD3\r\x03\x02\x02\x02\xD4\xD6\x05\x10\t\x02\xD5\xD4" +
+		"\x03\x02\x02\x02\xD6\xD9\x03\x02\x02\x02\xD7\xD5\x03\x02\x02\x02\xD7\xD8" +
+		"\x03\x02\x02\x02\xD8\x0F\x03\x02\x02\x02\xD9\xD7\x03\x02\x02\x02\xDA\xE1" +
+		"\x05\"\x12\x02\xDB\xE1\x05$\x13\x02\xDC\xE1\x05(\x15\x02\xDD\xE1\x05\x14" +
+		"\v\x02\xDE\xE1\x05\x1C\x0F\x02\xDF\xE1\x05\n\x06\x02\xE0\xDA\x03\x02\x02" +
+		"\x02\xE0\xDB\x03\x02\x02\x02\xE0\xDC\x03\x02\x02\x02\xE0\xDD\x03\x02\x02" +
+		"\x02\xE0\xDE\x03\x02\x02\x02\xE0\xDF\x03\x02\x02\x02\xE1\x11\x03\x02\x02" +
+		"\x02\xE2\xE6\x05V,\x02\xE3\xE5\x05\x84C\x02\xE4\xE3\x03\x02\x02\x02\xE5" +
+		"\xE8\x03\x02\x02\x02\xE6\xE4\x03\x02\x02\x02\xE6\xE7\x03\x02\x02\x02\xE7" +
+		"\x13\x03\x02\x02\x02\xE8\xE6\x03\x02\x02\x02\xE9\xEA\x05\x9AN\x02\xEA" +
+		"\xEB\x07\x07\x02\x02\xEB\xEE\x05\xA2R\x02\xEC\xED\x07\x11\x02\x02\xED" +
+		"\xEF\x05\x12\n\x02\xEE\xEC\x03\x02\x02\x02\xEE\xEF\x03\x02\x02\x02\xEF" +
+		"\xF0\x03\x02\x02\x02\xF0\xF1\x05\x16\f\x02\xF1\x15\x03\x02\x02\x02\xF2" +
+		"\xF3\x076\x02\x02\xF3\xF4\x05\x18\r\x02\xF4\xF5\x077\x02\x02\xF5\x17\x03" +
+		"\x02\x02\x02\xF6\xF8\x05\x1A\x0E\x02\xF7\xF6\x03\x02\x02\x02\xF8\xFB\x03" +
+		"\x02\x02\x02\xF9\xF7\x03\x02\x02\x02\xF9\xFA\x03\x02\x02\x02\xFA\x19\x03" +
+		"\x02\x02\x02\xFB\xF9\x03\x02\x02\x02\xFC\u0102\x05\"\x12\x02\xFD\u0102" +
+		"\x05$\x13\x02\xFE\u0102\x05(\x15\x02\xFF\u0102\x05\x14\v\x02\u0100\u0102" +
+		"\x05\x1C\x0F\x02\u0101\xFC\x03\x02\x02\x02\u0101\xFD\x03\x02\x02\x02\u0101" +
+		"\xFE\x03\x02\x02\x02\u0101\xFF\x03\x02\x02\x02\u0101\u0100\x03\x02\x02" +
+		"\x02\u0102\x1B\x03\x02\x02\x02\u0103\u0104\x05\x9AN\x02\u0104\u0105\x07" +
+		"\x10\x02\x02\u0105\u0106\x076\x02\x02\u0106\u010B\x05 \x11\x02\u0107\u0108" +
+		"\x07<\x02\x02\u0108\u010A\x05 \x11\x02\u0109\u0107\x03\x02\x02\x02\u010A" +
+		"\u010D\x03\x02\x02\x02\u010B\u0109\x03\x02\x02\x02\u010B\u010C\x03\x02" +
+		"\x02\x02\u010C\u010E\x03\x02\x02\x02\u010D\u010B\x03\x02\x02\x02\u010E" +
+		"\u010F\x077\x02\x02\u010F\x1D\x03\x02\x02\x02\u0110\u0112\t\x02\x02\x02" +
+		"\u0111\u0110\x03\x02\x02\x02\u0111\u0112\x03\x02\x02\x02\u0112\u0113\x03" +
+		"\x02\x02\x02\u0113\u0114\x07^\x02\x02\u0114\x1F\x03\x02\x02\x02\u0115" +
+		"\u0118\x05\xA2R\x02\u0116\u0117\x07G\x02\x02\u0117\u0119\x05\x1E\x10\x02" +
+		"\u0118\u0116\x03\x02\x02\x02\u0118\u0119\x03\x02\x02\x02\u0119!\x03\x02" +
+		"\x02\x02\u011A\u011B\x05\x9AN\x02\u011B\u011C\x07\f\x02\x02\u011C\u011F" +
+		"\x05\xA2R\x02\u011D\u011E\x07G\x02\x02\u011E\u0120\x05X-\x02\u011F\u011D" +
+		"\x03\x02\x02\x02\u011F\u0120\x03\x02\x02\x02\u0120\u0121\x03\x02\x02\x02" +
+		"\u0121\u0122\x07\x04\x02\x02\u0122#\x03\x02\x02\x02\u0123\u0124\x05\x9A" +
+		"N\x02\u0124\u0125\x07\v\x02\x02\u0125\u012A\x05&\x14\x02\u0126\u0127\x07" +
+		"<\x02\x02\u0127\u0129\x05&\x14\x02\u0128\u0126\x03\x02\x02\x02\u0129\u012C" +
+		"\x03\x02\x02\x02\u012A\u0128\x03\x02\x02\x02\u012A\u012B\x03\x02\x02\x02" +
+		"\u012B\u012D\x03\x02\x02\x02\u012C\u012A\x03\x02\x02\x02\u012D\u012E\x07" +
+		"\x04\x02\x02\u012E%\x03\x02\x02\x02\u012F\u0130\x054\x1B\x02\u0130\'\x03" +
+		"\x02\x02\x02\u0131\u0132\x05\x9AN\x02\u0132\u0133\x07\b\x02\x02\u0133" +
+		"\u0134\x05\xA2R\x02\u0134\u0136\x07:\x02\x02\u0135\u0137\x05*\x16\x02" +
+		"\u0136\u0135\x03\x02\x02\x02\u0136\u0137\x03\x02\x02\x02\u0137\u0138\x03" +
+		"\x02\x02\x02\u0138\u0139\x07;\x02\x02\u0139\u013A\x05,\x17\x02\u013A)" +
+		"\x03\x02\x02\x02\u013B\u0140\x05\xA2R\x02\u013C\u013D\x07<\x02\x02\u013D" +
+		"\u013F\x05\xA2R\x02\u013E\u013C\x03\x02\x02\x02\u013F\u0142\x03\x02\x02" +
+		"\x02\u0140\u013E\x03\x02\x02\x02\u0140\u0141\x03\x02\x02\x02\u0141+\x03" +
+		"\x02\x02\x02\u0142\u0140\x03\x02\x02\x02\u0143\u0147\x076\x02\x02\u0144" +
+		"\u0146\x05.\x18\x02\u0145\u0144\x03\x02\x02\x02\u0146\u0149\x03\x02\x02" +
+		"\x02\u0147\u0145\x03\x02\x02\x02\u0147\u0148\x03\x02\x02\x02\u0148\u014A" +
+		"\x03\x02\x02\x02\u0149\u0147\x03\x02\x02\x02\u014A\u014B\x077\x02\x02" +
+		"\u014B-\x03\x02\x02\x02\u014C\u014D\x050\x19\x02\u014D\u014E\x07\x04\x02" +
+		"\x02\u014E\u0151\x03\x02\x02\x02\u014F\u0151\x05:\x1E\x02\u0150\u014C" +
+		"\x03\x02\x02\x02\u0150\u014F\x03\x02\x02\x02\u0151/\x03\x02\x02\x02\u0152" +
+		"\u0153\x07\v\x02\x02\u0153\u0158\x052\x1A\x02\u0154\u0155\x07<\x02\x02" +
+		"\u0155\u0157\x052\x1A\x02\u0156\u0154\x03\x02\x02\x02\u0157\u015A\x03" +
+		"\x02\x02\x02\u0158\u0156\x03\x02\x02\x02\u0158\u0159\x03\x02\x02\x02\u0159" +
+		"1\x03\x02\x02\x02\u015A\u0158\x03\x02\x02\x02\u015B\u015C\x054\x1B\x02" +
+		"\u015C3\x03\x02\x02\x02\u015D\u0162\x05\xA2R\x02\u015E\u015F\x078\x02" +
+		"\x02\u015F\u0161\x079\x02\x02\u0160\u015E\x03\x02\x02\x02\u0161\u0164" +
+		"\x03\x02\x02\x02\u0162\u0160\x03\x02\x02\x02\u0162\u0163\x03\x02\x02\x02" +
+		"\u0163\u0167\x03\x02\x02\x02\u0164\u0162\x03\x02\x02\x02\u0165\u0166\x07" +
+		"G\x02\x02\u0166\u0168\x056\x1C\x02\u0167\u0165\x03\x02\x02\x02\u0167\u0168" +
+		"\x03\x02\x02\x02\u01685\x03\x02\x02\x02\u0169\u016C\x058\x1D\x02\u016A" +
+		"\u016C\x05X-\x02\u016B\u0169\x03\x02\x02\x02\u016B\u016A\x03\x02\x02\x02" +
+		"\u016C7\x03\x02\x02\x02\u016D\u0176\x076\x02\x02\u016E\u0173\x056\x1C" +
+		"\x02\u016F\u0170\x07<\x02\x02\u0170\u0172\x056\x1C\x02\u0171\u016F\x03" +
+		"\x02\x02\x02\u0172\u0175\x03\x02\x02\x02\u0173\u0171\x03\x02\x02\x02\u0173" +
+		"\u0174\x03\x02\x02\x02\u0174\u0177\x03\x02\x02\x02\u0175\u0173\x03\x02" +
+		"\x02\x02\u0176\u016E\x03\x02\x02\x02\u0176\u0177\x03\x02\x02\x02\u0177" +
+		"\u0179\x03\x02\x02\x02\u0178\u017A\x07<\x02\x02\u0179\u0178\x03\x02\x02" +
+		"\x02\u0179\u017A\x03\x02\x02\x02\u017A\u017B\x03\x02\x02\x02\u017B\u017C" +
+		"\x077\x02\x02\u017C9\x03\x02\x02\x02\u017D\u01B2\x05,\x17\x02\u017E\u017F" +
+		"\x07\x1B\x02\x02\u017F\u0180\x05P)\x02\u0180\u0183\x05:\x1E\x02\u0181" +
+		"\u0182\x07\x1C\x02\x02\u0182\u0184\x05:\x1E\x02\u0183\u0181\x03\x02\x02" +
+		"\x02\u0183\u0184\x03\x02\x02\x02\u0184\u01B2\x03\x02\x02\x02\u0185\u01B2" +
+		"\x05J&\x02\u0186\u0187\x07\x1E\x02\x02\u0187\u0188\x05P)\x02\u0188\u0189" +
+		"\x05:\x1E\x02\u0189\u01B2\x03\x02\x02\x02\u018A\u018B\x07\x1D\x02\x02" +
+		"\u018B\u018C\x05:\x1E\x02\u018C\u018D\x07\x1E\x02\x02\u018D\u018E\x05" +
+		"P)\x02\u018E\u018F\x07\x04\x02\x02\u018F\u01B2\x03\x02\x02\x02\u0190\u01B2" +
+		"\x05B\"\x02\u0191\u0192\x07\"\x02\x02\u0192\u0193\x05P)\x02\u0193\u0194" +
+		"\x076\x02\x02\u0194\u0195\x05<\x1F\x02\u0195\u0196\x077\x02\x02\u0196" +
+		"\u01B2\x03\x02\x02\x02\u0197\u0199\x07\t\x02\x02\u0198\u019A\x05X-\x02" +
+		"\u0199\u0198\x03\x02\x02\x02\u0199\u019A\x03\x02\x02\x02\u019A\u019B\x03" +
+		"\x02\x02\x02\u019B\u01B2\x07\x04\x02\x02\u019C\u019D\x07(\x02\x02\u019D" +
+		"\u019E\x05X-\x02\u019E\u019F\x07\x04\x02\x02\u019F\u01B2\x03\x02\x02\x02" +
+		"\u01A0\u01A2\x07 \x02\x02\u01A1\u01A3\x05\x86D\x02\u01A2\u01A1\x03\x02" +
+		"\x02\x02\u01A2\u01A3\x03\x02\x02\x02\u01A3\u01A4\x03\x02\x02\x02\u01A4" +
+		"\u01B2\x07\x04\x02\x02\u01A5\u01A7\x07!\x02\x02\u01A6\u01A8\x05\x86D\x02" +
+		"\u01A7\u01A6\x03\x02\x02\x02\u01A7\u01A8\x03\x02\x02\x02\u01A8\u01A9\x03" +
+		"\x02\x02\x02\u01A9\u01B2\x07\x04\x02\x02\u01AA\u01AB\x05X-\x02\u01AB\u01AC" +
+		"\x07\x04\x02\x02\u01AC\u01B2\x03\x02\x02\x02\u01AD\u01AE\x07\\\x02\x02" +
+		"\u01AE\u01AF\x07\x06\x02\x02\u01AF\u01B2\x05:\x1E\x02\u01B0\u01B2\x07" +
+		"\x04\x02\x02\u01B1\u017D\x03\x02\x02\x02\u01B1\u017E\x03\x02\x02\x02\u01B1" +
+		"\u0185\x03\x02\x02\x02\u01B1\u0186\x03\x02\x02\x02\u01B1\u018A\x03\x02" +
+		"\x02\x02\u01B1\u0190\x03\x02\x02\x02\u01B1\u0191\x03\x02\x02\x02\u01B1" +
+		"\u0197\x03\x02\x02\x02\u01B1\u019C\x03\x02\x02\x02\u01B1\u01A0\x03\x02" +
+		"\x02\x02\u01B1\u01A5\x03\x02\x02\x02\u01B1\u01AA\x03\x02\x02\x02\u01B1" +
+		"\u01AD\x03\x02\x02\x02\u01B1\u01B0\x03\x02\x02\x02\u01B2;\x03\x02\x02" +
+		"\x02\u01B3\u01B5\x05> \x02\u01B4\u01B3\x03\x02\x02\x02\u01B5\u01B8\x03" +
+		"\x02\x02\x02\u01B6\u01B4\x03\x02\x02\x02\u01B6\u01B7\x03\x02\x02\x02\u01B7" +
+		"=\x03\x02\x02\x02\u01B8\u01B6\x03\x02\x02\x02\u01B9\u01BD\x05@!\x02\u01BA" +
+		"\u01BC\x05.\x18\x02\u01BB\u01BA\x03\x02\x02\x02\u01BC\u01BF\x03\x02\x02" +
+		"\x02\u01BD\u01BB\x03\x02\x02\x02\u01BD\u01BE\x03\x02\x02\x02\u01BE?\x03" +
+		"\x02\x02\x02\u01BF\u01BD\x03\x02\x02\x02\u01C0\u01C1\x07$\x02\x02\u01C1" +
+		"\u01C2\x05X-\x02\u01C2\u01C3\x07\x06\x02\x02\u01C3\u01C7\x03\x02\x02\x02" +
+		"\u01C4\u01C5\x07#\x02\x02\u01C5\u01C7\x07\x06\x02\x02\u01C6\u01C0\x03" +
+		"\x02\x02\x02\u01C6\u01C4\x03\x02\x02\x02\u01C7A\x03\x02\x02\x02\u01C8" +
+		"\u01C9\x07%\x02\x02\u01C9\u01D1\x05,\x17\x02\u01CA\u01CB\x05D#\x02\u01CB" +
+		"\u01CC\x07\'\x02\x02\u01CC\u01CD\x05,\x17\x02\u01CD\u01D2\x03\x02\x02" +
+		"\x02\u01CE\u01D2\x05D#\x02\u01CF\u01D0\x07\'\x02\x02\u01D0\u01D2\x05," +
+		"\x17\x02\u01D1\u01CA\x03\x02\x02\x02\u01D1\u01CE\x03\x02\x02\x02\u01D1" +
+		"\u01CF\x03\x02\x02\x02\u01D2C\x03\x02\x02\x02\u01D3\u01D7\x05F$\x02\u01D4" +
+		"\u01D6\x05F$\x02\u01D5\u01D4\x03\x02\x02\x02\u01D6\u01D9\x03\x02\x02\x02" +
+		"\u01D7\u01D5\x03\x02\x02\x02\u01D7\u01D8\x03\x02\x02\x02\u01D8E\x03\x02" +
+		"\x02\x02\u01D9\u01D7\x03\x02\x02\x02\u01DA\u01DB\x07&\x02\x02\u01DB\u01DC" +
+		"\x07:\x02\x02\u01DC\u01DD\x05H%\x02\u01DD\u01DE\x07;\x02\x02\u01DE\u01DF" +
+		"\x05,\x17\x02\u01DFG\x03\x02\x02\x02\u01E0\u01E3\x05\xA4S\x02\u01E1\u01E2" +
+		"\x07\x19\x02\x02\u01E2\u01E4\x05\xA0Q\x02\u01E3\u01E1\x03\x02\x02\x02" +
+		"\u01E3\u01E4\x03\x02\x02\x02\u01E4I\x03\x02\x02\x02\u01E5\u01E6\x07\x1F" +
+		"\x02\x02\u01E6\u01E8\x07:\x02\x02\u01E7\u01E9\x05L\'\x02\u01E8\u01E7\x03" +
+		"\x02\x02\x02\u01E8\u01E9\x03\x02\x02\x02\u01E9\u01EA\x03\x02\x02\x02\u01EA" +
+		"\u01EC\x07\x04\x02\x02\u01EB\u01ED\x05X-\x02\u01EC\u01EB\x03\x02\x02\x02" +
+		"\u01EC\u01ED\x03\x02\x02\x02\u01ED\u01EE\x03\x02\x02\x02\u01EE\u01F0\x07" +
+		"\x04\x02\x02\u01EF\u01F1\x05N(\x02\u01F0\u01EF\x03\x02\x02\x02\u01F0\u01F1" +
+		"\x03\x02\x02\x02\u01F1\u01F2\x03\x02\x02\x02\u01F2\u01F3\x07;\x02\x02" +
+		"\u01F3\u01F4\x05:\x1E\x02\u01F4K\x03\x02\x02\x02\u01F5\u01F8\x050\x19" +
+		"\x02\u01F6\u01F8\x05N(\x02\u01F7\u01F5\x03\x02\x02\x02\u01F7\u01F6";
 	private static readonly _serializedATNSegment1: string =
-		"\x02\u01FB\u01FD\x05X-\x02\u01FC\u01FA\x03\x02\x02\x02\u01FD\u0200\x03" +
-		"\x02\x02\x02\u01FE\u01FC\x03\x02\x02\x02\u01FE\u01FF\x03\x02\x02\x02\u01FF" +
-		"O\x03\x02\x02\x02\u0200\u01FE\x03\x02\x02\x02\u0201\u0202\x077\x02\x02" +
-		"\u0202\u0203\x05X-\x02\u0203\u0204\x078\x02\x02\u0204Q\x03\x02\x02\x02" +
-		"\u0205\u0206\t\x03\x02\x02\u0206S\x03\x02\x02\x02\u0207\u0208\x07.\x02" +
-		"\x02\u0208U\x03\x02\x02\x02\u0209\u020D\x05\x86D\x02\u020A\u020D\x05R" +
-		"*\x02\u020B\u020D\x05T+\x02\u020C\u0209\x03\x02\x02\x02\u020C\u020A\x03" +
-		"\x02\x02\x02\u020C\u020B\x03\x02\x02\x02\u020DW\x03\x02\x02\x02\u020E" +
+		"\x03\x02\x02\x02\u01F8M\x03\x02\x02\x02\u01F9\u01FE\x05X-\x02\u01FA\u01FB" +
+		"\x07<\x02\x02\u01FB\u01FD\x05X-\x02\u01FC\u01FA\x03\x02\x02\x02\u01FD" +
+		"\u0200\x03\x02\x02\x02\u01FE\u01FC\x03\x02\x02\x02\u01FE\u01FF\x03\x02" +
+		"\x02\x02\u01FFO\x03\x02\x02\x02\u0200\u01FE\x03\x02\x02\x02\u0201\u0202" +
+		"\x07:\x02\x02\u0202\u0203\x05X-\x02\u0203\u0204\x07;\x02\x02\u0204Q\x03" +
+		"\x02\x02\x02\u0205\u0206\t\x03\x02\x02\u0206S\x03\x02\x02\x02\u0207\u0208" +
+		"\x071\x02\x02\u0208U\x03\x02\x02\x02\u0209\u020D\x05\x86D\x02\u020A\u020D" +
+		"\x05R*\x02\u020B\u020D\x05T+\x02\u020C\u0209\x03\x02\x02\x02\u020C\u020A" +
+		"\x03\x02\x02\x02\u020C\u020B\x03\x02\x02\x02\u020DW\x03\x02\x02\x02\u020E" +
 		"\u0212\x05\\/\x02\u020F\u0210\x05Z.\x02\u0210\u0211\x05X-\x02\u0211\u0213" +
 		"\x03\x02\x02\x02\u0212\u020F\x03\x02\x02\x02\u0212\u0213\x03\x02\x02\x02" +
-		"\u0213Y\x03\x02\x02\x02\u0214\u0227\x07D\x02\x02\u0215\u0227\x07G\x02" +
-		"\x02\u0216\u0227\x07H\x02\x02\u0217\u0227\x07I\x02\x02\u0218\u0227\x07" +
-		"J\x02\x02\u0219\u0227\x07K\x02\x02\u021A\u0227\x07L\x02\x02\u021B\u0227" +
-		"\x07M\x02\x02\u021C\u021D\x07<\x02\x02\u021D\u021E\x07<\x02\x02\u021E" +
-		"\u0227\x07D\x02\x02\u021F\u0220\x07=\x02\x02\u0220\u0221\x07=\x02\x02" +
-		"\u0221\u0222\x07=\x02\x02\u0222\u0227\x07D\x02\x02\u0223\u0224\x07=\x02" +
-		"\x02\u0224\u0225\x07=\x02\x02\u0225\u0227\x07D\x02\x02\u0226\u0214\x03" +
+		"\u0213Y\x03\x02\x02\x02\u0214\u0227\x07G\x02\x02\u0215\u0227\x07J\x02" +
+		"\x02\u0216\u0227\x07K\x02\x02\u0217\u0227\x07L\x02\x02\u0218\u0227\x07" +
+		"M\x02\x02\u0219\u0227\x07N\x02\x02\u021A\u0227\x07O\x02\x02\u021B\u0227" +
+		"\x07P\x02\x02\u021C\u021D\x07?\x02\x02\u021D\u021E\x07?\x02\x02\u021E" +
+		"\u0227\x07G\x02\x02\u021F\u0220\x07@\x02\x02\u0220\u0221\x07@\x02\x02" +
+		"\u0221\u0222\x07@\x02\x02\u0222\u0227\x07G\x02\x02\u0223\u0224\x07@\x02" +
+		"\x02\u0224\u0225\x07@\x02\x02\u0225\u0227\x07G\x02\x02\u0226\u0214\x03" +
 		"\x02\x02\x02\u0226\u0215\x03\x02\x02\x02\u0226\u0216\x03\x02\x02\x02\u0226" +
 		"\u0217\x03\x02\x02\x02\u0226\u0218\x03\x02\x02\x02\u0226\u0219\x03\x02" +
 		"\x02\x02\u0226\u021A\x03\x02\x02\x02\u0226\u021B\x03\x02\x02\x02\u0226" +
@@ -4766,38 +4798,38 @@ export class MonkeyCParser extends Parser {
 		"\u023D\x05b2\x02\u0239\u023A\t\x05\x02\x02\u023A\u023C\x05b2\x02\u023B" +
 		"\u0239\x03\x02\x02\x02\u023C\u023F\x03\x02\x02\x02\u023D\u023B\x03\x02" +
 		"\x02\x02\u023D\u023E\x03\x02\x02\x02\u023Ea\x03\x02\x02\x02\u023F\u023D" +
-		"\x03\x02\x02\x02\u0240\u0245\x05d3\x02\u0241\u0242\x07;\x02\x02\u0242" +
+		"\x03\x02\x02\x02\u0240\u0245\x05d3\x02\u0241\u0242\x07>\x02\x02\u0242" +
 		"\u0244\x05d3\x02\u0243\u0241\x03\x02\x02\x02\u0244\u0247\x03\x02\x02\x02" +
 		"\u0245\u0243\x03\x02\x02\x02\u0245\u0246\x03\x02\x02\x02\u0246c\x03\x02" +
 		"\x02\x02\u0247\u0245\x03\x02\x02\x02\u0248\u024D\x05f4\x02\u0249\u024A" +
-		"\x07N\x02\x02\u024A\u024C\x05f4\x02\u024B\u0249\x03\x02\x02\x02\u024C" +
+		"\x07Q\x02\x02\u024A\u024C\x05f4\x02\u024B\u0249\x03\x02\x02\x02\u024C" +
 		"\u024F\x03\x02\x02\x02\u024D\u024B\x03\x02\x02\x02\u024D\u024E\x03\x02" +
 		"\x02\x02\u024Ee\x03\x02\x02\x02\u024F\u024D\x03\x02\x02\x02\u0250\u0255" +
-		"\x05h5\x02\u0251\u0252\x07?\x02\x02\u0252\u0254\x05h5\x02\u0253\u0251" +
+		"\x05h5\x02\u0251\u0252\x07B\x02\x02\u0252\u0254\x05h5\x02\u0253\u0251" +
 		"\x03\x02\x02\x02\u0254\u0257\x03\x02\x02\x02\u0255\u0253\x03\x02\x02\x02" +
 		"\u0255\u0256\x03\x02\x02\x02\u0256g\x03\x02\x02\x02\u0257\u0255\x03\x02" +
 		"\x02\x02\u0258\u025D\x05j6\x02\u0259\u025A\t\x06\x02\x02\u025A\u025C\x05" +
 		"j6\x02\u025B\u0259\x03\x02\x02\x02\u025C\u025F\x03\x02\x02\x02\u025D\u025B" +
 		"\x03\x02\x02\x02\u025D\u025E\x03\x02\x02\x02\u025Ei\x03\x02\x02\x02\u025F" +
-		"\u025D\x03\x02\x02\x02\u0260\u0263\x05l7\x02\u0261\u0262\x07\x17\x02\x02" +
+		"\u025D\x03\x02\x02\x02\u0260\u0263\x05l7\x02\u0261\u0262\x07\x1A\x02\x02" +
 		"\u0262\u0264\x05\x9EP\x02\u0263\u0261\x03\x02\x02\x02\u0263\u0264\x03" +
 		"\x02\x02\x02\u0264k\x03\x02\x02\x02\u0265\u0268\x05n8\x02\u0266\u0267" +
-		"\x07\x16\x02\x02\u0267\u0269\x05\xA0Q\x02\u0268\u0266\x03\x02\x02\x02" +
+		"\x07\x19\x02\x02\u0267\u0269\x05\xA0Q\x02\u0268\u0266\x03\x02\x02\x02" +
 		"\u0268\u0269\x03\x02\x02\x02\u0269m\x03\x02\x02\x02\u026A\u0270\x05r:" +
 		"\x02\u026B\u026C\x05p9\x02\u026C\u026D\x05r:\x02\u026D\u026F\x03\x02\x02" +
 		"\x02\u026E\u026B\x03\x02\x02\x02\u026F\u0272\x03\x02\x02\x02\u0270\u026E" +
 		"\x03\x02\x02\x02\u0270\u0271\x03\x02\x02\x02\u0271o\x03\x02\x02\x02\u0272" +
-		"\u0270\x03\x02\x02\x02\u0273\u0274\x07<\x02\x02\u0274\u027A\x07D\x02\x02" +
-		"\u0275\u0276\x07=\x02\x02\u0276\u027A\x07D\x02\x02\u0277\u027A\x07<\x02" +
-		"\x02\u0278\u027A\x07=\x02\x02\u0279\u0273\x03\x02\x02\x02\u0279\u0275" +
+		"\u0270\x03\x02\x02\x02\u0273\u0274\x07?\x02\x02\u0274\u027A\x07G\x02\x02" +
+		"\u0275\u0276\x07@\x02\x02\u0276\u027A\x07G\x02\x02\u0277\u027A\x07?\x02" +
+		"\x02\u0278\u027A\x07@\x02\x02\u0279\u0273\x03\x02\x02\x02\u0279\u0275" +
 		"\x03\x02\x02\x02\u0279\u0277\x03\x02\x02\x02\u0279\u0278\x03\x02\x02\x02" +
 		"\u027Aq\x03\x02\x02\x02\u027B\u0281\x05v<\x02\u027C\u027D\x05t;\x02\u027D" +
 		"\u027E\x05v<\x02\u027E\u0280\x03\x02\x02\x02\u027F\u027C\x03\x02\x02\x02" +
 		"\u0280\u0283\x03\x02\x02\x02\u0281\u027F\x03\x02\x02\x02\u0281\u0282\x03" +
 		"\x02\x02\x02\u0282s\x03\x02\x02\x02\u0283\u0281\x03\x02\x02\x02\u0284" +
-		"\u0285\x07<\x02\x02\u0285\u028C\x07<\x02\x02\u0286\u0287\x07=\x02\x02" +
-		"\u0287\u0288\x07=\x02\x02\u0288\u028C\x07=\x02\x02\u0289\u028A\x07=\x02" +
-		"\x02\u028A\u028C\x07=\x02\x02\u028B\u0284\x03\x02\x02\x02\u028B\u0286" +
+		"\u0285\x07?\x02\x02\u0285\u028C\x07?\x02\x02\u0286\u0287\x07@\x02\x02" +
+		"\u0287\u0288\x07@\x02\x02\u0288\u028C\x07@\x02\x02\u0289\u028A\x07@\x02" +
+		"\x02\u028A\u028C\x07@\x02\x02\u028B\u0284\x03\x02\x02\x02\u028B\u0286" +
 		"\x03\x02\x02\x02\u028B\u0289\x03\x02\x02\x02\u028Cu\x03\x02\x02\x02\u028D" +
 		"\u0292\x05x=\x02\u028E\u028F\t\x02\x02\x02\u028F\u0291\x05x=\x02\u0290" +
 		"\u028E\x03\x02\x02\x02\u0291\u0294\x03\x02\x02\x02\u0292\u0290\x03\x02" +
@@ -4810,12 +4842,12 @@ export class MonkeyCParser extends Parser {
 		"\x03\x02\x02\x02\u02A2\u02A5\x03\x02\x02\x02\u02A3\u02A1\x03\x02\x02\x02" +
 		"\u02A3\u02A4\x03\x02\x02\x02\u02A4{\x03\x02\x02\x02\u02A5\u02A3\x03\x02" +
 		"\x02\x02\u02A6\u02A7\t\b\x02\x02\u02A7}\x03\x02\x02\x02\u02A8\u02A9\x07" +
-		"R\x02\x02\u02A9\u02B2\x05~@\x02\u02AA\u02AB\x07S\x02\x02\u02AB\u02B2\x05" +
-		"~@\x02\u02AC\u02AD\x07B\x02\x02\u02AD\u02B2\x05~@\x02\u02AE\u02AF\x07" +
-		"C\x02\x02\u02AF\u02B2\x05~@\x02\u02B0\u02B2\x05\x80A\x02\u02B1\u02A8\x03" +
+		"U\x02\x02\u02A9\u02B2\x05~@\x02\u02AA\u02AB\x07V\x02\x02\u02AB\u02B2\x05" +
+		"~@\x02\u02AC\u02AD\x07E\x02\x02\u02AD\u02B2\x05~@\x02\u02AE\u02AF\x07" +
+		"F\x02\x02\u02AF\u02B2\x05~@\x02\u02B0\u02B2\x05\x80A\x02\u02B1\u02A8\x03" +
 		"\x02\x02\x02\u02B1\u02AA\x03\x02\x02\x02\u02B1\u02AC\x03\x02\x02\x02\u02B1" +
 		"\u02AE\x03\x02\x02\x02\u02B1\u02B0\x03\x02\x02\x02\u02B2\x7F\x03\x02\x02" +
-		"\x02\u02B3\u02B4\x07P\x02\x02\u02B4\u02C2\x05~@\x02\u02B5\u02B6\x07Q\x02" +
+		"\x02\u02B3\u02B4\x07S\x02\x02\u02B4\u02C2\x05~@\x02\u02B5\u02B6\x07T\x02" +
 		"\x02\u02B6\u02C2\x05~@\x02\u02B7\u02BB\x05\x82B\x02\u02B8\u02BA\x05\x8A" +
 		"F\x02\u02B9\u02B8\x03\x02\x02\x02\u02BA\u02BD\x03\x02\x02\x02\u02BB\u02B9" +
 		"\x03\x02\x02\x02\u02BB\u02BC\x03\x02\x02\x02\u02BC\u02BF\x03\x02\x02\x02" +
@@ -4826,81 +4858,86 @@ export class MonkeyCParser extends Parser {
 		"\x12\n\x02\u02C5\u02C7\x05\x88E\x02\u02C6\u02C5\x03\x02\x02\x02\u02C6" +
 		"\u02C7\x03\x02\x02\x02\u02C7\u02CF\x03\x02\x02\x02\u02C8\u02CF\x05\xA6" +
 		"T\x02\u02C9\u02CF\x05\x9EP\x02\u02CA\u02CF\x05\x8CG\x02\u02CB\u02CC\x07" +
-		"-\x02\x02\u02CC\u02CD\x07\x03\x02\x02\u02CD\u02CF\x07\x07\x02\x02\u02CE" +
+		"0\x02\x02\u02CC\u02CD\x07\x03\x02\x02\u02CD\u02CF\x07\x07\x02\x02\u02CE" +
 		"\u02C3\x03\x02\x02\x02\u02CE\u02C4\x03\x02\x02\x02\u02CE\u02C8\x03\x02" +
 		"\x02\x02\u02CE\u02C9\x03\x02\x02\x02\u02CE\u02CA\x03\x02\x02\x02\u02CE" +
 		"\u02CB\x03\x02\x02\x02\u02CF\x83\x03\x02\x02\x02\u02D0\u02D1\x07\x03\x02" +
 		"\x02\u02D1\u02D2\x05\x86D\x02\u02D2\x85\x03\x02\x02\x02\u02D3\u02D4\x05" +
-		"\xA4S\x02\u02D4\x87\x03\x02\x02\x02\u02D5\u02D6\x075\x02\x02\u02D6\u02D7" +
-		"\x05X-\x02\u02D7\u02D8\x076\x02\x02\u02D8\u02DA\x03\x02\x02\x02\u02D9" +
+		"\xA4S\x02\u02D4\x87\x03\x02\x02\x02\u02D5\u02D6\x078\x02\x02\u02D6\u02D7" +
+		"\x05X-\x02\u02D7\u02D8\x079\x02\x02\u02D8\u02DA\x03\x02\x02\x02\u02D9" +
 		"\u02D5\x03\x02\x02\x02\u02DA\u02DB\x03\x02\x02\x02\u02DB\u02D9\x03\x02" +
 		"\x02\x02\u02DB\u02DC\x03\x02\x02\x02\u02DC\u02E7\x03\x02\x02\x02\u02DD" +
 		"\u02E7\x05\x96L\x02\u02DE\u02DF\x07\x03\x02\x02\u02DF\u02E7\x07\x07\x02" +
-		"\x02\u02E0\u02E1\x07\x03\x02\x02\u02E1\u02E2\x07Y\x02\x02\u02E2\u02E7" +
-		"\x05\x96L\x02\u02E3\u02E4\x07\x03\x02\x02\u02E4\u02E5\x07,\x02\x02\u02E5" +
+		"\x02\u02E0\u02E1\x07\x03\x02\x02\u02E1\u02E2\x07\\\x02\x02\u02E2\u02E7" +
+		"\x05\x96L\x02\u02E3\u02E4\x07\x03\x02\x02\u02E4\u02E5\x07/\x02\x02\u02E5" +
 		"\u02E7\x05\x96L\x02\u02E6\u02D9\x03\x02\x02\x02\u02E6\u02DD\x03\x02\x02" +
 		"\x02\u02E6\u02DE\x03\x02\x02\x02\u02E6\u02E0\x03\x02\x02\x02\u02E6\u02E3" +
 		"\x03\x02\x02\x02\u02E7\x89\x03\x02\x02\x02\u02E8\u02E9\x07\x03\x02\x02" +
-		"\u02E9\u02EB\x07Y\x02\x02\u02EA\u02EC\x05\x96L\x02\u02EB\u02EA\x03\x02" +
+		"\u02E9\u02EB\x07\\\x02\x02\u02EA\u02EC\x05\x96L\x02\u02EB\u02EA\x03\x02" +
 		"\x02\x02\u02EB\u02EC\x03\x02\x02\x02\u02EC\u02F2\x03\x02\x02\x02\u02ED" +
-		"\u02EE\x075\x02\x02\u02EE\u02EF\x05X-\x02\u02EF\u02F0\x076\x02\x02\u02F0" +
+		"\u02EE\x078\x02\x02\u02EE\u02EF\x05X-\x02\u02EF\u02F0\x079\x02\x02\u02F0" +
 		"\u02F2\x03\x02\x02\x02\u02F1\u02E8\x03\x02\x02\x02\u02F1\u02ED\x03\x02" +
 		"\x02\x02\u02F2\x8B\x03\x02\x02\x02\u02F3\u02F6\x05\x8EH\x02\u02F4\u02F6" +
 		"\x05\x90I\x02\u02F5\u02F3\x03\x02\x02\x02\u02F5\u02F4\x03\x02\x02\x02" +
 		"\u02F6\x8D\x03\x02\x02\x02\u02F7\u02F8\x07\n\x02\x02\u02F8\u02F9\x05\x12" +
 		"\n\x02\u02F9\u02FB\x05\x96L\x02\u02FA\u02FC\x05\x16\f\x02\u02FB\u02FA" +
 		"\x03\x02\x02\x02\u02FB\u02FC\x03\x02\x02\x02\u02FC\x8F\x03\x02\x02\x02" +
-		"\u02FD\u02FE\x07\n\x02\x02\u02FE\u02FF\x075\x02\x02\u02FF\u0300\x05X-" +
-		"\x02\u0300\u0301\x076\x02\x02\u0301\u0310\x03\x02\x02\x02\u0302\u030B" +
-		"\x075\x02\x02\u0303\u0308\x05X-\x02\u0304\u0305\x079\x02\x02\u0305\u0307" +
+		"\u02FD\u02FE\x07\n\x02\x02\u02FE\u02FF\x078\x02\x02\u02FF\u0300\x05X-" +
+		"\x02\u0300\u0301\x079\x02\x02\u0301\u0310\x03\x02\x02\x02\u0302\u030B" +
+		"\x078\x02\x02\u0303\u0308\x05X-\x02\u0304\u0305\x07<\x02\x02\u0305\u0307" +
 		"\x05X-\x02\u0306\u0304\x03\x02\x02\x02\u0307\u030A\x03\x02\x02\x02\u0308" +
 		"\u0306\x03\x02\x02\x02\u0308\u0309\x03\x02\x02\x02\u0309\u030C\x03\x02" +
 		"\x02\x02\u030A\u0308\x03\x02\x02\x02\u030B\u0303\x03\x02\x02\x02\u030B" +
-		"\u030C\x03\x02\x02\x02\u030C\u030D\x03\x02\x02\x02\u030D\u0310\x076\x02" +
+		"\u030C\x03\x02\x02\x02\u030C\u030D\x03\x02\x02\x02\u030D\u0310\x079\x02" +
 		"\x02\u030E\u0310\x05\x92J\x02\u030F\u02FD\x03\x02\x02\x02\u030F\u0302" +
 		"\x03\x02\x02\x02\u030F\u030E\x03\x02\x02\x02\u0310\x91\x03\x02\x02\x02" +
-		"\u0311\u0312\x07\n\x02\x02\u0312\u0313\x073\x02\x02\u0313\u0321\x074\x02" +
-		"\x02\u0314\u031D\x073\x02\x02\u0315\u031A\x05\x94K\x02\u0316\u0317\x07" +
-		"9\x02\x02\u0317\u0319\x05\x94K\x02\u0318\u0316\x03\x02\x02\x02\u0319\u031C" +
+		"\u0311\u0312\x07\n\x02\x02\u0312\u0313\x076\x02\x02\u0313\u0321\x077\x02" +
+		"\x02\u0314\u031D\x076\x02\x02\u0315\u031A\x05\x94K\x02\u0316\u0317\x07" +
+		"<\x02\x02\u0317\u0319\x05\x94K\x02\u0318\u0316\x03\x02\x02\x02\u0319\u031C" +
 		"\x03\x02\x02\x02\u031A\u0318\x03\x02\x02\x02\u031A\u031B\x03\x02\x02\x02" +
 		"\u031B\u031E\x03\x02\x02\x02\u031C\u031A\x03\x02\x02\x02\u031D\u0315\x03" +
 		"\x02\x02\x02\u031D\u031E\x03\x02\x02\x02\u031E\u031F\x03\x02\x02\x02\u031F" +
-		"\u0321\x074\x02\x02\u0320\u0311\x03\x02\x02\x02\u0320\u0314\x03\x02\x02" +
+		"\u0321\x077\x02\x02\u0320\u0311\x03\x02\x02\x02\u0320\u0314\x03\x02\x02" +
 		"\x02\u0321\x93\x03\x02\x02\x02\u0322\u0323\x05\x82B\x02\u0323\u0324\x07" +
-		">\x02\x02\u0324\u0325\x05X-\x02\u0325\x95\x03\x02\x02\x02\u0326\u0328" +
-		"\x077\x02\x02\u0327\u0329\x05\x98M\x02\u0328\u0327\x03\x02\x02\x02\u0328" +
-		"\u0329\x03\x02\x02\x02\u0329\u032A\x03\x02\x02\x02\u032A\u032B\x078\x02" +
-		"\x02\u032B\x97\x03\x02\x02\x02\u032C\u0331\x05X-\x02\u032D\u032E\x079" +
+		"A\x02\x02\u0324\u0325\x05X-\x02\u0325\x95\x03\x02\x02\x02\u0326\u0328" +
+		"\x07:\x02\x02\u0327\u0329\x05\x98M\x02\u0328\u0327\x03\x02\x02\x02\u0328" +
+		"\u0329\x03\x02\x02\x02\u0329\u032A\x03\x02\x02\x02\u032A\u032B\x07;\x02" +
+		"\x02\u032B\x97\x03\x02\x02\x02\u032C\u0331\x05X-\x02\u032D\u032E\x07<" +
 		"\x02\x02\u032E\u0330\x05X-\x02\u032F\u032D\x03\x02\x02\x02\u0330\u0333" +
 		"\x03\x02\x02\x02\u0331\u032F\x03\x02\x02\x02\u0331\u0332\x03\x02\x02\x02" +
 		"\u0332\x99\x03\x02\x02\x02\u0333\u0331\x03\x02\x02\x02\u0334\u0336\x05" +
 		"\x9CO\x02\u0335\u0334\x03\x02\x02\x02\u0335\u0336\x03\x02\x02\x02\u0336" +
-		"\u0338\x03\x02\x02\x02\u0337\u0339\x07\x15\x02\x02\u0338\u0337\x03\x02" +
+		"\u0338\x03\x02\x02\x02\u0337\u0339\x07\x16\x02\x02\u0338\u0337\x03\x02" +
 		"\x02\x02\u0338\u0339\x03\x02\x02\x02\u0339\u033B\x03\x02\x02\x02\u033A" +
-		"\u033C\x07\x14\x02\x02\u033B\u033A\x03\x02\x02\x02\u033B\u033C\x03\x02" +
-		"\x02\x02\u033C\x9B\x03\x02\x02\x02\u033D\u033E\x077\x02\x02\u033E\u033F" +
-		"\x05\x9EP\x02\u033F\u0340\x078\x02\x02\u0340\x9D\x03\x02\x02\x02\u0341" +
-		"\u0342\x07\x06\x02\x02\u0342\u0343\x05\x86D\x02\u0343\x9F\x03\x02\x02" +
-		"\x02\u0344\u0349\x05\xA2R\x02\u0345\u0346\x07\x03\x02\x02\u0346\u0348" +
-		"\x05\xA2R\x02\u0347\u0345\x03\x02\x02\x02\u0348\u034B\x03\x02\x02\x02" +
-		"\u0349\u0347\x03\x02\x02\x02\u0349\u034A\x03\x02\x02\x02\u034A\xA1\x03" +
-		"\x02\x02\x02\u034B\u0349\x03\x02\x02\x02\u034C\u034D\x05\xA4S\x02\u034D" +
-		"\xA3\x03\x02\x02\x02\u034E\u034F\x07Y\x02\x02\u034F\xA5\x03\x02\x02\x02" +
-		"\u0350\u035B\x07[\x02\x02\u0351\u035B\x07Z\x02\x02\u0352\u035B\x07]\x02" +
-		"\x02\u0353\u035B\x07^\x02\x02\u0354\u035B\x07\\\x02\x02\u0355\u035B\x07" +
-		"_\x02\x02\u0356\u035B\x05\x04\x03\x02\u0357\u035B\x07(\x02\x02\u0358\u035B" +
-		"\x07)\x02\x02\u0359\u035B\x07\x12\x02\x02\u035A\u0350\x03\x02\x02\x02" +
-		"\u035A\u0351\x03\x02\x02\x02\u035A\u0352\x03\x02\x02\x02\u035A\u0353\x03" +
-		"\x02\x02\x02\u035A\u0354\x03\x02\x02\x02\u035A\u0355\x03\x02\x02\x02\u035A" +
-		"\u0356\x03\x02\x02\x02\u035A\u0357\x03\x02\x02\x02\u035A\u0358\x03\x02" +
-		"\x02\x02\u035A\u0359\x03\x02\x02\x02\u035B\xA7\x03\x02\x02\x02X\xAB\xB4" +
-		"\xC1\xC7\xD7\xE0\xE6\xEE\xF9\u0101\u010B\u0111\u0118\u011F\u012A\u0136" +
-		"\u0140\u0147\u0150\u0158\u0162\u0167\u016B\u0173\u0176\u0179\u0183\u0199" +
-		"\u01A2\u01A7\u01B1\u01B6\u01BD\u01C6\u01D1\u01D7\u01E3\u01E8\u01EC\u01F0" +
-		"\u01F7\u01FE\u020C\u0212\u0226\u022E\u0235\u023D\u0245\u024D\u0255\u025D" +
-		"\u0263\u0268\u0270\u0279\u0281\u028B\u0292\u029A\u02A3\u02B1\u02BB\u02BF" +
-		"\u02C1\u02C6\u02CE\u02DB\u02E6\u02EB\u02F1\u02F5\u02FB\u0308\u030B\u030F" +
-		"\u031A\u031D\u0320\u0328\u0331\u0335\u0338\u033B\u0349\u035A";
+		"\u033C\x07\x17\x02\x02\u033B\u033A\x03\x02\x02\x02\u033B\u033C\x03\x02" +
+		"\x02\x02\u033C\u033E\x03\x02\x02\x02\u033D\u033F\x07\x18\x02\x02\u033E" +
+		"\u033D\x03\x02\x02\x02\u033E\u033F\x03\x02\x02\x02\u033F\u0341\x03\x02" +
+		"\x02\x02\u0340\u0342\x07\x15\x02\x02\u0341\u0340\x03\x02\x02\x02\u0341" +
+		"\u0342\x03\x02\x02\x02\u0342\u0344\x03\x02\x02\x02\u0343\u0345\x07\x14" +
+		"\x02\x02\u0344\u0343\x03\x02\x02\x02\u0344\u0345\x03\x02\x02\x02\u0345" +
+		"\x9B\x03\x02\x02\x02\u0346\u0347\x07:\x02\x02\u0347\u0348\x05\x9EP\x02" +
+		"\u0348\u0349\x07;\x02\x02\u0349\x9D\x03\x02\x02\x02\u034A\u034B\x07\x06" +
+		"\x02\x02\u034B\u034C\x05\x86D\x02\u034C\x9F\x03\x02\x02\x02\u034D\u0352" +
+		"\x05\xA2R\x02\u034E\u034F\x07\x03\x02\x02\u034F\u0351\x05\xA2R\x02\u0350" +
+		"\u034E\x03\x02\x02\x02\u0351\u0354\x03\x02\x02\x02\u0352\u0350\x03\x02" +
+		"\x02\x02\u0352\u0353\x03\x02\x02\x02\u0353\xA1\x03\x02\x02\x02\u0354\u0352" +
+		"\x03\x02\x02\x02\u0355\u0356\x05\xA4S\x02\u0356\xA3\x03\x02\x02\x02\u0357" +
+		"\u0358\x07\\\x02\x02\u0358\xA5\x03\x02\x02\x02\u0359\u0364\x07^\x02\x02" +
+		"\u035A\u0364\x07]\x02\x02\u035B\u0364\x07`\x02\x02\u035C\u0364\x07a\x02" +
+		"\x02\u035D\u0364\x07_\x02\x02\u035E\u0364\x07b\x02\x02\u035F\u0364\x05" +
+		"\x04\x03\x02\u0360\u0364\x07+\x02\x02\u0361\u0364\x07,\x02\x02\u0362\u0364" +
+		"\x07\x12\x02\x02\u0363\u0359\x03\x02\x02\x02\u0363\u035A\x03\x02\x02\x02" +
+		"\u0363\u035B\x03\x02\x02\x02\u0363\u035C\x03\x02\x02\x02\u0363\u035D\x03" +
+		"\x02\x02\x02\u0363\u035E\x03\x02\x02\x02\u0363\u035F\x03\x02\x02\x02\u0363" +
+		"\u0360\x03\x02\x02\x02\u0363\u0361\x03\x02\x02\x02\u0363\u0362\x03\x02" +
+		"\x02\x02\u0364\xA7\x03\x02\x02\x02[\xAB\xB4\xC1\xC7\xD7\xE0\xE6\xEE\xF9" +
+		"\u0101\u010B\u0111\u0118\u011F\u012A\u0136\u0140\u0147\u0150\u0158\u0162" +
+		"\u0167\u016B\u0173\u0176\u0179\u0183\u0199\u01A2\u01A7\u01B1\u01B6\u01BD" +
+		"\u01C6\u01D1\u01D7\u01E3\u01E8\u01EC\u01F0\u01F7\u01FE\u020C\u0212\u0226" +
+		"\u022E\u0235\u023D\u0245\u024D\u0255\u025D\u0263\u0268\u0270\u0279\u0281" +
+		"\u028B\u0292\u029A\u02A3\u02B1\u02BB\u02BF\u02C1\u02C6\u02CE\u02DB\u02E6" +
+		"\u02EB\u02F1\u02F5\u02FB\u0308\u030B\u030F\u031A\u031D\u0320\u0328\u0331" +
+		"\u0335\u0338\u033B\u033E\u0341\u0344\u0352\u0363";
 	public static readonly _serializedATN: string = Utils.join(
 		[
 			MonkeyCParser._serializedATNSegment0,
@@ -4947,14 +4984,6 @@ export class ProgramContext extends ParserRuleContext {
 			listener.exitProgram(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitProgram) {
-			return visitor.visitProgram(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -4992,14 +5021,6 @@ export class StringContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitString) {
 			listener.exitString(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitString) {
-			return visitor.visitString(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5047,14 +5068,6 @@ export class CompilationUnitContext extends ParserRuleContext {
 			listener.exitCompilationUnit(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitCompilationUnit) {
-			return visitor.visitCompilationUnit(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5083,14 +5096,6 @@ export class UsingDeclarationContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitUsingDeclaration) {
 			listener.exitUsingDeclaration(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitUsingDeclaration) {
-			return visitor.visitUsingDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5124,14 +5129,6 @@ export class ModuleDeclarationContext extends ParserRuleContext {
 			listener.exitModuleDeclaration(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitModuleDeclaration) {
-			return visitor.visitModuleDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5156,14 +5153,6 @@ export class ModuleBodyContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitModuleBody) {
 			listener.exitModuleBody(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitModuleBody) {
-			return visitor.visitModuleBody(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5194,14 +5183,6 @@ export class ModuleBodyMembersContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitModuleBodyMembers) {
 			listener.exitModuleBodyMembers(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitModuleBodyMembers) {
-			return visitor.visitModuleBodyMembers(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5243,14 +5224,6 @@ export class ModuleBodyMemberContext extends ParserRuleContext {
 			listener.exitModuleBodyMember(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitModuleBodyMember) {
-			return visitor.visitModuleBodyMember(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5282,14 +5255,6 @@ export class FullyQualifiedReferenceExpressionContext extends ParserRuleContext 
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitFullyQualifiedReferenceExpression) {
 			listener.exitFullyQualifiedReferenceExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitFullyQualifiedReferenceExpression) {
-			return visitor.visitFullyQualifiedReferenceExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5327,14 +5292,6 @@ export class ClassDeclarationContext extends ParserRuleContext {
 			listener.exitClassDeclaration(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitClassDeclaration) {
-			return visitor.visitClassDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5359,14 +5316,6 @@ export class ClassBodyContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitClassBody) {
 			listener.exitClassBody(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitClassBody) {
-			return visitor.visitClassBody(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5397,14 +5346,6 @@ export class ClassBodyMembersContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitClassBodyMembers) {
 			listener.exitClassBodyMembers(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitClassBodyMembers) {
-			return visitor.visitClassBodyMembers(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5441,14 +5382,6 @@ export class ClassBodyMemberContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitClassBodyMember) {
 			listener.exitClassBodyMember(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitClassBodyMember) {
-			return visitor.visitClassBodyMember(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5496,14 +5429,6 @@ export class EnumDeclarationContext extends ParserRuleContext {
 			listener.exitEnumDeclaration(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitEnumDeclaration) {
-			return visitor.visitEnumDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5526,14 +5451,6 @@ export class MaybeSignedIntegerContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitMaybeSignedInteger) {
 			listener.exitMaybeSignedInteger(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitMaybeSignedInteger) {
-			return visitor.visitMaybeSignedInteger(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5562,14 +5479,6 @@ export class EnumConstantContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitEnumConstant) {
 			listener.exitEnumConstant(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitEnumConstant) {
-			return visitor.visitEnumConstant(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5603,14 +5512,6 @@ export class ConstDeclarationContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitConstDeclaration) {
 			listener.exitConstDeclaration(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitConstDeclaration) {
-			return visitor.visitConstDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5657,14 +5558,6 @@ export class FieldDeclarationListContext extends ParserRuleContext {
 			listener.exitFieldDeclarationList(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitFieldDeclarationList) {
-			return visitor.visitFieldDeclarationList(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5687,14 +5580,6 @@ export class FieldDeclarationContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitFieldDeclaration) {
 			listener.exitFieldDeclaration(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitFieldDeclaration) {
-			return visitor.visitFieldDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5731,14 +5616,6 @@ export class FunctionDeclarationContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitFunctionDeclaration) {
 			listener.exitFunctionDeclaration(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitFunctionDeclaration) {
-			return visitor.visitFunctionDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5780,14 +5657,6 @@ export class FormalParameterDeclarationsContext extends ParserRuleContext {
 			listener.exitFormalParameterDeclarations(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitFormalParameterDeclarations) {
-			return visitor.visitFormalParameterDeclarations(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5820,14 +5689,6 @@ export class BlockContext extends ParserRuleContext {
 			listener.exitBlock(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitBlock) {
-			return visitor.visitBlock(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5854,14 +5715,6 @@ export class BlockStatementContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitBlockStatement) {
 			listener.exitBlockStatement(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitBlockStatement) {
-			return visitor.visitBlockStatement(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5904,14 +5757,6 @@ export class VariableDeclarationListContext extends ParserRuleContext {
 			listener.exitVariableDeclarationList(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitVariableDeclarationList) {
-			return visitor.visitVariableDeclarationList(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -5934,14 +5779,6 @@ export class VariableDeclarationContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitVariableDeclaration) {
 			listener.exitVariableDeclaration(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitVariableDeclaration) {
-			return visitor.visitVariableDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -5990,14 +5827,6 @@ export class VarOrFieldDeclarationContext extends ParserRuleContext {
 			listener.exitVarOrFieldDeclaration(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitVarOrFieldDeclaration) {
-			return visitor.visitVarOrFieldDeclaration(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6023,14 +5852,6 @@ export class VariableInitializerContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitVariableInitializer) {
 			listener.exitVariableInitializer(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitVariableInitializer) {
-			return visitor.visitVariableInitializer(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6072,14 +5893,6 @@ export class ArrayInitializerContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitArrayInitializer) {
 			listener.exitArrayInitializer(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitArrayInitializer) {
-			return visitor.visitArrayInitializer(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6147,14 +5960,6 @@ export class StatementContext extends ParserRuleContext {
 			listener.exitStatement(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitStatement) {
-			return visitor.visitStatement(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6183,14 +5988,6 @@ export class SwitchBlockStatementGroupsContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitSwitchBlockStatementGroups) {
 			listener.exitSwitchBlockStatementGroups(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitSwitchBlockStatementGroups) {
-			return visitor.visitSwitchBlockStatementGroups(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6226,14 +6023,6 @@ export class SwitchBlockStatementGroupContext extends ParserRuleContext {
 			listener.exitSwitchBlockStatementGroup(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitSwitchBlockStatementGroup) {
-			return visitor.visitSwitchBlockStatementGroup(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6259,14 +6048,6 @@ export class SwitchLabelContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitSwitchLabel) {
 			listener.exitSwitchLabel(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitSwitchLabel) {
-			return visitor.visitSwitchLabel(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6304,14 +6085,6 @@ export class TryStatementContext extends ParserRuleContext {
 			listener.exitTryStatement(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitTryStatement) {
-			return visitor.visitTryStatement(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6340,14 +6113,6 @@ export class CatchesContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitCatches) {
 			listener.exitCatches(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitCatches) {
-			return visitor.visitCatches(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6380,14 +6145,6 @@ export class CatchClauseContext extends ParserRuleContext {
 			listener.exitCatchClause(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitCatchClause) {
-			return visitor.visitCatchClause(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6414,14 +6171,6 @@ export class CatchParameterContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitCatchParameter) {
 			listener.exitCatchParameter(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitCatchParameter) {
-			return visitor.visitCatchParameter(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6469,14 +6218,6 @@ export class ForStatementContext extends ParserRuleContext {
 			listener.exitForStatement(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitForStatement) {
-			return visitor.visitForStatement(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6502,14 +6243,6 @@ export class ForInitContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitForInit) {
 			listener.exitForInit(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitForInit) {
-			return visitor.visitForInit(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6551,14 +6284,6 @@ export class ExpressionListContext extends ParserRuleContext {
 			listener.exitExpressionList(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitExpressionList) {
-			return visitor.visitExpressionList(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6585,14 +6310,6 @@ export class ParExpressionContext extends ParserRuleContext {
 			listener.exitParExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitParExpression) {
-			return visitor.visitParExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6616,14 +6333,6 @@ export class ThisExpressionContext extends ParserRuleContext {
 			listener.exitThisExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitThisExpression) {
-			return visitor.visitThisExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6644,14 +6353,6 @@ export class BlingExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitBlingExpression) {
 			listener.exitBlingExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitBlingExpression) {
-			return visitor.visitBlingExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6684,14 +6385,6 @@ export class ReferenceOrThisExpressionContext extends ParserRuleContext {
 			listener.exitReferenceOrThisExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitReferenceOrThisExpression) {
-			return visitor.visitReferenceOrThisExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6720,14 +6413,6 @@ export class ExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitExpression) {
 			listener.exitExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitExpression) {
-			return visitor.visitExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6777,14 +6462,6 @@ export class AssignmentOperatorContext extends ParserRuleContext {
 			listener.exitAssignmentOperator(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitAssignmentOperator) {
-			return visitor.visitAssignmentOperator(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6815,14 +6492,6 @@ export class ConditionalExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitConditionalExpression) {
 			listener.exitConditionalExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitConditionalExpression) {
-			return visitor.visitConditionalExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -6873,14 +6542,6 @@ export class ConditionalOrExpressionContext extends ParserRuleContext {
 			listener.exitConditionalOrExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitConditionalOrExpression) {
-			return visitor.visitConditionalOrExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6929,14 +6590,6 @@ export class ConditionalAndExpressionContext extends ParserRuleContext {
 			listener.exitConditionalAndExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitConditionalAndExpression) {
-			return visitor.visitConditionalAndExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -6974,14 +6627,6 @@ export class InclusiveOrExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitInclusiveOrExpression) {
 			listener.exitInclusiveOrExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitInclusiveOrExpression) {
-			return visitor.visitInclusiveOrExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7023,14 +6668,6 @@ export class ExclusiveOrExpressionContext extends ParserRuleContext {
 			listener.exitExclusiveOrExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitExclusiveOrExpression) {
-			return visitor.visitExclusiveOrExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7068,14 +6705,6 @@ export class AndExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitAndExpression) {
 			listener.exitAndExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitAndExpression) {
-			return visitor.visitAndExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7126,14 +6755,6 @@ export class EqualityExpressionContext extends ParserRuleContext {
 			listener.exitEqualityExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitEqualityExpression) {
-			return visitor.visitEqualityExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7162,14 +6783,6 @@ export class HasExpressionContext extends ParserRuleContext {
 			listener.exitHasExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitHasExpression) {
-			return visitor.visitHasExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7196,14 +6809,6 @@ export class InstanceOfExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitInstanceOfExpression) {
 			listener.exitInstanceOfExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitInstanceOfExpression) {
-			return visitor.visitInstanceOfExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7245,14 +6850,6 @@ export class RelationalExpressionContext extends ParserRuleContext {
 			listener.exitRelationalExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitRelationalExpression) {
-			return visitor.visitRelationalExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7275,14 +6872,6 @@ export class RelationalOpContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitRelationalOp) {
 			listener.exitRelationalOp(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitRelationalOp) {
-			return visitor.visitRelationalOp(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7324,14 +6913,6 @@ export class ShiftExpressionContext extends ParserRuleContext {
 			listener.exitShiftExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitShiftExpression) {
-			return visitor.visitShiftExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7369,14 +6950,6 @@ export class ShiftOpContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitShiftOp) {
 			listener.exitShiftOp(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitShiftOp) {
-			return visitor.visitShiftOp(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7425,14 +6998,6 @@ export class AdditiveExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitAdditiveExpression) {
 			listener.exitAdditiveExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitAdditiveExpression) {
-			return visitor.visitAdditiveExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7495,14 +7060,6 @@ export class MultiplicativeExpressionContext extends ParserRuleContext {
 			listener.exitMultiplicativeExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitMultiplicativeExpression) {
-			return visitor.visitMultiplicativeExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7542,14 +7099,6 @@ export class BitwiseExpressionContext extends ParserRuleContext {
 			listener.exitBitwiseExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitBitwiseExpression) {
-			return visitor.visitBitwiseExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7572,14 +7121,6 @@ export class BitwiseOperatorContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitBitwiseOperator) {
 			listener.exitBitwiseOperator(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitBitwiseOperator) {
-			return visitor.visitBitwiseOperator(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7611,14 +7152,6 @@ export class UnaryExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitUnaryExpression) {
 			listener.exitUnaryExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitUnaryExpression) {
-			return visitor.visitUnaryExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7659,14 +7192,6 @@ export class UnaryExpressionNotPlusMinusContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitUnaryExpressionNotPlusMinus) {
 			listener.exitUnaryExpressionNotPlusMinus(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitUnaryExpressionNotPlusMinus) {
-			return visitor.visitUnaryExpressionNotPlusMinus(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7711,14 +7236,6 @@ export class PrimaryContext extends ParserRuleContext {
 			listener.exitPrimary(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitPrimary) {
-			return visitor.visitPrimary(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7744,14 +7261,6 @@ export class QualifiedReferenceExpressionContext extends ParserRuleContext {
 			listener.exitQualifiedReferenceExpression(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitQualifiedReferenceExpression) {
-			return visitor.visitQualifiedReferenceExpression(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7774,14 +7283,6 @@ export class ReferenceExpressionContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitReferenceExpression) {
 			listener.exitReferenceExpression(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitReferenceExpression) {
-			return visitor.visitReferenceExpression(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7839,14 +7340,6 @@ export class IdentifierSuffixContext extends ParserRuleContext {
 			listener.exitIdentifierSuffix(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitIdentifierSuffix) {
-			return visitor.visitIdentifierSuffix(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7878,14 +7371,6 @@ export class SelectorContext extends ParserRuleContext {
 			listener.exitSelector(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitSelector) {
-			return visitor.visitSelector(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -7911,14 +7396,6 @@ export class CreatorContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitCreator) {
 			listener.exitCreator(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitCreator) {
-			return visitor.visitCreator(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -7950,14 +7427,6 @@ export class ObjectCreatorContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitObjectCreator) {
 			listener.exitObjectCreator(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitObjectCreator) {
-			return visitor.visitObjectCreator(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -8005,14 +7474,6 @@ export class ArrayCreatorContext extends ParserRuleContext {
 			listener.exitArrayCreator(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitArrayCreator) {
-			return visitor.visitArrayCreator(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8055,14 +7516,6 @@ export class DictionaryCreatorContext extends ParserRuleContext {
 			listener.exitDictionaryCreator(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitDictionaryCreator) {
-			return visitor.visitDictionaryCreator(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8091,14 +7544,6 @@ export class KeyValueInitializerContext extends ParserRuleContext {
 			listener.exitKeyValueInitializer(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitKeyValueInitializer) {
-			return visitor.visitKeyValueInitializer(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8123,14 +7568,6 @@ export class ArgumentsContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitArguments) {
 			listener.exitArguments(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitArguments) {
-			return visitor.visitArguments(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -8172,14 +7609,6 @@ export class ArgumentsListContext extends ParserRuleContext {
 			listener.exitArgumentsList(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitArgumentsList) {
-			return visitor.visitArgumentsList(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8187,6 +7616,9 @@ export class ModifiersContext extends ParserRuleContext {
 	public annotation(): AnnotationContext | undefined {
 		return this.tryGetRuleContext(0, AnnotationContext);
 	}
+	public PRIVATE(): TerminalNode | undefined { return this.tryGetToken(MonkeyCParser.PRIVATE, 0); }
+	public PROTECTED(): TerminalNode | undefined { return this.tryGetToken(MonkeyCParser.PROTECTED, 0); }
+	public PUBLIC(): TerminalNode | undefined { return this.tryGetToken(MonkeyCParser.PUBLIC, 0); }
 	public STATIC(): TerminalNode | undefined { return this.tryGetToken(MonkeyCParser.STATIC, 0); }
 	public HIDDEN_TOKEN(): TerminalNode | undefined { return this.tryGetToken(MonkeyCParser.HIDDEN_TOKEN, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -8204,14 +7636,6 @@ export class ModifiersContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitModifiers) {
 			listener.exitModifiers(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitModifiers) {
-			return visitor.visitModifiers(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -8240,14 +7664,6 @@ export class AnnotationContext extends ParserRuleContext {
 			listener.exitAnnotation(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitAnnotation) {
-			return visitor.visitAnnotation(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8271,14 +7687,6 @@ export class SymbolContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitSymbol) {
 			listener.exitSymbol(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitSymbol) {
-			return visitor.visitSymbol(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -8320,14 +7728,6 @@ export class QualifiedNameContext extends ParserRuleContext {
 			listener.exitQualifiedName(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitQualifiedName) {
-			return visitor.visitQualifiedName(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8352,14 +7752,6 @@ export class ComponentNameContext extends ParserRuleContext {
 			listener.exitComponentName(this);
 		}
 	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitComponentName) {
-			return visitor.visitComponentName(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
 }
 
 
@@ -8380,14 +7772,6 @@ export class IdContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitId) {
 			listener.exitId(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitId) {
-			return visitor.visitId(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -8421,14 +7805,6 @@ export class LiteralContext extends ParserRuleContext {
 	public exitRule(listener: MonkeyCListener): void {
 		if (listener.exitLiteral) {
 			listener.exitLiteral(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MonkeyCVisitor<Result>): Result {
-		if (visitor.visitLiteral) {
-			return visitor.visitLiteral(this);
-		} else {
-			return visitor.visitChildren(this);
 		}
 	}
 }

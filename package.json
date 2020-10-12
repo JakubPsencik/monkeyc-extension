@@ -58,7 +58,7 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"test": "node ./out/monkeyc-extension/runTest.js",
-		"antlr4ts": "antlr4ts -visitor src/MonkeyC.g4"
+		"antlr4ts": "antlr4ts -listener src/MonkeyC.g4"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",

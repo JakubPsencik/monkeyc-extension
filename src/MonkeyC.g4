@@ -23,6 +23,9 @@ grammar MonkeyC;
     NATIVE : 'native';
     HIDDEN_TOKEN : 'hidden';
     STATIC : 'static';
+    PRIVATE: 'private';
+    PROTECTED: 'protected';
+    PUBLIC: 'public';
     INSTANCEOF : 'instanceof';
     HAS : 'has';
     IF : 'if';
@@ -448,7 +451,7 @@ argumentsList : expression (COMMA expression)*;// {
 //private argumentsList_recover : !(RPAREN);
 
 // hidden is the same as "protected" in Java -  it says that a variable or function is only accessible to a class or its subclasses:
-modifiers : annotation? STATIC? HIDDEN_TOKEN?;
+modifiers : annotation? PRIVATE? PROTECTED? PUBLIC? STATIC? HIDDEN_TOKEN?;
 
 annotation : LPAREN symbol RPAREN;// {pin=2}
 

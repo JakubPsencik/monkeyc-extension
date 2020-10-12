@@ -1,26 +1,32 @@
 using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
-/*var gDeviceSettings;
-var gSettingsChanged = true;*/
+var gDeviceSettings;
+var gSettingsChanged = true;
 
 class SimpleAnalogApp extends App.AppBase 
 {
 
     function initialize() {
-        /*AppBase.initialize();
+        AppBase.initialize();
 		$.gDeviceSettings = System.getdeviceSettings();
-*/
-        /*var a = 1;
-        var b = 2;*/
-        var c = 2;
-        var x = "x";
-        
+
+        var a = 1;
+        var b = 2;
+        var c = a + b;
+        var array = [1, 2, 3, 4, 5]; 
+        var x;
+
     }
-    
 }
 
-class A {
-
-
+class A
+{
+    private var x;
+    public var y;
+    public function initialize() {
+        me.x = "Hello"; // Set current instance x variable
+        self.y = "Hello"; // Set current instance y variable
+        
+    }
 }

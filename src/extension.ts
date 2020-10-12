@@ -240,7 +240,7 @@ function ParseCode(document: vscode.TextDocument) {
 
 	let caretPosition = getCursorPosition();
 	let symb : ScopedSymbol;
-	symb = new ScopedSymbol("FUNCTION");
+	symb = new ScopedSymbol("VAR");
 
 
 
@@ -251,6 +251,7 @@ function ParseCode(document: vscode.TextDocument) {
 		console.log('index: ',index);
 		let candidates = core.collectCandidates(index);
 		let candidateStrings: string[] = [];
+
 		/*let completions : any = []; 
 		candidates.tokens.forEach((_, k) => {
 			completions.push(parser.vocabulary.getSymbolicName(k)?.toLowerCase());
@@ -259,7 +260,9 @@ function ParseCode(document: vscode.TextDocument) {
 		for(let i = 0; i < completions.length; i++) {
 			console.log(completions[i].toString());
 		}*/
+
 		candidateStrings = getCompletionStrings(parser, candidates, symb);
+
 		/*console.log('candidate strings:\n');
 		candidateStrings.forEach(str => {
 			console.log(str);
