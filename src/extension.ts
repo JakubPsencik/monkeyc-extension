@@ -224,6 +224,14 @@ function ParseCode(document: vscode.TextDocument) {
 	*/
 	let core = new c3.CodeCompletionCore(parser);
 	core.showResult = true;
+	//core.showDebugOutput = true;
+	//core.showRuleStack = true;
+
+	/*core.preferredRules = new Set([ 
+		MonkeyCParser.RULE_componentName,
+		MonkeyCParser.RULE_varOrFieldDeclaration,
+		MonkeyCParser.RULE_variableDeclaration,
+		MonkeyCParser.RULE_variableDeclarationList]);*/
 
 	core.ignoredTokens = new Set([
 		/*			 ID*/
@@ -240,7 +248,7 @@ function ParseCode(document: vscode.TextDocument) {
 
 	let caretPosition = getCursorPosition();
 	let symb : ScopedSymbol;
-	symb = new ScopedSymbol("VAR");
+	//symb = new ScopedSymbol("PLUS");
 
 
 
@@ -252,25 +260,26 @@ function ParseCode(document: vscode.TextDocument) {
 		let candidates = core.collectCandidates(index);
 		let candidateStrings: string[] = [];
 
-		/*let completions : any = []; 
+		let completions : any = []; 
 		candidates.tokens.forEach((_, k) => {
 			completions.push(parser.vocabulary.getSymbolicName(k)?.toLowerCase());
 		});
 		//return completions;
 		for(let i = 0; i < completions.length; i++) {
 			console.log(completions[i].toString());
-		}*/
+		}
 
-		candidateStrings = getCompletionStrings(parser, candidates, symb);
+		//candidateStrings = getCompletionStrings(parser, candidates, symb);
 
 		/*console.log('candidate strings:\n');
 		candidateStrings.forEach(str => {
 			console.log(str);
 		});
 		console.log('----------------------------------------');*/
+		//printCandidates(candidates);
 	}		
 	
-	//printCandidates(candidates);
+	
 }
 
 function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescription[]) {
@@ -338,9 +347,8 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 				break;
 			}
 
-			case MonkeyCParser.RULE_varOrFieldDeclaration: {
-
-				let variables = symbol.getSymbolsOfType(c3.FieldSymbol);
+			case MonkeyCParser.RULE_variableDeclarationList: {
+				let variables = symbol.getSymbolsOfType(c3.FieldSymbol);				
 				for (let variable of variables) {
 					variableNames.push(variable.name);
 				}				

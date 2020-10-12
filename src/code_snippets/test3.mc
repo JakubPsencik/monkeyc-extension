@@ -15,7 +15,7 @@ class SimpleAnalogApp extends App.AppBase
         var b = 2;
         var c = a + b;
         var array = [1, 2, 3, 4, 5]; 
-        var x;
+        var x = b +   
 
     }
 }
@@ -26,7 +26,6 @@ class A
     public var y;
     public function initialize() {
         me.x = "Hello"; // Set current instance x variable
-        self.y = "Hello"; // Set current instance y variable
-        
+        self.y = "Hello"; // Set current instance y variable       
     }
 }
