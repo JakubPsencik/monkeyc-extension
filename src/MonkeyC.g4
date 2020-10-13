@@ -1,7 +1,10 @@
 // Define a grammar called Hello
 grammar MonkeyC;
 
-
+options {
+    superClass=MonkeyCBaseParser;
+}
+@header {import { MonkeyCBaseParser } from "../MonkeyCBaseParser";}
 
 
     DOT : '.';
@@ -22,10 +25,10 @@ grammar MonkeyC;
     NULL : 'null';
     NATIVE : 'native';
     HIDDEN_TOKEN : 'hidden';
+    PUBLIC_TOKEN : 'public';
+    PRIVATE_TOKEN : 'private';
+    PROTECTED_TOKEN : 'protected';
     STATIC : 'static';
-    PRIVATE: 'private';
-    PROTECTED: 'protected';
-    PUBLIC: 'public';
     INSTANCEOF : 'instanceof';
     HAS : 'has';
     IF : 'if';
@@ -49,7 +52,7 @@ grammar MonkeyC;
 
     // https://forums.garmin.com/showthread.php?180989-Monkey-C-grammar-questions
     //  Both 'self' and 'me' both refer to 'this'. 'me' is just a holdover and might be removed in the future.
-    THIS : 'this';
+    // THIS : 'this';
     SELF : 'self';
 
     SUPER: 'super';
@@ -109,7 +112,11 @@ grammar MonkeyC;
     SLASH : '/';
 
     // WHITE_SPACE is overwritten by JFlex, this here is only for Live Preview
-    WHITE_SPACE: [\r\n\t\f ]+ -> skip;
+    WhiteSpaces: [\t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN);
+    LineTerminator: [\r\n\u2028\u2029] -> channel(HIDDEN);
+
+    //WS: [\r\n\t\f ]+ -> channel(HIDDEN);
+
     SINGLE_LINE_COMMENT :  '//' ~('!')~[\r\n\u2028\u2029]* -> channel(HIDDEN);
     //SINGLE_LINE_COMMENT='regexp://[^!].*'
     SINGLE_LINE_DOC_COMMENT : '//!' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
@@ -118,7 +125,8 @@ grammar MonkeyC;
     BLOCK_COMMENT : '/*' .*? '*/' -> channel(HIDDEN);
     //BLOCK_COMMENT='regexp:/\*([^*]|\*+[^*/])*(\*+/)?'
 
-    IDENTIFIER : [a-zA-Z$_][a-zA-Z0-9$_]*;
+    IDENTIFIER: [a-zA-Z$_][a-zA-Z0-9$_]*;
+    
     //IDENTIFIER = 'regexp:[a-zA-Z$_][a-zA-Z0-9$_]*'
 
     LONGLITERAL : [0-9]+('l'|'L');
@@ -135,6 +143,8 @@ grammar MonkeyC;
     
     DOUBLELITERAL : [0-9]+|([0-9]*'.'[0-9]+)('d'|'D')?;
     //DOUBLELITERAL = 'regexp:(\d+)?(\.\d+)?[dD]'
+
+
 
 fragment DoubleStringCharacter
     : ~["\\\r\n]
@@ -182,7 +192,7 @@ fragment NonEscapeCharacter
 
 
     //string = "regexp:(\"([^\"\\]|\\.)*\")"
-    CHARLITERAL : '\''[^']*'\'';
+CHARLITERAL : '\'' (~['\\\r\n\u0085\u2028\u2029]) '\'';
     // CHARLITERAL = "regexp:'[^']*'"
   
 
@@ -190,12 +200,12 @@ fragment NonEscapeCharacter
 
 
 
+STRING : '"' DoubleStringCharacter* '"';//'"'([^\"\]|\\.)*\'"';
+
 // ----
 
 program : compilationUnit* EOF;
 
-
-string : '"' DoubleStringCharacter* '"';//'"'([^\"\]|\\.)*\'"';
 
 compilationUnit : usingDeclaration
                           | moduleDeclaration
@@ -250,7 +260,7 @@ enumConstant : componentName (EQ maybeSignedInteger)?;// {
 //}
 
 // Constants must be declared at the module or class level; they cannot be declared within a function.
-constDeclaration : modifiers CONST componentName (EQ expression)? SEMI;// {
+constDeclaration : modifiers CONST componentName (EQ singleExpression)? SEMI;// {
 //pin=2
 //mixin="io.github.liias.monkey.lang.psi.impl.AbstractMonkeyComponentImpl"
 //implements="io.github.liias.monkey.lang.psi.MonkeyComponent"
@@ -261,8 +271,7 @@ fieldDeclarationList : modifiers VAR fieldDeclaration (COMMA fieldDeclaration)* 
 fieldDeclaration : varOrFieldDeclaration;
 
 // function
-functionDeclaration : modifiers FUNCTION componentName
- LPAREN formalParameterDeclarations? RPAREN block;// {
+functionDeclaration : modifiers FUNCTION componentName LPAREN formalParameterDeclarations? RPAREN block;// {
 //pin=3
 //mixin="io.github.liias.monkey.lang.psi.impl.AbstractMonkeyComponentImpl"
 //implements="io.github.liias.monkey.lang.psi.MonkeyComponent"
@@ -284,30 +293,32 @@ varOrFieldDeclaration : componentName (LBRACKET RBRACKET)* (EQ variableInitializ
 //implements="io.github.liias.monkey.lang.psi.MonkeyComponent"
 //}
 
-variableInitializer : arrayInitializer | expression;
+variableInitializer : arrayInitializer | singleExpression;
 
 arrayInitializer : LBRACE (variableInitializer (COMMA variableInitializer)*)? COMMA? RBRACE;
 
 statement : block
-            | IF parExpression statement (ELSE statement)?
+            | IF LPAREN singleExpression RPAREN statement (ELSE statement)?
             | forStatement
-            | WHILE parExpression statement
-            | DO statement WHILE parExpression SEMI
+            | WHILE LPAREN singleExpression RPAREN statement
+            | DO statement WHILE LPAREN singleExpression RPAREN SEMI
             | tryStatement
-            | SWITCH parExpression LBRACE switchBlockStatementGroups RBRACE
-            | RETURN expression? SEMI
-            | THROW expression SEMI
+            | SWITCH LPAREN singleExpression RPAREN LBRACE switchBlockStatementGroups RBRACE
+            | RETURN singleExpression? SEMI
+            | THROW singleExpression SEMI
             | BREAK referenceExpression? SEMI
             | CONTINUE referenceExpression? SEMI
-            | expression SEMI
+            //| singleExpression (SEMI | {this.missingSemi()})
+            | singleExpression (SEMI | {this.notifyErrorListeners("Missing ';'");})
             | IDENTIFIER COLON statement
             | SEMI;
+
 
 switchBlockStatementGroups : (switchBlockStatementGroup)*;
 
 switchBlockStatementGroup : switchLabel (blockStatement)*;
 
-switchLabel : CASE expression COLON | DEFAULT COLON;
+switchLabel : CASE singleExpression COLON | DEFAULT COLON;
 
 tryStatement : TRY block (catches FINALLY block | catches | FINALLY block);
 
@@ -317,17 +328,17 @@ catchClause : CATCH LPAREN catchParameter RPAREN block;
 
 catchParameter : id (INSTANCEOF qualifiedName)?;
 
-forStatement : FOR LPAREN forInit? SEMI expression? SEMI expressionList? RPAREN statement;
+forStatement : FOR LPAREN forInit? SEMI singleExpression? SEMI expressionList? RPAREN statement;
 
 forInit : variableDeclarationList
           | expressionList;
 
 // expressions
-expressionList : expression (COMMA expression)*;
+expressionList : singleExpression (COMMA singleExpression)*;
 
-parExpression : LPAREN expression RPAREN;
 
-thisExpression : THIS | SELF;// {
+
+thisExpression : /*THIS | */SELF;// {
 //mixin="io.github.liias.monkey.lang.psi.impl.MonkeyReferenceImpl"
 //implements="io.github.liias.monkey.lang.psi.MonkeyReference"
 //}
@@ -341,10 +352,51 @@ referenceOrThisExpression : referenceExpression
                                     | thisExpression
                                     | blingExpression;
 
-expression : conditionalExpression (assignmentOperator expression)?;
+//expression : singleExpression;
+// transparentElementAccessExpression
 
-assignmentOperator : EQ
-                     | PLUSEQ
+
+singleExpression :
+    singleExpression PLUSPLUS                                               # PostIncrementExpression
+    | singleExpression SUBSUB                                               # PostDecreaseExpression
+    | singleExpression LBRACKET singleExpression RBRACKET                   # ElementAccessExpression
+    //| singleExpression DOT IDENTIFIER                                       # MemberDotExpression
+    //| singleExpression arguments                                            # ArgumentsExpression
+    | singleExpression QUES singleExpression COLON singleExpression         # TernaryExpression
+    | singleExpression (BARBAR | OR) singleExpression                       # LogicalOrExpression
+    | singleExpression (AMPAMP | AND) singleExpression                      # LogicalAndExpression
+    | singleExpression BAR singleExpression                                 # BitOrExpression
+    | singleExpression CARET singleExpression                               # BitXOrExpression
+    | singleExpression AMP singleExpression                                 # BitAndExpression
+    | singleExpression (EQEQ | BANGEQ) singleExpression                     # EqualityExpression
+    | singleExpression HAS symbol                                           # HasExpression
+    | singleExpression INSTANCEOF qualifiedName                             # InstanceofExpression
+    | singleExpression relationalOp singleExpression                        # RelationalExpression
+    | singleExpression shiftOp singleExpression                             # BitShiftExpression
+    | singleExpression (PLUS | SUB) singleExpression                        # AdditiveExpression
+    | singleExpression (STAR | SLASH | PERCENT) singleExpression            # MultiplicativeExpression
+    | singleExpression bitwiseOperator singleExpression                     # BitwiseExpression
+    | PLUS singleExpression                                                 # UnaryPlusExpression
+    | SUB singleExpression                                                  # UnaryMinusExpression
+    | PLUSPLUS singleExpression                                             # PreIncrementExpression
+    | SUBSUB singleExpression                                               # PreDecreaseExpression
+    | TILDE singleExpression                                                # BitNotExpression
+    | BANG singleExpression                                                 # NotExpression
+    | <assoc=right> singleExpression EQ singleExpression                    # AssignmentExpression
+    | <assoc=right> singleExpression assignmentOperator singleExpression    # AssignmentOperatorExpression
+    | LPAREN singleExpression RPAREN                                        # ParenthesizedExpression
+    | fullyQualifiedReferenceExpression ({this.isClassAccess()}?classAccess | methodInvocationExpression | /* epsilon */) # GeneralFullyQualifiedReferenceExpression
+    | literal                                                               # LiteralExpression
+    | symbol                                                                # SymbolExpression
+    | objectCreator                                                         # ObjectCreatorExpression
+    | arrayCreator                                                          # ArrayCreatorExpression
+    | VOID DOT CLASS                                                        # VoidDotClassExpression
+;
+
+classAccess: DOT CLASS;
+methodInvocationExpression: (DOT IDENTIFIER | DOT SUPER)? methodInvocation;
+
+assignmentOperator : PLUSEQ
                      | SUBEQ
                      | STAREQ
                      | SLASHEQ
@@ -355,62 +407,20 @@ assignmentOperator : EQ
                      | GT GT GT EQ
                      | GT GT EQ;
 
-// optional ternary operator in the end
-conditionalExpression : conditionalOrExpression (QUES expression COLON conditionalExpression)?;
-
-conditionalOrExpression : conditionalAndExpression ((BARBAR | OR) conditionalAndExpression)*;
-
-conditionalAndExpression : inclusiveOrExpression ((AMPAMP | AND) inclusiveOrExpression)*;
-
-inclusiveOrExpression : exclusiveOrExpression (BAR exclusiveOrExpression)*;
-
-exclusiveOrExpression : andExpression (CARET andExpression)*;
-
-andExpression : equalityExpression (AMP equalityExpression)*;
-
-equalityExpression : hasExpression ((EQEQ | BANGEQ) hasExpression)*;
-
-hasExpression : instanceOfExpression (HAS symbol)?;
-
-instanceOfExpression : relationalExpression (INSTANCEOF qualifiedName)?;
-
-relationalExpression : shiftExpression (relationalOp shiftExpression)*;
-
 relationalOp : LT EQ | GT EQ | LT | GT;
-
-shiftExpression : additiveExpression (shiftOp additiveExpression)*;
 
 shiftOp : LT LT | GT GT GT | GT GT;
 
-additiveExpression : multiplicativeExpression ((PLUS | SUB) multiplicativeExpression)*;
-
-multiplicativeExpression : bitwiseExpression ((STAR | SLASH | PERCENT) unaryExpression)*;
-
-bitwiseExpression : unaryExpression (bitwiseOperator unaryExpression)*;
-
-bitwiseOperator : AMP | CARET| BAR;
-
-/**
- * NOTE: for '+' and '-', if the next token is int or long integral, then it's not a unary expression.
- *       it's a literal with signed value. INTLITERAL AND LONG LITERAL are added here for this.
- */
-unaryExpression : PLUS unaryExpression
-                  | SUB unaryExpression
-                  | PLUSPLUS unaryExpression
-                  | SUBSUB unaryExpression
-                  | unaryExpressionNotPlusMinus;
-
-unaryExpressionNotPlusMinus : TILDE unaryExpression
-                                      | BANG unaryExpression
-                                      | primary selector* (PLUSPLUS | SUBSUB)?;
-
-primary : parExpression
-                  | fullyQualifiedReferenceExpression identifierSuffix?
+bitwiseOperator : AMP | CARET | BAR;
+/* 
+primary : singleExpression //LPAREN singleExpression RPAREN
+                  //| methodInvocationOrElementAccess
                   | literal
                   | symbol
-                  | creator
+                  | objectCreator 
+                  | arrayCreator
                   | VOID DOT CLASS;
-
+*/
 qualifiedReferenceExpression : DOT referenceExpression;// {elementType="referenceExpression"}
 
 referenceExpression : id;// {
@@ -418,26 +428,21 @@ referenceExpression : id;// {
 //  implements="io.github.liias.monkey.lang.psi.MonkeyReference"
 //}
 
-identifierSuffix : (LBRACKET expression RBRACKET)+
-                   | arguments
-                   | DOT CLASS
-                   | DOT IDENTIFIER arguments
-                   | DOT SUPER arguments;
 
-selector : DOT IDENTIFIER arguments?
-           | LBRACKET expression RBRACKET;
 
-creator : objectCreator | arrayCreator;
+methodInvocation : arguments;
+
+
 objectCreator : NEW fullyQualifiedReferenceExpression arguments classBody?;// {pin=2}
 
-arrayCreator : NEW LBRACKET expression RBRACKET // new [expression evaluating to integer]
-               | LBRACKET (expression (COMMA expression)* )? RBRACKET // [expression1, expression2, ...]
+arrayCreator : NEW LBRACKET singleExpression RBRACKET // new [expression evaluating to integer]
+               | LBRACKET (singleExpression (COMMA singleExpression)* )? RBRACKET // [expression1, expression2, ...]
                | dictionaryCreator;
 
 dictionaryCreator : NEW LBRACE RBRACE // new {}
                     | LBRACE (keyValueInitializer (COMMA keyValueInitializer)* )? RBRACE; // {"a"=> exp, :b => exp2, ...}
 
-keyValueInitializer : primary EQGT expression;
+keyValueInitializer : singleExpression EQGT singleExpression;
 
 // When invoking parameter info (Ctrl+P) the children are counted here
 // by ParameterInfoUtils.getCurrentParameterIndex(ASTNode, int, IElementType)
@@ -445,13 +450,13 @@ arguments : LPAREN argumentsList? RPAREN;// {
 //pin=1
 //}
 
-argumentsList : expression (COMMA expression)*;// {
+argumentsList : singleExpression (COMMA singleExpression)*;// {
 //recoverWhile="argumentsList_recover"
 //}
 //private argumentsList_recover : !(RPAREN);
 
 // hidden is the same as "protected" in Java -  it says that a variable or function is only accessible to a class or its subclasses:
-modifiers : annotation? PRIVATE? PROTECTED? PUBLIC? STATIC? HIDDEN_TOKEN?;
+modifiers : annotation? STATIC? (HIDDEN_TOKEN | PUBLIC_TOKEN | PROTECTED_TOKEN | PRIVATE_TOKEN)?;
 
 annotation : LPAREN symbol RPAREN;// {pin=2}
 
@@ -471,7 +476,7 @@ literal : INTLITERAL
           | DOUBLELITERAL
           | HEX_LITERAL
           | CHARLITERAL
-          | string
+          | STRING
           | TRUE
           | FALSE
           | NULL;

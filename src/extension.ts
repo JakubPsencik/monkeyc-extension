@@ -2,10 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { ANTLRInputStream, CommonTokenStream, RecognitionException, Recognizer } from 'antlr4ts';
+import { ANTLRInputStream, CommonTokenStream, Parser, RecognitionException, Recognizer } from 'antlr4ts';
 import { MonkeyCLexer } from './MonkeyCLexer';
 import {MonkeycErrorListener} from '../ErrorListener/MonkeycErrorListener';
-import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, ExpressionContext, FieldDeclarationContext, FunctionDeclarationContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
+import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, FieldDeclarationContext, FunctionDeclarationContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
 import { MonkeyCListener } from './MonkeyCListener';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
@@ -94,10 +94,6 @@ class EnterFunctionListener implements MonkeyCListener {
 		//console.log(`Block start line number ${context._start.line}`);		
 	}
 
-	enterExpression(context: ExpressionContext) {
-		//console.log(`Expression start line number ${context._start.line}`);		
-	}
-
 	enterCompilationUnit(context: CompilationUnitContext) {
 		//console.log(`CompilationUnit start line number ${context._start.line}`);		
 	}
@@ -139,6 +135,9 @@ class EnterFunctionListener implements MonkeyCListener {
 export function activate(context: vscode.ExtensionContext) {
 	//highlighting provider
 	
+
+	//vscode.languages.registerCompletionItemProvider
+
 	vscode.languages.registerDocumentFormattingEditProvider("monkeyc", {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
 			const exePackageLocation = path.dirname(clang.location);
@@ -211,27 +210,30 @@ function ParseCode(document: vscode.TextDocument) {
 	lexer.addErrorListener(errorListener);
 	let tokenStream = new CommonTokenStream(lexer);
 	let parser = new MonkeyCParser(tokenStream);
-	parser.buildParseTree = true;
+	/*parser.buildParseTree = true;
 	parser.removeErrorListeners();
-	parser.addErrorListener(errorListener);
+	parser.addErrorListener(errorListener);*/
 
 	let parseTree = parser.program();
 
 	ParseTreeWalker.DEFAULT.walk(listener,parseTree);
-
+	let  tokens= parseTree.ruleContext.getTokens(90);
+	tokens.forEach((t) => {
+		console.log('text: ', t._symbol.text, 'start: ', t.symbol.startIndex, 'end: ', t.symbol.stopIndex);
+	});
 	/*
 	 *  inicialize ANTLR4 Code Completion Core
 	*/
 	let core = new c3.CodeCompletionCore(parser);
 	core.showResult = true;
-	//core.showDebugOutput = true;
-	//core.showRuleStack = true;
+	core.showDebugOutput = true;
+	core.showRuleStack = true;
 
-	/*core.preferredRules = new Set([ 
+	core.preferredRules = new Set([ 
 		MonkeyCParser.RULE_componentName,
 		MonkeyCParser.RULE_varOrFieldDeclaration,
 		MonkeyCParser.RULE_variableDeclaration,
-		MonkeyCParser.RULE_variableDeclarationList]);*/
+		MonkeyCParser.RULE_variableDeclarationList]);
 
 	core.ignoredTokens = new Set([
 		/*			 ID*/
@@ -244,7 +246,7 @@ function ParseCode(document: vscode.TextDocument) {
 		MonkeyCLexer.EQEQ,
 		/*           (                    )*/
 		MonkeyCLexer.LPAREN, MonkeyCLexer.RPAREN,
-	  ]);
+  	]);
 
 	let caretPosition = getCursorPosition();
 	let symb : ScopedSymbol;
@@ -257,13 +259,13 @@ function ParseCode(document: vscode.TextDocument) {
 
 	if (index !== undefined) {
 		console.log('index: ',index);
-		let candidates = core.collectCandidates(index);
+		//let candidates = core.collectCandidates(index);
 		let candidateStrings: string[] = [];
 
 		let completions : any = []; 
-		candidates.tokens.forEach((_, k) => {
+		/*candidates.tokens.forEach((_, k) => {
 			completions.push(parser.vocabulary.getSymbolicName(k)?.toLowerCase());
-		});
+		});*/
 		//return completions;
 		for(let i = 0; i < completions.length; i++) {
 			console.log(completions[i].toString());

@@ -1,6 +1,6 @@
 // Generated from src/MonkeyC.g4 by ANTLR 4.7.3-SNAPSHOT
 
-import { MonkeyCBaseParser } from "./MonkeyCBaseParser";
+import { MonkeyCBaseParser } from "../MonkeyCBaseParser";
 
 import { ATN } from "antlr4ts/atn/ATN";
 import { ATNDeserializer } from "antlr4ts/atn/ATNDeserializer";

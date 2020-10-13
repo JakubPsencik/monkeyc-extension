@@ -13,10 +13,10 @@ class SimpleAnalogApp extends App.AppBase
 
         var a = 1;
         var b = 2;
-        var c = a + b;
+        var c = a     
         var array = [1, 2, 3, 4, 5]; 
-        var x = b +   
-
+        //this.
+        
     }
 }
 

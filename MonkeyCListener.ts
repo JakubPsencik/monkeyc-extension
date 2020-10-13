@@ -1,5 +1,6 @@
 // Generated from src/MonkeyC.g4 by ANTLR 4.7.3-SNAPSHOT
 
+import { MonkeyCBaseParser } from "../MonkeyCBaseParser";
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
