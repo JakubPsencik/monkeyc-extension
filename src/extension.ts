@@ -15,6 +15,7 @@ import * as c3 from 'antlr4-c3';
 import { CodeCompletionCore, ScopedSymbol } from 'antlr4-c3';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
+import { parse } from 'path';
 
 var clang = require("clang-format");
 
@@ -101,6 +102,7 @@ class EnterFunctionListener implements MonkeyCListener {
 	enterVariableDeclaration(context: VariableDeclarationContext) {
 		//console.log(`Variable start line number ${context._start.line}`);
 		// ...
+		//console.log("variable context: ",context.text);
 	}
 
 	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
@@ -115,6 +117,7 @@ class EnterFunctionListener implements MonkeyCListener {
 
 	enterClassBody(context: ClassBodyContext) {
 		//console.log(`Stepping into class on line ${context._start.line}`);
+		//console.log("class body context: ",context.text);
 	}
 
 	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
@@ -129,15 +132,11 @@ class EnterFunctionListener implements MonkeyCListener {
 	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
 	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	let errorListener = new MyErrorListener();
-	let started = true;
 
 
-export function activate(context: vscode.ExtensionContext) {
-	//highlighting provider
-	
+export function activate(context: vscode.ExtensionContext) {	
 
-	//vscode.languages.registerCompletionItemProvider
-
+	//highlight provider
 	vscode.languages.registerDocumentFormattingEditProvider("monkeyc", {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
 			const exePackageLocation = path.dirname(clang.location);
@@ -153,7 +152,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	
-	if (started) {
+	vscode.workspace.onDidOpenTextDocument(() => {
 		vscode.window.showInformationMessage('Extension started!');
 		//parse the edited file after extension starts
 		if (vscode.window.activeTextEditor) {		
@@ -164,10 +163,9 @@ export function activate(context: vscode.ExtensionContext) {
 			UpdateCollection(document,errorListener.getSyntaxErrors());
 			context.subscriptions.push(collection);
 		}
-		started = false;
-	}
-	
-	vscode.workspace.onDidChangeTextDocument((change) => {
+	});
+
+	vscode.workspace.onDidChangeTextDocument(() => {
 		if (vscode.window.activeTextEditor) {
 			errorListener.clearSyntaxErrors();
 			collection.clear();
@@ -186,6 +184,75 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(testFunc,ScanCode);
 
+
+	/*TESTING AUTOCOMPLETE*/
+	/*const provider1 = vscode.languages.registerCompletionItemProvider(
+		'monkeyc', 
+		{
+
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+				// a simple completion item which inserts `Hello World!`
+				const simpleCompletion = new vscode.CompletionItem('Hello World!');
+
+				// a completion item that inserts its text as snippet,
+				// the `insertText`-property is a `SnippetString` which will be
+				// honored by the editor.
+				const snippetCompletion = new vscode.CompletionItem('Good part of the day');
+				snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
+				snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
+
+				// a completion item that can be accepted by a commit character,
+				// the `commitCharacters`-property is set which means that the completion will
+				// be inserted and then the character will be typed.
+				const commitCharacterCompletion = new vscode.CompletionItem('console');
+				commitCharacterCompletion.commitCharacters = ['.'];
+				commitCharacterCompletion.documentation = new vscode.MarkdownString('Press `.` to get `console.`');
+
+				// a completion item that retriggers IntelliSense when being accepted,
+				// the `command`-property is set which the editor will execute after 
+				// completion has been inserted. Also, the `insertText` is set so that 
+				// a space is inserted after `new`
+				const commandCompletion = new vscode.CompletionItem('new');
+				commandCompletion.kind = vscode.CompletionItemKind.Keyword;
+				commandCompletion.insertText = 'new ';
+				commandCompletion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+
+				// return all completion items as array
+				return [
+					simpleCompletion,
+					snippetCompletion,
+					commitCharacterCompletion,
+					commandCompletion
+				];
+			}
+	});*/
+
+	const provider2 = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+
+				// get all text until the `position` and check if it reads `console.`
+				// and if so then complete if `log`, `warn`, and `error`
+				const linePrefix = document.lineAt(position).text.substr(0, position.character);
+				if (!linePrefix.endsWith('console.')) {
+					return undefined;
+				}
+
+				return [
+					//creates that autocomplete list
+					new vscode.CompletionItem('log', vscode.CompletionItemKind.Method),
+					new vscode.CompletionItem('warn', vscode.CompletionItemKind.Method),
+					new vscode.CompletionItem('error', vscode.CompletionItemKind.Method),
+				];
+			}
+		}, 
+		('.') // triggered whenever a '.' is being typed
+	);
+
+	context.subscriptions.push(provider2);
+	/*TESTING AUTOCOMPLETE*/
 }
 
 // this method is called when your extension is deactivated
@@ -210,30 +277,70 @@ function ParseCode(document: vscode.TextDocument) {
 	lexer.addErrorListener(errorListener);
 	let tokenStream = new CommonTokenStream(lexer);
 	let parser = new MonkeyCParser(tokenStream);
-	/*parser.buildParseTree = true;
+	parser.buildParseTree = true;
 	parser.removeErrorListeners();
-	parser.addErrorListener(errorListener);*/
+	parser.addErrorListener(errorListener);
 
 	let parseTree = parser.program();
+	ParseTreeWalker.DEFAULT.walk(listener,parseTree);		
+	
+	ProvideAutocomplete(parser, parseTree);
+}
 
-	ParseTreeWalker.DEFAULT.walk(listener,parseTree);
-	let  tokens= parseTree.ruleContext.getTokens(90);
-	tokens.forEach((t) => {
-		console.log('text: ', t._symbol.text, 'start: ', t.symbol.startIndex, 'end: ', t.symbol.stopIndex);
-	});
-	/*
-	 *  inicialize ANTLR4 Code Completion Core
-	*/
-	let core = new c3.CodeCompletionCore(parser);
-	core.showResult = true;
-	core.showDebugOutput = true;
-	core.showRuleStack = true;
+
+function ProvideAutocomplete(parser : MonkeyCParser, parseTree: ProgramContext) {
+
+	
+	vscode.languages.registerCompletionItemProvider(
+		'monkeyc', 
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+				let core = new c3.CodeCompletionCore(parser);
+				SetAutocompleteRules(core);
+
+				let pos : CaretPosition =  {
+					line : position.line,
+					column : position.character
+				};
+
+				let	index = computeTokenIndex(parseTree,pos);
+				//get token from parser
+				let symb = new ScopedSymbol("");
+				let candidateStrings: string[] = [];
+				
+				if (index !== undefined) {
+					console.log('index: ',index);
+					let candidates = core.collectCandidates(index);
+					candidateStrings = getCompletionStrings(parser, candidates, symb);
+				}
+
+				const completionStrings : vscode.CompletionItem[] = [];
+				candidateStrings.forEach(c => {
+					let label = c.replace('\'','').replace('\'','');
+					console.log('label: ', label);
+					const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
+					if (!(tmp.label.includes("<end of keywords>") || tmp.label.includes("<end of functionNames>") || tmp.label.includes("<end of variableNames>"))) {
+						completionStrings.push(tmp);						
+					}
+				});
+				// a simple completion item which inserts `Hello World!`
+				const completionList = new vscode.CompletionList(completionStrings,false);
+
+				// return all completion items
+				return completionList;
+			}
+		});
+	}
+
+function SetAutocompleteRules(core : c3.CodeCompletionCore) {
 
 	core.preferredRules = new Set([ 
 		MonkeyCParser.RULE_componentName,
 		MonkeyCParser.RULE_varOrFieldDeclaration,
 		MonkeyCParser.RULE_variableDeclaration,
-		MonkeyCParser.RULE_variableDeclarationList]);
+		MonkeyCParser.RULE_variableDeclarationList
+	]);
 
 	core.ignoredTokens = new Set([
 		/*			 ID*/
@@ -247,41 +354,6 @@ function ParseCode(document: vscode.TextDocument) {
 		/*           (                    )*/
 		MonkeyCLexer.LPAREN, MonkeyCLexer.RPAREN,
   	]);
-
-	let caretPosition = getCursorPosition();
-	let symb : ScopedSymbol;
-	//symb = new ScopedSymbol("PLUS");
-
-
-
-	let	index = computeTokenIndex(parseTree,caretPosition);
-	
-
-	if (index !== undefined) {
-		console.log('index: ',index);
-		//let candidates = core.collectCandidates(index);
-		let candidateStrings: string[] = [];
-
-		let completions : any = []; 
-		/*candidates.tokens.forEach((_, k) => {
-			completions.push(parser.vocabulary.getSymbolicName(k)?.toLowerCase());
-		});*/
-		//return completions;
-		for(let i = 0; i < completions.length; i++) {
-			console.log(completions[i].toString());
-		}
-
-		//candidateStrings = getCompletionStrings(parser, candidates, symb);
-
-		/*console.log('candidate strings:\n');
-		candidateStrings.forEach(str => {
-			console.log(str);
-		});
-		console.log('----------------------------------------');*/
-		//printCandidates(candidates);
-	}		
-	
-	
 }
 
 function UpdateCollection(document: vscode.TextDocument, errors: ErrorDescription[]) {
@@ -349,14 +421,14 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 				break;
 			}
 
-			case MonkeyCParser.RULE_variableDeclarationList: {
+			case MonkeyCParser.RULE_variableDeclaration: {
 				let variables = symbol.getSymbolsOfType(c3.FieldSymbol);				
 				for (let variable of variables) {
 					variableNames.push(variable.name);
 				}				
 				break;
-				}
 			}
+		}			
 	}
 
 	// Finally combine all found lists into one for the UI.
@@ -364,31 +436,13 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 	// Then you also can order symbols groups as a whole depending their importance.
 	let candidateStrings: string[] = [];
 	candidateStrings.push(...keywords);
+	candidateStrings.push("<end of keywords>");
 	candidateStrings.push(...functionNames);
+	candidateStrings.push("<end of functionNames>");
 	candidateStrings.push(...variableNames);
+	candidateStrings.push("<end of variableNames>");
 
 	return candidateStrings;
-}
-
-function printCandidates(candidates : c3.CandidatesCollection) {
-
-	console.log('candidate list');
-	candidates.rules.forEach((rule) => {
-
-		console.log(rule.values);
-		
-
-	});
-	console.log('----------------------------EXIT CANDIDATES----------------------------');
-
-	console.log('token list');
-	candidates.tokens.forEach((token) => {
-
-		console.log(token.values);
-		
-
-	});
-	console.log('----------------------------EXIT TOKENS----------------------------');
 }
 
 function getCursorPosition() : CaretPosition {

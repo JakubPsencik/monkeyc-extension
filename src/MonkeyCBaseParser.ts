@@ -1,5 +1,5 @@
 import { TokenStream, Parser, RecognitionException, InputMismatchException, NoViableAltException, Recognizer, Token, ParserRuleContext } from "antlr4ts";
-import { MonkeyCLexer } from "./parser/MonkeyCLexer";
+import { MonkeyCLexer } from "./MonkeyCLexer";
 import { ATNConfigSet } from "antlr4ts/atn";
 
 

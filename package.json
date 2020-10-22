@@ -3,7 +3,7 @@
 	"displayName": "monkeyc-extension",
 	"description": "Syntactic analysis of code written in MonkeyC",
 	"publisher": "JakubPsencik",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.49.0"
 	},
@@ -82,5 +82,11 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/JakubPsencik/monkeyc-extension.git"
+	},
+	"capabilities" : {
+        "completionProvider" : {
+            "resolveProvider": "true",
+            "triggerCharacters": [ ".", "$" ]
+		}
 	}
 }

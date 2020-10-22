@@ -6,20 +6,15 @@ var gSettingsChanged = true;
 
 class SimpleAnalogApp extends App.AppBase 
 {
-
     function initialize() {
         AppBase.initialize();
 		$.gDeviceSettings = System.getdeviceSettings();
-
         var a = 1;
-        var b = 2;
-        var c = a     
-        var array = [1, 2, 3, 4, 5]; 
-        //this.
-        
+        var b =  2;
+        var c = "whatever";          
+        var array = [1, 2, 3, 4, 5];        
     }
 }
-
 class A
 {
     private var x;
