@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { ANTLRInputStream, CommonTokenStream, Parser, RecognitionException, Recognizer } from 'antlr4ts';
+import { ANTLRInputStream, CommonTokenStream, Lexer, Parser, RecognitionException, Recognizer } from 'antlr4ts';
 import { MonkeyCLexer } from './MonkeyCLexer';
 import {MonkeycErrorListener} from '../ErrorListener/MonkeycErrorListener';
 import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, FieldDeclarationContext, FunctionDeclarationContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
@@ -41,10 +41,6 @@ class MyErrorListener extends MonkeycErrorListener {
 		}
 	}
 
-	clear() {
-		//console.log('\u001b[' + 91 + 'm' + 'hello stack' + '\u001b[0m');
-	}
-
 	printSyntaxErrors() {
 		console.log('List of syntax errors: ');
 		this.syntaxErrors.forEach(err => {
@@ -67,14 +63,14 @@ class MyErrorListener extends MonkeycErrorListener {
 		this.syntaxErrors.push(temp);
 	}
 }
-
+let completionList : vscode.CompletionList;
 class EnterFunctionListener implements MonkeyCListener {
 
 	// Assuming a parser rule with name: `Program`
 	enterProgram(context: ProgramContext) {
 		//console.log(`Program start line number ${context._start.line}`);
-		
 		// ...
+		
 	}
 
 	enterUsingDeclaration(context: UsingDeclarationContext) {
@@ -102,12 +98,12 @@ class EnterFunctionListener implements MonkeyCListener {
 	enterVariableDeclaration(context: VariableDeclarationContext) {
 		//console.log(`Variable start line number ${context._start.line}`);
 		// ...
-		//console.log("variable context: ",context.text);
 	}
 
 	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
 		//console.log(`Variable or field start line number ${context._start.line}`);
 		// ...
+		console.log("variable context: ",context.text);
 	}
 
 	enterClassDeclaration(context: ClassDeclarationContext) {
@@ -132,6 +128,7 @@ class EnterFunctionListener implements MonkeyCListener {
 	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
 	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	let errorListener = new MyErrorListener();
+	let parser : MonkeyCParser;
 
 
 export function activate(context: vscode.ExtensionContext) {	
@@ -161,6 +158,11 @@ export function activate(context: vscode.ExtensionContext) {
 
 			ParseCode(document);
 			UpdateCollection(document,errorListener.getSyntaxErrors());
+
+			completionList.items.forEach(element => {
+				console.log('el: ', element.label);
+			});
+
 			context.subscriptions.push(collection);
 		}
 	});
@@ -171,88 +173,34 @@ export function activate(context: vscode.ExtensionContext) {
 			collection.clear();
 			diagnosticMap.clear();
 			
+			//clear autocomplete suggestions
+			while (completionList.items.length > 0) {
+				completionList.items.pop();
+			}
+			
 			let document = vscode.window.activeTextEditor.document;
 			document.save();
 				
 			ParseCode(document);
 			let errors = errorListener.getSyntaxErrors();
-			UpdateCollection(document,errors );
+			UpdateCollection(document,errors);
 			
+			completionList.items.forEach(element => {
+				console.log('el: ', element.label);
+			});
 			context.subscriptions.push(collection);
 		}
 	});
 
-	context.subscriptions.push(testFunc,ScanCode);
-
-
-	/*TESTING AUTOCOMPLETE*/
-	/*const provider1 = vscode.languages.registerCompletionItemProvider(
+	let provider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc', 
 		{
-
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-
-				// a simple completion item which inserts `Hello World!`
-				const simpleCompletion = new vscode.CompletionItem('Hello World!');
-
-				// a completion item that inserts its text as snippet,
-				// the `insertText`-property is a `SnippetString` which will be
-				// honored by the editor.
-				const snippetCompletion = new vscode.CompletionItem('Good part of the day');
-				snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
-				snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
-
-				// a completion item that can be accepted by a commit character,
-				// the `commitCharacters`-property is set which means that the completion will
-				// be inserted and then the character will be typed.
-				const commitCharacterCompletion = new vscode.CompletionItem('console');
-				commitCharacterCompletion.commitCharacters = ['.'];
-				commitCharacterCompletion.documentation = new vscode.MarkdownString('Press `.` to get `console.`');
-
-				// a completion item that retriggers IntelliSense when being accepted,
-				// the `command`-property is set which the editor will execute after 
-				// completion has been inserted. Also, the `insertText` is set so that 
-				// a space is inserted after `new`
-				const commandCompletion = new vscode.CompletionItem('new');
-				commandCompletion.kind = vscode.CompletionItemKind.Keyword;
-				commandCompletion.insertText = 'new ';
-				commandCompletion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-
-				// return all completion items as array
-				return [
-					simpleCompletion,
-					snippetCompletion,
-					commitCharacterCompletion,
-					commandCompletion
-				];
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {			
+			return completionList;
 			}
-	});*/
+		});
 
-	const provider2 = vscode.languages.registerCompletionItemProvider(
-		'monkeyc',
-		{
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-
-				// get all text until the `position` and check if it reads `console.`
-				// and if so then complete if `log`, `warn`, and `error`
-				const linePrefix = document.lineAt(position).text.substr(0, position.character);
-				if (!linePrefix.endsWith('console.')) {
-					return undefined;
-				}
-
-				return [
-					//creates that autocomplete list
-					new vscode.CompletionItem('log', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('warn', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('error', vscode.CompletionItemKind.Method),
-				];
-			}
-		}, 
-		('.') // triggered whenever a '.' is being typed
-	);
-
-	context.subscriptions.push(provider2);
-	/*TESTING AUTOCOMPLETE*/
+		context.subscriptions.push(testFunc,ScanCode,provider);
 }
 
 // this method is called when your extension is deactivated
@@ -276,62 +224,69 @@ function ParseCode(document: vscode.TextDocument) {
 	lexer.removeErrorListeners();
 	lexer.addErrorListener(errorListener);
 	let tokenStream = new CommonTokenStream(lexer);
-	let parser = new MonkeyCParser(tokenStream);
+	parser = new MonkeyCParser(tokenStream);
 	parser.buildParseTree = true;
 	parser.removeErrorListeners();
 	parser.addErrorListener(errorListener);
 
 	let parseTree = parser.program();
 	ParseTreeWalker.DEFAULT.walk(listener,parseTree);		
-	
-	ProvideAutocomplete(parser, parseTree);
-}
 
+	ProvideAutocomplete(parser, parseTree);
+	
+	let stream = parser.inputStream;
+	stream.seek(0);
+	let tokens = [];
+	let offset = 1;
+	while(true) {
+		let token = stream.LT(offset++);
+		tokens.push(token);
+		if (token.type === -1) {
+			break;
+		}    
+	}
+
+	for(let i = 0; i < tokens.length; i++) {
+		console.log('token ', i , ': ', 'type = ', tokens[i].type, ' | ', 'ctx: ', tokens[i].text, '\n');
+	}
+
+}
 
 function ProvideAutocomplete(parser : MonkeyCParser, parseTree: ProgramContext) {
 
+	let core = new c3.CodeCompletionCore(parser);
+	SetAutocompleteRules(core);
+	let position = getCursorPosition();
+	let pos : CaretPosition =  {
+		line : position.line,
+		column : position.column
+	};
+
+	let	index = computeTokenIndex(parseTree,pos);
+
+	//get token from parser
+	let symb = new ScopedSymbol(" ");
 	
-	vscode.languages.registerCompletionItemProvider(
-		'monkeyc', 
-		{
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+	let candidateStrings: string[] = [];
 
-				let core = new c3.CodeCompletionCore(parser);
-				SetAutocompleteRules(core);
-
-				let pos : CaretPosition =  {
-					line : position.line,
-					column : position.character
-				};
-
-				let	index = computeTokenIndex(parseTree,pos);
-				//get token from parser
-				let symb = new ScopedSymbol("");
-				let candidateStrings: string[] = [];
-				
-				if (index !== undefined) {
-					console.log('index: ',index);
-					let candidates = core.collectCandidates(index);
-					candidateStrings = getCompletionStrings(parser, candidates, symb);
-				}
-
-				const completionStrings : vscode.CompletionItem[] = [];
-				candidateStrings.forEach(c => {
-					let label = c.replace('\'','').replace('\'','');
-					console.log('label: ', label);
-					const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
-					if (!(tmp.label.includes("<end of keywords>") || tmp.label.includes("<end of functionNames>") || tmp.label.includes("<end of variableNames>"))) {
-						completionStrings.push(tmp);						
-					}
-				});
-				// a simple completion item which inserts `Hello World!`
-				const completionList = new vscode.CompletionList(completionStrings,false);
-
-				// return all completion items
-				return completionList;
-			}
-		});
+	if (index !== undefined) {
+		console.log('index: ',index);
+		let candidates = core.collectCandidates(index);
+		candidateStrings = getCompletionStrings(parser, candidates, symb);
 	}
+
+	const completionStrings : vscode.CompletionItem[] = [];
+	candidateStrings.forEach(c => {
+		let label = c.replace('\'','').replace('\'','');
+		const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
+		if (!(tmp.label.includes("<end of keywords>") || tmp.label.includes("<end of functionNames>") || tmp.label.includes("<end of variableNames>"))) {
+			completionStrings.push(tmp);						
+		}
+	});
+	// a simple completion item which inserts `Hello World!`
+	completionList = new vscode.CompletionList(completionStrings,false);
+		
+}
 
 function SetAutocompleteRules(core : c3.CodeCompletionCore) {
 
@@ -339,20 +294,20 @@ function SetAutocompleteRules(core : c3.CodeCompletionCore) {
 		MonkeyCParser.RULE_componentName,
 		MonkeyCParser.RULE_varOrFieldDeclaration,
 		MonkeyCParser.RULE_variableDeclaration,
-		MonkeyCParser.RULE_variableDeclarationList
+		MonkeyCParser.RULE_variableDeclarationList,
 	]);
 
 	core.ignoredTokens = new Set([
 		/*			 ID*/
-		MonkeyCLexer.IDENTIFIER,
-		/*			 +                  - */
-		MonkeyCLexer.PLUS, MonkeyCLexer.SUB,
-		/*			 MULTIPLY			DIVIDE*/
-		MonkeyCLexer.STAR, MonkeyCLexer.SLASH,
-		/*           == */
-		MonkeyCLexer.EQEQ,
-		/*           (                    )*/
-		MonkeyCLexer.LPAREN, MonkeyCLexer.RPAREN,
+		MonkeyCLexer.DOT, MonkeyCLexer.SEMI, MonkeyCLexer.QUES, MonkeyCLexer.COLON, MonkeyCLexer.MULTI_LINE_COMMENT_START,
+		MonkeyCLexer.MULTI_LINE_COMMENT_END, MonkeyCLexer.STRING_A, MonkeyCLexer.STRING_B, MonkeyCLexer.LBRACE, MonkeyCLexer.RBRACE, MonkeyCLexer.LBRACE, MonkeyCLexer.LBRACKET,
+		MonkeyCLexer.RBRACKET, MonkeyCLexer.LPAREN, MonkeyCLexer.RPAREN, MonkeyCLexer.COMMA, MonkeyCLexer.STAR, MonkeyCLexer.BAR, MonkeyCLexer.LT,
+		MonkeyCLexer.GT, MonkeyCLexer.EQGT, MonkeyCLexer.AMP, MonkeyCLexer.BARBAR, MonkeyCLexer.AMPAMP, MonkeyCLexer.PLUSPLUS, MonkeyCLexer.SUBSUB, MonkeyCLexer.EQ,
+		MonkeyCLexer.EQEQ, MonkeyCLexer.BANGEQ, MonkeyCLexer.PLUSEQ, MonkeyCLexer.SUBEQ, MonkeyCLexer.STAREQ, MonkeyCLexer.SLASHEQ, MonkeyCLexer.AMPEQ,
+		MonkeyCLexer.CARETEQ, MonkeyCLexer.PERCENTEQ, MonkeyCLexer.CARET, MonkeyCLexer.PERCENT, MonkeyCLexer.TILDE, MonkeyCLexer.BANG, MonkeyCLexer.PLUS,
+		MonkeyCLexer.SUB, MonkeyCLexer.SLASH, MonkeyCLexer.WhiteSpaces, MonkeyCLexer.LineTerminator, MonkeyCLexer.SINGLE_LINE_COMMENT, MonkeyCLexer.SINGLE_LINE_DOC_COMMENT,
+		MonkeyCLexer.BLOCK_COMMENT, MonkeyCLexer.LONGLITERAL, MonkeyCLexer.INTLITERAL, MonkeyCLexer.HEX_LITERAL, MonkeyCLexer.FLOATLITERAL, MonkeyCLexer.DOUBLELITERAL, 
+		MonkeyCLexer.CHARLITERAL, MonkeyCLexer.STRING
   	]);
 }
 
@@ -407,11 +362,11 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 
 	let functionNames: string[] = [];
 	let variableNames: string[] = [];
-
+	
 	for (let candidate of candidates.rules) {
 
 		switch (candidate[0]) {
-
+			
 			case MonkeyCParser.RULE_functionDeclaration: {
 				//symbol that covers the caret position.
 				let functions = symbol.getSymbolsOfType(c3.MethodSymbol);
@@ -465,8 +420,6 @@ function getCursorPosition() : CaretPosition {
 		return pos;
 	}
 }
-
-
 
 let testFunc = vscode.commands.registerCommand('monkeyc-extension.testFunc', () => {
 	var editor = vscode.window.activeTextEditor;

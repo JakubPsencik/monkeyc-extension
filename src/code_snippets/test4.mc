@@ -2,6 +2,6 @@ using Toybox.Application as App;
 
 class A
 {
-    private var x;
-    
+    private var x;      
+     
 }
