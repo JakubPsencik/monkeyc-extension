@@ -31,6 +31,8 @@ class helloworldView extends WatchUi.WatchFace {
         view.setText(timeString); 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate();
+
+          
     }
 
     // Called when this View is removed from the screen. Save the
@@ -42,7 +44,7 @@ class helloworldView extends WatchUi.WatchFace {
 
     // The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() {
-
+        
     }
 
     // Terminate any active timers and prepare for slow updates.

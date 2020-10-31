@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { ANTLRInputStream, CommonTokenStream, Lexer, Parser, RecognitionException, Recognizer } from 'antlr4ts';
+import { ANTLRInputStream, CommonTokenStream, Lexer, ListTokenSource, Parser, ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
 import { MonkeyCLexer } from './MonkeyCLexer';
 import {MonkeycErrorListener} from '../ErrorListener/MonkeycErrorListener';
 import { ArgumentsContext, BlockContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, FieldDeclarationContext, FunctionDeclarationContext, MonkeyCParser, ProgramContext, UsingDeclarationContext, VariableDeclarationContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
@@ -63,14 +63,50 @@ class MyErrorListener extends MonkeycErrorListener {
 		this.syntaxErrors.push(temp);
 	}
 }
-let completionList : vscode.CompletionList;
-class EnterFunctionListener implements MonkeyCListener {
 
-	// Assuming a parser rule with name: `Program`
+class EnterFunctionListener implements MonkeyCListener {
+	completionStrings: vscode.CompletionItem[];
+	completionList: vscode.CompletionList;
+
+	constructor() {
+		this.completionStrings = [];
+		this.completionList = new vscode.CompletionList(this.completionStrings,false);
+	}
+
+	getList() {
+		return this.completionList;
+	}
+
+	/*
+	* root
+	*/
 	enterProgram(context: ProgramContext) {
 		//console.log(`Program start line number ${context._start.line}`);
 		// ...
-		
+	}
+
+	/*
+	* new scope detected
+	*/
+	enterBlock(context: BlockContext) {
+		console.log(`Block start line number ${context._start.line}`);
+		console.log(`Block end line number ${context._stop?.line}`);
+		console.log(context.text);
+	}
+
+	/*
+	* new variable detected
+	*/
+	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
+		//console.log(`Variable or field start line number ${context._start.line}`);
+		// ...
+		//const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
+		//console.log("variable context: ",context.text);
+		this.completionStrings.push(new vscode.CompletionItem(
+			context.getChild(0).text,
+			vscode.CompletionItemKind.Variable
+		));
+		//return context.componentName;
 	}
 
 	enterUsingDeclaration(context: UsingDeclarationContext) {
@@ -87,10 +123,6 @@ class EnterFunctionListener implements MonkeyCListener {
 		//console.log(`Argument start line number ${context._start.line}`);		
 	}
 
-	enterBlock(context: BlockContext) {
-		//console.log(`Block start line number ${context._start.line}`);		
-	}
-
 	enterCompilationUnit(context: CompilationUnitContext) {
 		//console.log(`CompilationUnit start line number ${context._start.line}`);		
 	}
@@ -99,13 +131,6 @@ class EnterFunctionListener implements MonkeyCListener {
 		//console.log(`Variable start line number ${context._start.line}`);
 		// ...
 	}
-
-	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
-		//console.log(`Variable or field start line number ${context._start.line}`);
-		// ...
-		console.log("variable context: ",context.text);
-	}
-
 	enterClassDeclaration(context: ClassDeclarationContext) {
 		//console.log(`Class start line number ${context._start.line}`);
 		// ...
@@ -120,6 +145,10 @@ class EnterFunctionListener implements MonkeyCListener {
 		//console.log(`Function start line number ${context._start.line}`);		
 		// ..		
 	}
+
+	exitProgram(context: ProgramContext) {
+		this.completionList = new vscode.CompletionList(this.completionStrings, false);
+	}
 }
 
 	/*
@@ -129,7 +158,7 @@ class EnterFunctionListener implements MonkeyCListener {
 	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
 	let errorListener = new MyErrorListener();
 	let parser : MonkeyCParser;
-
+	let completionList : vscode.CompletionList;
 
 export function activate(context: vscode.ExtensionContext) {	
 
@@ -232,7 +261,7 @@ function ParseCode(document: vscode.TextDocument) {
 	let parseTree = parser.program();
 	ParseTreeWalker.DEFAULT.walk(listener,parseTree);		
 
-	ProvideAutocomplete(parser, parseTree);
+	ProvideAutocomplete(parser, listener, parseTree);
 	
 	let stream = parser.inputStream;
 	stream.seek(0);
@@ -247,12 +276,12 @@ function ParseCode(document: vscode.TextDocument) {
 	}
 
 	for(let i = 0; i < tokens.length; i++) {
-		console.log('token ', i , ': ', 'type = ', tokens[i].type, ' | ', 'ctx: ', tokens[i].text, '\n');
+		console.log('token ', i , ': ', 'type = ', tokens[i].type, ' | ', 'ctx: ', tokens[i].text,' | ', 'line: ', tokens[i].line, ' | ', 'start_index: ', tokens[i].startIndex, ' | ', 'stop_index: ', tokens[i].stopIndex, ' | ', 'charPos: ', tokens[i].charPositionInLine, '\n');
 	}
 
 }
 
-function ProvideAutocomplete(parser : MonkeyCParser, parseTree: ProgramContext) {
+function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, parseTree: ProgramContext) {
 
 	let core = new c3.CodeCompletionCore(parser);
 	SetAutocompleteRules(core);
@@ -261,20 +290,24 @@ function ProvideAutocomplete(parser : MonkeyCParser, parseTree: ProgramContext) 
 		line : position.line,
 		column : position.column
 	};
-
+	console.log(parseTree.childCount);
 	let	index = computeTokenIndex(parseTree,pos);
 
+//-------------------------------
 	//get token from parser
-	let symb = new ScopedSymbol(" ");
-	
+	const tokens = getTokensFromParser(parser);
+	const scopedSymbol : c3.ScopedSymbol = getScopedSymbol(tokens);
+	console.log('scopedSymbol: ', scopedSymbol.name);
+//-------------------------------
+
 	let candidateStrings: string[] = [];
 
 	if (index !== undefined) {
 		console.log('index: ',index);
 		let candidates = core.collectCandidates(index);
-		candidateStrings = getCompletionStrings(parser, candidates, symb);
+		candidateStrings = getCompletionStrings(parser, candidates, scopedSymbol);
 	}
-
+	
 	const completionStrings : vscode.CompletionItem[] = [];
 	candidateStrings.forEach(c => {
 		let label = c.replace('\'','').replace('\'','');
@@ -284,21 +317,65 @@ function ProvideAutocomplete(parser : MonkeyCParser, parseTree: ProgramContext) 
 		}
 	});
 	// a simple completion item which inserts `Hello World!`
+	/*completionStrings.forEach(string => {
+		completionList.items.push(string);
+	});*/
 	completionList = new vscode.CompletionList(completionStrings,false);
+	let l = listener.getList();
+	l.items.forEach(element => {
+		completionList.items.push(element);
+	});
 		
+}
+
+
+function getTokensFromParser(parser: MonkeyCParser) : Token[] {
+
+	let stream = parser.inputStream;
+	console.log(stream.getText());
+	stream.seek(0);
+	let tokens : Token[] = [];
+	let offset = 1;
+	while(true) {
+		let token = stream.LT(offset++);
+		tokens.push(token);
+		if (token.type === -1) {
+			break;
+		}    
+	}
+
+	return tokens;
+}
+
+function getScopedSymbol(tokens: Token[]) : c3.ScopedSymbol {
+
+	let cursorPos = getCursorPosition();
+
+	tokens.forEach(token => {
+
+		let startInLine = token.charPositionInLine;
+		let endInLine = startInLine + (token.text !== undefined ? token.text.length : 0);
+
+		if(token.line === (cursorPos.line+1)) {
+			if (startInLine <= (cursorPos.column+1) && endInLine >= (cursorPos.column+1)) {
+				return new ScopedSymbol(token.text);
+			}
+		}
+	});
+
+	return new ScopedSymbol(" ");
 }
 
 function SetAutocompleteRules(core : c3.CodeCompletionCore) {
 
-	core.preferredRules = new Set([ 
+	/*core.preferredRules = new Set([ 
 		MonkeyCParser.RULE_componentName,
 		MonkeyCParser.RULE_varOrFieldDeclaration,
 		MonkeyCParser.RULE_variableDeclaration,
 		MonkeyCParser.RULE_variableDeclarationList,
-	]);
+	]);*/
 
 	core.ignoredTokens = new Set([
-		/*			 ID*/
 		MonkeyCLexer.DOT, MonkeyCLexer.SEMI, MonkeyCLexer.QUES, MonkeyCLexer.COLON, MonkeyCLexer.MULTI_LINE_COMMENT_START,
 		MonkeyCLexer.MULTI_LINE_COMMENT_END, MonkeyCLexer.STRING_A, MonkeyCLexer.STRING_B, MonkeyCLexer.LBRACE, MonkeyCLexer.RBRACE, MonkeyCLexer.LBRACE, MonkeyCLexer.LBRACKET,
 		MonkeyCLexer.RBRACKET, MonkeyCLexer.LPAREN, MonkeyCLexer.RPAREN, MonkeyCLexer.COMMA, MonkeyCLexer.STAR, MonkeyCLexer.BAR, MonkeyCLexer.LT,
@@ -307,7 +384,7 @@ function SetAutocompleteRules(core : c3.CodeCompletionCore) {
 		MonkeyCLexer.CARETEQ, MonkeyCLexer.PERCENTEQ, MonkeyCLexer.CARET, MonkeyCLexer.PERCENT, MonkeyCLexer.TILDE, MonkeyCLexer.BANG, MonkeyCLexer.PLUS,
 		MonkeyCLexer.SUB, MonkeyCLexer.SLASH, MonkeyCLexer.WhiteSpaces, MonkeyCLexer.LineTerminator, MonkeyCLexer.SINGLE_LINE_COMMENT, MonkeyCLexer.SINGLE_LINE_DOC_COMMENT,
 		MonkeyCLexer.BLOCK_COMMENT, MonkeyCLexer.LONGLITERAL, MonkeyCLexer.INTLITERAL, MonkeyCLexer.HEX_LITERAL, MonkeyCLexer.FLOATLITERAL, MonkeyCLexer.DOUBLELITERAL, 
-		MonkeyCLexer.CHARLITERAL, MonkeyCLexer.STRING
+		MonkeyCLexer.CHARLITERAL, MonkeyCLexer.STRING, MonkeyCLexer.IDENTIFIER
   	]);
 }
 
@@ -376,11 +453,15 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 				break;
 			}
 
-			case MonkeyCParser.RULE_variableDeclaration: {
-				let variables = symbol.getSymbolsOfType(c3.FieldSymbol);				
+			case MonkeyCParser.RULE_varOrFieldDeclaration: {
+				let variables = symbol.getSymbolsOfType(c3.VariableSymbol);		
+				let fields = symbol.getSymbolsOfType(c3.FieldSymbol);		
 				for (let variable of variables) {
 					variableNames.push(variable.name);
-				}				
+				}	
+				for (let field of fields) {
+					variableNames.push(field.name);
+				}		
 				break;
 			}
 		}			
@@ -404,6 +485,7 @@ function getCursorPosition() : CaretPosition {
 
 	// current editor
 	const editor = vscode.window.activeTextEditor;
+	console.log(editor?.document.getText());
 	let pos : CaretPosition;
 	// check if there is no selection
 	if (editor?.selection.isEmpty) {

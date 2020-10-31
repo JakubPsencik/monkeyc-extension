@@ -1,5 +1,5 @@
 // Generated from e:\GitHub\monkeyc-extension\src\MonkeyC.g4 by ANTLR 4.8
-import { MonkeyCBaseParser } from "../MonkeyCBaseParser";
+
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

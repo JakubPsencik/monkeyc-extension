@@ -100,13 +100,16 @@ import { QualifiedNameContext } from "./MonkeyCParser";
 import { ComponentNameContext } from "./MonkeyCParser";
 import { IdContext } from "./MonkeyCParser";
 import { LiteralContext } from "./MonkeyCParser";
-
+import * as vscode from 'vscode';
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * `MonkeyCParser`.
  */
 export interface MonkeyCListener extends ParseTreeListener {
+	
+	getList() : vscode.CompletionList;
+	
 	/**
 	 * Enter a parse tree produced by the `PostIncrementExpression`
 	 * labeled alternative in `MonkeyCParser.singleExpression`.
