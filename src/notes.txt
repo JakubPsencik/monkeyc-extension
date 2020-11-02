@@ -1,71 +1,68 @@
-function onChange(document : vscode.TextDocument, goConfig: vscode.WorkspaceConfiguration) {
-	let uri = document.uri;
-	/*check(uri.fsPath, goConfig).then((errors: any[]) => {
-	  diagnosticCollection.clear();
-	  let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
-	  errors.forEach(error => {
-		let canonicalFile = vscode.Uri.file(error.file).toString();
-		let range = new vscode.Range(error.line-1, error.startColumn, error.line-1, error.endColumn);
-		let diagnostics = diagnosticMap.get(canonicalFile);
-		if (!diagnostics) { diagnostics = []; }
-		diagnostics.push(new vscode.Diagnostic(range, error.msg, error.severity));
-		diagnosticMap.set(canonicalFile, diagnostics);
-	  });
-	  diagnosticMap.forEach((diags, file) => {
-		diagnosticCollection.set(vscode.Uri.parse(file), diags);
-	  });
-	});*/
-  }
-  -----------------------------------------------------------------------------------------------------------
-  export function subscribeToDocumentChanges(context: vscode.ExtensionContext, programDiagnostics: vscode.DiagnosticCollection): void {
-	if (vscode.window.activeTextEditor) {
-		refreshDiagnostics(vscode.window.activeTextEditor.document, programDiagnostics);
-	}
-	context.subscriptions.push(
-		vscode.window.onDidChangeActiveTextEditor(editor => {
-			if (editor) {
-				refreshDiagnostics(editor.document, programDiagnostics);
-			}
-		})
-	);
-	context.subscriptions.push(
-		vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, programDiagnostics))
-	);
-
-	context.subscriptions.push(
-		vscode.workspace.onDidCloseTextDocument(doc => programDiagnostics.delete(doc.uri))
-	);
-
-}
-  -----------------------------------------------------------------------------------------------------------
-  /**
- * Analyzes the text document for problems. 
- * This demo diagnostic problem provider finds all mentions of 'emoji'.
- * @param doc text document to analyze
- * @param programDiagnostics diagnostic collection
- */
-export function refreshDiagnostics(doc: vscode.TextDocument, programDiagnostics: vscode.DiagnosticCollection): void {
-	const diagnostics: vscode.Diagnostic[] = [];
-
-	for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
-		const lineOfText = doc.lineAt(lineIndex);
-		if (lineOfText.text.includes(PROGRAM)) {
-			diagnostics.push(createDiagnostic(doc, lineOfText, lineIndex));
-		}
-	}
-
-	programDiagnostics.set(doc.uri, diagnostics);
-}
------------------------------------------------------------------------------------------------------------
-function createDiagnostic(doc: vscode.TextDocument, lineOfText: vscode.TextLine, lineIndex: number): vscode.Diagnostic {
-	// find where in the line of thet the 'emoji' is mentioned
-	const index = lineOfText.text.indexOf(PROGRAM);
-
-	// create range that represents, where in the document the word is
-	const range = new vscode.Range(lineIndex, index, lineIndex, index + PROGRAM.length);
-
-	const diagnostic = new vscode.Diagnostic(range, "message",
-		vscode.DiagnosticSeverity.Information);
-	diagnostic.code = PROGRAM_MENTION;
-	return diagnostic;
-}
+		
+		
+		[
+	0	  "program",
+	1	  "compilationUnit",
+	2	  "usingDeclaration",
+	3	  "moduleDeclaration",
+	4	  "moduleBody",
+	5	  "moduleBodyMembers",
+	6	  "moduleBodyMember",
+	7	  "fullyQualifiedReferenceExpression",
+	8	  "classDeclaration",
+	9	  "classBody",
+	10	  "classBodyMembers",
+	11	  "classBodyMember",
+	12	  "enumDeclaration",
+	13	  "maybeSignedInteger",
+	14	  "enumConstant",
+	15	  "constDeclaration",
+	16	  "fieldDeclarationList",
+	17	  "fieldDeclaration",
+	18	  "functionDeclaration",
+	19	  "formalParameterDeclarations",
+	20	  "block",
+	21	  "blockStatement",
+	22	  "variableDeclarationList",
+	23	  "variableDeclaration",
+	24	  "varOrFieldDeclaration",
+	25	  "variableInitializer",
+	26	  "arrayInitializer",
+	27	  "statement",
+	28	  "switchBlockStatementGroups",
+	29	  "switchBlockStatementGroup",
+	30	  "switchLabel",
+	31	  "tryStatement",
+	32	  "catches",
+	33	  "catchClause",
+	34	  "catchParameter",
+	35	  "forStatement",
+	36	  "forInit",
+	37	  "expressionList",
+	38	  "thisExpression",
+	39	  "blingExpression",
+	40	  "referenceOrThisExpression",
+	41	  "singleExpression",
+	42	  "classAccess",
+	43	  "methodInvocationExpression",
+	44	  "assignmentOperator",
+	45	  "relationalOp",
+	46	  "shiftOp",
+	47	  "bitwiseOperator",
+	48	  "qualifiedReferenceExpression",
+	49	  "referenceExpression",
+	50	  "methodInvocation",
+	51	  "objectCreator",
+	52	  "arrayCreator",
+	53	  "dictionaryCreator",
+	54	  "keyValueInitializer",
+	55	  "arguments",
+	56	  "argumentsList",
+	57	  "modifiers",
+	58	  "annotation",
+	59	  "symbol",
+	60	  "qualifiedName",
+	61	  "componentName",
+	62	  "id",
+	63	  "literal",
+		]

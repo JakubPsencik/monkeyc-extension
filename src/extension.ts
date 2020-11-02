@@ -85,6 +85,7 @@ class EnterFunctionListener implements MonkeyCListener {
 		// ...
 	}
 
+	
 	/*
 	* new scope detected
 	*/
@@ -285,6 +286,7 @@ function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, 
 
 	let core = new c3.CodeCompletionCore(parser);
 	SetAutocompleteRules(core);
+
 	let position = getCursorPosition();
 	let pos : CaretPosition =  {
 		line : position.line,
@@ -297,14 +299,12 @@ function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, 
 	//get token from parser
 	const tokens = getTokensFromParser(parser);
 	const scopedSymbol : c3.ScopedSymbol = getScopedSymbol(tokens);
-	console.log('scopedSymbol: ', scopedSymbol.name);
 //-------------------------------
 
 	let candidateStrings: string[] = [];
-
 	if (index !== undefined) {
 		console.log('index: ',index);
-		let candidates = core.collectCandidates(index);
+		let candidates = core.collectCandidates(index,parser.ruleContext);
 		candidateStrings = getCompletionStrings(parser, candidates, scopedSymbol);
 	}
 	
@@ -368,12 +368,14 @@ function getScopedSymbol(tokens: Token[]) : c3.ScopedSymbol {
 
 function SetAutocompleteRules(core : c3.CodeCompletionCore) {
 
-	/*core.preferredRules = new Set([ 
-		MonkeyCParser.RULE_componentName,
+	core.preferredRules = new Set([ 
 		MonkeyCParser.RULE_varOrFieldDeclaration,
+		MonkeyCParser.RULE_componentName,
+		MonkeyCParser.RULE_id
+		/*MonkeyCParser.RULE_componentName,
 		MonkeyCParser.RULE_variableDeclaration,
-		MonkeyCParser.RULE_variableDeclarationList,
-	]);*/
+		MonkeyCParser.RULE_variableDeclarationList,*/
+	]);
 
 	core.ignoredTokens = new Set([
 		MonkeyCLexer.DOT, MonkeyCLexer.SEMI, MonkeyCLexer.QUES, MonkeyCLexer.COLON, MonkeyCLexer.MULTI_LINE_COMMENT_START,
@@ -432,6 +434,8 @@ function computeTokenIndexOfChildNode(parseTree: ParseTree, caretPosition: Caret
 function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCollection, symbol: ScopedSymbol) {
 
 	let keywords: string[] = [];
+	
+	
 
 	for (let candidate of candidates.tokens) {
 		keywords.push(parser.vocabulary.getDisplayName(candidate[0]));
@@ -439,7 +443,7 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 
 	let functionNames: string[] = [];
 	let variableNames: string[] = [];
-	
+
 	for (let candidate of candidates.rules) {
 
 		switch (candidate[0]) {
@@ -454,14 +458,19 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 			}
 
 			case MonkeyCParser.RULE_varOrFieldDeclaration: {
-				let variables = symbol.getSymbolsOfType(c3.VariableSymbol);		
-				let fields = symbol.getSymbolsOfType(c3.FieldSymbol);		
-				for (let variable of variables) {
-					variableNames.push(variable.name);
-				}	
-				for (let field of fields) {
-					variableNames.push(field.name);
-				}		
+				if (MonkeyCParser.RULE_componentName) {
+					if (MonkeyCParser.RULE_id) {
+						let variables = symbol.getSymbolsOfType(c3.VariableSymbol);		
+						let fields = symbol.getSymbolsOfType(c3.FieldSymbol);		
+						for (let variable of variables) {
+							variableNames.push(variable.name);
+						}	
+						for (let field of fields) {
+							variableNames.push(field.name);
+						}	
+					}
+				}
+	
 				break;
 			}
 		}			

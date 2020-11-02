@@ -5,6 +5,8 @@ using Toybox.Lang;
 
 class helloworldView extends WatchUi.WatchFace {
 
+    private var privateVal;
+
     function initialize() {
         WatchFace.initialize();
     }
@@ -18,7 +20,7 @@ class helloworldView extends WatchUi.WatchFace {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-
+        
     }
 
     // Update the view
