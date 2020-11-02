@@ -1,5 +1,3 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { ANTLRInputStream, CommonTokenStream, Lexer, ListTokenSource, Parser, ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
@@ -90,9 +88,9 @@ class EnterFunctionListener implements MonkeyCListener {
 	* new scope detected
 	*/
 	enterBlock(context: BlockContext) {
-		console.log(`Block start line number ${context._start.line}`);
+		/*console.log(`Block start line number ${context._start.line}`);
 		console.log(`Block end line number ${context._stop?.line}`);
-		console.log(context.text);
+		console.log(context.text);*/
 	}
 
 	/*
@@ -107,7 +105,15 @@ class EnterFunctionListener implements MonkeyCListener {
 			context.getChild(0).text,
 			vscode.CompletionItemKind.Variable
 		));
-		//return context.componentName;
+	}
+
+	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
+		//console.log(`Function start line number ${context._start.line}`);		
+		// ..	
+		this.completionStrings.push(new vscode.CompletionItem(
+			context.getChild(2).text,
+			vscode.CompletionItemKind.Function
+		));
 	}
 
 	enterUsingDeclaration(context: UsingDeclarationContext) {
@@ -140,11 +146,6 @@ class EnterFunctionListener implements MonkeyCListener {
 	enterClassBody(context: ClassBodyContext) {
 		//console.log(`Stepping into class on line ${context._start.line}`);
 		//console.log("class body context: ",context.text);
-	}
-
-	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
-		//console.log(`Function start line number ${context._start.line}`);		
-		// ..		
 	}
 
 	exitProgram(context: ProgramContext) {
@@ -190,7 +191,7 @@ export function activate(context: vscode.ExtensionContext) {
 			UpdateCollection(document,errorListener.getSyntaxErrors());
 
 			completionList.items.forEach(element => {
-				console.log('el: ', element.label);
+				console.log('suggestion: ', element.label);
 			});
 
 			context.subscriptions.push(collection);
@@ -216,7 +217,7 @@ export function activate(context: vscode.ExtensionContext) {
 			UpdateCollection(document,errors);
 			
 			completionList.items.forEach(element => {
-				console.log('el: ', element.label);
+				console.log('suggestion: ', element.label);
 			});
 			context.subscriptions.push(collection);
 		}
@@ -292,7 +293,7 @@ function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, 
 		line : position.line,
 		column : position.column
 	};
-	console.log(parseTree.childCount);
+	//console.log(parseTree.childCount);
 	let	index = computeTokenIndex(parseTree,pos);
 
 //-------------------------------
@@ -312,18 +313,18 @@ function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, 
 	candidateStrings.forEach(c => {
 		let label = c.replace('\'','').replace('\'','');
 		const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
-		if (!(tmp.label.includes("<end of keywords>") || tmp.label.includes("<end of functionNames>") || tmp.label.includes("<end of variableNames>"))) {
+		if (!(tmp.label.includes("<end of keywords>") || tmp.label.includes("<end of functionNames>") || tmp.label.includes("<end of variableNames>") || tmp.label.includes("-2"))) {
 			completionStrings.push(tmp);						
 		}
 	});
-	// a simple completion item which inserts `Hello World!`
-	/*completionStrings.forEach(string => {
-		completionList.items.push(string);
-	});*/
+	
 	completionList = new vscode.CompletionList(completionStrings,false);
-	let l = listener.getList();
-	l.items.forEach(element => {
-		completionList.items.push(element);
+	let collectedVariables = listener.getList();
+
+	//$r::x
+	
+	collectedVariables.items.forEach(variable => {
+		completionList.items.push(variable);
 	});
 		
 }
@@ -332,7 +333,6 @@ function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, 
 function getTokensFromParser(parser: MonkeyCParser) : Token[] {
 
 	let stream = parser.inputStream;
-	console.log(stream.getText());
 	stream.seek(0);
 	let tokens : Token[] = [];
 	let offset = 1;
@@ -435,8 +435,6 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 
 	let keywords: string[] = [];
 	
-	
-
 	for (let candidate of candidates.tokens) {
 		keywords.push(parser.vocabulary.getDisplayName(candidate[0]));
 	}
@@ -458,19 +456,15 @@ function getCompletionStrings(parser: MonkeyCParser, candidates: c3.CandidatesCo
 			}
 
 			case MonkeyCParser.RULE_varOrFieldDeclaration: {
-				if (MonkeyCParser.RULE_componentName) {
-					if (MonkeyCParser.RULE_id) {
-						let variables = symbol.getSymbolsOfType(c3.VariableSymbol);		
-						let fields = symbol.getSymbolsOfType(c3.FieldSymbol);		
-						for (let variable of variables) {
-							variableNames.push(variable.name);
-						}	
-						for (let field of fields) {
-							variableNames.push(field.name);
-						}	
-					}
-				}
-	
+
+				let variables = symbol.getSymbolsOfType(c3.VariableSymbol);		
+				let fields = symbol.getSymbolsOfType(c3.FieldSymbol);		
+				for (let variable of variables) {
+					variableNames.push(variable.name);
+				}	
+				for (let field of fields) {
+					variableNames.push(field.name);
+				}	
 				break;
 			}
 		}			
@@ -494,7 +488,7 @@ function getCursorPosition() : CaretPosition {
 
 	// current editor
 	const editor = vscode.window.activeTextEditor;
-	console.log(editor?.document.getText());
+	//console.log(editor?.document.getText());
 	let pos : CaretPosition;
 	// check if there is no selection
 	if (editor?.selection.isEmpty) {
