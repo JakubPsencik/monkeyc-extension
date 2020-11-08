@@ -16,14 +16,7 @@
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "monkeyc-extension.testFunc",
-				"title": "Run test"
-			},
-			{
-				"command": "monkeyc-extension.ScanCode",
-				"title": "Scan code"
-			}
+
 		],
 		"languages": [
 			{

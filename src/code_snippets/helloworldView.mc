@@ -9,6 +9,7 @@ class helloworldView extends WatchUi.WatchFace {
 
     function initialize() {
         WatchFace.initialize();
+          
     }
 
     // Load your resources here
@@ -33,7 +34,6 @@ class helloworldView extends WatchUi.WatchFace {
         view.setText(timeString); 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate();
-
           
     }
 
@@ -41,7 +41,7 @@ class helloworldView extends WatchUi.WatchFace {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() { 
-        
+
     }
 
     // The user has just looked at their watch. Timers and animations may be started here.

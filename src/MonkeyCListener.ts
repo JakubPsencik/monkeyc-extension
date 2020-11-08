@@ -101,6 +101,7 @@ import { ComponentNameContext } from "./MonkeyCParser";
 import { IdContext } from "./MonkeyCParser";
 import { LiteralContext } from "./MonkeyCParser";
 import * as vscode from 'vscode';
+import { AST } from "./AST";
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -109,6 +110,8 @@ import * as vscode from 'vscode';
 export interface MonkeyCListener extends ParseTreeListener {
 	
 	getList() : vscode.CompletionList;
+
+	getAST() : AST;
 	
 	/**
 	 * Enter a parse tree produced by the `PostIncrementExpression`
