@@ -8,6 +8,12 @@ code --install-extension monkeyc-extension-1.0.3.vsix
 
 # Poznámky k verzím
 
+
+## **1.0.4 (23.11.2020)**
+- Rozšíření "našeptává" lokální proměnné již podle toho, v jakém rozsahu se nacházejí
+    - **pozn.** již by mělo fungovat všude
+- Rošíření "našeptává" třídní proměnné po zadání 'self.' nebo 'me.'
+
 ## **1.0.3 (8.11.2020)**
 - Rozšíření "našeptává" lokální proměnné již podle toho, v jakém rozsahu se nacházejí
     - **pozn.** funguje zatím pouze pro jednoduché "bloky" kódu...

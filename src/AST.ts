@@ -19,7 +19,7 @@ import { Node, Leaf } from './Node';
 
 export class AST {
 
-
+    static nodeCount: number = 0; 
     private parseTree : Node[];
     public currentNode : Node;
     public root : Node;
@@ -40,4 +40,13 @@ export class AST {
         this.parseTree.push(node);
     }
 
+    findNode(ruleNumber: number) : Node | undefined {
+
+        for(let i = this.parseTree.length-1; i >= 0; i--) {
+            if(this.parseTree[i].getContext()?.ruleIndex === ruleNumber) {
+                return this.parseTree[i];
+            }
+        }
+        return undefined;
+    }
 }

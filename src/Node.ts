@@ -14,22 +14,28 @@ import { CodeCompletionCore, ScopedSymbol } from 'antlr4-c3';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { parse } from 'path';
-
+import {AST} from './AST';
 export { Node, Leaf };
 
-class Node {
 
+class Node {  
+    private id : number;
     private context : ParserRuleContext | undefined ;
-    private parent : ParserRuleContext | Node | undefined;
+    private parent : Node | undefined;
     private child : Node[] | undefined;
     private value: string | undefined;
 
-    constructor(context: ParserRuleContext | undefined, parent : ParserRuleContext | Node | undefined, child : Node[] | undefined, value : string | undefined) {
+    constructor(context: ParserRuleContext | undefined, parent : Node | undefined, child : Node[] | undefined, value : string | undefined) {
+        this.id = AST.nodeCount;
         this.context = context;
         this.parent = parent;
         this.child = child;
         this.value = value;
+
+        AST.nodeCount++;
     }
+
+    getId() { return this.id; }
 
     getContext() { return this.context; }
         

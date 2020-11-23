@@ -9,7 +9,7 @@ class helloworldView extends WatchUi.WatchFace {
 
     function initialize() {
         WatchFace.initialize();
-          
+
     }
 
     // Load your resources here
@@ -21,20 +21,26 @@ class helloworldView extends WatchUi.WatchFace {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-        
+        //from class
+        //private var privateVal...
+        //self.
+
+        var promennahele;
+
     }
 
     // Update the view
     function onUpdate(dc) {
+
         // Get and show the current time
         var clockTime = System.getClockTime();
-        
-        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
+        var clockTime;       
+        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);      
         var view = View.findDrawableById("TimeLabel");
         view.setText(timeString); 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate();
-          
+        
     }
 
     // Called when this View is removed from the screen. Save the
@@ -46,12 +52,12 @@ class helloworldView extends WatchUi.WatchFace {
 
     // The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() {
-        
+
     }
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() {
-
+        
     }
 
 }

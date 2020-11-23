@@ -3,7 +3,7 @@ import * as path from 'path';
 import { ANTLRInputStream, CommonToken, CommonTokenStream, Lexer, ListTokenSource, Parser, ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
 import { MonkeyCLexer } from './MonkeyCLexer';
 import {MonkeycErrorListener} from '../ErrorListener/MonkeycErrorListener';
-import { ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, FieldDeclarationContext, FunctionDeclarationContext, IdContext, LiteralContext, LiteralExpressionContext, MonkeyCParser, ProgramContext, StatementContext, TernaryExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
+import { ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, IdContext, LiteralContext, LiteralExpressionContext, ModifiersContext, MonkeyCParser, ProgramContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from './MonkeyCParser';
 import { MonkeyCListener } from './MonkeyCListener';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { readFileSync } from 'fs';
@@ -16,6 +16,11 @@ import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { AST } from './AST';
 import { Node } from './Node';
 import { throws } from 'assert';
+import * as fs from 'fs';
+import {window, Uri, workspace, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument} from 'vscode';
+import { dirname } from 'path';
+import { stringify } from 'querystring';
+
 
 
 var clang = require("clang-format");
@@ -137,6 +142,100 @@ class EnterFunctionListener implements MonkeyCListener {
 		this.AST.currentNode = this.AST.root;
 	}
 
+	enterUsingDeclaration(context: UsingDeclarationContext) {
+		//console.log(`Using start line number ${context._start.line}`);		
+		// ...
+		let usingDeclarationNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		let using = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  usingDeclarationNode,
+			/*no children for leafs */  undefined,
+			/*value of the context: */  context.getChild(0).text
+		
+		);
+
+		usingDeclarationNode.addChild(using);
+
+		this.AST.currentNode.addChild(usingDeclarationNode);
+
+		this.AST.addNode(using);
+		this.currentScopeIndex = this.AST.getParseTree().length;
+		this.AST.addNode(usingDeclarationNode);
+		this.AST.currentNode = usingDeclarationNode;
+	}
+
+	exitUsingDeclaration() { }
+
+	enterFullyQualifiedReferenceExpression(context: FullyQualifiedReferenceExpressionContext) {
+		
+		let fullyQualifiedReferenceExpressionNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(fullyQualifiedReferenceExpressionNode);
+
+		this.AST.addNode(fullyQualifiedReferenceExpressionNode);
+		this.AST.currentNode = fullyQualifiedReferenceExpressionNode;
+	}
+
+	exitFullyQualifiedReferenceExpression() { }
+
+	enterReferenceOrThisExpression(context: ReferenceOrThisExpressionContext) {
+		
+		let referenceOrThisExpressionNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(referenceOrThisExpressionNode);
+
+		this.AST.addNode(referenceOrThisExpressionNode);
+		this.AST.currentNode = referenceOrThisExpressionNode;
+
+	}
+
+	exitReferenceOrThisExpression() { }
+
+	enterReferenceExpression(context: ReferenceExpressionContext) {
+		
+		let referenceExpressionNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(referenceExpressionNode);
+
+		this.AST.addNode(referenceExpressionNode);
+		this.AST.currentNode = referenceExpressionNode;
+	}
+
+	exitReferenceExpression() { }
+
 	enterStatement(context: StatementContext) {
 
 		let statement = new Node(
@@ -158,7 +257,126 @@ class EnterFunctionListener implements MonkeyCListener {
 	exitStatement() {
 
 	}
+
+	enterClassDeclaration(context: ClassDeclarationContext) {
 	
+		let classDeclarationNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(classDeclarationNode);
+
+		this.AST.addNode(classDeclarationNode);
+		this.AST.currentNode = classDeclarationNode;
+
+	}
+
+	exitClassDeclaration() { }
+	
+	enterClassBody(context: ClassBodyContext) {
+
+		let classBodyNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		let LBRACE = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  classBodyNode,
+			/*no children for leafs */  undefined,
+			/*value of the context: */  context.getChild(0).text
+		
+		);
+
+		classBodyNode.addChild(LBRACE);
+
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(classBodyNode);
+
+		this.AST.addNode(LBRACE);
+		this.AST.addNode(classBodyNode);
+
+		this.AST.currentNode = classBodyNode;
+	}
+
+	exitClassBody(context: ClassBodyContext) {
+
+		let classBodyNode = this.AST.getParseTree().find((x) => x.getContext()?.ruleIndex === MonkeyCParser.RULE_classBody);
+
+		let RBRACE = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  classBodyNode,
+			/*no children for leafs */  undefined,
+			/*value of the context: */  context.getChild(2).text
+		
+		);
+
+		classBodyNode!.addChild(RBRACE);
+
+		this.AST.addNode(RBRACE);
+		this.AST.currentNode = classBodyNode as Node;	
+	}
+
+	enterClassBodyMembers(context: ClassBodyMembersContext) {
+
+		let classBodyMembersNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(classBodyMembersNode);
+
+		this.AST.addNode(classBodyMembersNode);
+		this.AST.currentNode = classBodyMembersNode;
+
+	}
+
+	exitClassBodyMembers(context: ClassBodyMembersContext) { }
+
+	enterClassBodyMember(context: ClassBodyMemberContext) {
+		
+		let classBodyMemberNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(classBodyMemberNode);
+
+		this.AST.addNode(classBodyMemberNode);
+		this.AST.currentNode = classBodyMemberNode;
+
+	}
+
+	exitClassBodyMember(context: ClassBodyMemberContext) { 
+	
+		const classBodyMembersNode = this.AST.findNode(MonkeyCParser.RULE_classBodyMembers);	
+		this.AST.currentNode = classBodyMembersNode!;
+	}
+	
+
 	/*
 	* new scope detected
 	*/
@@ -176,7 +394,6 @@ class EnterFunctionListener implements MonkeyCListener {
 		
 		);
 
-		
 		let LBRACE = new Node(
 			
 			/* context of this node: */ undefined,
@@ -201,23 +418,24 @@ class EnterFunctionListener implements MonkeyCListener {
 
 	exitBlock() {
 		//console.log('exitBlock\n');
-		let parent = this.AST.getParseTree()?.[this.currentScopeIndex-1];
+		let block = this.AST.findNode(MonkeyCParser.RULE_block);
+
 		let RBRACE = new Node(
 			
 			/* context of this node: */ undefined,
-			/* parent of this node: */  parent,
+			/* parent of this node: */  block,
 			/*no children for leafs */  undefined,
 			/*value of the context: */  "}"
 		);
 
-		parent.addChild(RBRACE);
+		block!.addChild(RBRACE);
 		this.AST.addNode(RBRACE);
-		this.AST.currentNode = parent;
+		this.AST.currentNode = block!.getParent() as Node;
 	}
 
 	enterBlockStatement(context: BlockStatementContext) {
 
-		let blockStatement = new Node(
+		let blockStatementNode = new Node(
 			
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
@@ -227,10 +445,10 @@ class EnterFunctionListener implements MonkeyCListener {
 		);
 
 		/* set this node as one of children to the previous node */
-		this.AST.currentNode.addChild(blockStatement);
-		this.AST.addNode(blockStatement);
+		this.AST.currentNode.addChild(blockStatementNode);
+		this.AST.addNode(blockStatementNode);
 
-		this.AST.currentNode = blockStatement;
+		this.AST.currentNode = blockStatementNode;
 
 	}
 
@@ -238,7 +456,128 @@ class EnterFunctionListener implements MonkeyCListener {
 		this.AST.currentNode = this.AST.getParseTree()?.[this.currentScopeIndex-1];
 	}
 
+	enterFieldDeclarationList(context: FieldDeclarationListContext) {
+		
+		let fieldDeclarationListNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
 
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(fieldDeclarationListNode);
+		this.AST.addNode(fieldDeclarationListNode);
+
+		this.AST.currentNode = fieldDeclarationListNode;
+	}
+
+	exitFieldDeclarationList() { }
+
+	enterModifiers(context: ModifiersContext) {
+
+		let modifiersNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+		
+		if (context._parent?.getChild(1).text === "var") {
+			
+			let modifier = new Node(
+			
+				/* context of this node: */ undefined,
+				/* parent of this node: */  modifiersNode,
+				/*1..n children: */         undefined,
+				/*value of the context: */  context.getChild(0).text
+			
+			);
+			modifiersNode.addChild(modifier);
+			
+			/* set this node as one of children to the previous node */
+			this.AST.currentNode.addChild(modifiersNode);
+			
+			this.AST.addNode(modifiersNode);
+			this.AST.addNode(modifier);
+		} else {
+
+			this.AST.currentNode.addChild(modifiersNode);
+			this.AST.addNode(modifiersNode);
+		}
+		
+		//this.AST.currentNode = modifiersNode;
+	}
+
+	exitModifiers() { 
+
+	let curr =undefined;
+	if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
+		curr = this.AST.findNode(MonkeyCParser.RULE_fieldDeclarationList);
+	} else if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) {
+		curr = this.AST.findNode(MonkeyCParser.RULE_classDeclaration);
+	} else if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
+		curr = this.AST.findNode(MonkeyCParser.RULE_classBodyMember);
+	} else if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+		curr = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
+	}
+	
+	this.AST.currentNode = curr!;
+
+	}
+
+	enterFieldDeclaration(context: FieldDeclarationContext) {
+			
+		let _var = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         undefined,
+			/*value of the context: */  context._parent?.getChild(1).text
+		
+		); 
+		
+		let fieldDeclarationNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		let comma = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         undefined,
+			/*value of the context: */  context._parent?.getChild(3).text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(_var);
+		this.AST.currentNode.addChild(fieldDeclarationNode);
+		this.AST.currentNode.addChild(comma);
+
+		this.AST.addNode(_var);
+		this.AST.addNode(fieldDeclarationNode);
+		this.AST.addNode(comma);
+
+		//this.AST.currentNode = fieldDeclarationNode;
+
+	}
+
+	exitFieldDeclaration() {
+
+		this.AST.currentNode = this.AST.getParseTree().find((x) => x.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration) as Node;
+
+	}
+	
 	enterVariableDeclarationList(context: VariableDeclarationListContext) {
 
 		let variableDeclarationListNode = new Node(
@@ -292,7 +631,7 @@ class EnterFunctionListener implements MonkeyCListener {
 			/* context of this node: */ /*"var"*/undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context.text
+			/*value of the context: */  context._parent?.getChild(0).text
 		
 		);
 
@@ -307,18 +646,7 @@ class EnterFunctionListener implements MonkeyCListener {
 
 	exitVariableDeclaration() { }
 
-	/*
-	* new variable detected
-	*/
 	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
-		//console.log(`Variable or field start line number ${context._start.line}`);
-		// ...
-		//const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
-		//console.log("variable context: ",context.text);
-		/*this.completionStrings.push(new vscode.CompletionItem(
-			context.getChild(0).text,
-			vscode.CompletionItemKind.Variable
-		));*/
 
 		let varOrFieldDeclarationNode = new Node(
 			
@@ -348,7 +676,7 @@ class EnterFunctionListener implements MonkeyCListener {
 
 		let componentNameNode = new Node(
 			
-			/* context of this node: */ context,
+			/* context of this node: */ context.parent,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
 			/*value of the context: */  context.text
@@ -365,37 +693,36 @@ class EnterFunctionListener implements MonkeyCListener {
 	exitComponentName() { }
 
 
-	enterId(context: IdContext) {
-
-		let variableNameNode = new Node(
-			/* CHECK */
-			/* context of this node: */ undefined,
-			/* parent of this node: */  this.AST.currentNode,
-			/*1..n children: */         undefined,
-			/*value of the context: */  context.getChild(0).text
-		
-		);
-
-		let children : Node[] = [];
-		children.push(variableNameNode);
+	enterId(context: IdContext): void {
 
 		let idNode = new Node(
 			
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
-			/*1..n children: */         children,
+			/*1..n children: */         [],
 			/*value of the context: */  context.text
 		
 		);
+
+		let variableNameNode = new Node(
+			/* CHECK */
+			/* context of this node: */ undefined,
+			/* parent of this node: */  idNode,
+			/*1..n children: */         undefined,
+			/*value of the context: */  context.getChild(0).text
+		
+		);
+		idNode.addChild(variableNameNode);
+
 
 		/* set this node as one of children to the previous node */
 		this.AST.currentNode.addChild(idNode);
 
 		this.AST.addNode(idNode);
 		this.AST.addNode(variableNameNode);
+		//this.AST.getParseTree()![1];
 
-		
-		this.AST.currentNode = variableNameNode;
+		this.AST.currentNode = this.AST.currentNode.getParent() as Node;
 	}
 
 	exitId() { }
@@ -483,46 +810,114 @@ class EnterFunctionListener implements MonkeyCListener {
 
 		this.AST.addNode(literalNode);
 		this.AST.addNode(literalValueNode);
-
+		
 		this.AST.currentNode = literalValueNode;
 		
 	}
 
-	exitLiteral() {
-
-	}
+	exitLiteral() { }
 
 	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
-		//console.log(`Function start line number ${context._start.line}`);		
-		// ..	
-		this.completionStrings.push(new vscode.CompletionItem(
-			context.getChild(2).text,
-			vscode.CompletionItemKind.Function
-		));
+		
+		let functionDeclarationNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		//let modifier = new Node(
+		//	
+		//	/* context of this node: */ undefined,
+		//	/* parent of this node: */  functionDeclarationNode,
+		//	/*1..n children: */         [],
+		//	/*value of the context: */  context.getChild(0).text
+		//
+		//);*/
+
+		let _function = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  functionDeclarationNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.getChild(1).text
+		
+		);
+
+		//functionDeclarationNode.addChild(modifier);
+		functionDeclarationNode.addChild(_function);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(functionDeclarationNode);
+
+		this.AST.addNode(functionDeclarationNode);
+		//this.AST.addNode(modifier);
+		this.AST.addNode(_function);
+
+		this.AST.currentNode = functionDeclarationNode;
+
 	}
 
-	enterUsingDeclaration(context: UsingDeclarationContext) {
-		//console.log(`Using start line number ${context._start.line}`);		
-		// ...
+	exitFunctionDeclaration() { 
+
+		let functionDeclarationNode = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
+		this.AST.currentNode = functionDeclarationNode!;
 	}
 
-	enterFieldDeclaration(context: FieldDeclarationContext) {
-		//console.log(`Field start line number ${context._start.line}`);		
+	enterFormalParameterDeclarations(context: FormalParameterDeclarationsContext) {
+		
+		
+		let LPAREN = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context._parent?.getChild(3).text
+		
+		);
+		
+		let formalParameterDeclarationsNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		let RPAREN = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context._parent?.getChild(5).text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(LPAREN);
+		this.AST.currentNode.addChild(formalParameterDeclarationsNode);
+		this.AST.currentNode.addChild(RPAREN);
+		
+		this.AST.addNode(LPAREN);
+		this.AST.addNode(formalParameterDeclarationsNode);
+		this.AST.addNode(RPAREN);
+
+		//this.AST.currentNode = formalParameterDeclarationsNode;
+
 	}
 
+	exitFormalParameterDeclarations() {
+
+		let functionDeclarationNode = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
+		this.AST.currentNode = functionDeclarationNode!;
+
+	 }
 
 	enterArguments(context: ArgumentsContext) {
 		//console.log(`Argument start line number ${context._start.line}`);		
-	}
-
-	enterClassDeclaration(context: ClassDeclarationContext) {
-		//console.log(`Class start line number ${context._start.line}`);
-		// ...
-	}
-
-	enterClassBody(context: ClassBodyContext) {
-		//console.log(`Stepping into class on line ${context._start.line}`);
-		//console.log("class body context: ",context.text);
 	}
 }
 
@@ -531,10 +926,11 @@ class EnterFunctionListener implements MonkeyCListener {
 	*/
 	let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
 	let diagnosticMap: Map<string, vscode.Diagnostic[]> = new Map();
+	let suggestions : Map<string, vscode.CompletionList> = new Map();
 	let errorListener = new MyErrorListener();
 	let parser : MonkeyCParser;
 	let completionList : vscode.CompletionList;
-
+	
 export function activate(context: vscode.ExtensionContext) {	
 
 	//highlight provider
@@ -557,25 +953,68 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Extension started!');
 		//parse the edited file after extension starts
 		if (vscode.window.activeTextEditor) {		
+									
 			let document = vscode.window.activeTextEditor.document;
 			document.save();
-
+			
 			ParseCode(document);
 			UpdateCollection(document,errorListener.getSyntaxErrors());
 
-			completionList.items.forEach(element => {
-				console.log('suggestion: ', element.label);
-			});
+			let suggestion = "suggestions: ";
+			completionList.items.forEach(element => { suggestion += element.label + ", "; });
+			console.log(suggestion.substring(0,(suggestion.length-2)));
 
 			context.subscriptions.push(collection);
+
+			
+			/*const fileUri = vscode.window.activeTextEditor.document.uri;
+			const folderPath = path.dirname(fileUri.path);
+			const folderUri = fileUri.with({ path: folderPath });
+			let files = countAndTotalOfFilesInFolder(folderUri);
+			console.log(countAndTotalOfFilesInFolder(folderUri));
+			
+			let hehe = vscode.workspace.fs.readDirectory(folderUri);*/
+			/*hehe.then.prototype.forEach((s : string, t : vscode.FileType).then((result : any) => {
+				
+			}).catch((err) => {
+				
+			}); */
+
+			
+		/*	//console.log(__dirname);
+			let f = vscode.workspace.findFiles('.ts');
+			console.log(vscode.workspace.findFiles('**​/*.mc'));
+			let x : vscode.WorkspaceFolder[] = vscode.workspace.workspaceFolders as vscode.WorkspaceFolder[];
+		
+			console.log(0);
+			let inputAsWorkspaceRelativeFolder = 'code_snippets'; // for example, would return: '/home/me/my-vs-project/assets' for input of './assets'
+			let workspaceFolderPath = workspace.fs.readDirectory(folderUri);
+			console.log(0);*/
 		}
 	});
+	
+	async function countAndTotalOfFilesInFolder(folder: vscode.Uri): Promise<{ total: number, count: number }> {
+		let total = 0;
+		let count = 0;
+		for (const [name, type] of await vscode.workspace.fs.readDirectory(folder)) {
+			if (type === vscode.FileType.File) {
+				const filePath = path.join(folder.path, name);
+				const stat = await vscode.workspace.fs.stat(folder.with({ path: filePath }));
+				total += stat.size;
+				count += 1;
+			}
+		}
+		return { total, count };
+	}
+
 
 	vscode.workspace.onDidChangeTextDocument(() => {
+
 		if (vscode.window.activeTextEditor) {
 			errorListener.clearSyntaxErrors();
 			collection.clear();
 			diagnosticMap.clear();
+			suggestions.clear();
 			
 			//clear autocomplete suggestions
 			while (completionList.items.length > 0) {
@@ -589,22 +1028,40 @@ export function activate(context: vscode.ExtensionContext) {
 			let errors = errorListener.getSyntaxErrors();
 			UpdateCollection(document,errors);
 			
-			completionList.items.forEach(element => {
-				console.log('suggestion: ', element.label);
-			});
+			let suggestion = "suggestions: ";
+			completionList.items.forEach(element => { suggestion += element.label + ", "; });
+			console.log(suggestion.substring(0,(suggestion.length-2)));
+
 			context.subscriptions.push(collection);
 		}
 	});
 
-	let provider = vscode.languages.registerCompletionItemProvider(
+	const localVariableProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc', 
 		{
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {			
-			return completionList;
+				//return completionList;
+				const s = suggestions.get("localVariables");
+				return suggestions.get("localVariables");
 			}
 		});
 
-		context.subscriptions.push(provider);
+	const classVariableProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{		
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+			
+				//return completionList;
+				const s = suggestions.get("classVariables");
+				return suggestions.get("classVariables");
+				
+			}
+		},
+		'self.','me.', '.'// triggered whenever any of these is being typed
+	);
+
+	
+	context.subscriptions.push(localVariableProvider,classVariableProvider);
 }
 
 // this method is called when your extension is deactivated
@@ -649,11 +1106,6 @@ function ParseCode(document: vscode.TextDocument) {
 			break;
 		}    
 	}
-
-	for(let i = 0; i < tokens.length; i++) {
-		console.log('token ', i , ': ', 'type = ', tokens[i].type, ' | ', 'ctx: ', tokens[i].text,' | ', 'line: ', tokens[i].line, ' | ', 'start_index: ', tokens[i].startIndex, ' | ', 'stop_index: ', tokens[i].stopIndex, ' | ', 'charPos: ', tokens[i].charPositionInLine, '\n');
-	}
-
 }
 
 function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, parseTree: ProgramContext) {
@@ -666,42 +1118,34 @@ function ProvideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, 
 		line : position.line,
 		column : position.column
 	};
-	//console.log(parseTree.childCount);
-	let	index = computeTokenIndex(parseTree,pos);
 
-//-------------------------------
-	//get token from parser
-	const tokens = getTokensFromParser(parser);
-	const scopedSymbol : c3.ScopedSymbol = getScopedSymbol(tokens);
-//-------------------------------
+	let	index = computeTokenIndex(parseTree,pos);
 
 	let candidateStrings: string[] = [];
 	if (index !== undefined) {
 		console.log('index: ',index);
 		let candidates = core.collectCandidates(index,parser.ruleContext);
-		candidateStrings = getKeywords(parser, candidates, scopedSymbol);
+		candidateStrings = getKeywords(parser, candidates);
 	}
 	
 	const completionStrings : vscode.CompletionItem[] = [];
+	
 	candidateStrings.forEach(c => {
 		let label = c.replace('\'','').replace('\'','');
-		const tmp = new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword);
-		if (!(tmp.label.includes("<end of keywords>") || tmp.label.includes("<end of functionNames>") || tmp.label.includes("<end of variableNames>") || tmp.label.includes("-2"))) {
-			completionStrings.push(tmp);						
-		}
+		completionStrings.push(new vscode.CompletionItem(label,vscode.CompletionItemKind.Keyword));						
 	});
 
 	let tree = listener.getAST().getParseTree();
 	let localVariables = collectLocalVariables(tree,pos);
+	let classVariables = collectClassVariables(tree,pos);
+	let functions = collectFunctions(tree,pos);
 
 	localVariables.forEach(v => {
 		completionStrings.push(v);
 	});
 	
-	completionList = new vscode.CompletionList(completionStrings,false);
+	completionList = new vscode.CompletionList(completionStrings,false);	
 
-
-		
 }
 
 function collectLocalVariables(tree: Node[], position : CaretPosition) {
@@ -711,32 +1155,132 @@ function collectLocalVariables(tree: Node[], position : CaretPosition) {
 	for(let i = 0; i < tree.length; i++) {
 		
 		let ctx = tree[i].getContext();
-		if (ctx) {
-			//20 - BlockContext
-			if (ctx.ruleIndex === 20) {	
-				//check whether im in the right scope
-				if(position.line > ctx._start.line && position.line < ctx._stop!.line) {
-					let children = tree[i].getChildren();
+			
+		if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_block && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
 
-					children!.forEach(child => {
-						//20 - BlockStatementContext
-						if(child.getContext()?.ruleIndex === 21) {
+			let blockId = tree[i].getId();
+			/* check every node in current scope */
+			while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
+				
+				ctx = tree[i].getContext();
+				
+				if(ctx?.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
 
-							let variableName = child.getChildren()?.[0].getChildren()?.[1].getChildren()?.[0].getChildren()?.[0].getValue();
+					if(ctx._start.line <= position.line) {
+						
+						let variableName = "";
+						if(ctx.text?.includes("=")) {
+							variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+						} else {
+							variableName = ctx.text;
+						}											
 							completionStrings.push(new vscode.CompletionItem(
-								variableName!,
+								variableName,
 								vscode.CompletionItemKind.Variable
-							));
-							
+							));																								
 						}
-					});
-					console.log('I FOUND IT');
-				}
+						/* skip 1 node with same context */	
+						i+=2;	
 
-			}
+					} else {								
+					i++;
+				}							
+			}						
 		}	
 	}
+
+	suggestions.set("localVariables", new vscode.CompletionList(completionStrings,false));
 	return completionStrings;
+}
+
+function collectClassVariables(tree: Node[], position : CaretPosition) {
+	
+	let classVariables : vscode.CompletionItem[] = [];
+
+	for(let i = 0; i < tree.length; i++) {
+		
+		let ctx = tree[i].getContext();
+			
+		if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
+
+			let classBodyId = tree[i].getId();
+			/* check every node in current scope */
+			while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
+				
+				ctx = tree[i].getContext();
+				
+				if(ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+
+					if(ctx._start.line <= position.line) {
+						
+						let variableName = "";
+						if(ctx.text?.includes("=")) {
+							variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+						} else {
+							variableName = ctx.text;
+						}											
+							classVariables.push(new vscode.CompletionItem(
+								variableName,
+								vscode.CompletionItemKind.Field
+							));																								
+						}
+						/* skip 1 node with same context */	
+						i+=2;	
+
+					} else {								
+					i++;
+				}							
+			}						
+		}	
+	}
+
+	suggestions.set("classVariables", new vscode.CompletionList(classVariables,false));
+	return classVariables;
+}
+
+function collectFunctions(tree: Node[], position : CaretPosition) {
+	
+	let functions : vscode.CompletionItem[] = [];
+
+	for(let i = 0; i < tree.length; i++) {
+		
+		let ctx = tree[i].getContext();
+			
+		if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
+
+			let classBodyId = tree[i].getId();
+			/* check every node in current scope */
+			while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
+				
+				ctx = tree[i].getContext();
+				
+				if(ctx?.ruleIndex === MonkeyCParser.RULE_functionDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+
+					if(ctx._start.line <= position.line) {
+						
+						let variableName = "";
+						if(ctx.text?.includes("=")) {
+							variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+						} else {
+							variableName = ctx.text;
+						}											
+							functions.push(new vscode.CompletionItem(
+								variableName,
+								vscode.CompletionItemKind.Field
+							));																								
+						}
+						/* skip 1 node with same context */	
+						i+=2;	
+
+					} else {								
+					i++;
+				}							
+			}						
+		}	
+	}
+
+	suggestions.set("functions", new vscode.CompletionList(functions,false));
+	return functions;
 }
 
 function getTokensFromParser(parser: MonkeyCParser) : Token[] {
@@ -840,7 +1384,7 @@ function computeTokenIndexOfChildNode(parseTree: ParseTree, caretPosition: Caret
     return undefined;
 }
 
-function getKeywords(parser: MonkeyCParser, candidates: c3.CandidatesCollection, symbol: ScopedSymbol) {
+function getKeywords(parser: MonkeyCParser, candidates: c3.CandidatesCollection) {
 
 	let keywords: string[] = [];
 	
