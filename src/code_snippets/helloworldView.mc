@@ -26,7 +26,7 @@ class helloworldView extends WatchUi.WatchFace {
         //self.
 
         var promennahele;
-
+        
     }
 
     // Update the view
@@ -40,7 +40,7 @@ class helloworldView extends WatchUi.WatchFace {
         view.setText(timeString); 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate();
-        
+                        
     }
 
     // Called when this View is removed from the screen. Save the

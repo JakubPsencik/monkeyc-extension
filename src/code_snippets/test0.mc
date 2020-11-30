@@ -7,10 +7,12 @@ var gSettingsChanged = true;
 class SimpleAnalogApp extends App.AppBase 
 {
 
+	private var test;
+
     function  initialize() {
         AppBase.initialize();
 		$.gDeviceSettings = System.getDeviceSettings();
-		  
+				
     }
 
     // onStart() is called on application start up
@@ -38,6 +40,8 @@ class SimpleAnalogApp extends App.AppBase
 
 	function getBooleanProperty(key, initial) {
 		var value = getProperty(key);
+		var x;
+		
 		if (value != null) {
 			if (value instanceof Lang.Boolean) {
 				return value;
@@ -46,6 +50,8 @@ class SimpleAnalogApp extends App.AppBase
 				return value.toNumber() != 0;
 			}
 		}
+				
 		return initial;
+
 	}
 }

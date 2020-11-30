@@ -1,19 +1,16 @@
 using Toybox.WatchUi;
 using Toybox.System;
 
-class A {
+class B {
 
     private var privateVal;
+    public var publicVal;
 
     // Update the view
     function onUpdate(dc) {
 
         // Get and show the current time
         var clockTime = System.getClockTime();
-                                            
+                                                                                                                                                                             
     }
 }
-
-
-
-
