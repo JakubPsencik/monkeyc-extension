@@ -3,14 +3,15 @@ using Toybox.System;
 
 class B {
 
-    private var privateVal;
-    public var publicVal;
+    private var B_privateVal;
+    public var B_publicVal;
 
     // Update the view
-    function onUpdate(dc) {
+    public function B_onUpdate(dc) {
 
         // Get and show the current time
-        var clockTime = System.getClockTime();
-                                                                                                                                                                             
+        var B_clockTime = System.getClockTime();
+        var test = new A();
+                                                                                                                                                                                                            
     }
 }

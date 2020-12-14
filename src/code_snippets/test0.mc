@@ -23,7 +23,7 @@ class SimpleAnalogApp extends App.AppBase
 
     // onStop() is called when your application is exiting
     function onStop(state) {
-			
+				
     }
 
     // New app settings have been received so trigger a UI update

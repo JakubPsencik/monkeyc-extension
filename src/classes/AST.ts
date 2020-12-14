@@ -20,12 +20,15 @@ export class AST {
 
     static nodeCount: number = 0; 
     private parseTree : Node[];
+
+    public documentName: string;
     public currentNode : Node;
     public root : Node;
 
-    constructor() {
-
+    constructor(documentName: string) {
+        
         this.parseTree = [];
+        this.documentName = documentName;
         this.currentNode = new Node(undefined,undefined,undefined,undefined);
         this.root= new Node(undefined,undefined,undefined,undefined);
 

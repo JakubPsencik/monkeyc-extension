@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { AST } from './AST';
 import { Node } from './Node';
-import { ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, IdContext, LiteralContext, LiteralExpressionContext, ModifiersContext, MonkeyCParser, ProgramContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
+import { ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
 
 export class Listener implements MonkeyCListener {
@@ -16,7 +16,7 @@ export class Listener implements MonkeyCListener {
 	constructor() {
 		this.completionStrings = [];
 		this.completionList = new vscode.CompletionList(this.completionStrings,false);
-		this.AST = new AST();
+		this.AST = new AST("");
 		this.currentScopeIndex = -1;
 	}
 
@@ -397,7 +397,7 @@ export class Listener implements MonkeyCListener {
 	}
 
 	exitBlockStatement() {
-		this.AST.currentNode = this.AST.getParseTree()?.[this.currentScopeIndex-1];
+		//this.AST.currentNode = this.AST.getParseTree()?.[this.currentScopeIndex-1];
 	}
 
 	enterFieldDeclarationList(context: FieldDeclarationListContext) {
@@ -615,6 +615,122 @@ export class Listener implements MonkeyCListener {
 		//parent?
 		//console.log('exitVarOrFieldDeclaration\n');
 	}
+
+	enterGeneralFullyQualifiedReferenceExpression(context: GeneralFullyQualifiedReferenceExpressionContext) {
+
+		let generalFullyQualifiedReferenceExpressionNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(generalFullyQualifiedReferenceExpressionNode);
+
+		this.AST.addNode(generalFullyQualifiedReferenceExpressionNode);
+		this.AST.currentNode = generalFullyQualifiedReferenceExpressionNode;
+
+	}
+
+	exitGeneralFullyQualifiedReferenceExpression(context: GeneralFullyQualifiedReferenceExpressionContext) { }
+
+
+	enterQualifiedReferenceExpression(context: QualifiedReferenceExpressionContext) {
+
+		let qualifiedReferenceExpressionNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(qualifiedReferenceExpressionNode);
+
+		this.AST.addNode(qualifiedReferenceExpressionNode);
+		this.AST.currentNode = qualifiedReferenceExpressionNode;
+
+	}
+
+	exitQualifiedReferenceExpression(context: QualifiedReferenceExpressionContext) { }
+
+	
+	enterMethodInvocation(context: MethodInvocationContext) {
+		
+		let methodInvocationNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(methodInvocationNode);
+
+		this.AST.addNode(methodInvocationNode);
+		this.AST.currentNode = methodInvocationNode;
+
+	}
+
+	exitMethodInvocation(context: MethodInvocationContext) { }
+
+	enterArguments(context: ArgumentsContext) {
+
+		let argumentsNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		let LPAREN = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  argumentsNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.getChild(0).text
+		
+		);
+
+		argumentsNode.addChild(LPAREN);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(argumentsNode);
+
+		this.AST.addNode(argumentsNode);
+		this.AST.addNode(LPAREN);
+
+		this.AST.currentNode = argumentsNode;
+	}
+
+	exitArguments(context: ArgumentsContext) { 
+
+		let argumentsNode = this.AST.findNode(MonkeyCParser.RULE_arguments);
+
+		let RPAREN = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  argumentsNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.getChild(1).text
+		
+		);
+
+		argumentsNode?.addChild(RPAREN);
+
+		this.AST.currentNode = argumentsNode!;
+
+	}
+
 
 	enterComponentName(context: ComponentNameContext) {
 
@@ -859,8 +975,4 @@ export class Listener implements MonkeyCListener {
 		this.AST.currentNode = functionDeclarationNode!;
 
 	 }
-
-	enterArguments(context: ArgumentsContext) {
-		//console.log(`Argument start line number ${context._start.line}`);		
-	}
 }

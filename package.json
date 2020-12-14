@@ -16,9 +16,7 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-
-		],
+		"commands": [],
 		"languages": [
 			{
 				"id": "monkeyc",
@@ -71,7 +69,8 @@
 	"dependencies": {
 		"antlr4-c3": "^1.1.12",
 		"antlr4ts": "^0.5.0-alpha.3",
-		"clang-format": "^1.4.0"
+		"clang-format": "^1.4.0",
+		"xmlhttprequest": "^1.8.0"
 	},
 	"repository": {
 		"type": "git",

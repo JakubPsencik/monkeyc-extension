@@ -12,7 +12,7 @@ class SampleName extends Toybox.Application.AppBase {
     
     // onStop() is called when your application is exiting
     function onStop(state) {
-                
+                        
     }
 
     // Return the initial view of your application here

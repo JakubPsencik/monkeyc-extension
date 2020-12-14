@@ -19,14 +19,13 @@ type CaretPosition = { line: number, column: number };
 /** Holds information about each document in active workspace folder, such as errors, suggestions for automplete, etc... */
 export class DocumentHandler {
 
-
     static currentDocumentName : string;
 
     /** collection stores all errors for each    */
     public diagnosticCollection : Map<string, vscode.DiagnosticCollection>;
     /**
      * Map which stores suggested words for autocomplete
-     * @access private
+     * @access public
      * @type {Map<string, Map<string, vscode.CompletionList>>}
      *  *            1st string - name of relevant file
      *  *            2nd string - name of autocomplete "sublist" (localVariables, classVariables, etc...)
@@ -34,8 +33,15 @@ export class DocumentHandler {
      */
     public documentAutocompleteMap : Map<string, Map<string, vscode.CompletionList>>;
 
-    private abstractSyntaxTree : AST;
-
+     /**
+     * Map which stores syntax trees for each document
+     * @access public
+     * @type {Map<string, AST>}
+     *  *            string - name of relevant file
+     *  *            AST - syntax tree
+     */
+    public abstractSyntaxTreeMap : Map<string, AST>;
+    
     private parser : MonkeyCParser;
 
     public errorListener : MyErrorListener;
@@ -44,7 +50,7 @@ export class DocumentHandler {
 
         this.diagnosticCollection = new Map();
         this.documentAutocompleteMap = new Map();
-        this.abstractSyntaxTree = new AST();
+        this.abstractSyntaxTreeMap = new Map();
         this.parser = undefined!;
         this.errorListener = new MyErrorListener();
 
@@ -64,7 +70,7 @@ export class DocumentHandler {
         let tokenStream;
         let parseTree;
     
-        listener  = new Listener();
+       
     
         let activeDocument = vscode.window.activeTextEditor!.document;
         activeDocument.save();
@@ -74,15 +80,16 @@ export class DocumentHandler {
     
         rootFolder.then((documents) => {
             
-
             for(let i = 0; i < documents.length; i++) {
+                listener  = new Listener();
                 this.errorListener.getSyntaxErrors();
                 const filePath = path.join(rootFolderUri.fsPath, ( "\/" + documents[i][0]));
                 let file = vscode.Uri.file(filePath);
                 const fileUri = vscode.Uri.parse(file.path);	
 
-                this.diagnosticCollection.set(documents[i][0],vscode.languages.createDiagnosticCollection(documents[i][0].toString()));
-                this.documentAutocompleteMap.set(documents[i][0],new Map());
+                this.diagnosticCollection.set(documents[i][0], vscode.languages.createDiagnosticCollection(documents[i][0].toString()));
+                this.documentAutocompleteMap.set(documents[i][0], new Map());
+                this.abstractSyntaxTreeMap.set(documents[i][0], new AST(documents[i][0]));
                 
                 inputStream = new ANTLRInputStream(readFileSync(fileUri.fsPath, 'utf-8'));
                 lexer = new MonkeyCLexer(inputStream);
@@ -132,8 +139,7 @@ export class DocumentHandler {
     
         parseTree = this.parser.program();
         ParseTreeWalker.DEFAULT.walk(listener,parseTree);
-        this.provideAutocomplete(this.parser, listener, parseTree,activeDocument.fileName);	
-
+        this.provideAutocomplete(this.parser, listener, parseTree, DocumentHandler.currentDocumentName);	
         console.log('[parseCurrentDocument] parsing document: ', DocumentHandler.currentDocumentName);
         this.updateCollection(activeDocument, DocumentHandler.currentDocumentName, this.errorListener.getSyntaxErrors());
         console.log('------------------------------------------');
@@ -164,12 +170,12 @@ export class DocumentHandler {
     
         this.documentAutocompleteMap.get(documentName)?.set("keywords",new vscode.CompletionList(completionStrings,false));
     
+        this.abstractSyntaxTreeMap.set(documentName,listener.getAST());
+        let tree = this.abstractSyntaxTreeMap.get(documentName)!?.getParseTree();
 
-        this.abstractSyntaxTree = listener.getAST();
-        let tree = this.abstractSyntaxTree.getParseTree();
         this.collectLocalVariables(tree,pos,documentName);
         this.collectClassVariables(tree,pos,documentName);
-        //this.collectFunctions(tree,pos,documentName);
+        this.collectFunctions(tree,pos,documentName);
     
     }
 
@@ -218,9 +224,7 @@ export class DocumentHandler {
                 } catch (error) {
                     console.log(error);
                     //print error message and continue
-                }
-
-					
+                }				
             }	
         }
         
@@ -229,17 +233,11 @@ export class DocumentHandler {
     
     collectClassVariables(tree: Node[], position : CaretPosition, documentName: string) {
         
-        let classVariables : vscode.CompletionItem[] = [];
-        let rootID = -1;   
+        let classVariables : vscode.CompletionItem[] = []; 
     
         for(let i = 0; i < tree.length; i++) {
             
-
-            let ctx = tree[i].getContext();
-            if(ctx?.ruleIndex === MonkeyCParser.RULE_program) {
-                rootID = tree[i].getId();
-            }
-                
+            let ctx = tree[i].getContext();   
             if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
     
                 let classBodyId = tree[i].getId();
@@ -274,14 +272,10 @@ export class DocumentHandler {
                             i++;
                         }							
                     }
-
-
                 } catch (error) {
                     console.log(error);
                     //print error message and continue
-                }
-
-						
+                }	
             }	
         }
 
@@ -307,27 +301,22 @@ export class DocumentHandler {
                         
                         ctx = tree[i].getContext();
                         
-                        if(ctx?.ruleIndex === MonkeyCParser.RULE_functionDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+                        if(ctx?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
         
                             if(ctx._start.line <= position.line) {
                                 
-                                let variableName = "";
-                                if(ctx.text?.includes("=")) {
-                                    variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
-                                } else {
-                                    variableName = ctx.text;
-                                }											
-                                    functions.push(new vscode.CompletionItem(
-                                        variableName,
-                                        vscode.CompletionItemKind.Field
-                                    ));																								
+                                let  variableName = ctx.getChild(2).text;                                                               
+                                functions.push(new vscode.CompletionItem(
+                                    variableName,
+                                    vscode.CompletionItemKind.Function
+                                ));																								
                                 }
                                 /* skip 1 node with same context */	
-                                i+=2;	
+                                i+=4;	
         
                             } else {								
                             i++;
-                        }							
+                        }				
                     }	
                     
                 } catch (error) {
@@ -338,6 +327,68 @@ export class DocumentHandler {
         }
     
         this.documentAutocompleteMap.get(documentName)?.set("functions",new vscode.CompletionList(functions,false));
+    }
+
+    
+    collectAccessibleMembers(class_: Node) {
+        
+        let accessibleMembers : vscode.CompletionItem[] = [];
+        let classBodyMembers = class_.getChildren()![2].getChildren()![1].getChildren()!;
+
+        //collect fields
+        for(let i = 0; i < classBodyMembers.length; i++) {
+            let ctx = classBodyMembers[i].getChildren()![0];
+            if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
+                if(ctx.getChildren()![0].getValue() === 'public') {
+                    let variableName = ctx.getChildren()![2].getValue();                                                               
+                    accessibleMembers.push(new vscode.CompletionItem(
+                        variableName!,
+                        vscode.CompletionItemKind.Field
+                    )); 
+                }
+            } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+                if(ctx.getChildren()![1].getValue() === 'public') {
+                    let variableName = ctx.getChildren()![2].getValue();                                                               
+                    accessibleMembers.push(new vscode.CompletionItem(
+                        variableName!,
+                        vscode.CompletionItemKind.Function
+                    )); 
+                }
+            }
+        }
+       return accessibleMembers;
+    }
+
+    findClassName(tree: Node[], variableName: string) {
+
+        for(let i = 0; i < tree.length; i++) {
+            
+            let ctx = tree[i].getContext();
+                
+            if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList) { 
+
+                if(ctx.text.includes(variableName)) {
+                    return ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
+                }
+
+            }
+        
+        }
+    }
+
+    findClass(className: string) {
+        let classes : Node[] = [];
+        this.abstractSyntaxTreeMap.forEach((tree: AST, name: string) => {
+            classes.push(tree.getParseTree().find((x) => x.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) as Node);
+        });
+
+        for(let i = 0; i < classes.length; i++) {
+            if(classes[i].getChildren()![1].getValue() === className) {
+                return classes[i];
+            }
+        }
+
+        return undefined;
     }
 
 
