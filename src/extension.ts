@@ -9,13 +9,12 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var clang = require("clang-format");
 let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
 let documentHandler : DocumentHandler;
-let currentDocumentName: string;
 
 let started: boolean = false;
 	
 export function activate(context: vscode.ExtensionContext) {	
 
-	documentHandler = new DocumentHandler();
+		documentHandler = new DocumentHandler();
 
 	//highlight provider
 	vscode.languages.registerDocumentFormattingEditProvider("monkeyc", {
@@ -33,6 +32,18 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	
+	/*documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName)?.clear();
+
+	if(!started) {
+		vscode.window.showInformationMessage('Extension started!');
+		started = true;
+		documentHandler.parseAllDocuments();
+	} else {
+		documentHandler.parseCurrentDocument();			
+	}
+	
+	collection = documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName) as vscode.DiagnosticCollection;
+	context.subscriptions.push(collection);*/
 
 	vscode.workspace.onDidOpenTextDocument(() => {
 
@@ -128,15 +139,34 @@ export function activate(context: vscode.ExtensionContext) {
 		'.' // triggered whenever a '.' is being typed
 	);
 
-	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider);
+	const inheritedMembersProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
-	getRequest('https://developer.garmin.com/connect-iq/api-docs/class_list.html')
+				let linePrefix = document.lineAt(position).text.substr(0, position.character);
+				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();
+				let class_ = documentHandler.findClass(linePrefix);
+
+				if(linePrefix === '.') { return undefined; }
+
+				return documentHandler.collectAccessibleMembers(class_!);
+			}
+		},
+		'.' // triggered whenever a '.' is being typed
+	);
+
+
+
+	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider);
+
+	/*getRequest('https://developer.garmin.com/connect-iq/api-docs/class_list.html')
 	.then(response => {
 	  //console.log('response: ', response);
 	})
 	.catch(error => {
 	  console.log(error);
-	});
+	});*/
 }
 
 // this method is called when your extension is deactivated
@@ -159,5 +189,5 @@ function getRequest(url: string): Promise<any> {
 		};
 		request.open('GET', url);
 		request.send();
-		});	  
+	}); 
 }

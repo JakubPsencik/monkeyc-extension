@@ -11,7 +11,10 @@ class A {
         
         // Get and show the current time
         var A_clockTime = System.getClockTime();
-        var A_classB = new B();             
+        var A_classB = new B();
+        self.A_publicVal = 2;
+        var add = self.A_publicVal + 3;
+        
     }
 
 }

@@ -12,6 +12,6 @@ class B {
         // Get and show the current time
         var B_clockTime = System.getClockTime();
         var test = new A();
-                                                                                                                                                                                                            
+                                                                                                                                                                                                       
     }
 }

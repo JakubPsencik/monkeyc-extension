@@ -5,6 +5,8 @@ class SampleName extends Toybox.Application.AppBase {
 
     function initialize() {
     AppBase.initialize();
+    var testClass = new helloworldView();
+    testClass
     }
     // onStart() is called on application start up
     function onStart(state) {

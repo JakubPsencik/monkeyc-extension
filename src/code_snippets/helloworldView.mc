@@ -2,14 +2,15 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.WatchFace;
 
 class helloworldView extends WatchUi.WatchFace {
 
     private var privateVal;
-
+    public var pubVal;
     function initialize() {
         WatchFace.initialize();
-
+        
     }
 
     // Load your resources here

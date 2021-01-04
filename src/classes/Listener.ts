@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { AST } from './AST';
 import { Node } from './Node';
-import { ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
+import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
 
 export class Listener implements MonkeyCListener {
@@ -50,7 +50,7 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.root,
 			/*1..n children: */         [],
-			/*value of the context: */  this.AST.root.getContext()?.getChild(3).text
+			/*value of the context: */  '<EOF>'
 		
 		);
 		
@@ -257,7 +257,7 @@ export class Listener implements MonkeyCListener {
 
 	exitClassBody(context: ClassBodyContext) {
 
-		let classBodyNode = this.AST.getParseTree().find((x) => x.getContext()?.ruleIndex === MonkeyCParser.RULE_classBody);
+		let classBodyNode = this.AST.getParseTree().find((x) => x !== null && x.getContext()?.ruleIndex === MonkeyCParser.RULE_classBody);
 
 		let RBRACE = new Node(
 			
@@ -438,13 +438,14 @@ export class Listener implements MonkeyCListener {
 				/* context of this node: */ undefined,
 				/* parent of this node: */  modifiersNode,
 				/*1..n children: */         undefined,
-				/*value of the context: */  context.getChild(0).text
+				/*value of the context: */  context._parent.getChild(1).text
 			
 			);
-			modifiersNode.addChild(modifier);
+
 			
 			/* set this node as one of children to the previous node */
 			this.AST.currentNode.addChild(modifiersNode);
+			this.AST.currentNode.addChild(modifier);
 			
 			this.AST.addNode(modifiersNode);
 			this.AST.addNode(modifier);
@@ -460,13 +461,13 @@ export class Listener implements MonkeyCListener {
 	exitModifiers() { 
 
 	let curr =undefined;
-	if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
+	if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
 		curr = this.AST.findNode(MonkeyCParser.RULE_fieldDeclarationList);
-	} else if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) {
+	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_classDeclaration) {
 		curr = this.AST.findNode(MonkeyCParser.RULE_classDeclaration);
-	} else if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
+	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
 		curr = this.AST.findNode(MonkeyCParser.RULE_classBodyMember);
-	} else if(this.AST.currentNode.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
 		curr = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
 	}
 	
@@ -517,9 +518,17 @@ export class Listener implements MonkeyCListener {
 	}
 
 	exitFieldDeclaration() {
+		let tree = this.AST.getParseTree();
+		let n = null;
+		for(let i = tree.length-1; i >= 0; i--) {
 
-		this.AST.currentNode = this.AST.getParseTree().find((x) => x.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration) as Node;
+			if(tree[i] != null && tree[i].getContext() != null)
+				if(tree[i].getContext()!?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration) {
 
+					this.AST.currentNode = tree[i];
+					break;
+				}	
+		}
 	}
 	
 	enterVariableDeclarationList(context: VariableDeclarationListContext) {
@@ -745,8 +754,25 @@ export class Listener implements MonkeyCListener {
 
 		/* set this node as one of children to the previous node */
 		this.AST.currentNode.addChild(componentNameNode);
+		let _extends = null;
+		if(context._parent!?.childCount > 4) {
 
+			_extends = new Node(
+			
+				/* context of this node: */ undefined,
+				/* parent of this node: */  this.AST.currentNode,
+				/*1..n children: */         [],
+				/*value of the context: */  'extends'
+			
+			);
+
+			this.AST.currentNode.addChild(_extends);
+
+		}
+	
 		this.AST.addNode(componentNameNode);
+		this.AST.addNode(_extends!);
+		
 		this.AST.currentNode = componentNameNode;
 	}
 
@@ -820,7 +846,13 @@ export class Listener implements MonkeyCListener {
 
 	exitVariableInitializer() { }
 
-	
+	enterAdditiveExpression(context: AdditiveExpressionContext) { 
+
+		
+
+	}
+	exitAdditiveExpression(context: AdditiveExpressionContext) { }
+
 	enterLiteralExpression(context: LiteralExpressionContext) {
 
 		let literalExpressionNode = new Node(
@@ -840,7 +872,6 @@ export class Listener implements MonkeyCListener {
 	}
 
 	exitLiteralExpression() { }
-
 
 	enterLiteral(context: LiteralContext) {
 

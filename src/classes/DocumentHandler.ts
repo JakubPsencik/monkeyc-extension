@@ -79,37 +79,44 @@ export class DocumentHandler {
         let rootFolder = vscode.workspace.fs.readDirectory(rootFolderUri);
     
         rootFolder.then((documents) => {
-            
+        
             for(let i = 0; i < documents.length; i++) {
-                listener  = new Listener();
-                this.errorListener.getSyntaxErrors();
-                const filePath = path.join(rootFolderUri.fsPath, ( "\/" + documents[i][0]));
-                let file = vscode.Uri.file(filePath);
-                const fileUri = vscode.Uri.parse(file.path);	
 
-                this.diagnosticCollection.set(documents[i][0], vscode.languages.createDiagnosticCollection(documents[i][0].toString()));
-                this.documentAutocompleteMap.set(documents[i][0], new Map());
-                this.abstractSyntaxTreeMap.set(documents[i][0], new AST(documents[i][0]));
-                
-                inputStream = new ANTLRInputStream(readFileSync(fileUri.fsPath, 'utf-8'));
-                lexer = new MonkeyCLexer(inputStream);
-                lexer.removeErrorListeners();
-                lexer.addErrorListener(this.errorListener);
-                tokenStream = new CommonTokenStream(lexer);
-                this.parser = new MonkeyCParser(tokenStream);
-                this.parser.buildParseTree = true;
-                this.parser.removeErrorListeners();
-                this.parser.addErrorListener(this.errorListener);
+                if(documents[i][0].includes('.')) {
+                    listener  = new Listener();
+                    this.errorListener.getSyntaxErrors();
+                    const filePath = path.join(rootFolderUri.fsPath, ( "\/" + documents[i][0]));
+                    let file = vscode.Uri.file(filePath);
+                    const fileUri = vscode.Uri.parse(file.path);	
     
-                parseTree = this.parser.program();
-                ParseTreeWalker.DEFAULT.walk(listener,parseTree);
-                this.provideAutocomplete(this.parser, listener, parseTree,documents[i][0]);	
-                console.log('[parseAllDocuments] parsing document: ',documents[i][0]);
-                this.updateCollection(activeDocument, documents[i][0], this.errorListener.getSyntaxErrors());
-                console.log('------------------------------------------');
-                
+                    this.diagnosticCollection.set(documents[i][0], vscode.languages.createDiagnosticCollection(documents[i][0].toString()));
+                    this.documentAutocompleteMap.set(documents[i][0], new Map());
+                    this.abstractSyntaxTreeMap.set(documents[i][0], new AST(documents[i][0]));
+                    
+                    inputStream = new ANTLRInputStream(readFileSync(fileUri.fsPath, 'utf-8'));
+
+                    lexer = new MonkeyCLexer(inputStream);
+                    lexer.removeErrorListeners();
+                    lexer.addErrorListener(this.errorListener);
+                    tokenStream = new CommonTokenStream(lexer);
+                    this.parser = new MonkeyCParser(tokenStream);
+                    this.parser.buildParseTree = true;
+                    this.parser.removeErrorListeners();
+                    this.parser.addErrorListener(this.errorListener);
+        
+                    parseTree = this.parser.program();
+                    console.log('about to parse: ', documents[i][0]);
+                    ParseTreeWalker.DEFAULT.walk(listener,parseTree);
+                    this.provideAutocomplete(this.parser, listener, parseTree,documents[i][0]);	
+                    console.log('[parseAllDocuments] parsing document: ',documents[i][0]);
+                    this.updateCollection(activeDocument, documents[i][0], this.errorListener.getSyntaxErrors());
+                    console.log('------------------------------------------');
+                    
+                }
             }	
         });
+
+
     }
 
     parseCurrentDocument() {
@@ -185,7 +192,7 @@ export class DocumentHandler {
     
         for(let i = 0; i < tree.length; i++) {
             
-            let ctx = tree[i].getContext();
+            let ctx = tree[i] ? tree[i].getContext() : undefined;
                 
             if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_block && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
     
@@ -193,33 +200,35 @@ export class DocumentHandler {
                 /* check every node in current scope */
 
                 try {
-
-                    while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
-                    
-                        ctx = tree[i].getContext();
+                    if(tree[i]!==null) {
+                        while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
                         
-                        if(ctx?.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
-        
-                            if(ctx._start.line <= position.line) {
-                                
-                                let variableName = "";
-                                if(ctx.text?.includes("=")) {
-                                    variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
-                                } else {
-                                    variableName = ctx.text;
-                                }											
-                                    completionStrings.push(new vscode.CompletionItem(
-                                        variableName,
-                                        vscode.CompletionItemKind.Variable
-                                    ));																								
-                                }
-                                /* skip 1 node with same context */	
-                                i+=2;	
-        
-                            } else {								
-                            i++;
-                        }							
-                    }	
+                            ctx = tree[i].getContext();
+                            
+                            if(ctx?.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+            
+                                if(ctx._start.line <= position.line) {
+                                    
+                                    let variableName = "";
+                                    if(ctx.text?.includes("=")) {
+                                        variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+                                    } else {
+                                        variableName = ctx.text;
+                                    }											
+                                        completionStrings.push(new vscode.CompletionItem(
+                                            variableName,
+                                            vscode.CompletionItemKind.Variable
+                                        ));																								
+                                    }
+                                    /* skip 1 node with same context */	
+                                    i+=2;	
+            
+                                } else {								
+                                i++;
+                            }							
+                        }	
+                    }
+                        
                     
                 } catch (error) {
                     console.log(error);
@@ -237,41 +246,43 @@ export class DocumentHandler {
     
         for(let i = 0; i < tree.length; i++) {
             
-            let ctx = tree[i].getContext();   
+            let ctx = tree[i] ? tree[i].getContext() : undefined; 
             if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
     
                 let classBodyId = tree[i].getId();
                 /* check every node in current scope */
                     
                 try {
-                    
-                    while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
-                    
-                        ctx = tree[i].getContext();
+                    if(tree[i]!==null) {
+                        while(tree[i] && !(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
                         
-                        if(ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
-        
-                            if(ctx._start.line <= position.line) {
-                                
-                                let variableName = "";
-                                if(ctx.text?.includes("=")) {
-                                    variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
-                                } else {
-                                    variableName = ctx.text;
-                                }	
+                            ctx = tree[i].getContext();
+                            
+                            if(ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+            
+                                if(ctx._start.line <= position.line) {
+                                    
+                                    let variableName ="";
+                                    if(ctx.text?.includes("=")) {
+                                        variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+                                    } else {
+                                        variableName = ctx.text;
+                                    }	
 
-                                    classVariables.push(new vscode.CompletionItem(
-                                        variableName,
-                                        vscode.CompletionItemKind.Field
-                                    ));																								
-                                }
-                                /* skip 1 node with same context */	
-                                i+=2;
-        
-                            } else {								
-                            i++;
-                        }							
+                                        classVariables.push(new vscode.CompletionItem(
+                                            variableName,
+                                            vscode.CompletionItemKind.Field
+                                        ));																								
+                                    }
+                                    /* skip 1 node with same context */	
+                                    i+=2;
+            
+                                } else {								
+                                i++;
+                            }							
+                        }
                     }
+ 
                 } catch (error) {
                     console.log(error);
                     //print error message and continue
@@ -288,7 +299,7 @@ export class DocumentHandler {
     
         for(let i = 0; i < tree.length; i++) {
             
-            let ctx = tree[i].getContext();
+            let ctx = tree[i] ? tree[i].getContext() : undefined;
                 
             if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
     
@@ -296,28 +307,30 @@ export class DocumentHandler {
                 /* check every node in current scope */
 
                 try {
-                   
-                    while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
+                    if(tree[i]!==null) {
+                        while(tree[i] && !(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
+                            
+                            ctx = tree[i].getContext();
+                            
+                            if(ctx?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+            
+                                if(ctx._start.line <= position.line) {
+                                    
+                                    let  variableName = ctx.getChild(2).text;                                                               
+                                    functions.push(new vscode.CompletionItem(
+                                        variableName,
+                                        vscode.CompletionItemKind.Function
+                                    ));																								
+                                    }
+                                    /* skip 1 node with same context */	
+                                    i+=4;	
+            
+                                } else {								
+                                i++;
+                            }				
+                        }	
+                    }
                         
-                        ctx = tree[i].getContext();
-                        
-                        if(ctx?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
-        
-                            if(ctx._start.line <= position.line) {
-                                
-                                let  variableName = ctx.getChild(2).text;                                                               
-                                functions.push(new vscode.CompletionItem(
-                                    variableName,
-                                    vscode.CompletionItemKind.Function
-                                ));																								
-                                }
-                                /* skip 1 node with same context */	
-                                i+=4;	
-        
-                            } else {								
-                            i++;
-                        }				
-                    }	
                     
                 } catch (error) {
                     console.log(error);
@@ -339,20 +352,20 @@ export class DocumentHandler {
         for(let i = 0; i < classBodyMembers.length; i++) {
             let ctx = classBodyMembers[i].getChildren()![0];
             if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
-                if(ctx.getChildren()![0].getValue() === 'public') {
-                    let variableName = ctx.getChildren()![2].getValue();                                                               
+                if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
+                    let variableName = ctx.getChildren()![3].getValue();                                                               
                     accessibleMembers.push(new vscode.CompletionItem(
                         variableName!,
                         vscode.CompletionItemKind.Field
                     )); 
                 }
             } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
-                if(ctx.getChildren()![1].getValue() === 'public') {
+                if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {
                     let variableName = ctx.getChildren()![2].getValue();                                                               
                     accessibleMembers.push(new vscode.CompletionItem(
                         variableName!,
                         vscode.CompletionItemKind.Function
-                    )); 
+                    ));
                 }
             }
         }
@@ -363,7 +376,7 @@ export class DocumentHandler {
 
         for(let i = 0; i < tree.length; i++) {
             
-            let ctx = tree[i].getContext();
+            let ctx = tree[i] ? tree[i].getContext() : undefined;
                 
             if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList) { 
 
@@ -379,7 +392,7 @@ export class DocumentHandler {
     findClass(className: string) {
         let classes : Node[] = [];
         this.abstractSyntaxTreeMap.forEach((tree: AST, name: string) => {
-            classes.push(tree.getParseTree().find((x) => x.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) as Node);
+            classes.push(tree.getParseTree().find((x) => (x!==null) && x.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) as Node);
         });
 
         for(let i = 0; i < classes.length; i++) {

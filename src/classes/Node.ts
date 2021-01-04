@@ -32,22 +32,3 @@ export class Node {
         this.child?.push(child);
     }
 }
-
-class Leaf {
-
-    private value : string;
-    private parent : ParserRuleContext | Node | undefined;
-
-    constructor(value: string, parent : ParserRuleContext | Node | undefined) {
-        this.value = value;
-        this.parent = parent;
-    }
-
-    getContext() {
-        return this.value;
-    }
-
-    getParent() {
-        return this.parent;
-    }
-}

@@ -45,7 +45,7 @@ export class AST {
     findNode(ruleNumber: number) : Node | undefined {
 
         for(let i = this.parseTree.length-1; i >= 0; i--) {
-            if(this.parseTree[i].getContext()?.ruleIndex === ruleNumber) {
+            if(this.parseTree[i] != null && this.parseTree[i].getContext()?.ruleIndex === ruleNumber) {
                 return this.parseTree[i];
             }
         }
