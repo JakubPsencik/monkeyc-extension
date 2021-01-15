@@ -8,6 +8,9 @@ code --install-extension monkeyc-extension-(cislo-verze).vsix
 
 # Poznámky k verzím
 
+## **1.0.7 (14.12.2020)**
+- nahrána první verze toyboxu vygenerovaná z oficiální connectIQ SDK
+
 ## **1.0.6 (14.12.2020)**
 - vyřešena viditelnost tříd pro veřejné metody a proměnné
     - **pozn.** testováno na 1 adresáři s dvěma soubory...
