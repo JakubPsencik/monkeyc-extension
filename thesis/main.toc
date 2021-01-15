@@ -12,12 +12,22 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2}Problematika vývoje rozšíření pro VS Code}{11}{section.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Sémantická analýza kódu}{12}{section.3}%
+\contentsline {subsection}{\numberline {2.1}vscode}{11}{subsection.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Představení jazyka Monkey C}{13}{section.4}%
+\contentsline {subsection}{\numberline {2.2}extensions}{11}{subsection.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Návrh a implementace rozšíření pro VS Code}{14}{section.5}%
+\contentsline {subsection}{\numberline {2.3}monkeyC extension}{11}{subsection.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Testování výsledného řešení}{15}{section.6}%
+\contentsline {section}{\numberline {3}antlr4}{12}{section.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Závěr}{16}{section.7}%
+\contentsline {section}{\numberline {4}parser}{12}{section.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Sémantická analýza kódu}{12}{section.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6}Představení jazyka Monkey C}{13}{section.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7}Návrh a implementace rozšíření pro VS Code}{14}{section.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8}Testování výsledného řešení}{15}{section.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9}Závěr}{16}{section.9}%

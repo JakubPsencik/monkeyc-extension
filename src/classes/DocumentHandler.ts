@@ -20,11 +20,12 @@ type CaretPosition = { line: number, column: number };
 export class DocumentHandler {
 
     static currentDocumentName : string;
-
+        
     /** collection stores all errors for each    */
     public diagnosticCollection : Map<string, vscode.DiagnosticCollection>;
     /**
      * Map which stores suggested words for autocomplete
+     
      * @access public
      * @type {Map<string, Map<string, vscode.CompletionList>>}
      *  *            1st string - name of relevant file
@@ -70,8 +71,6 @@ export class DocumentHandler {
         let tokenStream;
         let parseTree;
     
-       
-    
         let activeDocument = vscode.window.activeTextEditor!.document;
         activeDocument.save();
     
@@ -81,7 +80,7 @@ export class DocumentHandler {
         rootFolder.then((documents) => {
         
             for(let i = 0; i < documents.length; i++) {
-
+                // && (!documents[i][0].toLowerCase().includes('toybox'))
                 if(documents[i][0].includes('.')) {
                     listener  = new Listener();
                     this.errorListener.getSyntaxErrors();
@@ -122,34 +121,37 @@ export class DocumentHandler {
     parseCurrentDocument() {
 
         DocumentHandler.currentDocumentName = this.getCurrentDocumentName();
-        let listener: MonkeyCListener;
-        let inputStream;
-        let lexer;
-        let tokenStream;
-        let parseTree;
+        if((!DocumentHandler.currentDocumentName.toLowerCase().includes('toybox'))) {
+            let listener: MonkeyCListener;
+            let inputStream;
+            let lexer;
+            let tokenStream;
+            let parseTree;
+        
+            listener  = new Listener();
+            let activeDocument = vscode.window.activeTextEditor!.document;
+            activeDocument.save();
     
-        listener  = new Listener();
-        let activeDocument = vscode.window.activeTextEditor!.document;
-        activeDocument.save();
-
-        this.errorListener.clearSyntaxErrors();
-
-        inputStream = new ANTLRInputStream(readFileSync(activeDocument.uri.fsPath, 'utf-8'));
-        lexer = new MonkeyCLexer(inputStream);
-        lexer.removeErrorListeners();
-        lexer.addErrorListener(this.errorListener);
-        tokenStream = new CommonTokenStream(lexer);
-        this.parser = new MonkeyCParser(tokenStream);
-        this.parser.buildParseTree = true;
-        this.parser.removeErrorListeners();
-        this.parser.addErrorListener(this.errorListener);
+            this.errorListener.clearSyntaxErrors();
     
-        parseTree = this.parser.program();
-        ParseTreeWalker.DEFAULT.walk(listener,parseTree);
-        this.provideAutocomplete(this.parser, listener, parseTree, DocumentHandler.currentDocumentName);	
-        console.log('[parseCurrentDocument] parsing document: ', DocumentHandler.currentDocumentName);
-        this.updateCollection(activeDocument, DocumentHandler.currentDocumentName, this.errorListener.getSyntaxErrors());
-        console.log('------------------------------------------');
+            inputStream = new ANTLRInputStream(readFileSync(activeDocument.uri.fsPath, 'utf-8'));
+            lexer = new MonkeyCLexer(inputStream);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(this.errorListener);
+            tokenStream = new CommonTokenStream(lexer);
+            this.parser = new MonkeyCParser(tokenStream);
+            this.parser.buildParseTree = true;
+            this.parser.removeErrorListeners();
+            this.parser.addErrorListener(this.errorListener);
+        
+            parseTree = this.parser.program();
+            ParseTreeWalker.DEFAULT.walk(listener,parseTree);
+            this.provideAutocomplete(this.parser, listener, parseTree, DocumentHandler.currentDocumentName);	
+            console.log('[parseCurrentDocument] parsing document: ', DocumentHandler.currentDocumentName);
+            this.updateCollection(activeDocument, DocumentHandler.currentDocumentName, this.errorListener.getSyntaxErrors());
+            console.log('------------------------------------------');
+        }
+        
     }
 
     provideAutocomplete(parser : MonkeyCParser, listener: MonkeyCListener, parseTree: ProgramContext, documentName: string) {

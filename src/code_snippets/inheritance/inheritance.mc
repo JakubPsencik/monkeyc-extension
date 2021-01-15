@@ -1,4 +1,4 @@
-using Toybox.System;
+using Toybox;
 
 class A
 {
@@ -11,14 +11,24 @@ class A
 class B extends A 
 {
     function print() {
-    // Call the super class implementation
-    A.print();
-    // Amend the output
-    System.println( "Greetings!" );
+        // Call the super class implementation
+        A.print();
+        // Amend the output
+        System.println( "Greetings!" );
     }
+
+    var tbx = new Info();
+    var speed = Info.averageSpeed;
+
 }
 
 function usageSample() {
     var inst = new B();
     inst.print(); // Prints "Hello! Greetings!"
 }
+
+if(true) {
+
+
+}
+
