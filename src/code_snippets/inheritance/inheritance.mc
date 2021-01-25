@@ -1,4 +1,4 @@
-using Toybox;
+using Toybox.Activity.Info;
 
 class A
 {
@@ -15,20 +15,9 @@ class B extends A
         A.print();
         // Amend the output
         System.println( "Greetings!" );
+        var mActivity = Info.ambientPressure;
     }
-
-    var tbx = new Info();
-    var speed = Info.averageSpeed;
-
 }
 
-function usageSample() {
-    var inst = new B();
-    inst.print(); // Prints "Hello! Greetings!"
-}
 
-if(true) {
-
-
-}
 

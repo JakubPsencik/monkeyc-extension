@@ -4,6 +4,7 @@ import * as os from "os";
 import { spawn } from 'child_process';
 import { DocumentHandler } from './classes/DocumentHandler';
 import * as http from 'http';
+import { readFile, readFileSync } from 'fs';
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var clang = require("clang-format");
@@ -121,6 +122,7 @@ export function activate(context: vscode.ExtensionContext) {
 		'.' // triggered whenever any of these is being typed
 	);
 
+	//instanced class variable
 	const accessibleMembersProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
 		{
@@ -139,6 +141,7 @@ export function activate(context: vscode.ExtensionContext) {
 		'.' // triggered whenever a '.' is being typed
 	);
 
+
 	const inheritedMembersProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
 		{
@@ -156,9 +159,30 @@ export function activate(context: vscode.ExtensionContext) {
 		'.' // triggered whenever a '.' is being typed
 	);
 
+	const toyboxProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{
+
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
+				if(linePrefix === "using")
+					return [new vscode.CompletionItem("Toybox", vscode.CompletionItemKind.Module)];
+				else if (linePrefix === "using Toybox.") {
+					let class_ = documentHandler.findModule("Toybox");
+					return documentHandler.collectModules(class_!);
+				} else if(linePrefix.startsWith("using Toybox.") && linePrefix.length > ("using Toybox.").length) {
+					let module_ = documentHandler.findModule(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
+				return documentHandler.collectModules(module_!);
+				}
+					
+			}
+		},
+		' ','.' // triggered whenever a '.' is being typed
+	);
 
 
-	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider);
+
+	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider,toyboxProvider);
 
 	/*getRequest('https://developer.garmin.com/connect-iq/api-docs/class_list.html')
 	.then(response => {

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { AST } from './AST';
 import { Node } from './Node';
-import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
+import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, ModuleBodyContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
 
 export class Listener implements MonkeyCListener {
@@ -201,6 +201,100 @@ export class Listener implements MonkeyCListener {
 	exitStatement() {
 
 	}
+
+	enterModuleDeclaration(context: ModuleDeclarationContext) {
+
+		let moduleDeclarationNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(moduleDeclarationNode);
+
+		this.AST.addNode(moduleDeclarationNode);
+		this.AST.currentNode = moduleDeclarationNode;
+
+	}
+
+	exitModuleDeclaration(context: ModuleDeclarationContext) { }
+
+	enterModuleBody(context: ModuleBodyContext) { 
+
+		let moduleBodyNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		let LBRACE = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  moduleBodyNode,
+			/*no children for leafs */  undefined,
+			/*value of the context: */  context.getChild(0).text
+		
+		);
+
+		moduleBodyNode.addChild(LBRACE);
+
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(moduleBodyNode);
+
+		this.AST.addNode(LBRACE);
+		this.AST.addNode(moduleBodyNode);
+
+		this.AST.currentNode = moduleBodyNode;
+
+
+	}
+	exitModuleBody(context: ModuleBodyContext) { 
+
+		let classBodyNode = this.AST.getParseTree().find((x) => x !== null && x.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleBody);
+
+		let RBRACE = new Node(
+			
+			/* context of this node: */ undefined,
+			/* parent of this node: */  classBodyNode,
+			/*no children for leafs */  undefined,
+			/*value of the context: */  context.getChild(2).text
+		
+		);
+
+		classBodyNode!.addChild(RBRACE);
+
+		this.AST.addNode(RBRACE);
+		this.AST.currentNode = classBodyNode as Node;	
+
+	}
+
+	enterModuleBodyMembers(context: ModuleBodyMembersContext) { 
+
+		let moduleBodyMembersNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(moduleBodyMembersNode);
+
+		this.AST.addNode(moduleBodyMembersNode);
+		this.AST.currentNode = moduleBodyMembersNode;
+
+	}
+	exitModuleBodyMembers(context: ModuleBodyMembersContext) { }
 
 	enterClassDeclaration(context: ClassDeclarationContext) {
 	
@@ -454,8 +548,6 @@ export class Listener implements MonkeyCListener {
 			this.AST.currentNode.addChild(modifiersNode);
 			this.AST.addNode(modifiersNode);
 		}
-		
-		//this.AST.currentNode = modifiersNode;
 	}
 
 	exitModifiers() { 
@@ -465,6 +557,8 @@ export class Listener implements MonkeyCListener {
 		curr = this.AST.findNode(MonkeyCParser.RULE_fieldDeclarationList);
 	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_classDeclaration) {
 		curr = this.AST.findNode(MonkeyCParser.RULE_classDeclaration);
+	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_moduleDeclaration) {
+		curr = this.AST.findNode(MonkeyCParser.RULE_moduleDeclaration);
 	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
 		curr = this.AST.findNode(MonkeyCParser.RULE_classBodyMember);
 	} else if(this.AST.currentNode.getContext()!?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
@@ -751,8 +845,7 @@ export class Listener implements MonkeyCListener {
 			/*value of the context: */  context.text
 		
 		);
-
-		/* set this node as one of children to the previous node */
+		if(this.AST.currentNode === undefined) this.AST.currentNode = this.AST.getParseTree()[this.AST.getParseTree().length-2];
 		this.AST.currentNode.addChild(componentNameNode);
 		let _extends = null;
 		if(context._parent!?.childCount > 4) {

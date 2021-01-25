@@ -81,7 +81,7 @@ export class DocumentHandler {
         
             for(let i = 0; i < documents.length; i++) {
                 // && (!documents[i][0].toLowerCase().includes('toybox'))
-                if(documents[i][0].includes('.')) {
+                if(documents[i][0].includes('.mc')) {
                     listener  = new Listener();
                     this.errorListener.getSyntaxErrors();
                     const filePath = path.join(rootFolderUri.fsPath, ( "\/" + documents[i][0]));
@@ -374,13 +374,56 @@ export class DocumentHandler {
        return accessibleMembers;
     }
 
+    collectModules(module_: Node) {
+        
+        let accessibleMembers : vscode.CompletionItem[] = [];
+        let classBodyMembers = module_.getChildren()![2].getChildren()!;
+
+        //collect fields
+        for(let i = 0; i < classBodyMembers.length; i++) {
+            
+            if(classBodyMembers[i].getContext() !== undefined) {
+                let ctx = classBodyMembers[i].getChildren()![0];
+                if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_modifiers && ctx.getParent()?.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleDeclaration) {
+                    if(ctx.getValue() === 'public' || ctx.getValue() === 'protected' || ctx.getValue() === '') {
+                        let variableName = ctx.getParent()!.getChildren()![1].getValue();                                                               
+                        accessibleMembers.push(new vscode.CompletionItem(
+                            variableName!,
+                            vscode.CompletionItemKind.Module
+                        ));
+                    }
+                } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleDeclaration) {
+                    if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
+                        let variableName = ctx.getChildren()![1].getValue();                                                               
+                        accessibleMembers.push(new vscode.CompletionItem(
+                            variableName!,
+                            vscode.CompletionItemKind.Module
+                        )); 
+                    }
+                }  else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) {
+                    if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
+                        let variableName = ctx.getChildren()![1].getValue();                                                               
+                        accessibleMembers.push(new vscode.CompletionItem(
+                            variableName!,
+                            vscode.CompletionItemKind.Class
+                        )); 
+                    }
+                }
+            }
+
+
+            
+        }
+       return accessibleMembers;
+    }
+
     findClassName(tree: Node[], variableName: string) {
 
         for(let i = 0; i < tree.length; i++) {
             
             let ctx = tree[i] ? tree[i].getContext() : undefined;
                 
-            if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList) { 
+            if (ctx && (ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList)) { 
 
                 if(ctx.text.includes(variableName)) {
                     return ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
@@ -400,6 +443,24 @@ export class DocumentHandler {
         for(let i = 0; i < classes.length; i++) {
             if(classes[i].getChildren()![1].getValue() === className) {
                 return classes[i];
+            }
+        }
+
+        return undefined;
+    }
+
+    findModule(moduleName: string) {
+        let modules : Node[] =[];
+        let tree = this.abstractSyntaxTreeMap.get("Toybox.mc")!?.getParseTree();
+        for(let i = 0; i < tree.length; i++) {
+            if(tree[i] !== null)
+                if(tree[i].getContext()!?.ruleIndex === MonkeyCParser.RULE_moduleDeclaration && tree[i].getChildren()!?.length > 1) 
+                    modules.push(tree[i]);
+        }
+
+        for(let i = 0; i < modules.length; i++) {
+            if(modules[i] !== undefined && modules[i].getChildren()![1].getValue() === moduleName) {
+                return modules[i];
             }
         }
 

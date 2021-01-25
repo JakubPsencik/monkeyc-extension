@@ -8,7 +8,9 @@ code --install-extension monkeyc-extension-(cislo-verze).vsix
 
 # Poznámky k verzím
 
-## **1.0.7 (14.12.2020)**
+## **1.0.8 (25.01.2020)**
+- rozšíření je schopno našeptávat moduly a třídy pod jmenným prostorem "Toybox"
+## **1.0.7 (15.01.2020)**
 - nahrána první verze toyboxu vygenerovaná z oficiální connectIQ SDK
 
 ## **1.0.6 (14.12.2020)**
