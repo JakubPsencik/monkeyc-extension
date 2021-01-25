@@ -171,8 +171,8 @@ export function activate(context: vscode.ExtensionContext) {
 					let class_ = documentHandler.findModule("Toybox");
 					return documentHandler.collectModules(class_!);
 				} else if(linePrefix.startsWith("using Toybox.") && linePrefix.length > ("using Toybox.").length) {
-					let module_ = documentHandler.findModule(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
-				return documentHandler.collectModules(module_!);
+					let classes = documentHandler.findModuleBodyMembers(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
+					return documentHandler.collectClassesFromModules(classes!);
 				}
 					
 			}

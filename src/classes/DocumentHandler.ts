@@ -108,7 +108,7 @@ export class DocumentHandler {
                     ParseTreeWalker.DEFAULT.walk(listener,parseTree);
                     this.provideAutocomplete(this.parser, listener, parseTree,documents[i][0]);	
                     console.log('[parseAllDocuments] parsing document: ',documents[i][0]);
-                    this.updateCollection(activeDocument, documents[i][0], this.errorListener.getSyntaxErrors());
+                    this.updateCollection(activeDocument, documents[i][0], this.errorListener.getSyntaxErrors());                   
                     console.log('------------------------------------------');
                     
                 }
@@ -349,7 +349,7 @@ export class DocumentHandler {
         
         let accessibleMembers : vscode.CompletionItem[] = [];
         let classBodyMembers = class_.getChildren()![2].getChildren()![1].getChildren()!;
-
+        
         //collect fields
         for(let i = 0; i < classBodyMembers.length; i++) {
             let ctx = classBodyMembers[i].getChildren()![0];
@@ -377,7 +377,7 @@ export class DocumentHandler {
     collectModules(module_: Node) {
         
         let accessibleMembers : vscode.CompletionItem[] = [];
-        let classBodyMembers = module_.getChildren()![2].getChildren()!;
+        let classBodyMembers = module_.getChildren()![2].getChildren()![1].getChildren()!;
 
         //collect fields
         for(let i = 0; i < classBodyMembers.length; i++) {
@@ -400,19 +400,25 @@ export class DocumentHandler {
                             vscode.CompletionItemKind.Module
                         )); 
                     }
-                }  else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) {
-                    if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
-                        let variableName = ctx.getChildren()![1].getValue();                                                               
-                        accessibleMembers.push(new vscode.CompletionItem(
-                            variableName!,
-                            vscode.CompletionItemKind.Class
-                        )); 
-                    }
                 }
-            }
+            }     
+        }
+       return accessibleMembers;
+    }
 
+    collectClassesFromModules(classes: Node[]) {
+        
+        let accessibleMembers : vscode.CompletionItem[] = [];
 
+        //collect fields
+        for(let i = 0; i < classes.length; i++) {
             
+            let variableName = classes[i].getChildren()![0].getChildren()![1].getValue();                                                               
+                accessibleMembers.push(new vscode.CompletionItem(
+                    variableName!,
+                    vscode.CompletionItemKind.Class
+            ));
+                
         }
        return accessibleMembers;
     }
@@ -461,6 +467,40 @@ export class DocumentHandler {
         for(let i = 0; i < modules.length; i++) {
             if(modules[i] !== undefined && modules[i].getChildren()![1].getValue() === moduleName) {
                 return modules[i];
+            }
+        }
+
+        return undefined;
+    }
+
+    findModuleBodyMembers(moduleName: string) {
+        let modules : Node[] =[];
+        let classes : Node[] = []; 
+        let tree = this.abstractSyntaxTreeMap.get("Toybox.mc")!?.getParseTree();
+        for(let i = 0; i < tree.length; i++) {
+            if(tree[i] !== null)
+                if(tree[i].getContext()!?.ruleIndex === MonkeyCParser.RULE_moduleBodyMembers) {
+                    modules = tree[i].getChildren()!;
+                    break;
+                }
+                    
+        }
+        let founded = false;
+        for(let i = 0; i < modules.length; i++) {  
+            
+
+            if(modules[i] !== undefined) {
+                if(!founded) {
+                    let identifier = modules[i].getValue()?.substring(("module").length,modules[i].getValue()?.indexOf('{'));
+                    if(identifier === moduleName)
+                        founded = true;
+                } else {
+                    if(modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("class")) {
+                        classes.push(modules[i]);
+                    } else 
+                        return classes;
+                }
+                
             }
         }
 

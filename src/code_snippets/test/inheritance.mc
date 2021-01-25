@@ -1,5 +1,6 @@
 using Toybox.Activity.Info;
-
+using Toybox.ActivityMonitor.ActiveMinutes;
+using Toybox.ActivityMonitor.HeartRateIterator;
 class A
 {
     protected var protectedVal;
@@ -17,8 +18,9 @@ class B extends A
         System.println( "Greetings!" );
         var a = 5;
         var mActivity = new Info(); 
-        var mMinues = new ActiveMinutes();
         
+        var mMinues = new ActiveMinutes();
+        mMinues
     }
 }
 

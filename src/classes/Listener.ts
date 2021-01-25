@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { AST } from './AST';
 import { Node } from './Node';
-import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, ModuleBodyContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
+import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, ModuleBodyContext, ModuleBodyMemberContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
 
 export class Listener implements MonkeyCListener {
@@ -295,6 +295,31 @@ export class Listener implements MonkeyCListener {
 
 	}
 	exitModuleBodyMembers(context: ModuleBodyMembersContext) { }
+
+	enterModuleBodyMember(context: ModuleBodyMemberContext) { 
+
+		this.AST.currentNode = this.AST.getParseTree().find((x) => x !== null && x.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleBodyMembers) as Node; 
+
+		let moduleBodyMemberNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(moduleBodyMemberNode);
+
+		this.AST.addNode(moduleBodyMemberNode);
+		this.AST.currentNode = moduleBodyMemberNode;
+
+	}
+
+
+	exitModuleBodyMember(context: ModuleBodyMemberContext) { }
+
 
 	enterClassDeclaration(context: ClassDeclarationContext) {
 	
