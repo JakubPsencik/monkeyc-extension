@@ -347,6 +347,8 @@ export class DocumentHandler {
     
     collectAccessibleMembers(class_: Node) {
         
+        if(class_ === undefined) { return undefined; }
+
         let accessibleMembers : vscode.CompletionItem[] = [];
         let classBodyMembers = class_.getChildren()![2].getChildren()![1].getChildren()!;
         
@@ -418,6 +420,7 @@ export class DocumentHandler {
                     variableName!,
                     vscode.CompletionItemKind.Class
             ));
+            console.log(variableName);
                 
         }
        return accessibleMembers;
@@ -430,23 +433,36 @@ export class DocumentHandler {
             let ctx = tree[i] ? tree[i].getContext() : undefined;
                 
             if (ctx && (ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList)) { 
-
+                
                 if(ctx.text.includes(variableName)) {
-                    return ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
+                    let tmp = ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
+                    if((variableName !== tmp) && ctx.text.includes(tmp)) 
+                        return tmp;
                 }
-
-            }
-        
+            }       
         }
+
+        return undefined;
+    }
+
+    isInherited(tree: Node[], variableName: string) : boolean {
+        for(let i = 0; i < tree.length; i++) {           
+            let ctx = tree[i] ? tree[i].getContext() : undefined;                
+            if (ctx && (ctx.ruleIndex === MonkeyCParser.RULE_classDeclaration))
+                if(ctx.text.includes('extends' + variableName)) { return true; }                       
+        }
+        return false;  
     }
 
     findClass(className: string) {
         let classes : Node[] = [];
-        this.abstractSyntaxTreeMap.forEach((tree: AST, name: string) => {
-            classes.push(tree.getParseTree().find((x) => (x!==null) && x.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) as Node);
+        this.abstractSyntaxTreeMap.forEach((t: AST) => {
+            let tree = t.getParseTree();
+            for(let i = 0; i < tree.length; i++)
+                if(!(tree[i] === null || tree[i] === undefined) && tree[i].getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) classes.push(tree[i]);
         });
 
-        for(let i = 0; i < classes.length; i++) {
+        for(let i = 0; i < classes.length; i+=2) {
             if(classes[i].getChildren()![1].getValue() === className) {
                 return classes[i];
             }
@@ -503,8 +519,8 @@ export class DocumentHandler {
                 
             }
         }
-
-        return undefined;
+        if(classes.length <= 0 ) return undefined;
+        else return classes;
     }
 
 

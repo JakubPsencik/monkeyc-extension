@@ -32,19 +32,6 @@ export function activate(context: vscode.ExtensionContext) {
 			return [];
 		}
 	});
-	
-	/*documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName)?.clear();
-
-	if(!started) {
-		vscode.window.showInformationMessage('Extension started!');
-		started = true;
-		documentHandler.parseAllDocuments();
-	} else {
-		documentHandler.parseCurrentDocument();			
-	}
-	
-	collection = documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName) as vscode.DiagnosticCollection;
-	context.subscriptions.push(collection);*/
 
 	vscode.workspace.onDidOpenTextDocument(() => {
 
@@ -125,22 +112,20 @@ export function activate(context: vscode.ExtensionContext) {
 	//instanced class variable
 	const accessibleMembersProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
-		{
+		{ 
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
 				let linePrefix = document.lineAt(position).text.substr(0, position.character);
-				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();
+				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();				
 				let className = documentHandler.findClassName(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix);
 				let class_ = documentHandler.findClass(className!);
-
 				if(linePrefix === '.') { return undefined; }
-
+				console.log('[collected by: accessibleMembersProvider]');
 				return documentHandler.collectAccessibleMembers(class_!);
 			}
 		},
 		'.' // triggered whenever a '.' is being typed
 	);
-
 
 	const inheritedMembersProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
@@ -149,11 +134,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 				let linePrefix = document.lineAt(position).text.substr(0, position.character);
 				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();
-				let class_ = documentHandler.findClass(linePrefix);
-
 				if(linePrefix === '.') { return undefined; }
+				if(documentHandler.isInherited(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix) === true) {
+					let class_ = documentHandler.findClass(linePrefix);
+					console.log('[collected by: inheritedMembersProvider]');
+					return documentHandler.collectAccessibleMembers(class_!);
+				} else { return undefined; }
 
-				return documentHandler.collectAccessibleMembers(class_!);
 			}
 		},
 		'.' // triggered whenever a '.' is being typed
@@ -174,6 +161,8 @@ export function activate(context: vscode.ExtensionContext) {
 					let classes = documentHandler.findModuleBodyMembers(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
 					return documentHandler.collectClassesFromModules(classes!);
 				}
+
+				return undefined;
 					
 			}
 		},
@@ -182,36 +171,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 
-	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider,toyboxProvider);
-
-	/*getRequest('https://developer.garmin.com/connect-iq/api-docs/class_list.html')
-	.then(response => {
-	  //console.log('response: ', response);
-	})
-	.catch(error => {
-	  console.log(error);
-	});*/
+	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider);
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
-
-function getRequest(url: string): Promise<any> {
-	return new Promise<any>(
-	  function (resolve, reject) {
-		var request = new XMLHttpRequest();
-		request.onload = function (result : any) {
-		  if (this.status === 200) {
-			//console.log(this.responseText);
-			resolve(this.responseText);
-		  } else {
-			reject(new Error(this.statusText));
-		  }
-		};
-		request.onerror = function () {
-		  reject(new Error('XMLHttpRequest Error: ' + this.statusText));
-		};
-		request.open('GET', url);
-		request.send();
-	}); 
-}

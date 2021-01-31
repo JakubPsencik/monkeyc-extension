@@ -8,6 +8,8 @@ code --install-extension monkeyc-extension-(cislo-verze).vsix
 
 # Poznámky k verzím
 
+## **1.0.9 (31.01.2020)**
+- opravena chyba, kdy rozšíření provádělo autocomplete pro třídy, které nebyly instancované
 ## **1.0.8 (25.01.2020)**
 - rozšíření je schopno našeptávat moduly a třídy pod jmenným prostorem "Toybox"
 ## **1.0.7 (15.01.2020)**

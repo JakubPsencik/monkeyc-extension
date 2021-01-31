@@ -1085,7 +1085,7 @@ module Toybox {
             * A new instance of CryptoConfig.
             * @type CryptoConfig
             */
-            public var initialize;
+            public function initialize();
 
 
         }
@@ -9952,7 +9952,6 @@ module Toybox {
 
 
         }
-
-
     }
+}
 

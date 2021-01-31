@@ -1,28 +1,26 @@
-using Toybox.Activity.Info;
 using Toybox.ActivityMonitor.ActiveMinutes;
-using Toybox.ActivityMonitor.HeartRateIterator;
-class A
+using Toybox.Activity.Info;
+using Toybox.Ant.CryptoConfig;
+using Toybox.ActivityRecording.Session;
+
+class B {
+
+ public var mB;
+
+}
+
+class A extends B
 {
     protected var protectedVal;
     function print() {
-    System.print( "Hello!" );
-    }
-}
 
-class B extends A 
-{
-    function print() {
-        // Call the super class implementation
-        A.print();
-        // Amend the output
-        System.println( "Greetings!" );
-        var a = 5;
-        var mActivity = new Info(); 
+        var mMinutes = new ActiveMinutes();
+        var inf = new Info();
+        var cnfg = new CryptoConfig();
+        var ev = new ClickEvent();
+        ev.getCoordinates();
         
-        var mMinues = new ActiveMinutes();
-        mMinues
     }
 }
-
 
 
