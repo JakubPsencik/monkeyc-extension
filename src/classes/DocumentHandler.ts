@@ -3,6 +3,7 @@ import { AST } from './AST';
 import { Node } from './Node';
 import * as path from 'path';
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
+import {MonkeyCBaseParser} from '../MonkeyCBaseParser';
 import { MonkeyCLexer } from '../MonkeyCLexer';
 import { MonkeyCParser, ProgramContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
@@ -13,6 +14,8 @@ import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { ErrorDescription, MyErrorListener } from './ErrorListener';
+import { trace } from 'console';
+import { RuleNames } from './ruleNames';
 
 type CaretPosition = { line: number, column: number };
 
@@ -350,8 +353,12 @@ export class DocumentHandler {
         if(class_ === undefined) { return undefined; }
 
         let accessibleMembers : vscode.CompletionItem[] = [];
-        let classBodyMembers = class_.getChildren()![2].getChildren()![1].getChildren()!;
+        let classBodyMembers;
+        //if(class_.getChildren()!?.length <= 3)
+        classBodyMembers = class_.getChildren()![2].getChildren()![1].getChildren()!;
         
+        if(!classBodyMembers) return undefined;
+
         //collect fields
         for(let i = 0; i < classBodyMembers.length; i++) {
             let ctx = classBodyMembers[i].getChildren()![0];
@@ -431,19 +438,33 @@ export class DocumentHandler {
         for(let i = 0; i < tree.length; i++) {
             
             let ctx = tree[i] ? tree[i].getContext() : undefined;
-                
             if (ctx && (ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList)) { 
                 
-                if(ctx.text.includes(variableName)) {
-                    let tmp = ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
+                //new instance initialization
+                if(ctx.text.includes('var'+variableName+'=') && ctx.text.includes('new')) {
+                    let tmp = "";
+                    if(ctx.text.includes('(') && ctx.text.includes(')'))
+                        tmp = ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
+                    else if((ctx.text.includes('[') && ctx.text.includes(']')) && (ctx.text.indexOf('[') < ctx.text.indexOf(']')))
+                        return "Array";
                     if((variableName !== tmp) && ctx.text.includes(tmp)) 
                         return tmp;
                 }
+            }
+            
+            else if(ctx && ctx.text.includes(variableName + '=') && ctx.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration) {
+                try {
+                    let tmp = tree[i].getChildren()![2].getType()!;
+                    return RuleNames.ruleNamesDictionary[tmp-1];
+                } catch (error) {
+                    return undefined;
+                }               
             }       
         }
 
         return undefined;
     }
+
 
     isInherited(tree: Node[], variableName: string) : boolean {
         for(let i = 0; i < tree.length; i++) {           
@@ -455,6 +476,7 @@ export class DocumentHandler {
     }
 
     findClass(className: string) {
+        className = this.processClassName(className);
         let classes : Node[] = [];
         this.abstractSyntaxTreeMap.forEach((t: AST) => {
             let tree = t.getParseTree();
@@ -463,12 +485,56 @@ export class DocumentHandler {
         });
 
         for(let i = 0; i < classes.length; i+=2) {
-            if(classes[i].getChildren()![1].getValue() === className) {
-                return classes[i];
+            try {
+                if(classes[i].getChildren()![1].getValue() === className) {
+                    return classes[i];
+                } 
+            } catch (error) {
+                console.log(error);
+                //
             }
         }
 
         return undefined;
+    }
+
+    processClassName(name: string) {
+
+        switch (name) {
+
+            case "Array":
+                return "Array";
+
+            case "TRUE":
+                return "Boolean";
+            
+            case "FALSE":
+                return "Boolean";
+            
+            case "INTLITERAL":
+                return "Number";
+
+            case "LONGLITERAL":
+                return "Long";
+                
+            case "HEX_LITERAL":
+                return name;
+
+            case "FLOATLITERAL":
+                return "Float";                
+
+            case "DOUBLELITERAL":
+                return "Double";
+                
+            case "CHARLITERAL":
+                return "Char";
+                
+            case "STRING":
+                return "String";
+            default:
+                return name;
+                
+        }
     }
 
     findModule(moduleName: string) {

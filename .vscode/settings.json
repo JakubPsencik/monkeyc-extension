@@ -8,6 +8,10 @@
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
     "typescript.tsc.autoDetect": "off",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Javalib\\antlr-4.8-complete.jar"
+    ],
 
 
     /*"files.autoSave": "afterDelay",

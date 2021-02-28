@@ -29,8 +29,8 @@ export class AST {
         
         this.parseTree = [];
         this.documentName = documentName;
-        this.currentNode = new Node(undefined,undefined,undefined,undefined);
-        this.root= new Node(undefined,undefined,undefined,undefined);
+        this.currentNode = new Node(undefined,undefined,undefined,undefined,undefined);
+        this.root= new Node(undefined,undefined,undefined,undefined,undefined);
 
     }
 

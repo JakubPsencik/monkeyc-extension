@@ -1,10 +1,10 @@
 // Define a grammar called Hello
 grammar MonkeyC;
 
-options {
-    superClass=MonkeyCBaseParser;
-}
-@header {import { MonkeyCBaseParser } from "../MonkeyCBaseParser";}
+/*options {
+    superClass=MonkeyCBaseListener;
+}*/
+//@header {import { MonkeyCBaseListener } from "../MonkeyCBaseListener";}
 
 
     DOT : '.';

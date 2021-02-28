@@ -62,6 +62,17 @@ export function activate(context: vscode.ExtensionContext) {
 		
 	});
 
+	const keywordsProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc', 
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {			
+				
+				const doc = DocumentHandler.currentDocumentName;
+				return documentHandler.documentAutocompleteMap.get(doc)?.get("keywords");								
+			}
+		}
+	); 
+
 	const localVariableProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc', 
 		{
@@ -70,7 +81,8 @@ export function activate(context: vscode.ExtensionContext) {
 				const doc = DocumentHandler.currentDocumentName;
 				return documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables");								
 			}
-		});
+		}
+	);
 
 	const classVariableProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
@@ -118,6 +130,7 @@ export function activate(context: vscode.ExtensionContext) {
 				let linePrefix = document.lineAt(position).text.substr(0, position.character);
 				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();				
 				let className = documentHandler.findClassName(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix);
+				console.log(linePrefix + ": " + className);
 				let class_ = documentHandler.findClass(className!);
 				if(linePrefix === '.') { return undefined; }
 				console.log('[collected by: accessibleMembersProvider]');
@@ -169,9 +182,7 @@ export function activate(context: vscode.ExtensionContext) {
 		' ','.' // triggered whenever a '.' is being typed
 	);
 
-
-
-	context.subscriptions.push(localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider);
+	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider);
 }
 
 // this method is called when your extension is deactivated

@@ -3135,27 +3135,22 @@ module Toybox {
             */
             public function initialize() { }
 
-
         }
 
 
-    }
+        module Properties {
 
-    module Properties {
+            public class InvalidKeyException {
 
-        public class Properties {
+                /**
+                * InvalidKeyException constructor.
+                * @param 
+                * @returns  InvalidKeyException 
+                */
+                public function initialize() { }
 
-            /**
-            * InvalidKeyException constructor.
-            * @param 
-            * @returns  InvalidKeyException 
-            */
-            public function initialize() { }
-
-
+            }
         }
-
-
     }
 
     module Storage {
@@ -4509,8 +4504,8 @@ module Toybox {
         }
 
 
-        public class Boolean {
-
+        public class Boolean extends Object {
+            public function test(byte) { }
         }
 
 
@@ -4626,56 +4621,38 @@ module Toybox {
 
         }
 
-
-        public class Characteristic {
-
-            /**
-            * Retrieves the Descriptor with a specified UUID.
-            * @param uuid
-            * @returns  Toybox::BluetoothLowEnergy::Descriptor 
-            */
-            public function getDescriptor(uuid) { }
-
+        public class Char {
 
             /**
-            * Retrieves an Iterator over the <span class='object_link'><a href="Descriptor.html" title="Toybox::BluetoothLowEnergy::Descriptor (class)">Descriptors</a></span>
+            * Convert a Char to lowercase.
             * @param 
-            * @returns  Toybox::BluetoothLowEnergy::Iterator 
+            * @returns  Toybox::Lang::Char 
             */
-            public function getDescriptors() { }
+            public function toLower() { }
 
 
             /**
-            * Retrieves the Characteristic&#39;s Service.
+            * Convert a Char to a Number.
             * @param 
-            * @returns  Toybox::BluetoothLowEnergy::Service 
+            * @returns  Toybox::Lang::Number 
             */
-            public function getService() { }
+            public function toNumber() { }
 
 
             /**
-            * Return the UUID of the Characteristic.
+            * Convert a Char to a String.
             * @param 
-            * @returns  Toybox::BluetoothLowEnergy::Uuid 
+            * @returns  Toybox::Lang::String 
             */
-            public function getUuid() { }
+            public function toString() { }
 
 
             /**
-            * Requests a read operation on the characteristic.
+            * Convert a Char to uppercase.
             * @param 
-            * @returns  Object 
+            * @returns  Toybox::Lang::Char 
             */
-            public function requestRead() { }
-
-
-            /**
-            * Requests a write operation.
-            * @param value
-            * @param  options
-            * @returns  Object 
-            */
-            public function requestWrite(value, options) { }
+            public function toUpper() { }
 
 
         }
@@ -5078,20 +5055,6 @@ module Toybox {
 
 
         }
-
-
-        public class ObjectStoreAccessException {
-
-            /**
-            * Constructor.
-            * @param 
-            * @returns  ObjectStoreAccessException 
-            */
-            public function initialize() { }
-
-
-        }
-
 
         public class OperationNotAllowedException {
 

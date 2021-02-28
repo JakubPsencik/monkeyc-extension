@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
 import { AST } from './AST';
 import { Node } from './Node';
-import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, ModuleBodyContext, ModuleBodyMemberContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, TernaryExpressionContext, ThisExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
+import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, ModuleBodyContext, ModuleBodyMemberContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
+import { MonkeyCLexer } from '../MonkeyCLexer';
 
 export class Listener implements MonkeyCListener {
 
@@ -33,8 +34,9 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  undefined,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
-		
+			/*value of the context: */  context.text,
+										context.start.type
+
 		);
 
 		this.AST.addNode(node);
@@ -50,7 +52,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.root,
 			/*1..n children: */         [],
-			/*value of the context: */  '<EOF>'
+			/*value of the context: */  '<EOF>',
+										context.start.type
 		
 		);
 		
@@ -68,10 +71,11 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
-
+		
 		/* set this node as one of children to the previous node */
 		this.AST.currentNode.addChild(compilationUnitNode);
 
@@ -94,7 +98,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -103,7 +108,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  usingDeclarationNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(0).text
+			/*value of the context: */  context.getChild(0).text,
+										context.start.type
 		
 		);
 
@@ -126,7 +132,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -146,7 +153,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -158,7 +166,11 @@ export class Listener implements MonkeyCListener {
 
 	}
 
-	exitReferenceOrThisExpression() { }
+	exitReferenceOrThisExpression(context: ReferenceOrThisExpressionContext) { 
+
+		//this.AST.currentNode = this.AST.getParseTree().find((x) => x !== null && x.getContext()?.ruleIndex === MonkeyCParser.RULE_classDeclaration) as Node; 
+
+	}
 
 	enterReferenceExpression(context: ReferenceExpressionContext) {
 		
@@ -167,7 +179,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -187,7 +200,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -209,7 +223,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -230,7 +245,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -239,7 +255,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  moduleBodyNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(0).text
+			/*value of the context: */  context.getChild(0).text,
+										context.start.type
 		
 		);
 
@@ -265,7 +282,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  classBodyNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(2).text
+			/*value of the context: */  context.getChild(2).text,
+										context.start.type
 		
 		);
 
@@ -283,7 +301,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -305,7 +324,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -328,7 +348,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -349,7 +370,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -358,7 +380,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  classBodyNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(0).text
+			/*value of the context: */  context.getChild(0).text,
+										context.start.type
 		
 		);
 
@@ -383,7 +406,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  classBodyNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(2).text
+			/*value of the context: */  context.getChild(2).text,
+										context.start.type
 		
 		);
 
@@ -400,7 +424,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -421,7 +446,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -453,8 +479,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
-		
+			/*value of the context: */  context.text,
+										context.start.type
 		);
 
 		let LBRACE = new Node(
@@ -462,7 +488,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  block,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(0).text
+			/*value of the context: */  context.getChild(0).text,
+										context.start.type
 		
 		);
 		block.addChild(LBRACE);
@@ -479,7 +506,7 @@ export class Listener implements MonkeyCListener {
 
 	}
 
-	exitBlock() {
+	exitBlock(context: BlockContext) {
 		//console.log('exitBlock\n');
 		let block = this.AST.findNode(MonkeyCParser.RULE_block);
 
@@ -488,7 +515,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  block,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  "}"
+			/*value of the context: */  "}",
+										context.start.type
 		);
 
 		block!.addChild(RBRACE);
@@ -503,7 +531,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -526,7 +555,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -546,7 +576,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 		
@@ -557,7 +588,8 @@ export class Listener implements MonkeyCListener {
 				/* context of this node: */ undefined,
 				/* parent of this node: */  modifiersNode,
 				/*1..n children: */         undefined,
-				/*value of the context: */  context._parent.getChild(1).text
+				/*value of the context: */  context._parent.getChild(1).text,
+										context.start.type
 			
 			);
 
@@ -601,7 +633,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context._parent?.getChild(1).text
+			/*value of the context: */  context._parent?.getChild(1).text,
+										context.start.type
 		
 		); 
 		
@@ -610,7 +643,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -619,7 +653,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context._parent?.getChild(3).text
+			/*value of the context: */  context._parent?.getChild(3).text,
+										context.start.type
 		
 		);
 
@@ -657,7 +692,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -666,7 +702,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context._parent?.getChild(1).text
+			/*value of the context: */  context._parent?.getChild(1).text,
+										context.start.type
 		
 		);
 
@@ -695,7 +732,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		);
 
 		let var_ = new Node(
@@ -703,7 +741,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ /*"var"*/undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context._parent?.getChild(0).text
+			/*value of the context: */  context._parent?.getChild(0).text,
+										context.start.type
 		
 		);
 
@@ -725,7 +764,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -751,7 +791,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -773,7 +814,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -795,7 +837,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -816,7 +859,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -825,7 +869,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  argumentsNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.getChild(0).text
+			/*value of the context: */  context.getChild(0).text,
+										context.start.type
 		
 		);
 
@@ -849,7 +894,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  argumentsNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.getChild(1).text
+			/*value of the context: */  context.getChild(1).text,
+										context.start.type
 		
 		);
 
@@ -867,7 +913,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context.parent,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 		if(this.AST.currentNode === undefined) this.AST.currentNode = this.AST.getParseTree()[this.AST.getParseTree().length-2];
@@ -880,7 +927,8 @@ export class Listener implements MonkeyCListener {
 				/* context of this node: */ undefined,
 				/* parent of this node: */  this.AST.currentNode,
 				/*1..n children: */         [],
-				/*value of the context: */  'extends'
+				/*value of the context: */  'extends',
+										context.start.type
 			
 			);
 
@@ -904,7 +952,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -913,7 +962,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  idNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context.getChild(0).text
+			/*value of the context: */  context.getChild(0).text,
+										context.start.type
 		
 		);
 		idNode.addChild(variableNameNode);
@@ -938,7 +988,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context._parent?.getChild(1).text
+			/*value of the context: */  context._parent?.getChild(1).text,
+										context.start.type
 		
 		);
 
@@ -947,7 +998,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -978,9 +1030,11 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		);
-
+		var tkn = context.tryGetToken(MonkeyCLexer.INTLITERAL,0);
+		
 		/* set this node as one of children to the previous node */
 		this.AST.currentNode.addChild(literalExpressionNode);
 
@@ -998,7 +1052,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */ context.getChild(0).text
+			/*value of the context: */ context.getChild(0).text,
+										context.start.type
 			
 		);
 		
@@ -1010,7 +1065,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         children,
-			/* value of context:  */	context.text
+			/* value of context:  */	context.text,
+										context.start.type
 
 		);
 
@@ -1033,7 +1089,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -1051,7 +1108,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  functionDeclarationNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.getChild(1).text
+			/*value of the context: */  context.getChild(1).text,
+										context.start.type
 		
 		);
 
@@ -1083,7 +1141,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context._parent?.getChild(3).text
+			/*value of the context: */  context._parent?.getChild(3).text,
+										context.start.type
 		
 		);
 		
@@ -1092,7 +1151,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ context,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context.text
+			/*value of the context: */  context.text,
+										context.start.type
 		
 		);
 
@@ -1101,7 +1161,8 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         [],
-			/*value of the context: */  context._parent?.getChild(5).text
+			/*value of the context: */  context._parent?.getChild(5).text,
+										context.start.type
 		
 		);
 
@@ -1123,5 +1184,5 @@ export class Listener implements MonkeyCListener {
 		let functionDeclarationNode = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
 		this.AST.currentNode = functionDeclarationNode!;
 
-	 }
+	}
 }
