@@ -43,14 +43,11 @@ class A extends B
         num.toDouble();
         x.abs();
         y.toDouble();
-        l.
-        d.
-        bool.
         c.toString();
         str.toNumber();
         arr.size();
-        n.
-        dict.
+        bool.
+
     }
 }
 

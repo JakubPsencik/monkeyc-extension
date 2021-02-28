@@ -15,6 +15,7 @@ class X {
         // Invoke v's operation method.
         m.invoke(1,2);
         var s = v.operation;
+        
     }
 
 }
