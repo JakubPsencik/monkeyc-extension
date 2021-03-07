@@ -11,7 +11,7 @@ class SimpleAnalogApp extends App.AppBase
 		$.gDeviceSettings = System.getdeviceSettings();
         var a = 1;
         var b =  2;
-        var c = "whatever";          
+        var c = "string";          
         var array = [1, 2, 3, 4, 5];       
                                         
     }

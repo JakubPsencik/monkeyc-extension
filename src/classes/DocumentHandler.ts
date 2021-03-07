@@ -354,44 +354,67 @@ export class DocumentHandler {
 
         let accessibleMembers : vscode.CompletionItem[] = [];
         let classBodyMembers;
-        //if(class_.getChildren()!?.length <= 3)
-        classBodyMembers = class_.getChildren()![2].getChildren()![1].getChildren()!;
-        
-        if(!classBodyMembers) return undefined;
+        let classValue = class_.getValue()!;
+        let parentClass;
+        let classes_ = [];
+        classes_.push(class_);
+        if(classValue.includes('extends')) {
+           classValue = classValue.substring(classValue.indexOf('extends') + 'extends'.length, classValue.indexOf('{'));
+           parentClass = this.findClass(classValue);
+           classes_.push(parentClass);
 
-        //collect fields
-        for(let i = 0; i < classBodyMembers.length; i++) {
-            let ctx = classBodyMembers[i].getChildren()![0];
-            if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
-                if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
-                    let variableName = ctx.getChildren()![3].getValue();                                                               
-                    accessibleMembers.push(new vscode.CompletionItem(
-                        variableName!,
-                        vscode.CompletionItemKind.Field
-                    )); 
-                }
-            } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
-                if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {
-                    let variableName = ctx.getChildren()![2].getValue();                                                               
-                    accessibleMembers.push(new vscode.CompletionItem(
-                        variableName!,
-                        vscode.CompletionItemKind.Function
-                    ));
-                }
-            }
         }
+        for(let j = 0; j < classes_.length; j++) {
+
+            if(classes_[j]!.getChildren()!?.length >= 5)
+                classBodyMembers = classes_[j]!.getChildren()![5].getChildren()![1].getChildren()!;
+            else
+                classBodyMembers = classes_[j]!.getChildren()![3].getChildren()![1].getChildren()!;
+            
+            if(!classBodyMembers) return undefined;
+
+            //collect fields
+            for(let i = 0; i < classBodyMembers.length; i++) {
+                if(classBodyMembers[i].getContext()!.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
+                    
+                    let ctx = classBodyMembers[i].getChildren()![0];
+                    if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
+                        if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
+                            let variableName = ctx.getChildren()![3].getValue();                                                               
+                            accessibleMembers.push(new vscode.CompletionItem(
+                                variableName!,
+                                vscode.CompletionItemKind.Field
+                            )); 
+                        }
+                    } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+                        if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {
+                            let variableName = ctx.getChildren()![2].getValue();                                                               
+                            accessibleMembers.push(new vscode.CompletionItem(
+                                variableName!,
+                                vscode.CompletionItemKind.Function
+                            ));
+                        }
+                    }
+                }
+                    
+            }
+
+            classBodyMembers = undefined;
+        }
+
        return accessibleMembers;
     }
 
     collectModules(module_: Node) {
         
         let accessibleMembers : vscode.CompletionItem[] = [];
-        let classBodyMembers = module_.getChildren()![2].getChildren()![1].getChildren()!;
+        let classBodyMembers = module_.getChildren()![1].getChildren()!;
 
         //collect fields
         for(let i = 0; i < classBodyMembers.length; i++) {
-            
-            if(classBodyMembers[i].getContext() !== undefined) {
+            console.log(i);
+
+            if(classBodyMembers[i].getChildren()!?.length > 0 && classBodyMembers[i].getContext() !== undefined) {
                 let ctx = classBodyMembers[i].getChildren()![0];
                 if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_modifiers && ctx.getParent()?.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleDeclaration) {
                     if(ctx.getValue() === 'public' || ctx.getValue() === 'protected' || ctx.getValue() === '') {
@@ -454,11 +477,16 @@ export class DocumentHandler {
             
             else if(ctx && ctx.text.includes(variableName + '=') && ctx.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration) {
                 try {
-                    let tmp = tree[i].getChildren()![2].getType()!;
+                    let tmp; 
+                    tmp = tree[i-1].getChildren()![2].getType()!;
+                    /*if(tree[i].getChildren()!?.length > 2)
+                       
+                    else
+                        tmp = tree[i].getChildren()![1].getType()!;*/
                     return RuleNames.ruleNamesDictionary[tmp-1];
                 } catch (error) {
                     return undefined;
-                }               
+                }
             }       
         }
 
@@ -486,9 +514,8 @@ export class DocumentHandler {
 
         for(let i = 0; i < classes.length; i+=2) {
             try {
-                if(classes[i].getChildren()![1].getValue() === className) {
+                if(classes[i].getChildren()![1].getValue() === className)                
                     return classes[i];
-                } 
             } catch (error) {
                 console.log(error);
                 //
@@ -540,7 +567,8 @@ export class DocumentHandler {
     findModule(moduleName: string) {
         let modules : Node[] =[];
         let tree = this.abstractSyntaxTreeMap.get("Toybox.mc")!?.getParseTree();
-        for(let i = 0; i < tree.length; i++) {
+        return tree.find(x => (x && x.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleBody && x.getParent()?.getContext()?.ruleIndex === MonkeyCParser.RULE_compilationUnit));
+        /*for(let i = 0; i < tree.length; i++) {
             if(tree[i] !== null)
                 if(tree[i].getContext()!?.ruleIndex === MonkeyCParser.RULE_moduleDeclaration && tree[i].getChildren()!?.length > 1) 
                     modules.push(tree[i]);
@@ -552,7 +580,7 @@ export class DocumentHandler {
             }
         }
 
-        return undefined;
+        return undefined;*/
     }
 
     findModuleBodyMembers(moduleName: string) {
@@ -589,6 +617,16 @@ export class DocumentHandler {
         else return classes;
     }
 
+    collectImportedModules() {
+
+        let tree = this.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree();
+        var modules = [], i;
+        for(let i = 0; i < tree.length; i++)
+            if (tree[i] && tree[i].getContext()!?.ruleIndex === MonkeyCParser.RULE_usingDeclaration)
+                modules.push(tree[i]);
+        return modules;
+
+    }
 
     setAutocompleteRules(core : c3.CodeCompletionCore) {
 

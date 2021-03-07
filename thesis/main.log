@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2021.1.3)  22 FEB 2021 09:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2021.1.3)  8 MAR 2021 00:21
 entering extended mode
 **./main.tex
 (main.tex
@@ -1052,7 +1052,7 @@ Package biblatex Info: Reference segment=0 on input line 57.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<Figures/Assignment1.jpg, id=120, 1659.19875pt x 2347.77126pt>
+<Figures/Assignment1.jpg, id=88, 1659.19875pt x 2347.77126pt>
 File: Figures/Assignment1.jpg Graphic file (type jpg)
 <use Figures/Assignment1.jpg>
 Package pdftex.def Info: Figures/Assignment1.jpg  used on input line 60.
@@ -1113,62 +1113,126 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 ] [9
 
 
-] [10
+]
+<./images//grammar.png, id=143, 392.21532pt x 328.22626pt>
+File: ./images//grammar.png Graphic file (type png)
+<use ./images//grammar.png>
+Package pdftex.def Info: ./images//grammar.png  used on input line 84.
+(pdftex.def)             Requested size: 313.77267pt x 262.58136pt.
+ [10
 
-] [11
+ <./images//grammar.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 95--98
+
+ []
+
+<./images//generated_files.png, id=152, 113.67468pt x 159.59625pt>
+File: ./images//generated_files.png Graphic file (type png)
+<use ./images//generated_files.png>
+Package pdftex.def Info: ./images//generated_files.png  used on input line 100.
+
+(pdftex.def)             Requested size: 113.6744pt x 159.59584pt.
+<./images//ParseTreeInspector.png, id=153, 566.115pt x 487.06969pt>
+File: ./images//ParseTreeInspector.png Graphic file (type png)
+<use ./images//ParseTreeInspector.png>
+Package pdftex.def Info: ./images//ParseTreeInspector.png  used on input line 1
+10.
+(pdftex.def)             Requested size: 452.89261pt x 389.65627pt.
+[11 <./images//generated_files.png>] [12 <./images//ParseTreeInspector.png>]
+[13
 
 ]
-<./images//code_snippet.png, id=191, 335.00156pt x 258.21469pt>
+Underfull \hbox (badness 10000) in paragraph at lines 133--135
+
+ []
+
+<./images//code_snippet.png, id=172, 335.00156pt x 258.21469pt>
 File: ./images//code_snippet.png Graphic file (type png)
 <use ./images//code_snippet.png>
-Package pdftex.def Info: ./images//code_snippet.png  used on input line 101.
+Package pdftex.def Info: ./images//code_snippet.png  used on input line 136.
 (pdftex.def)             Requested size: 335.00073pt x 258.21405pt.
- [12
+[14
 
  <./images//code_snippet.png>]
-<./images//uncolored_code.png, id=197, 330.48468pt x 233.37187pt>
+Underfull \hbox (badness 10000) in paragraph at lines 148--150
+
+ []
+
+<./images//uncolored_code.png, id=178, 330.48468pt x 233.37187pt>
 File: ./images//uncolored_code.png Graphic file (type png)
 <use ./images//uncolored_code.png>
-Package pdftex.def Info: ./images//uncolored_code.png  used on input line 113.
+Package pdftex.def Info: ./images//uncolored_code.png  used on input line 151.
 (pdftex.def)             Requested size: 330.48387pt x 233.37129pt.
-<./images//colored_code.png, id=199, 328.97906pt x 217.5628pt>
+<./images//colored_code.png, id=179, 328.97906pt x 217.5628pt>
 File: ./images//colored_code.png Graphic file (type png)
 <use ./images//colored_code.png>
-Package pdftex.def Info: ./images//colored_code.png  used on input line 117.
+Package pdftex.def Info: ./images//colored_code.png  used on input line 158.
 (pdftex.def)             Requested size: 328.97826pt x 217.56227pt.
- [13
+[15
 
- <./images//uncolored_code.png> <./images//colored_code.png>] [14] [15
+ <./images//uncolored_code.png>] [16 <./images//colored_code.png>]
+<./images//autocomplete_example.png, id=190, 449.42906pt x 315.42844pt>
+File: ./images//autocomplete_example.png Graphic file (type png)
+<use ./images//autocomplete_example.png>
+Package pdftex.def Info: ./images//autocomplete_example.png  used on input line
+ 179.
+(pdftex.def)             Requested size: 449.42795pt x 315.42766pt.
+ [17 <./images//autocomplete_example.png>] [18
 
-] [16
+] [19
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 160.
+LaTeX Warning: Command \' invalid in math mode on input line 201.
 
-[17
+
+LaTeX Warning: Command \' invalid in math mode on input line 201.
+
+
+Overfull \hbox (2.33333pt too wide) in paragraph at lines 199--203
+\T1/lmr/m/n/10.95 1. Ty-pe-Script [on-line] [cit. 2021-02-18]. Do-stupné z: $\O
+ML/lmm/m/it/10.95 https \OT1/lmr/m/n/10.95 : \OML/lmm/m/it/10.95 ==cs:wikipedia
+:org=wiki=TypeScript$\T1/lmr/m/n/10.95 .
+ []
+
+
+Overfull \hbox (37.42073pt too wide) in paragraph at lines 199--203
+\T1/lmr/m/n/10.95 3. LL [on-line] [cit. 2021-03-07]. Do-stupné z: $\OML/lmm/m/i
+t/10.95 https \OT1/lmr/m/n/10.95 : \OML/lmm/m/it/10.95 ==cs:wikipedia:org=wiki=
+LL[]yntaktick\OT1/lmr/m/n/10.95 ý[]\OML/lmm/m/it/10.95 nalyz\OT1/lmr/m/n/10.95 
+á\OML/lmm/m/it/10.95 tor=$\T1/lmr/m/n/10.95 . 
+ []
+
+
+LaTeX Warning: Empty bibliography on input line 205.
+
+[20
 
 ] (main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 730688B03E7A462EF85B0A2CEA35E647;4472.
+(rerunfilecheck)             Checksum: 55DCCACF71850C81662BCEC8CA4EEFEE;3577.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25284 strings out of 479624
- 402533 string characters out of 2881668
- 1123607 words of memory out of 3000000
- 42025 multiletter control sequences out of 15000+200000
+ 25316 strings out of 479624
+ 403390 string characters out of 2881668
+ 1120604 words of memory out of 3000000
+ 42058 multiletter control sequences out of 15000+200000
  439512 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 98i,5n,96p,1261b,2369s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/miktex/fonts/enc/dvips/lm/lm-ec.enc}<C:/miktex/fonts/type1/public/lm/lmbx
-10.pfb><C:/miktex/fonts/type1/public/lm/lmbx12.pfb><C:/miktex/fonts/type1/publi
-c/lm/lmr10.pfb><C:/miktex/fonts/type1/public/lm/lmr12.pfb>
-Output written on main.pdf (17 pages, 445614 bytes).
+ 98i,6n,96p,1261b,2369s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/miktex/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/miktex/fonts/enc/dvips/lm/lm-
+mathit.enc}{C:/miktex/fonts/enc/dvips/lm/lm-rm.enc}{C:/miktex/fonts/enc/dvips/l
+m/lm-ec.enc}<C:/miktex/fonts/type1/public/lm/lmbx10.pfb><C:/miktex/fonts/type1/
+public/lm/lmbx12.pfb><C:/miktex/fonts/type1/public/lm/lmmi10.pfb><C:/miktex/fon
+ts/type1/public/lm/lmmi8.pfb><C:/miktex/fonts/type1/public/lm/lmr10.pfb><C:/mik
+tex/fonts/type1/public/lm/lmr12.pfb><C:/miktex/fonts/type1/public/lm/lmr8.pfb><
+C:/miktex/fonts/type1/public/lm/lmsy10.pfb>
+Output written on main.pdf (20 pages, 547605 bytes).
 PDF statistics:
- 255 PDF objects out of 1000 (max. 8388607)
- 44 named destinations out of 1000 (max. 500000)
- 249 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 266 PDF objects out of 1000 (max. 8388607)
+ 43 named destinations out of 1000 (max. 500000)
+ 205 words of extra memory for PDF output out of 10000 (max. 10000000)
 

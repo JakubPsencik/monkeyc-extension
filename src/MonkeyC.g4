@@ -1,4 +1,3 @@
-// Define a grammar called Hello
 grammar MonkeyC;
 
 options {
@@ -143,8 +142,6 @@ options {
     
     DOUBLELITERAL : [0-9]+|([0-9]*'.'[0-9]+)('d'|'D')?;
     //DOUBLELITERAL = 'regexp:(\d+)?(\.\d+)?[dD]'
-
-
 
 fragment DoubleStringCharacter
     : ~["\\\r\n]

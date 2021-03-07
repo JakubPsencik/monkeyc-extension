@@ -7,7 +7,7 @@ using Toybox.WatchFace;
 class helloworldView extends WatchUi.WatchFace {
 
     private var privateVal;
-    public var pubVal;
+    public var publicVal;
     function initialize() {
         WatchFace.initialize();
         

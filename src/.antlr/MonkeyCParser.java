@@ -1,4 +1,5 @@
-// Generated from MonkeyC.g4 by ANTLR 4.8
+// Generated from e:\GitHub\monkeyc-extension\src\MonkeyC.g4 by ANTLR 4.8
+import { MonkeyCBaseParser } from "../MonkeyCBaseParser";
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -9,7 +10,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class MonkeyCParser extends Parser {
+public class MonkeyCParser extends MonkeyCBaseParser {
 	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -160,16 +161,6 @@ public class MonkeyCParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public Object isClassAccess()
-    {
-        int lt1 = this._input.LT(1).getType();
-        if(lt1 == MonkeyCLexer.EOF) { return true; }
-
-        return this._input.LT(3).getType() != MonkeyCLexer.IDENTIFIER
-            && this._input.LT(2).getType() == MonkeyCLexer.CLASS
-            && lt1 == MonkeyCLexer.DOT;
-	}
-
 	public static class ProgramContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(MonkeyCParser.EOF, 0); }
 		public List<CompilationUnitContext> compilationUnit() {
@@ -182,14 +173,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterProgram(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitProgram(this);
-		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -257,14 +240,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_compilationUnit; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterCompilationUnit(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitCompilationUnit(this);
-		}
 	}
 
 	public final CompilationUnitContext compilationUnit() throws RecognitionException {
@@ -357,14 +332,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_usingDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterUsingDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitUsingDeclaration(this);
-		}
 	}
 
 	public final UsingDeclarationContext usingDeclaration() throws RecognitionException {
@@ -420,14 +387,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_moduleDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterModuleDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitModuleDeclaration(this);
-		}
 	}
 
 	public final ModuleDeclarationContext moduleDeclaration() throws RecognitionException {
@@ -467,14 +426,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_moduleBody; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterModuleBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitModuleBody(this);
-		}
 	}
 
 	public final ModuleBodyContext moduleBody() throws RecognitionException {
@@ -513,14 +464,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_moduleBodyMembers; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterModuleBodyMembers(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitModuleBodyMembers(this);
-		}
 	}
 
 	public final ModuleBodyMembersContext moduleBodyMembers() throws RecognitionException {
@@ -580,14 +523,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_moduleBodyMember; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterModuleBodyMember(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitModuleBodyMember(this);
-		}
 	}
 
 	public final ModuleBodyMemberContext moduleBodyMember() throws RecognitionException {
@@ -666,14 +601,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fullyQualifiedReferenceExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterFullyQualifiedReferenceExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitFullyQualifiedReferenceExpression(this);
-		}
 	}
 
 	public final FullyQualifiedReferenceExpressionContext fullyQualifiedReferenceExpression() throws RecognitionException {
@@ -733,14 +660,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterClassDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitClassDeclaration(this);
-		}
 	}
 
 	public final ClassDeclarationContext classDeclaration() throws RecognitionException {
@@ -793,14 +712,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classBody; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterClassBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitClassBody(this);
-		}
 	}
 
 	public final ClassBodyContext classBody() throws RecognitionException {
@@ -839,14 +750,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classBodyMembers; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterClassBodyMembers(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitClassBodyMembers(this);
-		}
 	}
 
 	public final ClassBodyMembersContext classBodyMembers() throws RecognitionException {
@@ -903,14 +806,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classBodyMember; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterClassBodyMember(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitClassBodyMember(this);
-		}
 	}
 
 	public final ClassBodyMemberContext classBodyMember() throws RecognitionException {
@@ -989,14 +884,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_enumDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterEnumDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitEnumDeclaration(this);
-		}
 	}
 
 	public final EnumDeclarationContext enumDeclaration() throws RecognitionException {
@@ -1053,14 +940,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_maybeSignedInteger; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterMaybeSignedInteger(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitMaybeSignedInteger(this);
-		}
 	}
 
 	public final MaybeSignedIntegerContext maybeSignedInteger() throws RecognitionException {
@@ -1115,14 +994,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_enumConstant; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterEnumConstant(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitEnumConstant(this);
-		}
 	}
 
 	public final EnumConstantContext enumConstant() throws RecognitionException {
@@ -1176,14 +1047,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_constDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterConstDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitConstDeclaration(this);
-		}
 	}
 
 	public final ConstDeclarationContext constDeclaration() throws RecognitionException {
@@ -1246,14 +1109,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fieldDeclarationList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterFieldDeclarationList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitFieldDeclarationList(this);
-		}
 	}
 
 	public final FieldDeclarationListContext fieldDeclarationList() throws RecognitionException {
@@ -1308,14 +1163,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fieldDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterFieldDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitFieldDeclaration(this);
-		}
 	}
 
 	public final FieldDeclarationContext fieldDeclaration() throws RecognitionException {
@@ -1359,14 +1206,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_functionDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterFunctionDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitFunctionDeclaration(this);
-		}
 	}
 
 	public final FunctionDeclarationContext functionDeclaration() throws RecognitionException {
@@ -1426,14 +1265,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_formalParameterDeclarations; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterFormalParameterDeclarations(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitFormalParameterDeclarations(this);
-		}
 	}
 
 	public final FormalParameterDeclarationsContext formalParameterDeclarations() throws RecognitionException {
@@ -1487,14 +1318,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_block; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBlock(this);
-		}
 	}
 
 	public final BlockContext block() throws RecognitionException {
@@ -1547,14 +1370,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_blockStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBlockStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBlockStatement(this);
-		}
 	}
 
 	public final BlockStatementContext blockStatement() throws RecognitionException {
@@ -1646,14 +1461,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variableDeclarationList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterVariableDeclarationList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitVariableDeclarationList(this);
-		}
 	}
 
 	public final VariableDeclarationListContext variableDeclarationList() throws RecognitionException {
@@ -1704,14 +1511,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variableDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterVariableDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitVariableDeclaration(this);
-		}
 	}
 
 	public final VariableDeclarationContext variableDeclaration() throws RecognitionException {
@@ -1755,14 +1554,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_varOrFieldDeclaration; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterVarOrFieldDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitVarOrFieldDeclaration(this);
-		}
 	}
 
 	public final VarOrFieldDeclarationContext varOrFieldDeclaration() throws RecognitionException {
@@ -1826,14 +1617,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variableInitializer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterVariableInitializer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitVariableInitializer(this);
-		}
 	}
 
 	public final VariableInitializerContext variableInitializer() throws RecognitionException {
@@ -1887,14 +1670,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_arrayInitializer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterArrayInitializer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitArrayInitializer(this);
-		}
 	}
 
 	public final ArrayInitializerContext arrayInitializer() throws RecognitionException {
@@ -2005,14 +1780,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitStatement(this);
-		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -2256,14 +2023,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_switchBlockStatementGroups; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterSwitchBlockStatementGroups(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitSwitchBlockStatementGroups(this);
-		}
 	}
 
 	public final SwitchBlockStatementGroupsContext switchBlockStatementGroups() throws RecognitionException {
@@ -2314,14 +2073,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_switchBlockStatementGroup; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterSwitchBlockStatementGroup(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitSwitchBlockStatementGroup(this);
-		}
 	}
 
 	public final SwitchBlockStatementGroupContext switchBlockStatementGroup() throws RecognitionException {
@@ -2371,14 +2122,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_switchLabel; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterSwitchLabel(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitSwitchLabel(this);
-		}
 	}
 
 	public final SwitchLabelContext switchLabel() throws RecognitionException {
@@ -2439,14 +2182,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tryStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterTryStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitTryStatement(this);
-		}
 	}
 
 	public final TryStatementContext tryStatement() throws RecognitionException {
@@ -2511,14 +2246,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_catches; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterCatches(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitCatches(this);
-		}
 	}
 
 	public final CatchesContext catches() throws RecognitionException {
@@ -2571,14 +2298,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_catchClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterCatchClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitCatchClause(this);
-		}
 	}
 
 	public final CatchClauseContext catchClause() throws RecognitionException {
@@ -2622,14 +2341,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_catchParameter; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterCatchParameter(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitCatchParameter(this);
-		}
 	}
 
 	public final CatchParameterContext catchParameter() throws RecognitionException {
@@ -2690,14 +2401,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_forStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterForStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitForStatement(this);
-		}
 	}
 
 	public final ForStatementContext forStatement() throws RecognitionException {
@@ -2773,14 +2476,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_forInit; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterForInit(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitForInit(this);
-		}
 	}
 
 	public final ForInitContext forInit() throws RecognitionException {
@@ -2858,14 +2553,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressionList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterExpressionList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitExpressionList(this);
-		}
 	}
 
 	public final ExpressionListContext expressionList() throws RecognitionException {
@@ -2912,14 +2599,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_thisExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterThisExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitThisExpression(this);
-		}
 	}
 
 	public final ThisExpressionContext thisExpression() throws RecognitionException {
@@ -2949,14 +2628,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_blingExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBlingExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBlingExpression(this);
-		}
 	}
 
 	public final BlingExpressionContext blingExpression() throws RecognitionException {
@@ -2994,14 +2665,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_referenceOrThisExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterReferenceOrThisExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitReferenceOrThisExpression(this);
-		}
 	}
 
 	public final ReferenceOrThisExpressionContext referenceOrThisExpression() throws RecognitionException {
@@ -3068,14 +2731,6 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode QUES() { return getToken(MonkeyCParser.QUES, 0); }
 		public TerminalNode COLON() { return getToken(MonkeyCParser.COLON, 0); }
 		public TernaryExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterTernaryExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitTernaryExpression(this);
-		}
 	}
 	public static class HasExpressionContext extends SingleExpressionContext {
 		public SingleExpressionContext singleExpression() {
@@ -3086,14 +2741,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SymbolContext.class,0);
 		}
 		public HasExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterHasExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitHasExpression(this);
-		}
 	}
 	public static class LogicalAndExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3105,14 +2752,6 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode AMPAMP() { return getToken(MonkeyCParser.AMPAMP, 0); }
 		public TerminalNode AND() { return getToken(MonkeyCParser.AND, 0); }
 		public LogicalAndExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterLogicalAndExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitLogicalAndExpression(this);
-		}
 	}
 	public static class ElementAccessExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3124,14 +2763,6 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode LBRACKET() { return getToken(MonkeyCParser.LBRACKET, 0); }
 		public TerminalNode RBRACKET() { return getToken(MonkeyCParser.RBRACKET, 0); }
 		public ElementAccessExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterElementAccessExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitElementAccessExpression(this);
-		}
 	}
 	public static class PreIncrementExpressionContext extends SingleExpressionContext {
 		public TerminalNode PLUSPLUS() { return getToken(MonkeyCParser.PLUSPLUS, 0); }
@@ -3139,14 +2770,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SingleExpressionContext.class,0);
 		}
 		public PreIncrementExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterPreIncrementExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitPreIncrementExpression(this);
-		}
 	}
 	public static class LogicalOrExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3158,14 +2781,6 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode BARBAR() { return getToken(MonkeyCParser.BARBAR, 0); }
 		public TerminalNode OR() { return getToken(MonkeyCParser.OR, 0); }
 		public LogicalOrExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterLogicalOrExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitLogicalOrExpression(this);
-		}
 	}
 	public static class GeneralFullyQualifiedReferenceExpressionContext extends SingleExpressionContext {
 		public FullyQualifiedReferenceExpressionContext fullyQualifiedReferenceExpression() {
@@ -3178,14 +2793,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(MethodInvocationExpressionContext.class,0);
 		}
 		public GeneralFullyQualifiedReferenceExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterGeneralFullyQualifiedReferenceExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitGeneralFullyQualifiedReferenceExpression(this);
-		}
 	}
 	public static class NotExpressionContext extends SingleExpressionContext {
 		public TerminalNode BANG() { return getToken(MonkeyCParser.BANG, 0); }
@@ -3193,14 +2800,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SingleExpressionContext.class,0);
 		}
 		public NotExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterNotExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitNotExpression(this);
-		}
 	}
 	public static class PreDecreaseExpressionContext extends SingleExpressionContext {
 		public TerminalNode SUBSUB() { return getToken(MonkeyCParser.SUBSUB, 0); }
@@ -3208,28 +2807,12 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SingleExpressionContext.class,0);
 		}
 		public PreDecreaseExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterPreDecreaseExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitPreDecreaseExpression(this);
-		}
 	}
 	public static class VoidDotClassExpressionContext extends SingleExpressionContext {
 		public TerminalNode VOID() { return getToken(MonkeyCParser.VOID, 0); }
 		public TerminalNode DOT() { return getToken(MonkeyCParser.DOT, 0); }
 		public TerminalNode CLASS() { return getToken(MonkeyCParser.CLASS, 0); }
 		public VoidDotClassExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterVoidDotClassExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitVoidDotClassExpression(this);
-		}
 	}
 	public static class UnaryMinusExpressionContext extends SingleExpressionContext {
 		public TerminalNode SUB() { return getToken(MonkeyCParser.SUB, 0); }
@@ -3237,14 +2820,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SingleExpressionContext.class,0);
 		}
 		public UnaryMinusExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterUnaryMinusExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitUnaryMinusExpression(this);
-		}
 	}
 	public static class AssignmentExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3255,14 +2830,6 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode EQ() { return getToken(MonkeyCParser.EQ, 0); }
 		public AssignmentExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterAssignmentExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitAssignmentExpression(this);
-		}
 	}
 	public static class PostDecreaseExpressionContext extends SingleExpressionContext {
 		public SingleExpressionContext singleExpression() {
@@ -3270,28 +2837,12 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode SUBSUB() { return getToken(MonkeyCParser.SUBSUB, 0); }
 		public PostDecreaseExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterPostDecreaseExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitPostDecreaseExpression(this);
-		}
 	}
 	public static class SymbolExpressionContext extends SingleExpressionContext {
 		public SymbolContext symbol() {
 			return getRuleContext(SymbolContext.class,0);
 		}
 		public SymbolExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterSymbolExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitSymbolExpression(this);
-		}
 	}
 	public static class InstanceofExpressionContext extends SingleExpressionContext {
 		public SingleExpressionContext singleExpression() {
@@ -3302,14 +2853,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(QualifiedNameContext.class,0);
 		}
 		public InstanceofExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterInstanceofExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitInstanceofExpression(this);
-		}
 	}
 	public static class UnaryPlusExpressionContext extends SingleExpressionContext {
 		public TerminalNode PLUS() { return getToken(MonkeyCParser.PLUS, 0); }
@@ -3317,14 +2860,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SingleExpressionContext.class,0);
 		}
 		public UnaryPlusExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterUnaryPlusExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitUnaryPlusExpression(this);
-		}
 	}
 	public static class BitXOrExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3335,14 +2870,6 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode CARET() { return getToken(MonkeyCParser.CARET, 0); }
 		public BitXOrExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitXOrExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitXOrExpression(this);
-		}
 	}
 	public static class EqualityExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3354,14 +2881,6 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode EQEQ() { return getToken(MonkeyCParser.EQEQ, 0); }
 		public TerminalNode BANGEQ() { return getToken(MonkeyCParser.BANGEQ, 0); }
 		public EqualityExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterEqualityExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitEqualityExpression(this);
-		}
 	}
 	public static class MultiplicativeExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3374,28 +2893,12 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode SLASH() { return getToken(MonkeyCParser.SLASH, 0); }
 		public TerminalNode PERCENT() { return getToken(MonkeyCParser.PERCENT, 0); }
 		public MultiplicativeExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterMultiplicativeExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitMultiplicativeExpression(this);
-		}
 	}
 	public static class ArrayCreatorExpressionContext extends SingleExpressionContext {
 		public ArrayCreatorContext arrayCreator() {
 			return getRuleContext(ArrayCreatorContext.class,0);
 		}
 		public ArrayCreatorExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterArrayCreatorExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitArrayCreatorExpression(this);
-		}
 	}
 	public static class BitShiftExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3408,14 +2911,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(ShiftOpContext.class,0);
 		}
 		public BitShiftExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitShiftExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitShiftExpression(this);
-		}
 	}
 	public static class ParenthesizedExpressionContext extends SingleExpressionContext {
 		public TerminalNode LPAREN() { return getToken(MonkeyCParser.LPAREN, 0); }
@@ -3424,14 +2919,6 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode RPAREN() { return getToken(MonkeyCParser.RPAREN, 0); }
 		public ParenthesizedExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterParenthesizedExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitParenthesizedExpression(this);
-		}
 	}
 	public static class RelationalExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3444,14 +2931,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(RelationalOpContext.class,0);
 		}
 		public RelationalExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterRelationalExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitRelationalExpression(this);
-		}
 	}
 	public static class AdditiveExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3463,14 +2942,6 @@ public class MonkeyCParser extends Parser {
 		public TerminalNode PLUS() { return getToken(MonkeyCParser.PLUS, 0); }
 		public TerminalNode SUB() { return getToken(MonkeyCParser.SUB, 0); }
 		public AdditiveExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterAdditiveExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitAdditiveExpression(this);
-		}
 	}
 	public static class PostIncrementExpressionContext extends SingleExpressionContext {
 		public SingleExpressionContext singleExpression() {
@@ -3478,14 +2949,6 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode PLUSPLUS() { return getToken(MonkeyCParser.PLUSPLUS, 0); }
 		public PostIncrementExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterPostIncrementExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitPostIncrementExpression(this);
-		}
 	}
 	public static class BitNotExpressionContext extends SingleExpressionContext {
 		public TerminalNode TILDE() { return getToken(MonkeyCParser.TILDE, 0); }
@@ -3493,28 +2956,12 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(SingleExpressionContext.class,0);
 		}
 		public BitNotExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitNotExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitNotExpression(this);
-		}
 	}
 	public static class LiteralExpressionContext extends SingleExpressionContext {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
 		public LiteralExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterLiteralExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitLiteralExpression(this);
-		}
 	}
 	public static class BitAndExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3525,14 +2972,6 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode AMP() { return getToken(MonkeyCParser.AMP, 0); }
 		public BitAndExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitAndExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitAndExpression(this);
-		}
 	}
 	public static class BitOrExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3543,14 +2982,6 @@ public class MonkeyCParser extends Parser {
 		}
 		public TerminalNode BAR() { return getToken(MonkeyCParser.BAR, 0); }
 		public BitOrExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitOrExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitOrExpression(this);
-		}
 	}
 	public static class AssignmentOperatorExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3563,28 +2994,12 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(AssignmentOperatorContext.class,0);
 		}
 		public AssignmentOperatorExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterAssignmentOperatorExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitAssignmentOperatorExpression(this);
-		}
 	}
 	public static class ObjectCreatorExpressionContext extends SingleExpressionContext {
 		public ObjectCreatorContext objectCreator() {
 			return getRuleContext(ObjectCreatorContext.class,0);
 		}
 		public ObjectCreatorExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterObjectCreatorExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitObjectCreatorExpression(this);
-		}
 	}
 	public static class BitwiseExpressionContext extends SingleExpressionContext {
 		public List<SingleExpressionContext> singleExpression() {
@@ -3597,14 +3012,6 @@ public class MonkeyCParser extends Parser {
 			return getRuleContext(BitwiseOperatorContext.class,0);
 		}
 		public BitwiseExpressionContext(SingleExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitwiseExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitwiseExpression(this);
-		}
 	}
 
 	public final SingleExpressionContext singleExpression() throws RecognitionException {
@@ -3719,7 +3126,7 @@ public class MonkeyCParser extends Parser {
 				case 1:
 					{
 					setState(501);
-					if (!((boolean)this.isClassAccess())) throw new FailedPredicateException(this, "this.isClassAccess()");
+					if (!(this.isClassAccess())) throw new FailedPredicateException(this, "this.isClassAccess()");
 					setState(502);
 					classAccess();
 					}
@@ -4096,14 +3503,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classAccess; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterClassAccess(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitClassAccess(this);
-		}
 	}
 
 	public final ClassAccessContext classAccess() throws RecognitionException {
@@ -4140,14 +3539,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_methodInvocationExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterMethodInvocationExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitMethodInvocationExpression(this);
-		}
 	}
 
 	public final MethodInvocationExpressionContext methodInvocationExpression() throws RecognitionException {
@@ -4212,14 +3603,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assignmentOperator; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterAssignmentOperator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitAssignmentOperator(this);
-		}
 	}
 
 	public final AssignmentOperatorContext assignmentOperator() throws RecognitionException {
@@ -4334,14 +3717,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_relationalOp; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterRelationalOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitRelationalOp(this);
-		}
 	}
 
 	public final RelationalOpContext relationalOp() throws RecognitionException {
@@ -4409,14 +3784,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_shiftOp; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterShiftOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitShiftOp(this);
-		}
 	}
 
 	public final ShiftOpContext shiftOp() throws RecognitionException {
@@ -4476,14 +3843,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_bitwiseOperator; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterBitwiseOperator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitBitwiseOperator(this);
-		}
 	}
 
 	public final BitwiseOperatorContext bitwiseOperator() throws RecognitionException {
@@ -4525,14 +3884,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_qualifiedReferenceExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterQualifiedReferenceExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitQualifiedReferenceExpression(this);
-		}
 	}
 
 	public final QualifiedReferenceExpressionContext qualifiedReferenceExpression() throws RecognitionException {
@@ -4566,14 +3917,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_referenceExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterReferenceExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitReferenceExpression(this);
-		}
 	}
 
 	public final ReferenceExpressionContext referenceExpression() throws RecognitionException {
@@ -4605,14 +3948,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_methodInvocation; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterMethodInvocation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitMethodInvocation(this);
-		}
 	}
 
 	public final MethodInvocationContext methodInvocation() throws RecognitionException {
@@ -4651,14 +3986,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_objectCreator; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterObjectCreator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitObjectCreator(this);
-		}
 	}
 
 	public final ObjectCreatorContext objectCreator() throws RecognitionException {
@@ -4717,14 +4044,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_arrayCreator; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterArrayCreator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitArrayCreator(this);
-		}
 	}
 
 	public final ArrayCreatorContext arrayCreator() throws RecognitionException {
@@ -4821,14 +4140,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_dictionaryCreator; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterDictionaryCreator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitDictionaryCreator(this);
-		}
 	}
 
 	public final DictionaryCreatorContext dictionaryCreator() throws RecognitionException {
@@ -4912,14 +4223,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_keyValueInitializer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterKeyValueInitializer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitKeyValueInitializer(this);
-		}
 	}
 
 	public final KeyValueInitializerContext keyValueInitializer() throws RecognitionException {
@@ -4957,14 +4260,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_arguments; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterArguments(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitArguments(this);
-		}
 	}
 
 	public final ArgumentsContext arguments() throws RecognitionException {
@@ -5016,14 +4311,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_argumentsList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterArgumentsList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitArgumentsList(this);
-		}
 	}
 
 	public final ArgumentsListContext argumentsList() throws RecognitionException {
@@ -5077,14 +4364,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_modifiers; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterModifiers(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitModifiers(this);
-		}
 	}
 
 	public final ModifiersContext modifiers() throws RecognitionException {
@@ -5155,14 +4434,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_annotation; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterAnnotation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitAnnotation(this);
-		}
 	}
 
 	public final AnnotationContext annotation() throws RecognitionException {
@@ -5199,14 +4470,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_symbol; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterSymbol(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitSymbol(this);
-		}
 	}
 
 	public final SymbolContext symbol() throws RecognitionException {
@@ -5247,14 +4510,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_qualifiedName; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterQualifiedName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitQualifiedName(this);
-		}
 	}
 
 	public final QualifiedNameContext qualifiedName() throws RecognitionException {
@@ -5305,14 +4560,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_componentName; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterComponentName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitComponentName(this);
-		}
 	}
 
 	public final ComponentNameContext componentName() throws RecognitionException {
@@ -5342,14 +4589,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_id; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterId(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitId(this);
-		}
 	}
 
 	public final IdContext id() throws RecognitionException {
@@ -5388,14 +4627,6 @@ public class MonkeyCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_literal; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).enterLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MonkeyCListener ) ((MonkeyCListener)listener).exitLiteral(this);
-		}
 	}
 
 	public final LiteralContext literal() throws RecognitionException {
@@ -5438,7 +4669,7 @@ public class MonkeyCParser extends Parser {
 	private boolean singleExpression_sempred(SingleExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return  (boolean)this.isClassAccess();
+			return this.isClassAccess();
 		case 1:
 			return precpred(_ctx, 29);
 		case 2:

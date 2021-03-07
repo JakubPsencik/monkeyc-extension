@@ -182,7 +182,47 @@ export function activate(context: vscode.ExtensionContext) {
 		' ','.' // triggered whenever a '.' is being typed
 	);
 
-	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider);
+	/** provider for suggesting classes from imported modules (primarly from Toybox)... */
+	const importedMembersProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+
+				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
+				//linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','');
+				if(linePrefix.endsWith('new')) {
+
+					//TODO
+					/* 
+					   - funkce, ktera posbira naimportovane moduly - collectImportedModules
+					   - findClass
+					   - collectAccessibleMembers					
+					*/
+					let importedModules = documentHandler.collectImportedModules();
+					let importedModulesValues : any[] = [];
+					
+					for(let i = 0; i < importedModules.length; i++) {
+
+						let nodeValue = importedModules[i].getValue();
+						let moduleValue = nodeValue!.substring(nodeValue!.indexOf('.')+1,nodeValue!.lastIndexOf('.'));
+						if(moduleValue === '.') moduleValue =  nodeValue!.substring(nodeValue!.indexOf('.')+1,nodeValue!.lastIndexOf(';'));
+						let tmp = documentHandler.findModuleBodyMembers(moduleValue);
+						
+						if(tmp)
+							tmp.forEach(x => { importedModulesValues.push(x); });
+														
+					}
+					
+					return documentHandler.collectClassesFromModules(importedModulesValues);
+					
+				} else { return undefined; }
+
+			}
+		},
+		' ' // triggered whenever a space is being typed
+	);
+
+	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider);
 }
 
 // this method is called when your extension is deactivated

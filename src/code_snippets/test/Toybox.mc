@@ -1085,7 +1085,7 @@ module Toybox {
             * A new instance of CryptoConfig.
             * @type CryptoConfig
             */
-            public function initialize();
+            public function initialize() { }
 
 
         }
@@ -4426,7 +4426,7 @@ module Toybox {
 
     module Lang {
 
-        public class Array {
+        public class Array extends Object {
 
             /**
             * Add an Object to the end of an Array.
@@ -4505,7 +4505,7 @@ module Toybox {
 
 
         public class Boolean extends Object {
-            public function test(byte) { }
+
         }
 
 
@@ -5053,6 +5053,49 @@ module Toybox {
             */
             public function toNumber() { }
 
+
+        }
+
+        public class Object {
+
+            /**
+            * Test if an Object instance is equal to another instance of an Object.
+            * @param object — (Toybox.Lang.Object) — The Object to test against
+            * @returns  Toybox::Lang::Boolean 
+            */
+            public function equals(object) { }
+
+
+            /**
+            * Get a hash code value for an Object.
+            * @param
+            * @returns  Toybox::Lang::Number 
+            */
+            public function hashCode() { }
+
+
+            /**
+            * Retrieve a callback to a Method.
+            * @param methodName — (Toybox.Lang.Symbol) — The Symbol of the specified Method
+            * @returns  Toybox.Lang.Method
+            */
+            public function method(methodName) { }
+
+
+            /**
+            * Convert an Object to a String.
+            * @param 
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
+
+
+            /**
+            * Get a WeakReference to an Object.
+            * @param 
+            * @returns  Toybox.Lang.WeakReference
+            */
+            public function weak() { }
 
         }
 

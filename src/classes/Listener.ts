@@ -1,24 +1,26 @@
 import * as vscode from 'vscode';
 import { AST } from './AST';
 import { Node } from './Node';
-import { AdditiveExpressionContext, ArgumentsContext, BlockContext, BlockStatementContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, FieldDeclarationContext, FieldDeclarationListContext, FormalParameterDeclarationsContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, IdContext, LiteralContext, LiteralExpressionContext, MethodInvocationContext, ModifiersContext, ModuleBodyContext, ModuleBodyMemberContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, ProgramContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, StatementContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext } from '../MonkeyCParser';
+import { AdditiveExpressionContext, AnnotationContext, ArgumentsContext, ArgumentsListContext, ArrayCreatorContext, ArrayCreatorExpressionContext, ArrayInitializerContext, AssignmentExpressionContext, AssignmentOperatorContext, AssignmentOperatorExpressionContext, BitAndExpressionContext, BitNotExpressionContext, BitOrExpressionContext, BitShiftExpressionContext, BitwiseExpressionContext, BitwiseOperatorContext, BitXOrExpressionContext, BlingExpressionContext, BlockContext, BlockStatementContext, CatchClauseContext, CatchesContext, CatchParameterContext, ClassAccessContext, ClassBodyContext, ClassBodyMemberContext, ClassBodyMembersContext, ClassDeclarationContext, CompilationUnitContext, ComponentNameContext, ConstDeclarationContext, DictionaryCreatorContext, ElementAccessExpressionContext, EnumConstantContext, EnumDeclarationContext, EqualityExpressionContext, ExpressionListContext, FieldDeclarationContext, FieldDeclarationListContext, ForInitContext, FormalParameterDeclarationsContext, ForStatementContext, FullyQualifiedReferenceExpressionContext, FunctionDeclarationContext, GeneralFullyQualifiedReferenceExpressionContext, HasExpressionContext, IdContext, InstanceofExpressionContext, KeyValueInitializerContext, LiteralContext, LiteralExpressionContext, LogicalAndExpressionContext, LogicalOrExpressionContext, MaybeSignedIntegerContext, MethodInvocationContext, MethodInvocationExpressionContext, ModifiersContext, ModuleBodyContext, ModuleBodyMemberContext, ModuleBodyMembersContext, ModuleDeclarationContext, MonkeyCParser, MultiplicativeExpressionContext, NotExpressionContext, ObjectCreatorContext, ObjectCreatorExpressionContext, ParenthesizedExpressionContext, PostDecreaseExpressionContext, PostIncrementExpressionContext, PreDecreaseExpressionContext, PreIncrementExpressionContext, ProgramContext, QualifiedNameContext, QualifiedReferenceExpressionContext, ReferenceExpressionContext, ReferenceOrThisExpressionContext, RelationalExpressionContext, RelationalOpContext, ShiftOpContext, SingleExpressionContext, StatementContext, SwitchBlockStatementGroupContext, SwitchBlockStatementGroupsContext, SwitchLabelContext, SymbolContext, SymbolExpressionContext, TernaryExpressionContext, ThisExpressionContext, TryStatementContext, UnaryMinusExpressionContext, UnaryPlusExpressionContext, UsingDeclarationContext, VariableDeclarationContext, VariableDeclarationListContext, VariableInitializerContext, VarOrFieldDeclarationContext, VoidDotClassExpressionContext } from '../MonkeyCParser';
 import { MonkeyCListener } from '../MonkeyCListener';
 import { MonkeyCLexer } from '../MonkeyCLexer';
+import { ErrorNode } from 'antlr4ts/tree/ErrorNode';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
+import { ParserRuleContext } from 'antlr4ts';
 
 export class Listener implements MonkeyCListener {
 
 	completionStrings: vscode.CompletionItem[];
 	completionList: vscode.CompletionList;
 	AST : AST;
-
-	/* index of current BlockContext in AST */
-	currentScopeIndex: number;
+	currentlyProcessedUnit: string;
 
 	constructor() {
 		this.completionStrings = [];
 		this.completionList = new vscode.CompletionList(this.completionStrings,false);
 		this.AST = new AST("");
-		this.currentScopeIndex = -1;
+
+		this.currentlyProcessedUnit = "";
 	}
 
 	getList() { return this.completionList; }
@@ -118,7 +120,6 @@ export class Listener implements MonkeyCListener {
 		this.AST.currentNode.addChild(usingDeclarationNode);
 
 		this.AST.addNode(using);
-		this.currentScopeIndex = this.AST.getParseTree().length;
 		this.AST.addNode(usingDeclarationNode);
 		this.AST.currentNode = usingDeclarationNode;
 	}
@@ -126,6 +127,8 @@ export class Listener implements MonkeyCListener {
 	exitUsingDeclaration() { }
 
 	enterFullyQualifiedReferenceExpression(context: FullyQualifiedReferenceExpressionContext) {
+		
+		this.currentlyProcessedUnit = "EXTENDS";
 		
 		let fullyQualifiedReferenceExpressionNode = new Node(
 			
@@ -215,6 +218,29 @@ export class Listener implements MonkeyCListener {
 	exitStatement() {
 
 	}
+	
+	enterSingleExpression(context: SingleExpressionContext) {
+		//bool.test(byte);
+		let singleExpressionNode = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  this.AST.currentNode,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text,
+										context.start.type
+		
+		);
+
+		/* set this node as one of children to the previous node */
+		this.AST.currentNode.addChild(singleExpressionNode);
+
+		this.AST.addNode(singleExpressionNode);
+		this.AST.currentNode = singleExpressionNode;
+	}
+
+	exitSingleExpression(context: SingleExpressionContext) {
+
+	}
 
 	enterModuleDeclaration(context: ModuleDeclarationContext) {
 
@@ -273,6 +299,7 @@ export class Listener implements MonkeyCListener {
 
 
 	}
+	
 	exitModuleBody(context: ModuleBodyContext) { 
 
 		let classBodyNode = this.AST.getParseTree().find((x) => x !== null && x.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleBody);
@@ -343,6 +370,8 @@ export class Listener implements MonkeyCListener {
 
 	enterClassDeclaration(context: ClassDeclarationContext) {
 	
+		this.currentlyProcessedUnit = "CLASS";
+
 		let classDeclarationNode = new Node(
 			
 			/* context of this node: */ context,
@@ -499,7 +528,6 @@ export class Listener implements MonkeyCListener {
 
 		
 		this.AST.addNode(block);
-		this.currentScopeIndex = this.AST.getParseTree().length;
 		this.AST.addNode(LBRACE);
 
 		this.AST.currentNode = block;
@@ -939,7 +967,7 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(componentNameNode);
 		this.AST.addNode(_extends!);
 		
-		this.AST.currentNode = componentNameNode;
+		//this.AST.currentNode = componentNameNode;
 	}
 
 	exitComponentName() { }
@@ -976,10 +1004,36 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(variableNameNode);
 		//this.AST.getParseTree()![1];
 
-		this.AST.currentNode = this.AST.currentNode.getParent() as Node;
+		/*TADY JE TA BOTA */
+		//this.AST.currentNode = this.AST.currentNode.getParent() as Node;
 	}
 
-	exitId() { }
+	exitId(context: IdContext) { 
+
+		let _Node;
+		switch (this.currentlyProcessedUnit) {
+			case "CLASS":
+				_Node = this.AST.findNode(MonkeyCParser.RULE_classDeclaration);
+				this.AST.currentNode = _Node!.getParent()!;
+			break;
+
+			case "FUNCTION":
+				_Node = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
+				this.AST.currentNode = this.AST.currentNode.getParent() as Node;
+			break;
+
+			case "EXTENDS":
+				_Node = this.AST.findNode(MonkeyCParser.RULE_classDeclaration);
+				if(_Node !== undefined)
+					this.AST.currentNode = _Node!.getParent()!;
+			break;
+
+			default:
+				this.AST.currentNode = this.AST.currentNode.getParent() as Node;
+				break;
+		}
+			this.currentlyProcessedUnit = "";
+	}
 
 	enterVariableInitializer(context: VariableInitializerContext) {
 	
@@ -1084,6 +1138,8 @@ export class Listener implements MonkeyCListener {
 
 	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
 		
+		this.currentlyProcessedUnit = "FUNCTION";
+
 		let functionDeclarationNode = new Node(
 			
 			/* context of this node: */ context,
@@ -1135,6 +1191,7 @@ export class Listener implements MonkeyCListener {
 
 	enterFormalParameterDeclarations(context: FormalParameterDeclarationsContext) {
 		
+		this.currentlyProcessedUnit = "FUNCTION";
 		
 		let LPAREN = new Node(
 			
@@ -1185,4 +1242,192 @@ export class Listener implements MonkeyCListener {
 		this.AST.currentNode = functionDeclarationNode!;
 
 	}
+
+	enterAnnotation(context: AnnotationContext) { }
+	exitAnnotation(context: AnnotationContext) { }
+
+	enterArgumentsList(context: ArgumentsListContext) { }
+	exitArgumentsList(context: ArgumentsListContext) { }
+
+	enterArrayCreator(context: ArrayCreatorContext) { }
+	exitArrayCreator(context: ArrayCreatorContext) { }
+
+	enterArrayCreatorExpression(context: ArrayCreatorExpressionContext) { }
+	exitArrayCreatorExpression(context: ArrayCreatorExpressionContext) { }
+
+	enterArrayInitializer(context: ArrayInitializerContext) { }
+	exitArrayInitializer(context: ArrayInitializerContext) { }
+
+	enterAssignmentExpression(context: AssignmentExpressionContext) { }
+	exitAssignmentExpression(context: AssignmentExpressionContext) { }
+
+	enterAssignmentOperator(context: AssignmentOperatorContext) { }
+	exitAssignmentOperator(context: AssignmentOperatorContext) { }
+
+	enterAssignmentOperatorExpression(context: AssignmentOperatorExpressionContext) { }
+	exitAssignmentOperatorExpression(context: AssignmentOperatorExpressionContext) { }
+
+	enterBitAndExpression(context: BitAndExpressionContext) { }
+	exitBitAndExpression(context: BitAndExpressionContext) { }
+
+	enterBitNotExpression(context: BitNotExpressionContext) { }
+	exitBitNotExpression(context: BitNotExpressionContext) { }
+
+	enterBitOrExpression(context: BitOrExpressionContext) { }
+	exitBitOrExpression(context: BitOrExpressionContext) { }
+
+	enterBitShiftExpression(context: BitShiftExpressionContext) { }
+	exitBitShiftExpression(context: BitShiftExpressionContext) { }
+
+	enterBitXOrExpression(context:BitXOrExpressionContext) { }
+	exitBitXOrExpression(context: BitXOrExpressionContext) { }
+
+	enterBitwiseExpression(context: BitwiseExpressionContext) { }
+	exitBitwiseExpression(context: BitwiseExpressionContext) { }
+
+	enterBitwiseOperator(context: BitwiseOperatorContext) { }
+	exitBitwiseOperator(context: BitwiseOperatorContext) { }
+
+	enterBlingExpression(context: BlingExpressionContext) { }
+	exitBlingExpression(context: BlingExpressionContext) { }
+
+	enterCatchClause(context: CatchClauseContext) { }
+	exitCatchClause(context: CatchClauseContext) { }
+
+	enterCatchParameter(context: CatchParameterContext) { }
+	exitCatchParameter(context: CatchParameterContext) { }
+
+	enterCatches(context: CatchesContext) { }
+	exitCatches(context: CatchesContext) { }
+
+	enterClassAccess(context: ClassAccessContext) { }
+	exitClassAccess(context: ClassAccessContext) { }
+
+	enterConstDeclaration(context: ConstDeclarationContext) { }
+	exitConstDeclaration(context: ConstDeclarationContext) { }
+
+	enterDictionaryCreator(context: DictionaryCreatorContext) { }
+	exitDictionaryCreator(context: DictionaryCreatorContext) { }
+
+	enterElementAccessExpression(context: ElementAccessExpressionContext) { }
+	exitElementAccessExpression(context: ElementAccessExpressionContext) { }
+
+	enterEnumConstant(context: EnumConstantContext) { }
+	exitEnumConstant(context: EnumConstantContext) { }
+
+	enterEnumDeclaration(context: EnumDeclarationContext) { }
+	exitEnumDeclaration(context: EnumDeclarationContext) { }
+
+	enterEqualityExpression(context: EqualityExpressionContext) { }
+	exitEqualityExpression(context: EqualityExpressionContext) { }
+
+	enterEveryRule(context: ParserRuleContext) { }
+	exitEveryRule(context: ParserRuleContext) { }
+
+	enterExpressionList(context: ExpressionListContext) { }
+	exitExpressionList(context: ExpressionListContext) { }
+
+	enterForInit(context: ForInitContext) { }
+	exitForInit(context: ForInitContext) { }
+
+	enterForStatement(context: ForStatementContext) { }
+	exitForStatement(context: ForStatementContext) { }
+
+	enterHasExpression(context: HasExpressionContext) { }
+	exitHasExpression(context: HasExpressionContext) { }
+
+	enterInstanceofExpression(context: InstanceofExpressionContext) { }
+	exitInstanceofExpression(context: InstanceofExpressionContext) { }
+
+	enterKeyValueInitializer(context: KeyValueInitializerContext) { }
+	exitKeyValueInitializer(context: KeyValueInitializerContext) { }
+
+	enterLogicalAndExpression(context: LogicalAndExpressionContext) { }
+	exitLogicalAndExpression(context: LogicalAndExpressionContext) { }
+
+	enterLogicalOrExpression(context: LogicalOrExpressionContext) { }
+	exitLogicalOrExpression(context: LogicalOrExpressionContext) { }
+
+	enterMaybeSignedInteger(context: MaybeSignedIntegerContext) { }
+	exitMaybeSignedInteger(context: MaybeSignedIntegerContext) { }
+
+	enterMethodInvocationExpression(context: MethodInvocationExpressionContext) { }
+	exitMethodInvocationExpression(context: MethodInvocationExpressionContext) { }
+
+	enterMultiplicativeExpression(context: MultiplicativeExpressionContext) { }
+	exitMultiplicativeExpression(context: MultiplicativeExpressionContext) { }
+
+	enterNotExpression(context: NotExpressionContext) { }
+	exitNotExpression(context: NotExpressionContext) { }
+
+	enterObjectCreator(context: ObjectCreatorContext) { }
+	exitObjectCreator(context: ObjectCreatorContext) { }
+
+	enterObjectCreatorExpression(context: ObjectCreatorExpressionContext) { }
+	exitObjectCreatorExpression(context: ObjectCreatorExpressionContext) { }
+
+	enterParenthesizedExpression(context: ParenthesizedExpressionContext) { }
+	exitParenthesizedExpression(context: ParenthesizedExpressionContext) { }
+
+	enterPostDecreaseExpression(context: PostDecreaseExpressionContext) { }
+	exitPostDecreaseExpression(context: PostDecreaseExpressionContext) { }
+
+	enterPostIncrementExpression(context: PostIncrementExpressionContext) { }
+	exitPostIncrementExpression(context: PostIncrementExpressionContext) { }
+
+	enterPreDecreaseExpression(context: PreDecreaseExpressionContext) { }
+	exitPreDecreaseExpression(context: PreDecreaseExpressionContext) { }
+
+	enterPreIncrementExpression(context: PreIncrementExpressionContext) { }
+	exitPreIncrementExpression(context: PreIncrementExpressionContext) { }
+
+	enterQualifiedName(context: QualifiedNameContext) { }
+	exitQualifiedName(context: QualifiedNameContext) { }
+
+	enterRelationalExpression(context: RelationalExpressionContext) { }
+	exitRelationalExpression(context: RelationalExpressionContext) { }
+
+	enterRelationalOp(context: RelationalOpContext) { }
+	exitRelationalOp(context: RelationalOpContext) { }
+
+	enterShiftOp(context: ShiftOpContext) { }
+	exitShiftOp(context: ShiftOpContext) { }
+
+	enterSwitchBlockStatementGroup(context: SwitchBlockStatementGroupContext) { }
+	exitSwitchBlockStatementGroup(context: SwitchBlockStatementGroupContext) { }
+
+	enterSwitchBlockStatementGroups(context: SwitchBlockStatementGroupsContext) { }
+	exitSwitchBlockStatementGroups(context: SwitchBlockStatementGroupsContext) { }
+
+	enterSwitchLabel(context: SwitchLabelContext) { }
+	exitSwitchLabel(context: SwitchLabelContext) { }
+
+	enterSymbol(context: SymbolContext) { }
+	exitSymbol(context: SymbolContext) { }
+
+	enterSymbolExpression(context: SymbolExpressionContext) { }
+	exitSymbolExpression(context: SymbolExpressionContext) { }
+
+	enterTernaryExpression(context: TernaryExpressionContext) { }
+	exitTernaryExpression(context: TernaryExpressionContext) { }
+
+	enterThisExpression(context: ThisExpressionContext) { }
+	exitThisExpression(context: ThisExpressionContext) { }
+
+	enterTryStatement(context: TryStatementContext) { }
+	exitTryStatement(context: TryStatementContext) { }
+		
+	enterUnaryMinusExpression(context: UnaryMinusExpressionContext) { }
+	exitUnaryMinusExpression(context: UnaryMinusExpressionContext) { }
+
+	enterUnaryPlusExpression(context: UnaryPlusExpressionContext) { }
+	exitUnaryPlusExpression(context: UnaryPlusExpressionContext) { }
+
+	enterVoidDotClassExpression(context: VoidDotClassExpressionContext) { }
+	exitVoidDotClassExpression(context: VoidDotClassExpressionContext) { }
+
+	visitErrorNode(node: ErrorNode) { }
+
+	visitTerminal(node: TerminalNode) { }
+
 }
