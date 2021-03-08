@@ -46,7 +46,6 @@
 \AddAcronym{ANTLR}{ANother Tool for Language Recognition}
 
 
-
 \addbibresource{biblatex-examples.bib}
 
 % Novy druh tabulkoveho sloupce, ve kterem jsou cisla zarovnana podle desetinne carky
@@ -114,13 +113,73 @@ Nejjednodušší způsob ověření, zda gramatika rozpoznává vstup správně,
 Na obrázku můžeme detailně vidět jak parser vytvořil syntaktický strom a jak jsou jednotlivé části propojené. Strom začíná kořenem, jenž je v naší gramatice pojmenová, jako "program". Takto je kořen pojmenován při každém parsování. 
 
 \section{Syntaktická a sémantická analýza kódu}
+
+Abychom mohli implementovat náš jazyk (MonkeyC), je potřeba vytvořit aplikaci, která je schopna číst "věty" na vstupu a odpovídajicím způsobem rozpoznává klíčová slova či fráze naší gramatiky.(Obecně je jazyk složení platných vět, kdy věta se skládá z frází a fráze se skládá ze symbolů slovní zásoby).\\
+Obecně lze říci, pokud nějaká aplikace vykonává (interpretuje) zápis jiného programu v jeho zdrojovém kódu ve zvoleném programovacím jazyce (v našem případě Typescript), že se jedná o tzv. interpret$^{[2]}$. Jako příklady uvedu kalkulačku, aplikace pro čtení konfiguračních souborů, Python interprety, atd... Pokud, na druhou stranu, převádíme "věty" z jednoho jazyka do druhého (např. z Javy do 'C Sharp'), nazýváme takovou aplikaci překladačem.\\
+Úkolem překladače či interpreta je tedy rozpoznat platné vstupy, tedy věty, fráze, subfráze, klíčová slova, atd... Přičemž rozpoznáním platného vstupu je myšleno identifikovat jednotlivé fráze a rozližit je od jiných.\\
+Jako příklad použijeme rozpoznání vstupu $input = 1;$ s validní MonkeyC syntaxí.  Víme tedy, že "input" je cíl přiřazení a "1" představuje hodnotum která se má přiřadit. Stejně jako jsme my schopni rozližit v našem jazyce sloveso od podstatného jména, je naše aplikace schopna rozlišit toto přiřazení od např. importu knihovny pomocí klíčového slova "using".\\
+Programy, které jsou schopny rozpoznávat konkrétní jazyk, se nazývají parsery nebo syntaktické analyzátory, přičemž syntax odkazuje na pravidla obsažená v popisu jazyka, čili gramatice.\\
+
+\begin{center}
+	\includegraphics[scale=1.5]{assigment}
+	\\
+	Obr. 3 – přiřazení hodnoty 1 proměnné input
+\end{center}
+
+
 \subsection{ANTLR - Nástroj pro generování překladače}
 ANTLR nebo také ANother Tool for Language Recognition (jiný nástroj pro rozpoznávání jazyka)$^{[2]}$ je výkonný nástroj pro generování syntaktických analyzátorů, tzv. "parser". Tento parser je poté schopen číst, zpracovávat, spouštět nebo překládat strukturované textové či binární soubory. Použivá se především k vytváření nových jazyků, nástrojů nebo "frameworků". Využívá bezkontextový jazyk typu LL.
 \subsection{LL syntaktický analyzátor}
 LL$^{[3]}$ je syntaktický analyzátor shora-dolů pro bezkontextové gramatiky. Analyzuje vstup zleva (Left) doprava a konstruuje nejlevější derivaci (Leftmost) věty. Gramatiky, které jsou takto analyzovatelné, se nazývají LL gramatiky.
 
 \subsection{Syntaktický strom}
-Strom, který parser používá např. k detekci syntaktických chyb v kódu
+Syntaktický strom představuje datovou strukturu, kterou ANTLR vytvoří při parsování vstupního souboru. Struktura je složená z kořene (root) a uzlů, které mohou představovat buď další podstromy nebo listy stromu. 
+
+
+\begin{center}
+\begin{lstlisting}[language=Python,label=src:PythonListing,caption={třída Node v jazyce Typescript}]
+
+export class Node {  
+
+    private id : number;
+    private context : ParserRuleContext | undefined ;
+    private parent : Node | undefined;
+    private child : Node[] | undefined;
+    private value: string | undefined;
+    private _type : number | undefined;
+
+    constructor(context: ParserRuleContext | undefined, parent : Node | undefined, child : Node[] | undefined, value : string | undefined,
+                _type: number | undefined) 
+    {
+        this.id = AST.nodeCount;
+        this.context = context;
+        this.parent = parent;
+        this.child = child;
+        this.value = value;
+        this._type = _type;
+
+        AST.nodeCount++;
+    }
+
+    getId() { return this.id; }
+    getContext() { return this.context; } 
+    getParent() { return this.parent; }
+    getChildren() { return this.child; }
+    getValue() {return this.value; }
+    getType() {return this._type; }
+    addChild(child : Node) : void{ this.child?.push(child); }
+
+}
+\end{lstlisting}
+\end{center}
+
+Jak je vidět na kódu výše, v naší aplikace uzel stromu představuje struktura, která uchovává následující atributy:\\
+	- kontext daného uzlu\\
+	- předka uzlu\\
+	- potomka uzlu\\
+	- hodnotu přestavující text v daném uzlu\\
+	- typ uzlu, který se odvíjí od pravidel v gramatice\\
+
 \subsection{Sémantický strom}
 Strom, jenž hraje zásadní roli v procesech, jako je našeptávání kódu, detekci chyb, kdy je použita třída z modulu, který není referencován, atd...
 
@@ -196,10 +255,12 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam erat volutpat.
 Fusce nibh. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Maecenas sollicitudin. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Integer vulputate sem a nibh rutrum consequat. Pellentesque sapien. Pellentesque arcu. Suspendisse nisl. Fusce consectetuer risus a nunc. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam quis nulla. Nulla non lectus sed nisl molestie malesuada. Duis viverra diam non justo. Sed ac dolor sit amet purus malesuada congue. Aenean id metus id velit ullamcorper pulvinar. Aliquam ornare wisi eu metus. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
 
 \section{Literatura}
-1. TypeScript [online] [cit. 2021-02-18]. Dostupné z: $https://cs.wikipedia.org/wiki/TypeScript$.
-2. ANTLR [online] [cit. 2021-03-07]. Dostupné z: $https://www.antlr.org/$.\\
-3. LL [online] [cit. 2021-03-07]. Dostupné z: $https://cs.wikipedia.org/wiki/LL_syntaktický_analyzátor/$.\\
-4. MonkeyC [online]. Dostupné z: $https://developer.garmin.com/connect-iq/monkey-c/$
+1. TypeScript [online] [cit. 2021-02-18]. Dostupné z: $https://cs.wikipedia.org/wiki/TypeScript$.\\
+2.Interpret (software) [online] [cit. 2021-03-08]. Dostupné z: $https://cs.wikipedia.org/wiki/Interpret_(software)$.\\
+3. ANTLR [online] [cit. 2021-03-07]. Dostupné z: $https://www.antlr.org/$.\\
+4. LL [online] [cit. 2021-03-07]. Dostupné z: $https://cs.wikipedia.org/wiki/LL_syntaktický_analyzátor/$.\\
+5. MonkeyC [online]. Dostupné z: $https://developer.garmin.com/connect-iq/monkey-c/$
+
 
 
 \printbibliography[title={Literatura}, heading=bibintoc]

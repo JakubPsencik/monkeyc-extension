@@ -1,1 +1,1 @@
-var variable = 1;
+var input = 1;
