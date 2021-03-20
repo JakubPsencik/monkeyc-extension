@@ -5,6 +5,7 @@ import { spawn } from 'child_process';
 import { DocumentHandler } from './classes/DocumentHandler';
 import * as http from 'http';
 import { readFile, readFileSync } from 'fs';
+import { Node } from './classes/Node';
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var clang = require("clang-format");
@@ -168,8 +169,8 @@ export function activate(context: vscode.ExtensionContext) {
 				if(linePrefix === "using")
 					return [new vscode.CompletionItem("Toybox", vscode.CompletionItemKind.Module)];
 				else if (linePrefix === "using Toybox.") {
-					let class_ = documentHandler.findModule("Toybox");
-					return documentHandler.collectModules(class_!);
+					return documentHandler.findModule("Toybox");
+					//return documentHandler.collectModules(class_!);
 				} else if(linePrefix.startsWith("using Toybox.") && linePrefix.length > ("using Toybox.").length) {
 					let classes = documentHandler.findModuleBodyMembers(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
 					return documentHandler.collectClassesFromModules(classes!);

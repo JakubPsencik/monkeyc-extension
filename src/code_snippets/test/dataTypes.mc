@@ -5,7 +5,7 @@ class A
     function test() {       
 
         var _string = "string";
-        _string.
+        
     }
 }
 

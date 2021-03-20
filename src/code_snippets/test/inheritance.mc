@@ -1,29 +1,29 @@
 using Toybox.ActivityMonitor.ActiveMinutes;
-using Toybox.Activity.Info;
-using Toybox.Ant.CryptoConfig;
-using Toybox.ActivityRecording.Session;
-using Toybox.Lang.String;
 
-
-class B {
-
- public var mPublicB;
-
-}
-
-class A extends B
+class A
 {
 
-    function test() {       
+    function f() {       
 
         var mMinutes = new ActiveMinutes();
-        var bool = true; // Boolean (true or false)
-
+       
         var tmp = 2;
-        var b = tmp.format();
+
+        var mTest1 = tmp.format();
+        mTest1 = tmp.format();
+        var mTest2;
+        mTest2 = mTest1.toFloat();
         
-        var _string = "string";
-        _string.
+        var mTest3 = tmp.toNumber();
+        mTest3.toString();
+        var mTest3 = (mTest3.toNumber()).toDouble();
+
+    }
+
+
+    function() {
+    
+    
     }
 }
 

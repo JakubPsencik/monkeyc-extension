@@ -6,31 +6,95 @@ import { MonkeyCListener } from '../MonkeyCListener';
 import { MonkeyCLexer } from '../MonkeyCLexer';
 import { ErrorNode } from 'antlr4ts/tree/ErrorNode';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
-import { ParserRuleContext } from 'antlr4ts';
+import { BufferedTokenStream, CommonToken, CommonTokenStream, Parser, ParserRuleContext, Token, TokenStreamRewriter } from 'antlr4ts';
+import { MonkeyCBaseParser } from '../MonkeyCBaseParser';
+
+
+export class CommentShifter {
+ 
+	static tokens : BufferedTokenStream;
+	static rewriter : TokenStreamRewriter;
+
+	/** Create TokenStreamRewriter attached to token stream
+	 *  sitting between the Cymbol lexer and parser.
+	 */
+   constructor(tokens : BufferedTokenStream) {
+
+	   CommentShifter.tokens = tokens;
+	   CommentShifter.rewriter = new TokenStreamRewriter(tokens);
+	   
+   }
+        
+}	
 
 export class Listener implements MonkeyCListener {
 
 	completionStrings: vscode.CompletionItem[];
 	completionList: vscode.CompletionList;
 	AST : AST;
+	testAST: any;
 	currentlyProcessedUnit: string;
 
 	constructor() {
 		this.completionStrings = [];
 		this.completionList = new vscode.CompletionList(this.completionStrings,false);
 		this.AST = new AST("");
+		this.testAST = [];
 
 		this.currentlyProcessedUnit = "";
 	}
 
 	getList() { return this.completionList; }
-
 	getAST() { return this.AST; }
+	getTestAST() { return this.testAST; }
+
+	/* hledám komentař které jsou v daném rozmezí, v daném kanálu */
+	/*getCommentsFromChannel(channel: number, functionDeclarationLine : number, range: number) : string { 
+		
+		return CommentShifter.tokens.getTokens().find(x => 
+			((x.channel === channel) && (x.line <= functionDeclarationLine && x.line > functionDeclarationLine-range))
+			 && (x.text?.startsWith('/**') && x.text.endsWith('/*')))!.text!;
+
+	}*/
+
+	getCommentsFromChannel(channel: number) {
+		let tokens : Token[] = [];
+		CommentShifter.tokens.getTokens().forEach(t => {
+			if(t.channel === channel) { tokens.push(t); }
+		});
+
+		return tokens;
+
+	}
+		
+	enterEveryRule(context: ParserRuleContext) { 
+		
+		let node = new Node(
+			
+			/* context of this node: */ context,
+			/* parent of this node: */  undefined,
+			/*1..n children: */         [],
+			/*value of the context: */  context.text,
+			/*context type:			*/	context.start.type
+
+		);
+
+		this.testAST.push(node);
+		//this.AST.addNode(node);
+	
+	}
+
 
 	
+	exitEveryRule(context: ParserRuleContext) { 
+
+	}
+
 	/* root */
 	enterProgram(context: ProgramContext) {
 		
+		//let x= CommonTokenStream.getNumberOfOnChannelTokens();
+
 		let node = new Node(
 			
 			/* context of this node: */ context,
@@ -44,6 +108,9 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(node);
 		this.AST.root = node;
 		this.AST.currentNode = node;
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 		
 	}
 
@@ -64,6 +131,28 @@ export class Listener implements MonkeyCListener {
 		this.AST.currentNode = this.AST.root;
 
 		this.completionList = new vscode.CompletionList(this.completionStrings, false);
+		
+		/*this.testAST.forEach((treeNode : ParserRuleContext) => {
+			console.log('---------------------------------------------------------------------');
+			console.log('treeNode._parent: ', treeNode._parent);
+			console.log('treeNode._start: ', treeNode._start);
+			console.log('treeNode._start: ', treeNode._stop);
+			console.log('treeNode.altNumber: ', treeNode.altNumber);
+			console.log('treeNode.childCount: ', treeNode.childCount);
+			console.log('treeNode.children: ', treeNode.children);
+			console.log('treeNode.exception: ', treeNode.exception);
+			console.log('treeNode.isEmpty: ', treeNode.isEmpty);
+			console.log('treeNode.parent: ', treeNode.parent);
+			console.log('treeNode.payload: ', treeNode.payload);
+			console.log('treeNode.ruleContext: ', treeNode.ruleContext);
+			console.log('treeNode.ruleIndex: ', treeNode.ruleIndex);
+			console.log('treeNode.sourceInterval: ', treeNode.sourceInterval);
+			console.log('treeNode.start: ', treeNode.start);
+			console.log('treeNode.stop: ', treeNode.stop);
+			console.log('treeNode.text: ', treeNode.text);
+			console.log('-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-');
+
+		});*/
 	}
 
 	enterCompilationUnit(context: CompilationUnitContext) {
@@ -83,11 +172,15 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(compilationUnitNode);
 		this.AST.currentNode = compilationUnitNode;
+
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 		
 	}
 
 	
-	exitCompilationUnit() {
+	exitCompilationUnit(context: CompilationUnitContext) {
 		//console.log('exitCompilationUnit\n');
 		this.AST.currentNode = this.AST.root;
 	}
@@ -122,6 +215,8 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(using);
 		this.AST.addNode(usingDeclarationNode);
 		this.AST.currentNode = usingDeclarationNode;
+
+		/*this.testAST.push(context);*/
 	}
 
 	exitUsingDeclaration() { }
@@ -145,6 +240,8 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(fullyQualifiedReferenceExpressionNode);
 		this.AST.currentNode = fullyQualifiedReferenceExpressionNode;
+
+		/*this.testAST.push(context);*/
 	}
 
 	exitFullyQualifiedReferenceExpression() { }
@@ -166,6 +263,8 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(referenceOrThisExpressionNode);
 		this.AST.currentNode = referenceOrThisExpressionNode;
+
+		/*this.testAST.push(context);*/
 
 	}
 
@@ -192,12 +291,14 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(referenceExpressionNode);
 		this.AST.currentNode = referenceExpressionNode;
+
+		/*this.testAST.push(context);*/
 	}
 
 	exitReferenceExpression() { }
 
 	enterStatement(context: StatementContext) {
-
+		/*this.testAST.push(context);*/
 		let statement = new Node(
 			
 			/* context of this node: */ context,
@@ -220,7 +321,7 @@ export class Listener implements MonkeyCListener {
 	}
 	
 	enterSingleExpression(context: SingleExpressionContext) {
-		//bool.test(byte);
+		
 		let singleExpressionNode = new Node(
 			
 			/* context of this node: */ context,
@@ -236,6 +337,9 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(singleExpressionNode);
 		this.AST.currentNode = singleExpressionNode;
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 	}
 
 	exitSingleExpression(context: SingleExpressionContext) {
@@ -243,7 +347,7 @@ export class Listener implements MonkeyCListener {
 	}
 
 	enterModuleDeclaration(context: ModuleDeclarationContext) {
-
+		/*this.testAST.push(context);*/
 		let moduleDeclarationNode = new Node(
 			
 			/* context of this node: */ context,
@@ -265,7 +369,7 @@ export class Listener implements MonkeyCListener {
 	exitModuleDeclaration(context: ModuleDeclarationContext) { }
 
 	enterModuleBody(context: ModuleBodyContext) { 
-
+		/*this.testAST.push(context);*/
 		let moduleBodyNode = new Node(
 			
 			/* context of this node: */ context,
@@ -322,7 +426,7 @@ export class Listener implements MonkeyCListener {
 	}
 
 	enterModuleBodyMembers(context: ModuleBodyMembersContext) { 
-
+		/*this.testAST.push(context);*/
 		let moduleBodyMembersNode = new Node(
 			
 			/* context of this node: */ context,
@@ -343,7 +447,7 @@ export class Listener implements MonkeyCListener {
 	exitModuleBodyMembers(context: ModuleBodyMembersContext) { }
 
 	enterModuleBodyMember(context: ModuleBodyMemberContext) { 
-
+		/*this.testAST.push(context);*/
 		this.AST.currentNode = this.AST.getParseTree().find((x) => x !== null && x.getContext()?.ruleIndex === MonkeyCParser.RULE_moduleBodyMembers) as Node; 
 
 		let moduleBodyMemberNode = new Node(
@@ -369,7 +473,7 @@ export class Listener implements MonkeyCListener {
 
 
 	enterClassDeclaration(context: ClassDeclarationContext) {
-	
+		/*this.testAST.push(context);*/
 		this.currentlyProcessedUnit = "CLASS";
 
 		let classDeclarationNode = new Node(
@@ -393,7 +497,7 @@ export class Listener implements MonkeyCListener {
 	exitClassDeclaration() { }
 	
 	enterClassBody(context: ClassBodyContext) {
-
+		/*this.testAST.push(context);*/
 		let classBodyNode = new Node(
 			
 			/* context of this node: */ context,
@@ -447,7 +551,7 @@ export class Listener implements MonkeyCListener {
 	}
 
 	enterClassBodyMembers(context: ClassBodyMembersContext) {
-
+		/*this.testAST.push(context);*/
 		let classBodyMembersNode = new Node(
 			
 			/* context of this node: */ context,
@@ -469,7 +573,7 @@ export class Listener implements MonkeyCListener {
 	exitClassBodyMembers(context: ClassBodyMembersContext) { }
 
 	enterClassBodyMember(context: ClassBodyMemberContext) {
-		
+		/*this.testAST.push(context);*/	
 		let classBodyMemberNode = new Node(
 			
 			/* context of this node: */ context,
@@ -502,7 +606,7 @@ export class Listener implements MonkeyCListener {
 		/*console.log(`Block start line number ${context._start.line}`);
 		console.log(`Block end line number ${context._stop?.line}`);
 		console.log(context.text);*/
-
+		/*this.testAST.push(context);*/
 		let block = new Node(
 			
 			/* context of this node: */ context,
@@ -553,7 +657,7 @@ export class Listener implements MonkeyCListener {
 	}
 
 	enterBlockStatement(context: BlockStatementContext) {
-
+		/*this.testAST.push(context);*/
 		let blockStatementNode = new Node(
 			
 			/* context of this node: */ context,
@@ -593,9 +697,12 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(fieldDeclarationListNode);
 
 		this.AST.currentNode = fieldDeclarationListNode;
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 	}
 
-	exitFieldDeclarationList() { }
+	exitFieldDeclarationList(context: FieldDeclarationListContext) { }
 
 	enterModifiers(context: ModifiersContext) {
 
@@ -633,6 +740,9 @@ export class Listener implements MonkeyCListener {
 			this.AST.currentNode.addChild(modifiersNode);
 			this.AST.addNode(modifiersNode);
 		}
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 	}
 
 	exitModifiers() { 
@@ -696,10 +806,11 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(comma);
 
 		//this.AST.currentNode = fieldDeclarationNode;
-
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 	}
 
-	exitFieldDeclaration() {
+	exitFieldDeclaration(context: FieldDeclarationContext) {
 		let tree = this.AST.getParseTree();
 		let n = null;
 		for(let i = tree.length-1; i >= 0; i--) {
@@ -714,7 +825,7 @@ export class Listener implements MonkeyCListener {
 	}
 	
 	enterVariableDeclarationList(context: VariableDeclarationListContext) {
-
+		/*this.testAST.push(context);*/
 		let variableDeclarationListNode = new Node(
 			
 			/* context of this node: */ context,
@@ -754,7 +865,7 @@ export class Listener implements MonkeyCListener {
 	enterVariableDeclaration(context: VariableDeclarationContext) {
 		//console.log(`Variable start line number ${context._start.line}`);
 		// ...
-
+		/*this.testAST.push(context);*/
 		let variableDeclarationNode = new Node(
 			
 			/* context of this node: */ context,
@@ -783,7 +894,7 @@ export class Listener implements MonkeyCListener {
 		this.AST.currentNode = variableDeclarationNode;
 	}
 
-	exitVariableDeclaration() { }
+	exitVariableDeclaration(context: VariableDeclarationContext) { }
 
 	enterVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
 
@@ -802,18 +913,21 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(varOrFieldDeclarationNode);
 		this.AST.currentNode = varOrFieldDeclarationNode;
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 		
 	}
 
 	
-	exitVarOrFieldDeclaration() {
+	exitVarOrFieldDeclaration(context: VarOrFieldDeclarationContext) {
 		//pri exitu nastavit ten aktualni node na ten ktery sem prave exitnul
 		//parent?
 		//console.log('exitVarOrFieldDeclaration\n');
 	}
 
 	enterGeneralFullyQualifiedReferenceExpression(context: GeneralFullyQualifiedReferenceExpressionContext) {
-
+		/*this.testAST.push(context);*/
 		let generalFullyQualifiedReferenceExpressionNode = new Node(
 			
 			/* context of this node: */ context,
@@ -836,7 +950,7 @@ export class Listener implements MonkeyCListener {
 
 
 	enterQualifiedReferenceExpression(context: QualifiedReferenceExpressionContext) {
-
+		/*this.testAST.push(context);*/
 		let qualifiedReferenceExpressionNode = new Node(
 			
 			/* context of this node: */ context,
@@ -859,7 +973,7 @@ export class Listener implements MonkeyCListener {
 
 	
 	enterMethodInvocation(context: MethodInvocationContext) {
-		
+		/*this.testAST.push(context);*/
 		let methodInvocationNode = new Node(
 			
 			/* context of this node: */ context,
@@ -881,7 +995,7 @@ export class Listener implements MonkeyCListener {
 	exitMethodInvocation(context: MethodInvocationContext) { }
 
 	enterArguments(context: ArgumentsContext) {
-
+		/*this.testAST.push(context);*/
 		let argumentsNode = new Node(
 			
 			/* context of this node: */ context,
@@ -968,9 +1082,11 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(_extends!);
 		
 		//this.AST.currentNode = componentNameNode;
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 	}
 
-	exitComponentName() { }
+	exitComponentName(context: ComponentNameContext) { }
 
 
 	enterId(context: IdContext): void {
@@ -1006,6 +1122,8 @@ export class Listener implements MonkeyCListener {
 
 		/*TADY JE TA BOTA */
 		//this.AST.currentNode = this.AST.currentNode.getParent() as Node;
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 	}
 
 	exitId(context: IdContext) { 
@@ -1066,13 +1184,16 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.currentNode = variableInitializerNode;
 
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
+
 	}
 
-	exitVariableInitializer() { }
+	exitVariableInitializer(context: VariableInitializerContext) { }
 
 	enterAdditiveExpression(context: AdditiveExpressionContext) { 
 
-		
+		/*this.testAST.push(context);*/
 
 	}
 	exitAdditiveExpression(context: AdditiveExpressionContext) { }
@@ -1094,6 +1215,8 @@ export class Listener implements MonkeyCListener {
 
 		this.AST.addNode(literalExpressionNode);
 		this.AST.currentNode = literalExpressionNode;
+
+		/*this.testAST.push(context);*/
 
 	}
 
@@ -1131,15 +1254,18 @@ export class Listener implements MonkeyCListener {
 		this.AST.addNode(literalValueNode);
 		
 		this.AST.currentNode = literalValueNode;
+
+		/*this.testAST.push(context);*/
+		//this.testAST.push(new Node(context,undefined,[],context.text,context.start.type));
 		
 	}
 
-	exitLiteral() { }
+	exitLiteral(context: LiteralContext) { }
 
 	enterFunctionDeclaration(context: FunctionDeclarationContext) {	
-		
+		/*this.testAST.push(context);*/
 		this.currentlyProcessedUnit = "FUNCTION";
-
+		
 		let functionDeclarationNode = new Node(
 			
 			/* context of this node: */ context,
@@ -1183,14 +1309,17 @@ export class Listener implements MonkeyCListener {
 
 	}
 
-	exitFunctionDeclaration() { 
+	exitFunctionDeclaration(context: FunctionDeclarationContext) { 
 
 		let functionDeclarationNode = this.AST.findNode(MonkeyCParser.RULE_functionDeclaration);
 		this.AST.currentNode = functionDeclarationNode!;
+
+
+
 	}
 
 	enterFormalParameterDeclarations(context: FormalParameterDeclarationsContext) {
-		
+		/*this.testAST.push(context);*/
 		this.currentlyProcessedUnit = "FUNCTION";
 		
 		let LPAREN = new Node(
@@ -1243,191 +1372,192 @@ export class Listener implements MonkeyCListener {
 
 	}
 
-	enterAnnotation(context: AnnotationContext) { }
+	enterAnnotation(context: AnnotationContext) { /*this.testAST.push(context);*/ }
 	exitAnnotation(context: AnnotationContext) { }
 
-	enterArgumentsList(context: ArgumentsListContext) { }
+	enterArgumentsList(context: ArgumentsListContext) { /*this.testAST.push(context);*/ }
 	exitArgumentsList(context: ArgumentsListContext) { }
 
-	enterArrayCreator(context: ArrayCreatorContext) { }
+	enterArrayCreator(context: ArrayCreatorContext) { /*this.testAST.push(context);*/ }
 	exitArrayCreator(context: ArrayCreatorContext) { }
 
-	enterArrayCreatorExpression(context: ArrayCreatorExpressionContext) { }
+	enterArrayCreatorExpression(context: ArrayCreatorExpressionContext) { /*this.testAST.push(context);*/ }
 	exitArrayCreatorExpression(context: ArrayCreatorExpressionContext) { }
 
-	enterArrayInitializer(context: ArrayInitializerContext) { }
+	enterArrayInitializer(context: ArrayInitializerContext) { /*this.testAST.push(context);*/ }
 	exitArrayInitializer(context: ArrayInitializerContext) { }
 
-	enterAssignmentExpression(context: AssignmentExpressionContext) { }
+	enterAssignmentExpression(context: AssignmentExpressionContext) { /*this.testAST.push(context);*/ }
 	exitAssignmentExpression(context: AssignmentExpressionContext) { }
 
-	enterAssignmentOperator(context: AssignmentOperatorContext) { }
+	enterAssignmentOperator(context: AssignmentOperatorContext) { /*this.testAST.push(context);*/ }
 	exitAssignmentOperator(context: AssignmentOperatorContext) { }
 
-	enterAssignmentOperatorExpression(context: AssignmentOperatorExpressionContext) { }
+	enterAssignmentOperatorExpression(context: AssignmentOperatorExpressionContext) { /*this.testAST.push(context);*/ }
 	exitAssignmentOperatorExpression(context: AssignmentOperatorExpressionContext) { }
 
-	enterBitAndExpression(context: BitAndExpressionContext) { }
+	enterBitAndExpression(context: BitAndExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBitAndExpression(context: BitAndExpressionContext) { }
 
-	enterBitNotExpression(context: BitNotExpressionContext) { }
+	enterBitNotExpression(context: BitNotExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBitNotExpression(context: BitNotExpressionContext) { }
 
-	enterBitOrExpression(context: BitOrExpressionContext) { }
+	enterBitOrExpression(context: BitOrExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBitOrExpression(context: BitOrExpressionContext) { }
 
-	enterBitShiftExpression(context: BitShiftExpressionContext) { }
+	enterBitShiftExpression(context: BitShiftExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBitShiftExpression(context: BitShiftExpressionContext) { }
 
-	enterBitXOrExpression(context:BitXOrExpressionContext) { }
+	enterBitXOrExpression(context:BitXOrExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBitXOrExpression(context: BitXOrExpressionContext) { }
 
-	enterBitwiseExpression(context: BitwiseExpressionContext) { }
+	enterBitwiseExpression(context: BitwiseExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBitwiseExpression(context: BitwiseExpressionContext) { }
 
-	enterBitwiseOperator(context: BitwiseOperatorContext) { }
+	enterBitwiseOperator(context: BitwiseOperatorContext) { /*this.testAST.push(context);*/ }
 	exitBitwiseOperator(context: BitwiseOperatorContext) { }
 
-	enterBlingExpression(context: BlingExpressionContext) { }
+	enterBlingExpression(context: BlingExpressionContext) { /*this.testAST.push(context);*/ }
 	exitBlingExpression(context: BlingExpressionContext) { }
 
-	enterCatchClause(context: CatchClauseContext) { }
+	enterCatchClause(context: CatchClauseContext) { /*this.testAST.push(context);*/ }
 	exitCatchClause(context: CatchClauseContext) { }
 
-	enterCatchParameter(context: CatchParameterContext) { }
+	enterCatchParameter(context: CatchParameterContext) { /*this.testAST.push(context);*/ }
 	exitCatchParameter(context: CatchParameterContext) { }
 
-	enterCatches(context: CatchesContext) { }
+	enterCatches(context: CatchesContext) { /*this.testAST.push(context);*/ }
 	exitCatches(context: CatchesContext) { }
 
-	enterClassAccess(context: ClassAccessContext) { }
+	enterClassAccess(context: ClassAccessContext) { /*this.testAST.push(context);*/ }
 	exitClassAccess(context: ClassAccessContext) { }
 
-	enterConstDeclaration(context: ConstDeclarationContext) { }
+	enterConstDeclaration(context: ConstDeclarationContext) { /*this.testAST.push(context);*/ }
 	exitConstDeclaration(context: ConstDeclarationContext) { }
 
-	enterDictionaryCreator(context: DictionaryCreatorContext) { }
+	enterDictionaryCreator(context: DictionaryCreatorContext) { /*this.testAST.push(context);*/ }
 	exitDictionaryCreator(context: DictionaryCreatorContext) { }
 
-	enterElementAccessExpression(context: ElementAccessExpressionContext) { }
+	enterElementAccessExpression(context: ElementAccessExpressionContext) { /*this.testAST.push(context);*/ }
 	exitElementAccessExpression(context: ElementAccessExpressionContext) { }
 
-	enterEnumConstant(context: EnumConstantContext) { }
+	enterEnumConstant(context: EnumConstantContext) { /*this.testAST.push(context);*/ }
 	exitEnumConstant(context: EnumConstantContext) { }
 
-	enterEnumDeclaration(context: EnumDeclarationContext) { }
+	enterEnumDeclaration(context: EnumDeclarationContext) { /*this.testAST.push(context);*/ }
 	exitEnumDeclaration(context: EnumDeclarationContext) { }
 
-	enterEqualityExpression(context: EqualityExpressionContext) { }
+	enterEqualityExpression(context: EqualityExpressionContext) { /*this.testAST.push(context);*/ }
 	exitEqualityExpression(context: EqualityExpressionContext) { }
 
-	enterEveryRule(context: ParserRuleContext) { }
-	exitEveryRule(context: ParserRuleContext) { }
-
-	enterExpressionList(context: ExpressionListContext) { }
+	enterExpressionList(context: ExpressionListContext) { /*this.testAST.push(context);*/ }
 	exitExpressionList(context: ExpressionListContext) { }
 
-	enterForInit(context: ForInitContext) { }
+	enterForInit(context: ForInitContext) { /*this.testAST.push(context);*/ }
 	exitForInit(context: ForInitContext) { }
 
-	enterForStatement(context: ForStatementContext) { }
+	enterForStatement(context: ForStatementContext) { /*this.testAST.push(context);*/ }
 	exitForStatement(context: ForStatementContext) { }
 
-	enterHasExpression(context: HasExpressionContext) { }
+	enterHasExpression(context: HasExpressionContext) { /*this.testAST.push(context);*/ }
 	exitHasExpression(context: HasExpressionContext) { }
 
-	enterInstanceofExpression(context: InstanceofExpressionContext) { }
+	enterInstanceofExpression(context: InstanceofExpressionContext) { /*this.testAST.push(context);*/ }
 	exitInstanceofExpression(context: InstanceofExpressionContext) { }
 
-	enterKeyValueInitializer(context: KeyValueInitializerContext) { }
+	enterKeyValueInitializer(context: KeyValueInitializerContext) { /*this.testAST.push(context);*/ }
 	exitKeyValueInitializer(context: KeyValueInitializerContext) { }
 
-	enterLogicalAndExpression(context: LogicalAndExpressionContext) { }
+	enterLogicalAndExpression(context: LogicalAndExpressionContext) { /*this.testAST.push(context);*/ }
 	exitLogicalAndExpression(context: LogicalAndExpressionContext) { }
 
-	enterLogicalOrExpression(context: LogicalOrExpressionContext) { }
+	enterLogicalOrExpression(context: LogicalOrExpressionContext) { /*this.testAST.push(context);*/ }
 	exitLogicalOrExpression(context: LogicalOrExpressionContext) { }
 
-	enterMaybeSignedInteger(context: MaybeSignedIntegerContext) { }
+	enterMaybeSignedInteger(context: MaybeSignedIntegerContext) { /*this.testAST.push(context);*/ }
 	exitMaybeSignedInteger(context: MaybeSignedIntegerContext) { }
 
-	enterMethodInvocationExpression(context: MethodInvocationExpressionContext) { }
+	enterMethodInvocationExpression(context: MethodInvocationExpressionContext) { /*this.testAST.push(context);*/ }
 	exitMethodInvocationExpression(context: MethodInvocationExpressionContext) { }
 
-	enterMultiplicativeExpression(context: MultiplicativeExpressionContext) { }
+	enterMultiplicativeExpression(context: MultiplicativeExpressionContext) { /*this.testAST.push(context);*/ }
 	exitMultiplicativeExpression(context: MultiplicativeExpressionContext) { }
 
-	enterNotExpression(context: NotExpressionContext) { }
+	enterNotExpression(context: NotExpressionContext) { /*this.testAST.push(context);*/ }
 	exitNotExpression(context: NotExpressionContext) { }
 
-	enterObjectCreator(context: ObjectCreatorContext) { }
+	enterObjectCreator(context: ObjectCreatorContext) { /*this.testAST.push(context);*/ }
 	exitObjectCreator(context: ObjectCreatorContext) { }
 
-	enterObjectCreatorExpression(context: ObjectCreatorExpressionContext) { }
+	enterObjectCreatorExpression(context: ObjectCreatorExpressionContext) { /*this.testAST.push(context);*/ }
 	exitObjectCreatorExpression(context: ObjectCreatorExpressionContext) { }
 
-	enterParenthesizedExpression(context: ParenthesizedExpressionContext) { }
+	enterParenthesizedExpression(context: ParenthesizedExpressionContext) { /*this.testAST.push(context);*/ }
 	exitParenthesizedExpression(context: ParenthesizedExpressionContext) { }
 
-	enterPostDecreaseExpression(context: PostDecreaseExpressionContext) { }
+	enterPostDecreaseExpression(context: PostDecreaseExpressionContext) { /*this.testAST.push(context);*/ }
 	exitPostDecreaseExpression(context: PostDecreaseExpressionContext) { }
 
-	enterPostIncrementExpression(context: PostIncrementExpressionContext) { }
+	enterPostIncrementExpression(context: PostIncrementExpressionContext) { /*this.testAST.push(context);*/ }
 	exitPostIncrementExpression(context: PostIncrementExpressionContext) { }
 
-	enterPreDecreaseExpression(context: PreDecreaseExpressionContext) { }
+	enterPreDecreaseExpression(context: PreDecreaseExpressionContext) { /*this.testAST.push(context);*/ }
 	exitPreDecreaseExpression(context: PreDecreaseExpressionContext) { }
 
-	enterPreIncrementExpression(context: PreIncrementExpressionContext) { }
+	enterPreIncrementExpression(context: PreIncrementExpressionContext) { /*this.testAST.push(context);*/ }
 	exitPreIncrementExpression(context: PreIncrementExpressionContext) { }
 
-	enterQualifiedName(context: QualifiedNameContext) { }
+	enterQualifiedName(context: QualifiedNameContext) { /*this.testAST.push(context);*/ }
 	exitQualifiedName(context: QualifiedNameContext) { }
 
-	enterRelationalExpression(context: RelationalExpressionContext) { }
+	enterRelationalExpression(context: RelationalExpressionContext) { /*this.testAST.push(context);*/ }
 	exitRelationalExpression(context: RelationalExpressionContext) { }
 
-	enterRelationalOp(context: RelationalOpContext) { }
+	enterRelationalOp(context: RelationalOpContext) { /*this.testAST.push(context);*/ }
 	exitRelationalOp(context: RelationalOpContext) { }
 
-	enterShiftOp(context: ShiftOpContext) { }
+	enterShiftOp(context: ShiftOpContext) { /*this.testAST.push(context);*/ }
 	exitShiftOp(context: ShiftOpContext) { }
 
-	enterSwitchBlockStatementGroup(context: SwitchBlockStatementGroupContext) { }
+	enterSwitchBlockStatementGroup(context: SwitchBlockStatementGroupContext) { /*this.testAST.push(context);*/ }
 	exitSwitchBlockStatementGroup(context: SwitchBlockStatementGroupContext) { }
 
-	enterSwitchBlockStatementGroups(context: SwitchBlockStatementGroupsContext) { }
+	enterSwitchBlockStatementGroups(context: SwitchBlockStatementGroupsContext) { /*this.testAST.push(context);*/ }
 	exitSwitchBlockStatementGroups(context: SwitchBlockStatementGroupsContext) { }
 
-	enterSwitchLabel(context: SwitchLabelContext) { }
+	enterSwitchLabel(context: SwitchLabelContext) { /*this.testAST.push(context);*/ }
 	exitSwitchLabel(context: SwitchLabelContext) { }
-
-	enterSymbol(context: SymbolContext) { }
+	
+	enterSymbol(context: SymbolContext) { /*this.testAST.push(context);*/ }
 	exitSymbol(context: SymbolContext) { }
 
-	enterSymbolExpression(context: SymbolExpressionContext) { }
+	enterSymbolExpression(context: SymbolExpressionContext) { /*this.testAST.push(context);*/ }
 	exitSymbolExpression(context: SymbolExpressionContext) { }
 
-	enterTernaryExpression(context: TernaryExpressionContext) { }
+	enterTernaryExpression(context: TernaryExpressionContext) { /*this.testAST.push(context);*/ }
 	exitTernaryExpression(context: TernaryExpressionContext) { }
 
-	enterThisExpression(context: ThisExpressionContext) { }
+	enterThisExpression(context: ThisExpressionContext) { /*this.testAST.push(context);*/ }
 	exitThisExpression(context: ThisExpressionContext) { }
 
-	enterTryStatement(context: TryStatementContext) { }
+	enterTryStatement(context: TryStatementContext) { /*this.testAST.push(context);*/ }
 	exitTryStatement(context: TryStatementContext) { }
 		
-	enterUnaryMinusExpression(context: UnaryMinusExpressionContext) { }
+	enterUnaryMinusExpression(context: UnaryMinusExpressionContext) { /*this.testAST.push(context);*/ }
 	exitUnaryMinusExpression(context: UnaryMinusExpressionContext) { }
 
-	enterUnaryPlusExpression(context: UnaryPlusExpressionContext) { }
+	enterUnaryPlusExpression(context: UnaryPlusExpressionContext) { /*this.testAST.push(context);*/ }
 	exitUnaryPlusExpression(context: UnaryPlusExpressionContext) { }
 
-	enterVoidDotClassExpression(context: VoidDotClassExpressionContext) { }
+	enterVoidDotClassExpression(context: VoidDotClassExpressionContext) { /*this.testAST.push(context);*/ }
 	exitVoidDotClassExpression(context: VoidDotClassExpressionContext) { }
 
-	visitErrorNode(node: ErrorNode) { }
+	visitErrorNode(node: ErrorNode) {
+		this.testAST.push(node);
+	}
 
-	visitTerminal(node: TerminalNode) { }
+	visitTerminal(node: TerminalNode) { 
+		this.testAST.push(node);
+	}
 
 }

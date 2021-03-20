@@ -20,7 +20,6 @@ export class AST {
 
     static nodeCount: number = 0; 
     private parseTree : Node[];
-
     public documentName: string;
     public currentNode : Node;
     public root : Node;
@@ -33,6 +32,7 @@ export class AST {
         this.root= new Node(undefined,undefined,undefined,undefined,undefined);
 
     }
+
 
     getParseTree() {
         return this.parseTree;

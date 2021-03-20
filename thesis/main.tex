@@ -129,12 +129,68 @@ Programy, které jsou schopny rozpoznávat konkrétní jazyk, se nazývají pars
 
 \subsection{ANTLR - Nástroj pro generování překladače}
 ANTLR nebo také ANother Tool for Language Recognition (jiný nástroj pro rozpoznávání jazyka)$^{[2]}$ je výkonný nástroj pro generování syntaktických analyzátorů, tzv. "parser". Tento parser je poté schopen číst, zpracovávat, spouštět nebo překládat strukturované textové či binární soubory. Použivá se především k vytváření nových jazyků, nástrojů nebo "frameworků". Využívá bezkontextový jazyk typu LL.
-\subsection{LL syntaktický analyzátor}
+\subsubsection{LL syntaktický analyzátor}
 LL$^{[3]}$ je syntaktický analyzátor shora-dolů pro bezkontextové gramatiky. Analyzuje vstup zleva (Left) doprava a konstruuje nejlevější derivaci (Leftmost) věty. Gramatiky, které jsou takto analyzovatelné, se nazývají LL gramatiky.
 
 \subsection{Syntaktický strom}
-Syntaktický strom představuje datovou strukturu, kterou ANTLR vytvoří při parsování vstupního souboru. Struktura je složená z kořene (root) a uzlů, které mohou představovat buď další podstromy nebo listy stromu. 
+Syntaktický strom představuje datovou strukturu, kterou ANTLR vytvoří při parsování vstupního souboru. Struktura je složená z kořene (root) a uzlů, které mohou představovat buď další podstromy, které odpovídají pravidlům gramatiky, nebo listy stromu.\\ 
+V naší aplikaci Syntaktický strom představuje třída AST (viz. kód níže), která uchovává všechna důležitá data pro korektní analýzu vstupního souboru, např. počet uzlů stromu, soubor vztahující se ke konkrétnímu stromu, kořen stromu, atd...
 
+\begin{center}
+	\includegraphics[scale=0.7]{parser}
+	\\
+	Obr. 4
+\end{center}
+
+\begin{center}
+\begin{lstlisting}[language=Python,label=src:PythonListing,caption={třída AST v jazyce Typescript}]
+
+export class AST {
+
+    static nodeCount: number = 0; 
+    private parseTree : Node[];
+    public documentName: string;
+    public currentNode : Node;
+    public root : Node;
+
+    constructor(documentName: string) {
+        
+        this.parseTree = [];
+        this.documentName = documentName;
+        this.currentNode = new Node(undefined,undefined,undefined,undefined,undefined);
+        this.root= new Node(undefined,undefined,undefined,undefined,undefined);
+
+    }
+
+    getParseTree() {
+        return this.parseTree;
+    }
+
+    addNode(node : Node) : void {
+        this.parseTree.push(node);
+    }
+
+    findNode(ruleNumber: number) : Node | undefined {
+
+        for(let i = this.parseTree.length-1; i >= 0; i--) {
+            if(this.parseTree[i] != null && this.parseTree[i].getContext()?.ruleIndex === ruleNumber) {
+                return this.parseTree[i];
+            }
+        }
+        return undefined;
+    }
+}
+
+\end{lstlisting}
+\end{center}
+
+
+Další, neméně důležitou, třídou v naší apikaci je třída Node, která představuje uzel stromu. Jedná se, ve své podstatě, o strukturu uchovávající následující atributy:\\
+	- kontext daného uzlu\\
+	- předka uzlu\\
+	- potomka uzlu\\
+	- hodnotu přestavující text v daném uzlu\\
+	- typ uzlu, který se odvíjí od pravidel v gramatice\\
 
 \begin{center}
 \begin{lstlisting}[language=Python,label=src:PythonListing,caption={třída Node v jazyce Typescript}]
@@ -173,12 +229,8 @@ export class Node {
 \end{lstlisting}
 \end{center}
 
-Jak je vidět na kódu výše, v naší aplikace uzel stromu představuje struktura, která uchovává následující atributy:\\
-	- kontext daného uzlu\\
-	- předka uzlu\\
-	- potomka uzlu\\
-	- hodnotu přestavující text v daném uzlu\\
-	- typ uzlu, který se odvíjí od pravidel v gramatice\\
+\subsection{ANTLR Listener a callback funkce}
+TODO: popis listeneru a callbacků
 
 \subsection{Sémantický strom}
 Strom, jenž hraje zásadní roli v procesech, jako je našeptávání kódu, detekci chyb, kdy je použita třída z modulu, který není referencován, atd...
@@ -187,6 +239,8 @@ Strom, jenž hraje zásadní roli v procesech, jako je našeptávání kódu, de
 Fusce nibh. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto 
 beatae vitae dicta sunt explicabo. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Maecenas sollicitudin. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Integer vulputate sem a nibh rutrum consequat. Pellentesque sapien. Pellentesque arcu. Suspendisse nisl. Fusce consectetuer risus a nunc. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam quis nulla. Nulla non lectus sed nisl molestie malesuada. Duis viverra diam non justo. Sed ac dolor sit amet purus malesuada congue. Aenean id metus id velit ullamcorper pulvinar. Aliquam ornare wisi eu metus. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
 
+\subsection{nedostatky rozšíření}
+TODO: error kdy to neumožňuje (tmp.format()).toString()
 
 \section{Představení jazyka Monkey C}
 Monkey C$^{[4]}$  je objektově orientovaný jazyk navržený pro snadný vývoj Connect IQ aplikací. Jedná se o dynamický programovací jazyk, podobně jako Java, PHP či Ruby. Cílem Monkey C je zjednodušit proces vytváření samotné aplikace a umožnit tak vývojářům více se soustředit na zákazníka a méně na omezení zdrojů. Využívá tzv. "reference counting" k automatickému čištění paměti, což vývojáře osvobozuje od manuální správy paměti (např. jako v jazyce C/C++).
@@ -234,12 +288,15 @@ Pro zobrazení možných symbolů ve zdrojovém kódu zjevně potřebujete zdroj
 
 Zatímco tabulka symbolů poskytuje symboly daného typu, musíme zjistit, který typ je ve skutečnosti vyžadován. To je úkol enginu c3. V nejjednodušším nastavení vrátí pouze klíčová slova (a další symboly lexerů), která jsou povolena gramatikou pro danou pozici (což je samozřejmě stejná pozice, která se používá k nalezení kontextu pro vyhledávání symbolů ve vaší tabulce symbolů). Klíčová slova jsou pevná sada slov (nebo sekvencí slov), která se obvykle nenachází v tabulce symbolů. Skutečné textové řetězce můžete získat přímo ze slovníku analyzátoru. C3 za ně vrací pouze lexerové tokeny.
 
+
 \begin{center}
 	\includegraphics[scale=1]{autocomplete_example}
 	\\	
 	Obr. 6 – ukázka automatického našeptávání kódu na proměnné typy string
 \end{center}
 
+\subsection{komentáře}
+TODO: popsat vytahování návratových typů a parametrů z komentářů nad funkcemi v Toyboxu
 
 \section{Testování výsledného řešení}
 Testování probíhá napříč mnoha fragmenty kódu.

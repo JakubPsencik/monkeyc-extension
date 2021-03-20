@@ -102,7 +102,7 @@ import { IdContext } from "./MonkeyCParser";
 import { LiteralContext } from "./MonkeyCParser";
 import * as vscode from 'vscode';
 import { AST } from "./classes/AST";
-
+import { Token } from "antlr4ts";
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -110,11 +110,14 @@ import { AST } from "./classes/AST";
  */
 export interface MonkeyCListener extends ParseTreeListener {
 	
-	
 	getList() : vscode.CompletionList;
 
 	getAST() : AST;
-	
+
+	getTestAST() : AST;
+
+	//getCommentsFromChannel(channel: number, functionDeclarationLine : number, range: number) : string;
+	getCommentsFromChannel(channel: number) : Token[];
 	/**
 	 * Enter a parse tree produced by the `PostIncrementExpression`
 	 * labeled alternative in `MonkeyCParser.singleExpression`.

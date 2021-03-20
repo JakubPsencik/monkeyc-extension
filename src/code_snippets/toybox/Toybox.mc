@@ -1085,7 +1085,7 @@ module Toybox {
             * A new instance of CryptoConfig.
             * @type CryptoConfig
             */
-            public var initialize;
+            public function initialize() { }
 
 
         }
@@ -3135,27 +3135,22 @@ module Toybox {
             */
             public function initialize() { }
 
-
         }
 
 
-    }
+        module Properties {
 
-    module Properties {
+            public class InvalidKeyException {
 
-        public class Properties {
+                /**
+                * InvalidKeyException constructor.
+                * @param 
+                * @returns  InvalidKeyException 
+                */
+                public function initialize() { }
 
-            /**
-            * InvalidKeyException constructor.
-            * @param 
-            * @returns  InvalidKeyException 
-            */
-            public function initialize() { }
-
-
+            }
         }
-
-
     }
 
     module Storage {
@@ -4431,7 +4426,7 @@ module Toybox {
 
     module Lang {
 
-        public class Array {
+        public class Array extends Object {
 
             /**
             * Add an Object to the end of an Array.
@@ -4509,7 +4504,7 @@ module Toybox {
         }
 
 
-        public class Boolean {
+        public class Boolean extends Object {
 
         }
 
@@ -4626,56 +4621,38 @@ module Toybox {
 
         }
 
-
-        public class Characteristic {
-
-            /**
-            * Retrieves the Descriptor with a specified UUID.
-            * @param uuid
-            * @returns  Toybox::BluetoothLowEnergy::Descriptor 
-            */
-            public function getDescriptor(uuid) { }
-
+        public class Char {
 
             /**
-            * Retrieves an Iterator over the <span class='object_link'><a href="Descriptor.html" title="Toybox::BluetoothLowEnergy::Descriptor (class)">Descriptors</a></span>
+            * Convert a Char to lowercase.
             * @param 
-            * @returns  Toybox::BluetoothLowEnergy::Iterator 
+            * @returns  Toybox::Lang::Char 
             */
-            public function getDescriptors() { }
+            public function toLower() { }
 
 
             /**
-            * Retrieves the Characteristic&#39;s Service.
+            * Convert a Char to a Number.
             * @param 
-            * @returns  Toybox::BluetoothLowEnergy::Service 
+            * @returns  Toybox::Lang::Number 
             */
-            public function getService() { }
+            public function toNumber() { }
 
 
             /**
-            * Return the UUID of the Characteristic.
+            * Convert a Char to a String.
             * @param 
-            * @returns  Toybox::BluetoothLowEnergy::Uuid 
+            * @returns  Toybox::Lang::String 
             */
-            public function getUuid() { }
+            public function toString() { }
 
 
             /**
-            * Requests a read operation on the characteristic.
+            * Convert a Char to uppercase.
             * @param 
-            * @returns  Object 
+            * @returns  Toybox::Lang::Char 
             */
-            public function requestRead() { }
-
-
-            /**
-            * Requests a write operation.
-            * @param value
-            * @param  options
-            * @returns  Object 
-            */
-            public function requestWrite(value, options) { }
+            public function toUpper() { }
 
 
         }
@@ -5079,19 +5056,48 @@ module Toybox {
 
         }
 
-
-        public class ObjectStoreAccessException {
+        public class Object {
 
             /**
-            * Constructor.
-            * @param 
-            * @returns  ObjectStoreAccessException 
+            * Test if an Object instance is equal to another instance of an Object.
+            * @param object — (Toybox.Lang.Object) — The Object to test against
+            * @returns  Toybox::Lang::Boolean 
             */
-            public function initialize() { }
+            public function equals(object) { }
 
+
+            /**
+            * Get a hash code value for an Object.
+            * @param
+            * @returns  Toybox::Lang::Number 
+            */
+            public function hashCode() { }
+
+
+            /**
+            * Retrieve a callback to a Method.
+            * @param methodName — (Toybox.Lang.Symbol) — The Symbol of the specified Method
+            * @returns  Toybox.Lang.Method
+            */
+            public function method(methodName) { }
+
+
+            /**
+            * Convert an Object to a String.
+            * @param 
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
+
+
+            /**
+            * Get a WeakReference to an Object.
+            * @param 
+            * @returns  Toybox.Lang.WeakReference
+            */
+            public function weak() { }
 
         }
-
 
         public class OperationNotAllowedException {
 
@@ -9952,7 +9958,6 @@ module Toybox {
 
 
         }
-
-
     }
+}
 

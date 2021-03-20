@@ -8,7 +8,8 @@ mRadius = aRadius;
 
 function createCircle() {
 var c = new Circle( 1.5 );
-}
+
+} 
 
 class A
 {

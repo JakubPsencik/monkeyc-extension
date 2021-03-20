@@ -21,6 +21,7 @@ export class Node {
         this._type = _type;
 
         AST.nodeCount++;
+
     }
 
     getId() { return this.id; }
