@@ -1,9957 +1,9000 @@
 module Toybox {
 
-module Activity {
+    module Activity {
 
-public class Info {
+            /**
+            * Get the current Activity Info.
+            * @returns  Toybox.Activity.Info
+            */
+            public function getActivityInfo() { }
 
-/**
- * The altitude above mean sea level in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var altitude;
 
+            /**
+            * Get information about the current workout step.Supported Devices:Captain MarvelD2™ AirDarth Vader™Descent™ Mk2 / Descent™ Mk2iEdge® 1030Edge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 530Edge® 830fēnix® 5 Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645 MusicForerunner® 745Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.Activity.WorkoutStepInfo
+            */
+            public function getCurrentWorkoutStep() { }
 
-/**
- * The ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var ambientPressure;
 
+            /**
+            * Get information about the next workout step.Supported Devices:Captain MarvelD2™ AirDarth Vader™Descent™ Mk2 / Descent™ Mk2iEdge® 1030Edge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 530Edge® 830fēnix® 5 Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645 MusicForerunner® 745Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.Activity.WorkoutStepInfo
+            */
+            public function getNextWorkoutStep() { }
 
-/**
- * The average cadence during the current activity in revolutions per minute
- * @type Toybox::Lang::Number
-*/
-public var averageCadence;
 
+            /**
+            * Get information about the current profile.
+            * @returns  Toybox.Activity.ProfileInfo
+            */
+            public function getProfileInfo() { }
 
-/**
- * The average swim stroke distance from the previous interval in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var averageDistance;
 
+        
+        public class Info {
 
-/**
- * The average heart rate during the current activity in beats per minute
- * @type Toybox::Lang::Number
-*/
-public var averageHeartRate;
+            /**
+            * The altitude above mean sea level in meters (m). Elevation is derived from the most accurate source: Barometer or GPS  
+            * @type Toybox.Lang.Float
+            */
+            public var altitude;
 
 
-/**
- * The average power during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var averagePower;
+            /**
+            * The ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the pressure sensor. The data is smoothed by a two-stage filter to reduce noise and instantaneous variation.  
+            * @type Toybox.Lang.Float
+            */
+            public var ambientPressure;
 
 
-/**
- * The average speed during the current activity in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var averageSpeed;
+            /**
+            * The average cadence during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageCadence;
 
 
-/**
- * The current bearing in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearing;
+            /**
+            * The average swim stroke distance from the previous interval in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var averageDistance;
 
 
-/**
- * The bearing from the starting location to the destination in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearingFromStart;
+            /**
+            * The average heart rate during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageHeartRate;
 
 
-/**
- * The calories burned throughout the current activity in kilocalories (kcal).
- * @type Toybox::Lang::Number
-*/
-public var calories;
+            /**
+            * The average power during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var averagePower;
 
 
-/**
- * The current cadence in revolutions per minute (rpm).
- * @type Toybox::Lang::Number
-*/
-public var currentCadence;
+            /**
+            * The average speed during the current activity in meters per second (mps). The average is computed as the elapsed 3-D accumulated distance divided by the elapsed time.  
+            * @type Toybox.Lang.Float
+            */
+            public var averageSpeed;
 
 
-/**
- * The true north referenced heading in radians.
- * @type Toybox::Lang::Float
-*/
-public var currentHeading;
+            /**
+            * The current bearing in radians. Bearing is the direction from your current location or position to the destination of navigation, dependent on your current location.  
+            * @type Toybox.Lang.Float
+            */
+            public var bearing;
 
 
-/**
- * The current heart rate in beats per minute (bpm).
- * @type Toybox::Lang::Number
-*/
-public var currentHeartRate;
+            /**
+            * The bearing from the starting location to the destination in radians. Bearing from start is the direction of desired track from the start of navigation to the destination in radians. This is only dependent on your location when a course is set, and it is not dependent on where you may have moved to during an activity  
+            * @type Toybox.Lang.Float
+            */
+            public var bearingFromStart;
 
 
-/**
- * The current location.
- * @type Toybox::Position::Location
-*/
-public var currentLocation;
+            /**
+            * The calories burned throughout the current activity in kilocalories (kcal).  
+            * @type Toybox.Lang.Number
+            */
+            public var calories;
 
 
-/**
- * The current GPS accuracy.
- * @type Toybox::Lang::Number
-*/
-public var currentLocationAccuracy;
+            /**
+            * The current cadence in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentCadence;
 
 
-/**
- * The current power in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var currentPower;
+            /**
+            * The true north referenced heading in radians. This provides compass orientation if it is supported by the device.  
+            * @type Toybox.Lang.Float
+            */
+            public var currentHeading;
 
 
-/**
- * The current speed in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var currentSpeed;
+            /**
+            * The current heart rate in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentHeartRate;
 
 
-/**
- * The distance to the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToDestination;
+            /**
+            * The current location. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var currentLocation;
 
 
-/**
- * The distance to the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToNextPoint;
+            /**
+            * The current GPS accuracy. GPS accuracy values range from 0-4. A value of 0 indicates an accuracy value is not available, while a value of 4 indicates a good GPS fix.  
+            * @type Toybox.Lang.Number
+            */
+            public var currentLocationAccuracy;
 
 
-/**
- * The elapsed distance of the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elapsedDistance;
+            /**
+            * The current oxygen saturation in percent (%)  
+            * @type Toybox.Lang.Number
+            */
+            public var currentOxygenSaturation;
 
 
-/**
- * Elapsed time of the current activity in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var elapsedTime;
+            /**
+            * The current power in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentPower;
 
 
-/**
- * The elevation at the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtDestination;
+            /**
+            * The current speed in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var currentSpeed;
 
 
-/**
- * The elevation at the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtNextPoint;
+            /**
+            * The distance to the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToDestination;
 
 
-/**
- * The current energy expenditure in kilocalories per minute (kcals/min).
- * @type Toybox::Lang::Float
-*/
-public var energyExpenditure;
+            /**
+            * The distance to the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToNextPoint;
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurIndex;
+            /**
+            * The elapsed distance of the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elapsedDistance;
 
 
-/**
- * The front bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurMax;
+            /**
+            * Elapsed time of the current activity in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var elapsedTime;
 
 
-/**
- * The front bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurSize;
+            /**
+            * The elevation at the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtDestination;
 
 
-/**
- * The maximum cadence recorded during the current activity in revolutions per
- * @type Toybox::Lang::Number
-*/
-public var maxCadence;
+            /**
+            * The elevation at the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtNextPoint;
 
 
-/**
- * The maximum heart rate recorded during the current activity in beats per
- * @type Toybox::Lang::Number
-*/
-public var maxHeartRate;
+            /**
+            * The current energy expenditure in kilocalories per minute (kcals/min). Energy expenditure is a metric developed by FirstBeat that provides an estimation of the calorie burn rate calculated from heart rate data.  
+            * @type Toybox.Lang.Float
+            */
+            public var energyExpenditure;
 
 
-/**
- * The maximum power recorded during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var maxPower;
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the frontDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurIndex;
 
 
-/**
- * The maximum speed recorded during the current activity in meters per second
- * @type Toybox::Lang::Float
-*/
-public var maxSpeed;
+            /**
+            * The front bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurMax;
 
 
-/**
- * The mean sea level barometric pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var meanSeaLevelPressure;
+            /**
+            * The front bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurSize;
 
 
-/**
- * The name of the destination.
- * @type Toybox::Lang::String
-*/
-public var nameOfDestination;
+            /**
+            * The maximum cadence recorded during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxCadence;
 
 
-/**
- * The name of the next point.
- * @type Toybox::Lang::String
-*/
-public var nameOfNextPoint;
+            /**
+            * The maximum heart rate recorded during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxHeartRate;
 
 
-/**
- * The distance to the nearest point on the current course in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var offCourseDistance;
+            /**
+            * The maximum power recorded during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxPower;
 
 
-/**
- * The raw ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var rawAmbientPressure;
+            /**
+            * The maximum speed recorded during the current activity in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var maxSpeed;
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurIndex;
+            /**
+            * The mean sea level barometric pressure in Pascals (Pa). This returns barometric pressure calibrated to sea level. Since pressure varies dues to several factors, a GPS-based altitude must first be obtained, then the ambient (local) pressure is measured by the pressure sensor before conversion to a calibrated barometric pressure value.  
+            * @type Toybox.Lang.Float
+            */
+            public var meanSeaLevelPressure;
 
 
-/**
- * The rear bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurMax;
+            /**
+            * The name of the destination.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfDestination;
 
 
-/**
- * The rear bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurSize;
+            /**
+            * The name of the next point.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfNextPoint;
 
 
-/**
- * The starting location of the current activity.
- * @type Toybox::Position::Location
-*/
-public var startLocation;
+            /**
+            * The distance to the nearest point on the current course in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var offCourseDistance;
 
 
-/**
- * The starting time of the current activity.
- * @type Toybox::Time::Moment
-*/
-public var startTime;
+            /**
+            * The raw ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the internal pressure sensor. The data is the temperature compensated information read directly from the internal sensor.  
+            * @type Toybox.Lang.Float
+            */
+            public var rawAmbientPressure;
 
 
-/**
- * The swim stroke type from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimStrokeType;
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the rearDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurIndex;
 
 
-/**
- * The SWOLF score from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimSwolf;
+            /**
+            * The rear bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurMax;
 
 
-/**
- * The recording timer state.
- * @type Toybox::Lang::Number
-*/
-public var timerState;
+            /**
+            * The rear bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurSize;
 
 
-/**
- * The current Timer value in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var timerTime;
+            /**
+            * The starting location of the current activity. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var startLocation;
 
 
-/**
- * The total ascent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalAscent;
+            /**
+            * The starting time of the current activity.  
+            * @type Toybox.Time.Moment
+            */
+            public var startTime;
 
 
-/**
- * The total descent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalDescent;
+            /**
+            * The swim stroke type from the previous length. Swim stroke type values range from 0-6. Each Number value represents a different swim stroke type (e.g. freestyle, backstroke, etc.).  
+            * @type Toybox.Lang.Number
+            */
+            public var swimStrokeType;
 
 
-/**
- * The current track in radians.
- * @type Toybox::Lang::Float
-*/
-public var track;
+            /**
+            * The SWOLF score from the previous length. SWOLF is an abbreviation for Swim-Golf, a measure of swimming efficiency. The score is obtained by adding the strokes per length to the total time of the length. For example, if it takes ten strokes and thirty seconds to swim a pool length, the SWOLF score is 40. Just like golf, a lower SWOLF score is better.  
+            * @type Toybox.Lang.Number
+            */
+            public var swimSwolf;
 
 
-/**
- * The Training Effect score of the current activity.
- * @type Toybox::Lang::Float
-*/
-public var trainingEffect;
+            /**
+            * The recording timer state. The timer state ranges from 0-3. A value of 0 indicates that the timer is off and there is no active recording, while a value of 3 indicates timer is on and there is an active recording.  
+            * @type Toybox.Lang.Number
+            */
+            public var timerState;
 
 
-}
+            /**
+            * The current Timer value in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var timerTime;
 
 
-}
+            /**
+            * The total ascent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalAscent;
 
-module ActivityMonitor {
 
-public class ActiveMinutes {
+            /**
+            * The total descent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalDescent;
 
-/**
- * The total number of moderate activity minutes recorded by the device.
- * @type Toybox::Lang::Number
-*/
-public var moderate;
 
+            /**
+            * The current track in radians. Track is the direction of travel in radians based on GPS movement. If supported by the device, this provides compass orientation when stopped.  
+            * @type Toybox.Lang.Float
+            */
+            public var track;
 
-/**
- * The total number of active minutes recorded by the device.
- * @type Toybox::Lang::Number
-*/
-public var total;
 
+            /**
+            * The Training Effect score of the current activity. Training Effect is a score developed by FirstBeat, which indicates an activity's level of effect on aerobic fitness. Scores range from 1.0 (easy) to 5.0 (overreaching).  
+            * @type Toybox.Lang.Float
+            */
+            public var trainingEffect;
 
-/**
- * The total number of vigorous activity minutes recorded by the device.
- * @type Toybox::Lang::Number
-*/
-public var vigorous;
 
+        }
 
-}
 
+    }
 
-public class HeartRateIterator {
+    module ActivityMonitor {
 
-/**
- * Get the maximum heart rate contained in this iterator.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMax() { }
+            /**
+            * Get the heart rate history for the given period, up to the last power cycle. This function always returns the most recent heart rate samples. The time between each HeartRateSample in the iterator may be device dependent.
+            * @param period - (Toybox.Time.Duration, Toybox.Lang.Number)
+            * @param newestFirst - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function getHeartRateHistory(period,newestFirst) { }
 
 
-/**
- * Get the minimum heart rate contained in this iterator.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMin() { }
+            /**
+            * Get an Array of ActivityMonitor.History objects
+            * @returns  Toybox.Lang.Array
+            */
+            public function getHistory() { }
 
 
-/**
- * Get the next entry in the iterator.
- * @param 
- * @returns  Toybox::ActivityMonitor::HeartRateSample 
-*/
-public function next() { }
+            /**
+            * Get the current ActivityMonitor.Info
+            * @returns  Toybox.ActivityMonitor.Info
+            */
+            public function getInfo() { }
 
 
-}
+        
+        public class ActiveMinutes {
 
+            /**
+            * The total number of moderate activity minutes recorded by the device.  
+            * @type Toybox.Lang.Number
+            */
+            public var moderate;
 
-public class HeartRateSample {
 
-/**
- * Heart rate in beats per minute (bpm).
- * @type Toybox::Lang::Number
-*/
-public var heartRate;
+            /**
+            * The total number of active minutes recorded by the device. This value is equal to the total number of moderate minutes plus twice the total number of vigorous minutes.  
+            * @type Toybox.Lang.Number
+            */
+            public var total;
 
 
-/**
- * The time of the heart rate sample.
- * @type Toybox::Time::Moment
-*/
-public var when;
+            /**
+            * The total number of vigorous activity minutes recorded by the device.  
+            * @type Toybox.Lang.Number
+            */
+            public var vigorous;
 
 
-}
+        }
 
 
-public class History {
+        public class HeartRateIterator {
 
-/**
- * Number of active minutes.
- * @type Toybox::ActivityMonitor::ActiveMinutes
-*/
-public var activeMinutes;
+            /**
+            * Get the maximum heart rate contained in this iterator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMax() { }
 
 
-/**
- * The calories for the day in kilocalories (kCal).
- * @type Toybox::Lang::Number
-*/
-public var calories;
+            /**
+            * Get the minimum heart rate contained in this iterator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMin() { }
 
 
-/**
- * The distance for the day in centimeters (cm).
- * @type Toybox::Lang::Number
-*/
-public var distance;
+            /**
+            * Get the next entry in the iterator.This must be called to get the initial data from the iterator.
+            * @returns  Toybox.ActivityMonitor.HeartRateSample
+            */
+            public function next() { }
 
 
-/**
- * The number of floors climbed for the day.
- * @type Toybox::Lang::Number
-*/
-public var floorsClimbed;
+        }
 
 
-/**
- * Floors climbed goal for the day.
- * @type Toybox::Lang::Number
-*/
-public var floorsClimbedGoal;
+        public class HeartRateSample {
 
+            /**
+            * Heart rate in beats per minute (bpm). Before using heart rate information, check for INVALID_HR_SAMPLE to be sure data is available.  
+            * @type Toybox.Lang.Number
+            */
+            public var heartRate;
 
-/**
- * The number of floors descended for the day.
- * @type Toybox::Lang::Number
-*/
-public var floorsDescended;
 
+            /**
+            * The time of the heart rate sample  
+            * @type Toybox.Time.Moment
+            */
+            public var when;
 
-/**
- * A <span class='object_link'><a href="../Time/Moment.html" title="Toybox::Time::Moment (class)">Moment</a></span> object representing the start time of the
- * @type Toybox::Time::Moment
-*/
-public var startOfDay;
 
+        }
 
-/**
- * The step goal for the day in number of steps.
- * @type Toybox::Lang::Number
-*/
-public var stepGoal;
 
+        public class History {
 
-/**
- * The step count for the day in number of steps.
- * @type Toybox::Lang::Number
-*/
-public var steps;
+            /**
+            * Number of active minutes. Contains the moderate, vigorous, and total accumulated minutes for the day.  
+            * @type Toybox.ActivityMonitor.ActiveMinutes
+            */
+            public var activeMinutes;
 
 
-}
+            /**
+            * The calories for the day in kilocalories (kCal).  
+            * @type Toybox.Lang.Number
+            */
+            public var calories;
 
 
-public class Info {
+            /**
+            * The distance for the day in centimeters (cm).  
+            * @type Toybox.Lang.Number
+            */
+            public var distance;
 
-/**
- * The altitude above mean sea level in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var altitude;
 
+            /**
+            * The number of floors climbed for the day.  
+            * @type Toybox.Lang.Number
+            */
+            public var floorsClimbed;
 
-/**
- * The ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var ambientPressure;
 
+            /**
+            * Floors climbed goal for the day.  
+            * @type Toybox.Lang.Number
+            */
+            public var floorsClimbedGoal;
 
-/**
- * The average cadence during the current activity in revolutions per minute
- * @type Toybox::Lang::Number
-*/
-public var averageCadence;
 
+            /**
+            * The number of floors descended for the day.  
+            * @type Toybox.Lang.Number
+            */
+            public var floorsDescended;
 
-/**
- * The average swim stroke distance from the previous interval in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var averageDistance;
 
+            /**
+            * A Moment object representing the start time of the day recorded by this History object  
+            * @type Toybox.Time.Moment
+            */
+            public var startOfDay;
 
-/**
- * The average heart rate during the current activity in beats per minute
- * @type Toybox::Lang::Number
-*/
-public var averageHeartRate;
 
+            /**
+            * The step goal for the day in number of steps.  
+            * @type Toybox.Lang.Number
+            */
+            public var stepGoal;
 
-/**
- * The average power during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var averagePower;
 
+            /**
+            * The step count for the day in number of steps.  
+            * @type Toybox.Lang.Number
+            */
+            public var steps;
 
-/**
- * The average speed during the current activity in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var averageSpeed;
 
+        }
 
-/**
- * The current bearing in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearing;
 
+        public class Info {
 
-/**
- * The bearing from the starting location to the destination in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearingFromStart;
+            /**
+            * The altitude above mean sea level in meters (m). Elevation is derived from the most accurate source: Barometer or GPS  
+            * @type Toybox.Lang.Float
+            */
+            public var altitude;
 
 
-/**
- * The calories burned throughout the current activity in kilocalories (kcal).
- * @type Toybox::Lang::Number
-*/
-public var calories;
+            /**
+            * The ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the pressure sensor. The data is smoothed by a two-stage filter to reduce noise and instantaneous variation.  
+            * @type Toybox.Lang.Float
+            */
+            public var ambientPressure;
 
 
-/**
- * The current cadence in revolutions per minute (rpm).
- * @type Toybox::Lang::Number
-*/
-public var currentCadence;
+            /**
+            * The average cadence during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageCadence;
 
 
-/**
- * The true north referenced heading in radians.
- * @type Toybox::Lang::Float
-*/
-public var currentHeading;
+            /**
+            * The average swim stroke distance from the previous interval in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var averageDistance;
 
 
-/**
- * The current heart rate in beats per minute (bpm).
- * @type Toybox::Lang::Number
-*/
-public var currentHeartRate;
+            /**
+            * The average heart rate during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageHeartRate;
 
 
-/**
- * The current location.
- * @type Toybox::Position::Location
-*/
-public var currentLocation;
+            /**
+            * The average power during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var averagePower;
 
 
-/**
- * The current GPS accuracy.
- * @type Toybox::Lang::Number
-*/
-public var currentLocationAccuracy;
+            /**
+            * The average speed during the current activity in meters per second (mps). The average is computed as the elapsed 3-D accumulated distance divided by the elapsed time.  
+            * @type Toybox.Lang.Float
+            */
+            public var averageSpeed;
 
 
-/**
- * The current power in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var currentPower;
+            /**
+            * The current bearing in radians. Bearing is the direction from your current location or position to the destination of navigation, dependent on your current location.  
+            * @type Toybox.Lang.Float
+            */
+            public var bearing;
 
 
-/**
- * The current speed in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var currentSpeed;
+            /**
+            * The bearing from the starting location to the destination in radians. Bearing from start is the direction of desired track from the start of navigation to the destination in radians. This is only dependent on your location when a course is set, and it is not dependent on where you may have moved to during an activity  
+            * @type Toybox.Lang.Float
+            */
+            public var bearingFromStart;
 
 
-/**
- * The distance to the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToDestination;
+            /**
+            * The calories burned throughout the current activity in kilocalories (kcal).  
+            * @type Toybox.Lang.Number
+            */
+            public var calories;
 
 
-/**
- * The distance to the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToNextPoint;
+            /**
+            * The current cadence in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentCadence;
 
 
-/**
- * The elapsed distance of the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elapsedDistance;
+            /**
+            * The true north referenced heading in radians. This provides compass orientation if it is supported by the device.  
+            * @type Toybox.Lang.Float
+            */
+            public var currentHeading;
 
 
-/**
- * Elapsed time of the current activity in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var elapsedTime;
+            /**
+            * The current heart rate in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentHeartRate;
 
 
-/**
- * The elevation at the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtDestination;
+            /**
+            * The current location. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var currentLocation;
 
 
-/**
- * The elevation at the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtNextPoint;
+            /**
+            * The current GPS accuracy. GPS accuracy values range from 0-4. A value of 0 indicates an accuracy value is not available, while a value of 4 indicates a good GPS fix.  
+            * @type Toybox.Lang.Number
+            */
+            public var currentLocationAccuracy;
 
 
-/**
- * The current energy expenditure in kilocalories per minute (kcals/min).
- * @type Toybox::Lang::Float
-*/
-public var energyExpenditure;
+            /**
+            * The current oxygen saturation in percent (%)  
+            * @type Toybox.Lang.Number
+            */
+            public var currentOxygenSaturation;
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurIndex;
+            /**
+            * The current power in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentPower;
 
 
-/**
- * The front bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurMax;
+            /**
+            * The current speed in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var currentSpeed;
 
 
-/**
- * The front bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurSize;
+            /**
+            * The distance to the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToDestination;
 
 
-/**
- * The maximum cadence recorded during the current activity in revolutions per
- * @type Toybox::Lang::Number
-*/
-public var maxCadence;
+            /**
+            * The distance to the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToNextPoint;
 
 
-/**
- * The maximum heart rate recorded during the current activity in beats per
- * @type Toybox::Lang::Number
-*/
-public var maxHeartRate;
+            /**
+            * The elapsed distance of the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elapsedDistance;
 
 
-/**
- * The maximum power recorded during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var maxPower;
+            /**
+            * Elapsed time of the current activity in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var elapsedTime;
 
 
-/**
- * The maximum speed recorded during the current activity in meters per second
- * @type Toybox::Lang::Float
-*/
-public var maxSpeed;
+            /**
+            * The elevation at the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtDestination;
 
 
-/**
- * The mean sea level barometric pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var meanSeaLevelPressure;
+            /**
+            * The elevation at the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtNextPoint;
 
 
-/**
- * The name of the destination.
- * @type Toybox::Lang::String
-*/
-public var nameOfDestination;
+            /**
+            * The current energy expenditure in kilocalories per minute (kcals/min). Energy expenditure is a metric developed by FirstBeat that provides an estimation of the calorie burn rate calculated from heart rate data.  
+            * @type Toybox.Lang.Float
+            */
+            public var energyExpenditure;
 
 
-/**
- * The name of the next point.
- * @type Toybox::Lang::String
-*/
-public var nameOfNextPoint;
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the frontDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurIndex;
 
 
-/**
- * The distance to the nearest point on the current course in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var offCourseDistance;
+            /**
+            * The front bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurMax;
 
 
-/**
- * The raw ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var rawAmbientPressure;
+            /**
+            * The front bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurSize;
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurIndex;
+            /**
+            * The maximum cadence recorded during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxCadence;
 
 
-/**
- * The rear bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurMax;
+            /**
+            * The maximum heart rate recorded during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxHeartRate;
 
 
-/**
- * The rear bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurSize;
+            /**
+            * The maximum power recorded during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxPower;
 
 
-/**
- * The starting location of the current activity.
- * @type Toybox::Position::Location
-*/
-public var startLocation;
+            /**
+            * The maximum speed recorded during the current activity in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var maxSpeed;
 
 
-/**
- * The starting time of the current activity.
- * @type Toybox::Time::Moment
-*/
-public var startTime;
+            /**
+            * The mean sea level barometric pressure in Pascals (Pa). This returns barometric pressure calibrated to sea level. Since pressure varies dues to several factors, a GPS-based altitude must first be obtained, then the ambient (local) pressure is measured by the pressure sensor before conversion to a calibrated barometric pressure value.  
+            * @type Toybox.Lang.Float
+            */
+            public var meanSeaLevelPressure;
 
 
-/**
- * The swim stroke type from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimStrokeType;
+            /**
+            * The name of the destination.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfDestination;
 
 
-/**
- * The SWOLF score from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimSwolf;
+            /**
+            * The name of the next point.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfNextPoint;
 
 
-/**
- * The recording timer state.
- * @type Toybox::Lang::Number
-*/
-public var timerState;
+            /**
+            * The distance to the nearest point on the current course in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var offCourseDistance;
 
 
-/**
- * The current Timer value in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var timerTime;
+            /**
+            * The raw ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the internal pressure sensor. The data is the temperature compensated information read directly from the internal sensor.  
+            * @type Toybox.Lang.Float
+            */
+            public var rawAmbientPressure;
 
 
-/**
- * The total ascent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalAscent;
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the rearDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurIndex;
 
 
-/**
- * The total descent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalDescent;
+            /**
+            * The rear bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurMax;
 
 
-/**
- * The current track in radians.
- * @type Toybox::Lang::Float
-*/
-public var track;
+            /**
+            * The rear bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurSize;
 
 
-/**
- * The Training Effect score of the current activity.
- * @type Toybox::Lang::Float
-*/
-public var trainingEffect;
+            /**
+            * The starting location of the current activity. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var startLocation;
 
 
-}
+            /**
+            * The starting time of the current activity.  
+            * @type Toybox.Time.Moment
+            */
+            public var startTime;
 
 
-}
+            /**
+            * The swim stroke type from the previous length. Swim stroke type values range from 0-6. Each Number value represents a different swim stroke type (e.g. freestyle, backstroke, etc.).  
+            * @type Toybox.Lang.Number
+            */
+            public var swimStrokeType;
 
-module ActivityRecording {
 
-public class Session {
+            /**
+            * The SWOLF score from the previous length. SWOLF is an abbreviation for Swim-Golf, a measure of swimming efficiency. The score is obtained by adding the strokes per length to the total time of the length. For example, if it takes ten strokes and thirty seconds to swim a pool length, the SWOLF score is 40. Just like golf, a lower SWOLF score is better.  
+            * @type Toybox.Lang.Number
+            */
+            public var swimSwolf;
 
-/**
- * Add a lap to the current recording.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function addLap() { }
 
+            /**
+            * The recording timer state. The timer state ranges from 0-3. A value of 0 indicates that the timer is off and there is no active recording, while a value of 3 indicates timer is on and there is an active recording.  
+            * @type Toybox.Lang.Number
+            */
+            public var timerState;
 
-/**
- * Create a new <span class='object_link'><a href="../FitContributor/Field.html" title="Toybox::FitContributor::Field (class)">Field</a></span>.
- * @param name
- * @param  fieldId
- * @param  type
- * @param  options
- * @returns  Toybox::FitContributor::Field 
-*/
-public function createField(name, fieldId, type, options) { }
 
+            /**
+            * The current Timer value in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var timerTime;
 
-/**
- * Complete the Session by discarding the recorded data.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function discard() { }
 
+            /**
+            * The total ascent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalAscent;
 
-/**
- * Check if recording is active for this Session.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isRecording() { }
 
+            /**
+            * The total descent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalDescent;
 
-/**
- * Complete the session by storing the FIT file on the file system.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function save() { }
 
+            /**
+            * The current track in radians. Track is the direction of travel in radians based on GPS movement. If supported by the device, this provides compass orientation when stopped.  
+            * @type Toybox.Lang.Float
+            */
+            public var track;
 
-/**
- * Set the listener for Session timer events.
- * @param listener
- * @returns  Object 
-*/
-public function setTimerEventListener(listener) { }
 
+            /**
+            * The Training Effect score of the current activity. Training Effect is a score developed by FirstBeat, which indicates an activity's level of effect on aerobic fitness. Scores range from 1.0 (easy) to 5.0 (overreaching).  
+            * @type Toybox.Lang.Float
+            */
+            public var trainingEffect;
 
-/**
- * Begin recording a FIT file on the system.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function start() { }
 
+        }
 
-/**
- * Stop recording a FIT file on the system.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function stop() { }
 
+    }
 
-}
+    module ActivityRecording {
 
+            /**
+            * Create a Session object with options determined by the caller. Only one Session object is allowed to exist at a time. If there is an existing object that has not been closed using the save() or discard() methods, this method will return that object instead of creating a new one. On some products running the 1.x virtual machine, creating a Session object requires a large memory allocation. To free this memory, the Session must first be successfully saved or discarded, and then app references to the Session object should be set to null.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function createSession(options) { }
 
-}
 
-module Ant {
+        
+        public class Session {
 
-public class BurstListener {
+            /**
+            * Add a lap to the current recording.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function addLap() { }
 
-/**
- * Callback when a burst reception completes successfully.
- * @param burstPayload
- * @returns  Object 
-*/
-public function onReceiveComplete(burstPayload) { }
 
+            /**
+            * Create a new Field. Field objects allow developers to store information in FIT developer fields. This information can be displayed in Garmin Connect as a per-second graph, as lap information, or as workout summary information.
+            * @param name - (Toybox.Lang.String)
+            * @param fieldId - (Toybox.Lang.Number)
+            * @param type - (Toybox.Lang.Number)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function createField(name,fieldId,type,options) { }
 
-/**
- * Callback when a burst reception fails over the air.
- * @param errorCode
- * @returns  Object 
-*/
-public function onReceiveFail(errorCode) { }
 
+            /**
+            * Complete the Session by discarding the recorded data.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function discard() { }
 
-/**
- * Callback when a burst transmission completes successfully.
- * @param 
- * @returns  Object 
-*/
-public function onTransmitComplete() { }
 
+            /**
+            * Check if recording is active for this Session.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isRecording() { }
 
-/**
- * Callback when a burst transmission fails over the air.
- * @param errorCode
- * @returns  Object 
-*/
-public function onTransmitFail(errorCode) { }
 
+            /**
+            * Complete the session by storing the FIT file on the file system.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function save() { }
 
-}
 
+            /**
+            * Set the listener for Session timer events The listener method is called whenever a new timer event occurs. The keys in the Dictionary passed to the listener callback depend on the the value of the eventType parameter.
+            * @param listener - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function setTimerEventListener(listener) { }
 
-public class BurstPayload {
 
-/**
- * Add a <span class='object_link'><a href="Message.html" title="Toybox::Ant::Message (class)">Message</a></span> object to the end of the burst data.
- * @param message
- * @returns  Object 
-*/
-public function add(message) { }
+            /**
+            * Begin recording a FIT file on the system.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function start() { }
 
 
-/**
- * Return the number of burst <span class='object_link'><a href="Message.html" title="Toybox::Ant::Message (class)">Message</a></span> objects contained
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getSize() { }
+            /**
+            * Stop recording a FIT file on the system.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function stop() { }
 
 
-/**
- * Constructor for the BurstPayload object.
- * @param 
- * @returns  BurstPayload 
-*/
-public function initialize() { }
+        }
 
 
-}
+    }
 
+    module Ant {
 
-public class BurstPayloadIterator {
+        
+        public class BurstListener {
 
-/**
- * Constructor for the BurstPayloadIterator object.
- * @param newBurstPayload
- * @returns  BurstPayloadIterator 
-*/
-public function initialize(newBurstPayload) { }
+            /**
+            * Callback when a burst reception completes successfully
+            * @param burstPayload - (Toybox.Ant.BurstPayload)
+            * @returns  
+            */
+            public function onReceiveComplete(burstPayload) { }
 
 
-/**
- * Return the next message in the <span class='object_link'><a href="BurstPayload.html" title="Toybox::Ant::BurstPayload (class)">BurstPayload</a></span>
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function next() { }
+            /**
+            * Callback when a burst reception fails over the air
+            * @param errorCode - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onReceiveFail(errorCode) { }
 
 
-}
+            /**
+            * Callback when a burst transmission fails over the air
+            * @param errorCode - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onTransmitFail(errorCode) { }
 
 
-public class ChannelAssignment {
+        }
 
-/**
- * Defines the type of channel.
- * @type Object
-*/
-public var channelType;
 
+        public class BurstPayload {
 
-/**
- * Defines the type of network the channel should operate under.
- * @type Object
-*/
-public var network;
+            /**
+            * Add a Message object to the end of the burst data.
+            * @param message - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function add(message) { }
 
 
-/**
- * Constructor for the channel object.
- * @type ChannelAssignment
-*/
-public var initialize;
+            /**
+            * Return the number of burst Message objectscontained in the payload.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getSize() { }
 
 
-/**
- * See if background scanning is enabled for the channel assignment.
- * @type Toybox::Lang::Boolean
-*/
-public var isBackgroundScanEnabled;
+        }
 
 
-/**
- * Set background scan to be enabled or disabled.
- * @type Toybox::Lang::Boolean
-*/
-public var setBackgroundScan;
+        public class BurstPayloadIterator {
 
+            /**
+            * Constructor
+            * @param newBurstPayload - ;;newBurstPayload
+            * @returns  
+            */
+            public function initialize(newBurstPayload) { }
 
-}
 
+            /**
+            * Return the next message in theBurstPayload object.
+            * @returns  Toybox.Lang.Array
+            */
+            public function next() { }
 
-public class CryptoConfig {
 
-/**
- * The division factor of the encryption counter.
- * @type Object
-*/
-public var decimationRate;
+        }
 
 
-/**
- * The unique 4 byte identifier of the encrypted master or the negotiating
- * @type Object
-*/
-public var encryptionId;
+        public class ChannelAssignment {
 
+            /**
+            * Constructor By default disables background scanning.
+            * @param c - (Toybox.Lang.Number)
+            * @param n - ype specifier. Must use one of the following constants.;;CHANNEL_TYPE_TX_NOT_RX - Bidirectional Transmit (Master);;Master Channels are not allowed on the ANT+ Network;;CHANNEL_TYPE_RX_NOT_TX - Bidirectional Receive (Slave);;CHANNEL_TYPE_RX_ONLY - Receive Only (Slave);;n
+            * @returns  
+            */
+            public function initialize(c,n) { }
 
-/**
- * The 128-bit encryption key used to encrypt/decrypt ANT packets.
- * @type Object
-*/
-public var encryptionKey;
 
+            /**
+            * See if background scanning is enabled for the channel assignment.Example:using Toybox.Ant;// Assuming initialized channelChannelAssignment.isBackgroundScanEnabled();
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isBackgroundScanEnabled() { }
 
-/**
- * The (optional) user information String to be sent to the master channel on
- * @type Object
-*/
-public var userInfoString;
 
+            /**
+            * Set background scan to be enabled or disabled. Enabling background scan can only be done on Receive Only channels.
+            * @param isBackgroundScanEnabled - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function setBackgroundScan(isBackgroundScanEnabled) { }
 
-/**
- * A new instance of CryptoConfig.
- * @type CryptoConfig
-*/
-public var initialize;
 
+        }
 
-}
 
+        public class CryptoConfig {
 
-public class DeviceConfig {
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-/**
- * The unique device number (ANT-id).
- * @type Object
-*/
-public var deviceNumber;
 
+        }
 
-/**
- * A 1-Byte device type identifier.
- * @type Object
-*/
-public var deviceType;
 
+        public class DeviceConfig {
 
-/**
- * The Message period that the sensor uses.
- * @type Object
-*/
-public var messagePeriod;
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
 
-/**
- * A 128 bit network key.
- * @type Object
-*/
-public var networkKey128Bit;
+        }
 
 
-/**
- * A 64 bit network key.
- * @type Object
-*/
-public var networkKey64Bit;
+        public class EncryptionInvalidSettingsException {
 
+        }
 
-/**
- * The radio frequency that the sensor operates on.
- * @type Object
-*/
-public var radioFrequency;
 
+        public class GenericChannel {
 
-/**
- * The proximity threshold bin.
- * @type Object
-*/
-public var searchThreshold;
+            /**
+            * Set the encryption configuration and enable encryption on this channel.
+            * @param configuration - (Toybox.Ant.CryptoConfig)
+            * @returns  
+            */
+            public function enableEncryption(configuration) { }
 
 
-/**
- * High Priority search timeout that a receiving channel will wait for in
- * @type Object
-*/
-public var searchTimeoutHighPriority;
+            /**
+            * Constructor
+            * @param listener - (Toybox.Lang.Method)
+            * @param channelAssignment - (Toybox.Ant.ChannelAssignment)
+            * @returns  
+            */
+            public function initialize(listener,channelAssignment) { }
 
 
-/**
- * The low Priority search timeout that a receiving channel will wait for in
- * @type Object
-*/
-public var searchTimeoutLowPriority;
+            /**
+            * Send an acknowledge message. You can expect to receive either MSG_CODE_EVENT_TRANSFER_TX_COMPLETED or MSG_CODE_EVENT_TRANSFER_TX_FAILED if the message succeeded/failed going to the recipient.
+            * @param data - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function sendAcknowledge(data) { }
 
 
-/**
- * The manufacturer-specific transport type and extended device number.
- * @type Object
-*/
-public var transmissionType;
+            /**
+            * Send a broadcast message.
+            * @param data - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function sendBroadcast(data) { }
 
 
-/**
- * The constructor for the device configuration object.
- * @type DeviceConfig
-*/
-public var initialize;
+            /**
+            * Send an Array of Messages as a burst across the ANT channel. Success or Fail is received by the BurstListener.
+            * @param burstData - (Toybox.Ant.BurstPayload)
+            * @returns  
+            */
+            public function sendBurst(burstData) { }
 
 
-}
+        }
 
 
-public class EncryptionInvalidSettingsException {
+        public class Message {
 
-/**
- * Constructor.
- * @param 
- * @returns  EncryptionInvalidSettingsException 
-*/
-public function initialize() { }
+            /**
+            * Get the ANT data packet.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getPayload() { }
 
 
-}
+            /**
+            * Set the ANT data packet.
+            * @param data - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function setPayload(data) { }
 
 
-public class GenericChannel {
+        }
 
-/**
- * Close a generic ANT Channel.
- * @param 
- * @returns  Object 
-*/
-public function close() { }
 
+        public class UnableToAcquireChannelException {
 
-/**
- * Disable encryption on this channel.
- * @param 
- * @returns  Object 
-*/
-public function disableEncryption() { }
+        }
 
 
-/**
- * Set the encryption configuration and enable encryption on this channel.
- * @param configuration
- * @returns  Object 
-*/
-public function enableEncryption(configuration) { }
+        public class UnableToAcquireEncryptedChannelException {
 
+        }
 
-/**
- * Get the current ANT channel configuration.
- * @param 
- * @returns  Toybox::Ant::DeviceConfig 
-*/
-public function getDeviceConfig() { }
 
+    }
 
-/**
- * Constructor for the generic channel.
- * @param listener
- * @param  channelAssignment
- * @returns  GenericChannel 
-*/
-public function initialize(listener, channelAssignment) { }
+    module AntPlus {
 
+        
+        public class AntPlusNotAllowedException {
 
-/**
- * Open a generic ANT Channel.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function open() { }
+            /**
+            * Constructor
+            * @returns  
+            */
+            public function initialize() { }
 
 
-/**
- * Release the generic ANT Channel back to the system.
- * @param 
- * @returns  Object 
-*/
-public function release() { }
+        }
 
 
-/**
- * Send an acknowledge message.
- * @param data
- * @returns  Object 
-*/
-public function sendAcknowledge(data) { }
+        public class BatteryStatus {
 
+            /**
+            * The BATT_STATUS_* value of the battery.  
+            * @type Toybox.Lang.Number
+            */
+            public var batteryStatus;
 
-/**
- * Send a broadcast message.
- * @param data
- * @returns  Object 
-*/
-public function sendBroadcast(data) { }
 
+            /**
+            * The voltage, -1 is invalid  
+            * @type Toybox.Lang.Float
+            */
+            public var batteryVoltage;
 
-/**
- * Send an <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of <span class='object_link'><a href="Message.html" title="Toybox::Ant::Message (class)">Messages</a></span> as a
- * @param burstData
- * @returns  Object 
-*/
-public function sendBurst(burstData) { }
 
+            /**
+            * The operating time in seconds.  
+            * @type Toybox.Lang.Number
+            */
+            public var operatingTime;
 
-/**
- * Set the <span class='object_link'><a href="BurstListener.html" title="Toybox::Ant::BurstListener (class)">BurstListener</a></span> for burst events.
- * @param listener
- * @returns  Object 
-*/
-public function setBurstListener(listener) { }
 
+        }
 
-/**
- * Set the current ANT channel configuration.
- * @param configuration
- * @returns  Object 
-*/
-public function setDeviceConfig(configuration) { }
 
+        public class BikeCadence {
 
-}
+            /**
+            * Returns the most recent BikeCadenceInfo
+            * @returns  Toybox.AntPlus.BikeCadenceInfo
+            */
+            public function getCadenceInfo() { }
 
 
-public class Message {
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.BikeCadenceListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-/**
- * The Unique device number (ANT-id).
- * @type Object
-*/
-public var deviceNumber;
 
+        }
 
-/**
- * A 1-Byte device type identifier.
- * @type Object
-*/
-public var deviceType;
 
+        public class BikeCadenceInfo {
 
-/**
- * Number of data bytes in the data payload (not including any extended data
- * @type Object
-*/
-public var length;
+            /**
+            * Cadence (rpm) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var cadence;
 
 
-/**
- * The Data Type Identifier.
- * @type Object
-*/
-public var messageId;
+        }
 
 
-/**
- * The Received Signal Strength Indication.
- * @type Object
-*/
-public var rssi;
+        public class BikeCadenceListener {
 
+            /**
+            * Callback when cadence data is updated
+            * @param data - (Toybox.AntPlus.BikeCadenceInfo)
+            * @returns  
+            */
+            public function onBikeCadenceUpdate(data) { }
 
-/**
- * The time stamp of received message generated off of a 32.768 kHz clock.
- * @type Object
-*/
-public var timestamp;
 
+        }
 
-/**
- * The manufacturer-specific transport type and extended device number.
- * @type Object
-*/
-public var transmissionType;
 
+        public class BikeLight {
 
-/**
- * Get the ANT data packet.
- * @type Toybox::Lang::Array
-*/
-public var getPayload;
+            /**
+            * The LIGHT_MODE_* mode of the light.  
+            * @type Toybox.Lang.Number
+            */
+            public var mode;
 
 
-/**
- * Set the ANT data packet.
- * @type Object
-*/
-public var setPayload;
+            /**
+            * The LIGHT_TYPE_* type of the light.  
+            * @type Toybox.Lang.Number
+            */
+            public var type;
 
 
-}
+            /**
+            * Get a list of the standard and custom light modes that a bike light supports.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getCapableModes() { }
 
 
-public class UnableToAcquireChannelException {
+            /**
+            * Tell this light to enter a new mode. You should check the capable modes before sending light modes as lights will ignore commands to go into modes that they do not support. Lights whose modes are set here will not be controlled by the Light Network Mode until they are restored OR until the user changes the Light Network Mode outside of ConnectIQ.
+            * @param mode - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setMode(mode) { }
 
-/**
- * Constructor.
- * @param 
- * @returns  UnableToAcquireChannelException 
-*/
-public function initialize() { }
 
+        }
 
-}
 
+        public class BikePower {
 
-public class UnableToAcquireEncryptedChannelException {
+            /**
+            * Get the current calculated crank cadence.
+            * @returns  Toybox.AntPlus.CalculatedCadence
+            */
+            public function getCalculatedCadence() { }
 
-/**
- * Constructor.
- * @param 
- * @returns  UnableToAcquireEncryptedChannelException 
-*/
-public function initialize() { }
 
+            /**
+            * Retrieve the current calculated power.
+            * @returns  Toybox.AntPlus.CalculatedPower
+            */
+            public function getCalculatedPower() { }
 
-}
 
+            /**
+            * Retrieve the current calculated wheel distance.
+            * @returns  Toybox.AntPlus.CalculatedWheelDistance
+            */
+            public function getCalculatedWheelDistance() { }
 
-}
 
-module AntPlus {
+            /**
+            * Retrieve the current calculated wheel speed.
+            * @returns  Toybox.AntPlus.CalculatedWheelSpeed
+            */
+            public function getCalculatedWheelSpeed() { }
 
-public class AntPlusNotAllowedException {
 
-/**
- * AntPlusNotAllowedException constructor.
- * @param msg
- * @returns  AntPlusNotAllowedException 
-*/
-public function initialize(msg) { }
+            /**
+            * Retrieve the current pedal power balance.
+            * @returns  Toybox.AntPlus.PedalPowerBalance
+            */
+            public function getPedalPowerBalance() { }
 
 
-}
+            /**
+            * Retrieve the current torque effectiveness and pedal smoothness.
+            * @returns  Toybox.AntPlus.TorqueEffectivenessPedalSmoothness
+            */
+            public function getTorqueEffectivenessPedalSmoothness() { }
 
 
-public class BatteryStatus {
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.BikePowerListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#BATT_STATUS_CNT-constant" title="Toybox::AntPlus::BATT_STATUS_CNT (constant)">BATT_STATUS_*</a></span> value of the battery.
- * @type Toybox::Lang::Number
-*/
-public var batteryStatus;
 
+        }
 
-/**
- * The voltage, -1 is invalid.
- * @type Toybox::Lang::Float
-*/
-public var batteryVoltage;
 
+        public class BikePowerListener {
 
-/**
- * The operating time in seconds.
- * @type Toybox::Lang::Number
-*/
-public var operatingTime;
+            /**
+            * Callback when calculated cadence is updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.CalculatedCadence)
+            * @returns  
+            */
+            public function onCalculatedCadenceUpdate(data) { }
 
 
-/**
- * Constructor.
- * @type BatteryStatus
-*/
-public var initialize;
+            /**
+            * Callback when calculated power is updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.CalculatedPower)
+            * @returns  
+            */
+            public function onCalculatedPowerUpdate(data) { }
 
 
-}
+            /**
+            * Callback when calculated wheel distance is updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.CalculatedWheelDistance)
+            * @returns  
+            */
+            public function onCalculatedWheelDistanceUpdate(data) { }
 
 
-public class BikeCadence {
+            /**
+            * Callback when calculated wheel speed is updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.CalculatedWheelSpeed)
+            * @returns  
+            */
+            public function onCalculatedWheelSpeedUpdate(data) { }
 
-/**
- * Returns the most recent BikeCadenceInfo.
- * @param 
- * @returns  BikeCadenceInfo 
-*/
-public function getCadenceInfo() { }
 
+            /**
+            * Callback when power balance is updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.PedalPowerBalance)
+            * @returns  
+            */
+            public function onPedalPowerBalanceUpdate(data) { }
 
-/**
- * The initializer for the device object takes an extension of the
- * @param listener
- * @returns  BikeCadence 
-*/
-public function initialize(listener) { }
 
+            /**
+            * Callback when torque effectiveness & pedal smoothness are updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.TorqueEffectivenessPedalSmoothness)
+            * @returns  
+            */
+            public function onTorqueEffectivenessPedalSmoothnessUpdate(data) { }
 
-}
 
+        }
 
-public class BikeCadenceInfo {
 
-/**
- * Cadence (rpm).
- * @param 
- * @returns  Toybox::Lang::Integer 
-*/
-public function cadence() { }
+        public class BikeRadar {
 
+            /**
+            * Retrieves information on the current list of tracked targets.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getRadarInfo() { }
 
-}
 
+            /**
+            * 
+            * @param listener - (Toybox.AntPlus.BikeRadarListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-public class BikeCadenceListener {
 
-/**
- * Constructor.
- * @param 
- * @returns  BikeCadenceListener 
-*/
-public function initialize() { }
+        }
 
 
-/**
- * Callback when cadence data is updated.
- * @param data
- * @returns  Object 
-*/
-public function onBikeCadenceUpdate(data) { }
+        public class BikeRadarListener {
 
+            /**
+            * Callback when radar data is updated
+            * @param data - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function onBikeRadarUpdate(data) { }
 
-}
 
+        }
 
-public class BikeLight {
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#LIGHT_MODE_AUTO-constant" title="Toybox::AntPlus::LIGHT_MODE_AUTO (constant)">LIGHT_MODE_*</a></span> mode of the light.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function mode() { }
+        public class BikeSpeed {
 
+            /**
+            * getSpeedInfo - Returns the most recent BikeSpeedInfo
+            * @returns  Toybox.AntPlus.BikeSpeedInfo
+            */
+            public function getSpeedInfo() { }
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#LIGHT_TYPE_HEADLIGHT-constant" title="Toybox::AntPlus::LIGHT_TYPE_HEADLIGHT (constant)">LIGHT_TYPE_*</a></span> type of the light.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function type() { }
 
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.BikeSpeedListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-/**
- * Get a list of the standard and custom light modes that a bike light
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getCapableModes() { }
 
+        }
 
-/**
- * Constructor.
- * @param 
- * @returns  BikeLight 
-*/
-public function initialize() { }
 
+        public class BikeSpeedCadence {
 
-/**
- * Tell this light to enter a new mode.
- * @param mode
- * @returns  Object 
-*/
-public function setMode(mode) { }
+            /**
+            * getSpeedCadenceInfo - Returns the most recent BikeSpeedCadenceInfo
+            * @returns  Toybox.AntPlus.BikeSpeedCadenceInfo
+            */
+            public function getSpeedCadenceInfo() { }
 
 
-}
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.BikeSpeedCadenceListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
 
-public class BikePower {
+        }
 
-/**
- * Get the current calculated crank cadence.
- * @param 
- * @returns  Toybox::AntPlus::CalculatedCadence 
-*/
-public function getCalculatedCadence() { }
 
+        public class BikeSpeedCadenceInfo {
 
-/**
- * Retrieve the current calculated power.
- * @param 
- * @returns  Toybox::AntPlus::CalculatedPower 
-*/
-public function getCalculatedPower() { }
+            /**
+            * Cadence (rpm) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var cadence;
 
 
-/**
- * Retrieve the current calculated wheel distance.
- * @param 
- * @returns  Toybox::AntPlus::CalculatedWheelDistance 
-*/
-public function getCalculatedWheelDistance() { }
+            /**
+            * Distance (m) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var distance;
 
 
-/**
- * Retrieve the current calculated wheel speed.
- * @param 
- * @returns  Toybox::AntPlus::CalculatedWheelSpeed 
-*/
-public function getCalculatedWheelSpeed() { }
+            /**
+            * Speed (m/s) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var speed;
 
 
-/**
- * Retrieve the current pedal power balance.
- * @param 
- * @returns  Toybox::AntPlus::PedalPowerBalance 
-*/
-public function getPedalPowerBalance() { }
+        }
 
 
-/**
- * Retrieve the current torque effectiveness and pedal smoothness.
- * @param 
- * @returns  Toybox::AntPlus::TorqueEffectivenessPedalSmoothness 
-*/
-public function getTorqueEffectivenessPedalSmoothness() { }
+        public class BikeSpeedCadenceListener {
 
+            /**
+            * Callback when speed / cadence data is updated
+            * @param data - (Toybox.AntPlus.BikeSpeedCadenceInfo)
+            * @returns  
+            */
+            public function onBikeSpeedCadenceUpdate(data) { }
 
-/**
- * The Constructor for the BikePower object.
- * @param listener
- * @returns  BikePower 
-*/
-public function initialize(listener) { }
 
+        }
 
-}
 
+        public class BikeSpeedInfo {
 
-public class BikePowerListener {
+            /**
+            * Distance (m) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var distance;
 
-/**
- * Constructor.
- * @param 
- * @returns  BikePowerListener 
-*/
-public function initialize() { }
 
+            /**
+            * Speed (m/s) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var speed;
 
-/**
- * Callback when calculated cadence is updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onCalculatedCadenceUpdate(data) { }
 
+        }
 
-/**
- * Callback when calculated power is updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onCalculatedPowerUpdate(data) { }
 
+        public class BikeSpeedListener {
 
-/**
- * Callback when calculated wheel distance is updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onCalculatedWheelDistanceUpdate(data) { }
+            /**
+            * Callback when speed data is updated
+            * @param data - (Toybox.AntPlus.BikeSpeedInfo)
+            * @returns  
+            */
+            public function onBikeSpeedUpdate(data) { }
 
 
-/**
- * Callback when calculated wheel speed is updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onCalculatedWheelSpeedUpdate(data) { }
+        }
 
 
-/**
- * Callback when power balance is updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onPedalPowerBalanceUpdate(data) { }
+        public class CalculatedCadence {
 
+            /**
+            * Average crank cadence calculated from the sensor data in rounds per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var cadence;
 
-/**
- * Callback when torque effectiveness &amp; pedal smoothness are updated (max
- * @param data
- * @returns  Object 
-*/
-public function onPedalPowerBalanceUpdate(data) { }
 
+            /**
+            * The BIKE_POWER_SENSOR_TYPE_* value of the bike power sensor.  
+            * @type Toybox.Lang.Number
+            */
+            public var powerSensorType;
 
-}
 
+        }
 
-public class BikeRadar {
 
-/**
- * Retrieves information on the current list of tracked targets.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getRadarInfo() { }
+        public class CalculatedPower {
 
+            /**
+            * The average power calculated from the sensor data in watts (W).  
+            * @type Toybox.Lang.Float
+            */
+            public var power;
 
-/**
- * The Constructor for the BikeRadar class.
- * @param listener
- * @returns  BikeRadar 
-*/
-public function initialize(listener) { }
 
+            /**
+            * The BIKE_POWER_SENSOR_TYPE_* value of the bike power sensor.  
+            * @type Toybox.Lang.Number
+            */
+            public var powerSensorType;
 
-}
 
+        }
 
-public class BikeRadarListener {
 
-/**
- * Constructor.
- * @param 
- * @returns  BikeRadarListener 
-*/
-public function initialize() { }
+        public class CalculatedWheelDistance {
 
+            /**
+            * The accumulated distance calculated from sensor data in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distance;
 
-/**
- * Callback when radar data is updated.
- * @param data
- * @returns  Object 
-*/
-public function onBikeRadarUpdate(data) { }
 
+        }
 
-}
 
+        public class CalculatedWheelSpeed {
 
-public class BikeSpeed {
+            /**
+            * The average speed calculated from the sensor data in meters per second (m/s).  
+            * @type Toybox.Lang.Float
+            */
+            public var speed;
 
-/**
- * getSpeedInfo - Returns the most recent BikeSpeedInfo.
- * @param 
- * @returns  BikeSpeedInfo 
-*/
-public function getSpeedInfo() { }
 
+        }
 
-/**
- * The initializer for the device object takes an extension of the
- * @param listener
- * @returns  BikeSpeed 
-*/
-public function initialize(listener) { }
 
+        public class CommonData {
 
-}
+            /**
+            * The Component Identifier. Component IDs are defined on a by-ANT+-profile basis.  
+            * @type Toybox.Lang.Number
+            */
+            public var identifier;
 
 
-public class BikeSpeedCadence {
+            /**
+            * Number of components in the system.  
+            * @type Toybox.Lang.Number
+            */
+            public var numComponents;
 
-/**
- * getSpeedCadenceInfo - Returns the most recent BikeSpeedCadenceInfo.
- * @param 
- * @returns  BikeSpeedCadenceInfo 
-*/
-public function getSpeedCadenceInfo() { }
 
+        }
 
-/**
- * The initializer for the device object takes an extension of the
- * @param listener
- * @returns  BikeSpeedCadence 
-*/
-public function initialize(listener) { }
 
+        public class DerailleurStatus {
 
-}
+            /**
+            * Current gear index (for front derailleur 0 - 6, Toybox::AntPlus::FRONT_GEAR_INVALID = Unknown gear index / Error) (for rear derailleur 0 - 30, Toybox::AntPlus::REAR_GEAR_INVALID = Unknown gear index / Error) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var gearIndex;
 
 
-public class BikeSpeedCadenceInfo {
+            /**
+            * Number of gears installed (1 - 7, Toybox::AntPlus::MAX_GEARS_INVALID = Unknown gear count / Error) (1 - 31, Toybox::AntPlus::MAX_GEARS_INVALID = Unknown gear count / Error) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var gearMax;
 
-/**
- * Cadence (rpm).
- * @param 
- * @returns  Toybox::Lang::Integer 
-*/
-public function cadence() { }
 
+            /**
+            * Current gear size (number of teeth, 0 - 255) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var gearSize;
 
-/**
- * Distance (m).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function distance() { }
 
+            /**
+            * Number of invalid inboard shifts (0 - 255) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var invalidInboardShiftCount;
 
-/**
- * Speed (m/s).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function speed() { }
 
+            /**
+            * Number of invalid outboard shifts (0 - 255) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var invalidOutboardShiftCount;
 
-}
 
+            /**
+            * Number of shift failures (0 - 255) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var shiftFailureCount;
 
-public class BikeSpeedCadenceListener {
 
-/**
- * Constructor.
- * @param 
- * @returns  BikeSpeedCadenceListener 
-*/
-public function initialize() { }
+        }
 
 
-/**
- * Callback when speed / cadence data is updated.
- * @param data
- * @returns  Object 
-*/
-public function onBikeSpeedCadenceUpdate(data) { }
+        public class DeviceConfig {
 
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-}
 
+        }
 
-public class BikeSpeedInfo {
 
-/**
- * Distance (m).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function distance() { }
+        public class DeviceListener {
 
+            /**
+            * Callback when battery status is received.
+            * @param data - (Toybox.AntPlus.BatteryStatus)
+            * @returns  
+            */
+            public function onBatteryStatusUpdate(data) { }
 
-/**
- * Speed (m/s).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function speed() { }
 
+            /**
+            * Callback when device state is updated.
+            * @param data - (Toybox.AntPlus.DeviceState)
+            * @returns  
+            */
+            public function onDeviceStateUpdate(data) { }
 
-}
 
+            /**
+            * Callback when manufacturer's information is received.
+            * @param data - (Toybox.AntPlus.ManufacturerInfo)
+            * @returns  
+            */
+            public function onManufacturerInfoUpdate(data) { }
 
-public class BikeSpeedListener {
 
-/**
- * Constructor.
- * @param 
- * @returns  BikeSpeedListener 
-*/
-public function initialize() { }
+            /**
+            * Callback when ANT message is received.
+            * @param msg - (Toybox.Ant.Message)
+            * @returns  
+            */
+            public function onMessage(msg) { }
 
 
-/**
- * Callback when speed data is updated.
- * @param data
- * @returns  Object 
-*/
-public function onBikeSpeedUpdate(data) { }
+            /**
+            * Callback when product information is received.
+            * @param data - (Toybox.AntPlus.ProductInfo)
+            * @returns  
+            */
+            public function onProductInfoUpdate(data) { }
 
 
-}
+            /**
+            * After sending a manufacturer message or page request this will be called to indicate message sent status.
+            * @param status - (Toybox.Lang.Number)
+            * @param sentMesgData - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function onSentMessage(status,sentMesgData) { }
 
 
-public class CalculatedCadence {
+        }
 
-/**
- * Average crank cadence calculated from the sensor data in rounds per minute
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function cadence() { }
 
+        public class DeviceState {
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#BIKE_POWER_SENSOR_TYPE_CNT-constant" title="Toybox::AntPlus::BIKE_POWER_SENSOR_TYPE_CNT (constant)">BIKE_POWER_SENSOR_TYPE_*</a></span>
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function powerSensorType() { }
+            /**
+            * The current Device ID being tracked/searched for. ID will be null if device state is DEVICE_STATE_DEAD  
+            * @type Toybox.Lang.Number
+            */
+            public var deviceNumber;
 
 
-}
+            /**
+            * The state of the device as an DEVICE_STATE_* value.  
+            * @type Toybox.Lang.Number
+            */
+            public var state;
 
 
-public class CalculatedPower {
+        }
 
-/**
- * The average power calculated from the sensor data in watts (W).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function power() { }
 
+        public class FitnessEquipment {
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#BIKE_POWER_SENSOR_TYPE_CNT-constant" title="Toybox::AntPlus::BIKE_POWER_SENSOR_TYPE_CNT (constant)">BIKE_POWER_SENSOR_TYPE_*</a></span>
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function powerSensorType() { }
+            /**
+            * Control the fitness Equipment Note: Setting a value related to a specific training mode will cause the fitness equipment to change to that mode. For example, controlEquipment(TRAINER_TARGET_POWER, 100) will set the fitness equipment to target power mode with target power set to 100W if such mode is supported. Values out of range will be set to within the nearest range boundary value.
+            * @param setting - (Toybox.Lang.Number)
+            * @param data - (Toybox.Lang.Float)
+            * @returns  
+            */
+            public function controlEquipment(setting,data) { }
 
 
-}
+            /**
+            * Get the current training data from the FE
+            * @returns  Toybox.AntPlus.FitnessEquipmentData
+            */
+            public function getEquipmentData() { }
 
 
-public class CalculatedWheelDistance {
+            /**
+            * Get the resistance percentage setting of the fitness equipmentfor basic resistance training mode.You should set resistance values and be in basic resistance training mode beforecalling this method, otherwise null or default values may be returned.
+            * @returns  Toybox.AntPlus.ResistanceSettings
+            */
+            public function getResistanceSettings() { }
 
-/**
- * The accumulated distance calculated from sensor data in meters (m).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function distance() { }
 
+            /**
+            * Get the wind and track resistance simulation settings.You should set wind and track settings, as well as be in simulation training modebefore calling this method or null or default values may be returned.
+            * @returns  Toybox.AntPlus.SimulationSettings
+            */
+            public function getSimulationSettings() { }
 
-}
 
+            /**
+            * Get the target power setting of the fitness equipment fortarget power training mode.You should set the target power and be in target power training mode before callingthis method, otherwise null or default values may be returned.
+            * @returns  Toybox.AntPlus.TargetPowerSettings
+            */
+            public function getTargetPowerSettings() { }
 
-public class CalculatedWheelSpeed {
 
-/**
- * The average speed calculated from the sensor data in meters per second
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function speed() { }
+            /**
+            * Get the current training mode and supported modes of the fitness equipment
+            * @returns  Toybox.AntPlus.FitnessEquipmentMode
+            */
+            public function getTrainerMode() { }
 
 
-}
+            /**
+            * Get the user configuration settings of the fitness equipment for simulationtraining mode.You should set user settings values and be in simulation mode beforecalling this method, otherwise null or default values may be returned.
+            * @returns  Toybox.AntPlus.UserSettings
+            */
+            public function getUserSettings() { }
 
 
-public class CommonData {
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.FitnessEquipmentListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-/**
- * The Component Identifier.
- * @type Toybox::Lang::Number
-*/
-public var identifier;
 
+            /**
+            * Set the trainer mode. You should check the capable modes of the fitness equipment, as the command will be ignored by the fitness equipment if the mode is not supported.
+            * @param mode - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setTrainerMode(mode) { }
 
-/**
- * Number of components in the system.
- * @type Toybox::Lang::Number
-*/
-public var numComponents;
 
+        }
 
-}
 
+        public class FitnessEquipmentData {
 
-public class DerailleurStatus {
+            /**
+            * The elapsed distance calculated by the trainer since reset Range is always greater than or equal to 0m  
+            * @type Toybox.Lang.Float
+            */
+            public var feDistance;
 
-/**
- * Current gear index (for front derailleur 0 - 6,
- * @param 
- * @returns  Integer 
-*/
-public function gearIndex() { }
 
+            /**
+            * The heart rate calculated by the trainer. This may come from hand sensors, or an HRM if connected to the equipment  
+            * @type Toybox.Lang.Number
+            */
+            public var feHeartRate;
 
-/**
- * Number of gears installed (1 - 7, {Toybox::AntPlus::MAX_GEARS_INVALID } =
- * @param 
- * @returns  Integer 
-*/
-public function gearMax() { }
 
+            /**
+            * The speed calculated by the trainer  
+            * @type Toybox.Lang.Float
+            */
+            public var feSpeed;
 
-/**
- * Current gear size (number of teeth, 0 - 255).
- * @param 
- * @returns  Integer 
-*/
-public function gearSize() { }
 
+        }
 
-/**
- * Number of invalid inboard shifts (0 - 255).
- * @param 
- * @returns  Integer 
-*/
-public function invalidInboardShiftCount() { }
 
+        public class FitnessEquipmentListener {
 
-/**
- * Number of invalid outboard shifts (0 - 255).
- * @param 
- * @returns  Integer 
-*/
-public function invalidOutboardShiftCount() { }
+            /**
+            * Callback when fitness equipment data is updated
+            * @param data - (Toybox.AntPlus.FitnessEquipmentData)
+            * @returns  
+            */
+            public function onFitnessEquipmentUpdate(data) { }
 
 
-/**
- * Number of shift failures (0 - 255).
- * @param 
- * @returns  Integer 
-*/
-public function shiftFailureCount() { }
+        }
 
 
-}
+        public class FitnessEquipmentMode {
 
+            /**
+            * Flag for basic resistance training mode support  
+            * @type Toybox.Lang.Boolean
+            */
+            public var basicResistanceSupported;
 
-public class DeviceConfig {
 
-/**
- * The unique device number (ANT-id).
- * @type Object
-*/
-public var deviceNumber;
+            /**
+            * The current training mode of the fitness equipment  
+            * @type Toybox.Lang.Number
+            */
+            public var mode;
 
 
-/**
- * A 1-Byte device type identifier.
- * @type Object
-*/
-public var deviceType;
+            /**
+            * Flag for simulation training mode support  
+            * @type Toybox.Lang.Boolean
+            */
+            public var simulationSupported;
 
 
-/**
- * The Message period that the sensor uses.
- * @type Object
-*/
-public var messagePeriod;
+            /**
+            * Flag for target power training mode support  
+            * @type Toybox.Lang.Boolean
+            */
+            public var targetPowerSupported;
 
 
-/**
- * A 128 bit network key.
- * @type Object
-*/
-public var networkKey128Bit;
+        }
 
 
-/**
- * A 64 bit network key.
- * @type Object
-*/
-public var networkKey64Bit;
+        public class LightNetwork {
 
+            /**
+            * Get a list of lights in the network.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getBikeLights() { }
 
-/**
- * The radio frequency that the sensor operates on.
- * @type Object
-*/
-public var radioFrequency;
 
+            /**
+            * Get the light network mode.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getNetworkMode() { }
 
-/**
- * The proximity threshold bin.
- * @type Object
-*/
-public var searchThreshold;
 
+            /**
+            * Get the light network state.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getNetworkState() { }
 
-/**
- * High Priority search timeout that a receiving channel will wait for in
- * @type Object
-*/
-public var searchTimeoutHighPriority;
 
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.LightNetworkListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-/**
- * The low Priority search timeout that a receiving channel will wait for in
- * @type Object
-*/
-public var searchTimeoutLowPriority;
 
+            /**
+            * Tell all headlights to enter the same mode. You should check the capable modes of each headlight in the network before sending light modes, as lights will ignore commands to go into modes that they do not support. Lights whose modes are set here will not be controlled by the Light Network Mode until they are restored OR until the user changes the Light Network Mode outside of ConnectIQ.
+            * @param mode - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setHeadlightsMode(mode) { }
 
-/**
- * The manufacturer-specific transport type and extended device number.
- * @type Object
-*/
-public var transmissionType;
 
+            /**
+            * Tell all taillights to enter the same mode. You should check the capable modes of each taillight in the network before sending light modes, as lights will ignore commands to go into modes that they do not support. Lights whose modes are set here will not be controlled by the Light Network Mode until they are restored OR until the user changes the Light Network Mode outside of ConnectIQ.
+            * @param mode - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setTaillightsMode(mode) { }
 
-/**
- * The constructor for the device configuration object.
- * @type DeviceConfig
-*/
-public var initialize;
 
+            /**
+            * A signal switch for right and left singals. If signal light is engaged, disengage it. If signal lgiht is disengaged, engage it. *This will automatically disengage the opposite signal if it is currently engaged.
+            * @param left - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function toggleSignalLight(left) { }
 
-}
 
+        }
 
-public class DeviceListener {
 
-/**
- * Callback when battery status is received.
- * @param data
- * @returns  Object 
-*/
-public function onBatteryStatusUpdate(data) { }
+        public class LightNetworkListener {
 
+            /**
+            * Callback when a bike light's data is updated (max freq. 1Hz)
+            * @param data - (Toybox.AntPlus.BikeLight)
+            * @returns  
+            */
+            public function onBikeLightUpdate(data) { }
 
-/**
- * Callback when device state is updated.
- * @param data
- * @returns  Object 
-*/
-public function onDeviceStateUpdate(data) { }
 
+            /**
+            * Callback when the light network state changes
+            * @param data - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onLightNetworkStateUpdate(data) { }
 
-/**
- * Callback when manufacturer&#39;s information is received.
- * @param data
- * @returns  Object 
-*/
-public function onManufacturerInfoUpdate(data) { }
 
+        }
 
-/**
- * Callback when ANT message is received.
- * @param msg
- * @returns  Object 
-*/
-public function onMessage(msg) { }
 
+        public class ManufacturerInfo {
 
-/**
- * Callback when product information is received.
- * @param data
- * @returns  Object 
-*/
-public function onProductInfoUpdate(data) { }
+            /**
+            * The Hardware revision.  
+            * @type Toybox.Lang.Number
+            */
+            public var hwRevision;
 
 
-/**
- * After sending a manufacturer message or page request this will be called to
- * @param status
- * @param  sentMesgData
- * @returns  Object 
-*/
-public function onSentMessage(status, sentMesgData) { }
+            /**
+            * The Manufacturer ID.  
+            * @type Toybox.Lang.Number
+            */
+            public var manufacturerId;
 
 
-}
+            /**
+            * The Model number.  
+            * @type Toybox.Lang.Number
+            */
+            public var modelNumber;
 
 
-public class DeviceState {
+        }
 
-/**
- * The current Device ID being tracked/searched for.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function deviceNumber() { }
 
+        public class PedalPowerBalance {
 
-/**
- * The state of the device as an <span class='object_link'><a href="../AntPlus.html#DEVICE_STATE_CLOSED-constant" title="Toybox::AntPlus::DEVICE_STATE_CLOSED (constant)">DEVICE_STATE_*</a></span> value.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function state() { }
+            /**
+            * Pedal power percent (%)  
+            * @type Toybox.Lang.Number
+            */
+            public var pedalPowerPercent;
 
 
-}
+            /**
+            * Indicates the pedal contribution.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var rightPedalIndicator;
 
 
-public class FitnessEquipment {
+        }
 
-/**
- * Control the fitness Equipment Note: Setting a value related to a specific
- * @param setting
- * @param  data
- * @returns  Object 
-*/
-public function controlEquipment(setting, data) { }
 
+        public class ProductInfo {
 
-/**
- * Get the current training data from the FE.
- * @param 
- * @returns  Toybox::AntPlus::FitnessEquipmentData 
-*/
-public function getEquipmentData() { }
+            /**
+            * The serial number.  
+            * @type Toybox.Lang.Number
+            */
+            public var serial;
 
 
-/**
- * Get the resistance percentage setting of the fitness equipment for basic
- * @param 
- * @returns  Toybox::AntPlus::ResistanceSettings 
-*/
-public function getResistanceSettings() { }
+            /**
+            * The main software revision.  
+            * @type Toybox.Lang.Number
+            */
+            public var swRevisionMain;
 
 
-/**
- * Get the wind and track resistance simulation settings.
- * @param 
- * @returns  Toybox::AntPlus::SimulationSettings 
-*/
-public function getSimulationSettings() { }
+            /**
+            * The supplemental software revision.  
+            * @type Toybox.Lang.Number
+            */
+            public var swRevisionSupplemental;
 
 
-/**
- * Get the target power setting of the fitness equipment for target power
- * @param 
- * @returns  Toybox::AntPlus::TargetPowerSettings 
-*/
-public function getTargetPowerSettings() { }
+        }
 
 
-/**
- * Get the current training mode and supported modes of the fitness equipment.
- * @param 
- * @returns  Toybox::AntPlus::FitnessEquipmentMode 
-*/
-public function getTrainerMode() { }
+        public class RadarTarget {
 
+            /**
+            * Indicates the distance to the target in metres (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var range;
 
-/**
- * Get the user configuration settings of the fitness equipment for simulation
- * @param 
- * @returns  Toybox::AntPlus::UserSettings 
-*/
-public function getUserSettings() { }
 
+            /**
+            * Indicates the speed of the target relative to the user in metres per second (m/s).  
+            * @type Toybox.Lang.Float
+            */
+            public var speed;
 
-/**
- * The Constructor for the FitnessEquipment object.
- * @param listener
- * @returns  FitnessEquipment 
-*/
-public function initialize(listener) { }
 
+            /**
+            * The THREAT_LEVEL_* threat value.  
+            * @type Toybox.Lang.Number
+            */
+            public var threat;
 
-/**
- * Set the trainer mode.
- * @param mode
- * @returns  Object 
-*/
-public function setTrainerMode(mode) { }
 
+            /**
+            * The THREAT_SIDE_* threat position.  
+            * @type Toybox.Lang.Number
+            */
+            public var threatSide;
 
-}
 
+        }
 
-public class FitnessEquipmentData {
 
-/**
- * The elapsed distance calculated by the trainer since reset Range is always
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function feDistance() { }
+        public class ResistanceSettings {
 
+            /**
+            * The resistance percentage of the fitness equipment.  
+            * @type Toybox.Lang.Float
+            */
+            public var basicResistance;
 
-/**
- * The heart rate calculated by the trainer.
- * @param 
- * @returns  Toybox::Lang::Integer 
-*/
-public function feHeartRate() { }
 
+        }
 
-/**
- * The speed calculated by the trainer.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function feSpeed() { }
 
+        public class RunningDynamics {
 
-}
+            /**
+            * Use getRunningDynamics() to get the most current running dynamics.
+            * @returns  Toybox.AntPlus.RunningDynamicsData
+            */
+            public function getRunningDynamics() { }
 
 
-public class FitnessEquipmentListener {
+            /**
+            * Use getSensorPosition() to retrieve the position of the sensor on the body
+            * @returns  Toybox.AntPlus.SensorPosition
+            */
+            public function getSensorPosition() { }
 
-/**
- * Constructor.
- * @param 
- * @returns  FitnessEquipmentListener 
-*/
-public function initialize() { }
 
+            /**
+            * Constructor
+            * @param listener - (Toybox.AntPlus.RunningDynamicsListener)
+            * @returns  
+            */
+            public function initialize(listener) { }
 
-/**
- * Callback when fitness equipment data is updated.
- * @param data
- * @returns  Object 
-*/
-public function onFitnessEquipmentUpdate(data) { }
 
+        }
 
-}
 
+        public class RunningDynamicsData {
 
-public class FitnessEquipmentMode {
+            /**
+            * Filtered instantaneous cadence (0 - 255 strides/min) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var cadence;
 
-/**
- * Flag for basic resistance training mode support.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function basicResistanceSupported() { }
 
+            /**
+            * Filtered instantaneous ground contact balance (0 - 100%, 0.03125% precision) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var groundContactBalance;
 
-/**
- * The current training mode of the fitness equipment.
- * @param 
- * @returns  Toybox::Lang::Integer 
-*/
-public function mode() { }
 
+            /**
+            * Filtered instantaneous ground contact time (0 - 2047 ms) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var groundContactTime;
 
-/**
- * Flag for simulation training mode support.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function simulationSupported() { }
 
+            /**
+            * Filtered instantaneous stance time percentage (0 - 100%, 0.25% precision) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var stanceTime;
 
-/**
- * Flag for target power training mode support.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function targetPowerSupported() { }
 
+            /**
+            * Step count (rolls over!) (0 - 127 steps) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var stepCount;
 
-}
 
+            /**
+            * Step Length (0 - 8191 mm) Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var stepLength;
 
-public class LightNetwork {
 
-/**
- * Get a list of lights in the network.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getBikeLights() { }
+            /**
+            * Filtered instantaneous vertical oscillation (0 - 2047 mm, 0.25mm precision) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var verticalOscillation;
 
 
-/**
- * Get the light network mode.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getNetworkMode() { }
+            /**
+            * Vertical ratio (0 - 100%, 0.03125% precision) Returns: 
+            * @type Toybox.Lang.Float
+            */
+            public var verticalRatio;
 
 
-/**
- * Get the light network state.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getNetworkState() { }
+            /**
+            * true if walking, false if running Returns: 
+            * @type Toybox.Lang.Boolean
+            */
+            public var walkingFlag;
 
 
-/**
- * Constructor for the LightNetwork object.
- * @param listener
- * @returns  LightNetwork 
-*/
-public function initialize(listener) { }
+        }
 
 
-/**
- * Bring all headlights under the control of whichever light network mode has
- * @param 
- * @returns  Object 
-*/
-public function restoreHeadlightsNetworkModeControl() { }
+        public class RunningDynamicsListener {
 
+            /**
+            * Callback when running dynamics are updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.RunningDynamicsData)
+            * @returns  
+            */
+            public function onRunningDynamicsUpdate(data) { }
 
-/**
- * Bring all taillights under the control of whichever light network mode has
- * @param 
- * @returns  Object 
-*/
-public function restoreTaillightsNetworkModeControl() { }
 
+            /**
+            * Callback when sensor position is updated (max freq 1Hz)
+            * @param data - (Toybox.AntPlus.SensorPosition)
+            * @returns  
+            */
+            public function onSensorPositionUpdate(data) { }
 
-/**
- * Tell all headlights to enter the same mode.
- * @param mode
- * @returns  Object 
-*/
-public function setHeadlightsMode(mode) { }
 
+        }
 
-/**
- * Tell all taillights to enter the same mode.
- * @param mode
- * @returns  Object 
-*/
-public function setTaillightsMode(mode) { }
 
+        public class SensorPosition {
 
-/**
- * A signal switch for right and left singals.
- * @param left
- * @returns  Object 
-*/
-public function toggleSignalLight(left) { }
+            /**
+            * AntPlus.BODY_LOCATION_* Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var bodyLocation;
 
 
-}
+            /**
+            * AntPlus.SENSOR_ORIENTATION_* Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var orientation;
 
 
-public class LightNetworkListener {
+        }
 
-/**
- * Constructor.
- * @param 
- * @returns  LightNetworkListener 
-*/
-public function initialize() { }
 
+        public class Shifting {
 
-/**
- * Callback when a bike light&#39;s data is updated (max freq. 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onBikeLightUpdate(data) { }
+            /**
+            * Get current shifting system statusWill not provide status for Shimano shifting systems.
+            * @returns  Toybox.AntPlus.ShiftingStatus
+            */
+            public function getShiftingStatus() { }
 
 
-/**
- * Callback when the light network state changes.
- * @param data
- * @returns  Object 
-*/
-public function onLightNetworkStateUpdate(data) { }
+        }
 
 
-}
+        public class ShiftingListener {
 
+        }
 
-public class ManufacturerInfo {
 
-/**
- * The Hardware revision.
- * @type Toybox::Lang::Number
-*/
-public var hwRevision;
+        public class ShiftingStatus {
 
+            /**
+            * Front derailleur status  
+            * @type Toybox.AntPlus.DerailleurStatus
+            */
+            public var frontDerailleur;
 
-/**
- * The Manufacturer ID.
- * @type Toybox::Lang::Number
-*/
-public var manufacturerId;
 
+            /**
+            * Rear derailleur status  
+            * @type Toybox.AntPlus.DerailleurStatus
+            */
+            public var rearDerailleur;
 
-/**
- * The Model number.
- * @type Toybox::Lang::Number
-*/
-public var modelNumber;
 
+        }
 
-/**
- * Constructor.
- * @type ManufacturerInfo
-*/
-public var initialize;
 
+        public class SimulationSettings {
 
-}
+            /**
+            * The simulated draft factor setting for simulation mode A draft factor of 0 removes all wind resistance, and 1.0 indicates no drafting effects.  
+            * @type Toybox.Lang.Float
+            */
+            public var draftFactor;
 
 
-public class PedalPowerBalance {
+            /**
+            * The slope (grade) setting of the simulated track  
+            * @type Toybox.Lang.Float
+            */
+            public var slope;
 
-/**
- * Pedal power percent (%).
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function pedalPowerPercent() { }
 
+            /**
+            * The simulated surface resistance coefficient for simulation mode. Dimensionless factor to quantify rolling resistance based on friction between bicycle tires and the tracker surface. Rolling Resistance [N] = (Bicycle Mass + Cyclist Mass) x Coefficient of Rolling Resistance x 9.8 Sample coefficents: Wooden track = 0.001 Smooth Concrete = 0.002 Asphalt Road = 0.004 Rough Road = 0.008  
+            * @type Toybox.Lang.Float
+            */
+            public var surfaceResistance;
 
-/**
- * Indicates the pedal contribution.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function rightPedalIndicator() { }
 
+            /**
+            * The simulated wind resistance coefficient setting for simulation mode Wind Resistance Coefficient [kg/m] = Frontal Surface Area [m2] x Drag Coefficient x Air Density [kg/m3]  
+            * @type Toybox.Lang.Float
+            */
+            public var windResistance;
 
-}
 
+            /**
+            * The simulated wind speed setting for simulation mode  
+            * @type Toybox.Lang.Float
+            */
+            public var windSpeed;
 
-public class ProductInfo {
 
-/**
- * The serial number.
- * @type Toybox::Lang::Number
-*/
-public var serial;
+        }
 
 
-/**
- * The main software revision.
- * @type Toybox::Lang::Number
-*/
-public var swRevisionMain;
+        public class TargetPowerSettings {
 
+            /**
+            * The target power set for the Fitness Equipment  
+            * @type Toybox.Lang.Float
+            */
+            public var targetPower;
 
-/**
- * The supplemental software revision.
- * @type Toybox::Lang::Number
-*/
-public var swRevisionSupplemental;
 
+        }
 
-/**
- * Constructor.
- * @type ProductInfo
-*/
-public var initialize;
 
+        public class TorqueEffectivenessPedalSmoothness {
 
-}
+            /**
+            * Left pedal smoothness if separate is supported, else it is the combined smoothness (%). Example: using Toybox.AntPlus; using Toybox.System; // Assumes AntPlus.BikePower.getTorqueEffectivenessPedalSmoothness(); already called var leftOrCombinedPedalSmoothness= TorqueEffectivenessPedalSmoothness.leftOrCombinedPedalSmoothness; System.println("leftOrCombinedPedalSmoothness is set to: " + leftOrCombinedPedalSmoothness);  
+            * @type Toybox.Lang.Float
+            */
+            public var leftOrCombinedPedalSmoothness;
 
 
-public class RadarTarget {
+            /**
+            * Left torque effectiveness. 0xFF: Invalid or negative values (%). Example: using Toybox.AntPlus; using Toybox.System; // Assumes AntPlus.BikePower.getTorqueEffectivenessPedalSmoothness(); already called var leftTorqueEffectiveness = TorqueEffectivenessPedalSmoothness.leftTorqueEffectiveness; System.println("leftTorqueEffectiveness is: " + leftTorqueEffectiveness);  
+            * @type Toybox.Lang.Float
+            */
+            public var leftTorqueEffectiveness;
 
-/**
- * Indicates the distance to the target in metres (m).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function range() { }
 
+            /**
+            * Right pedal smoothness (%). Example: using Toybox.AntPlus; using Toybox.System; // Assumes AntPlus.BikePower.getTorqueEffectivenessPedalSmoothness(); already called var rightPedalSmoothness = TorqueEffectivenessPedalSmoothness.rightPedalSmoothness; System.println("rightPedalSmoothness is: " + rightPedalSmoothness);  
+            * @type Toybox.Lang.Float
+            */
+            public var rightPedalSmoothness;
 
-/**
- * Indicates the speed of the target in metres per second (m/s).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function speed() { }
 
+            /**
+            * Right torque effectiveness. 0xFF: Invalid or negative values (%). Example: using Toybox.AntPlus; using Toybox.System; // Assumes AntPlus.BikePower.getTorqueEffectivenessPedalSmoothness(); already called var rightTorqueEffectiveness= TorqueEffectivenessPedalSmoothness.rightTorqueEffectiveness; System.println("rightTorqueEffectiveness is set to: " + rightTorqueEffectiveness);  
+            * @type Toybox.Lang.Float
+            */
+            public var rightTorqueEffectiveness;
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#THREAT_LEVEL_VEHICLE_FAST_APPROACHING-constant" title="Toybox::AntPlus::THREAT_LEVEL_VEHICLE_FAST_APPROACHING (constant)">THREAT_LEVEL_*</a></span>
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function threat() { }
 
+            /**
+            * Define if pedal smoothness is separate. Example: using Toybox.AntPlus; using Toybox.System; // Assumes AntPlus.BikePower.getTorqueEffectivenessPedalSmoothness(); already called var separatePedalSmoothnessSupport = TorqueEffectivenessPedalSmoothness.separatePedalSmoothnessSupport; System.println("separatePedalSmoothnessSupport is: " + separatePedalSmoothnessSupport);  
+            * @type Toybox.Lang.Boolean
+            */
+            public var separatePedalSmoothnessSupport;
 
-/**
- * The <span class='object_link'><a href="../AntPlus.html#THREAT_SIDE_LEFT-constant" title="Toybox::AntPlus::THREAT_SIDE_LEFT (constant)">THREAT_SIDE_*</a></span> threat position.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function threatSide() { }
 
+        }
 
-}
 
+        public class UserSettings {
 
-public class ResistanceSettings {
+            /**
+            * The bike weight set for simulation training mode  
+            * @type Toybox.Lang.Float
+            */
+            public var bikeWeight;
 
-/**
- * The resistance percentage of the fitness equipment.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function basicResistance() { }
 
+            /**
+            * The gear ratio set for simulation training mode  
+            * @type Toybox.Lang.Float
+            */
+            public var gearRatio;
 
-}
 
+            /**
+            * The user weight set for simulation training mode  
+            * @type Toybox.Lang.Float
+            */
+            public var userWeight;
 
-public class RunningDynamics {
 
-/**
- * Use getRunningDynamics() to get the most current running dynamics.
- * @param 
- * @returns  RunningDynamicsData 
-*/
-public function getRunningDynamics() { }
+            /**
+            * The wheel diameter set for simulation training mode  
+            * @type Toybox.Lang.Float
+            */
+            public var wheelDiameter;
 
 
-/**
- * Use getSensorPosition() to retrieve the position of the sensor on the body.
- * @param 
- * @returns  SensorPosition 
-*/
-public function getSensorPosition() { }
+        }
 
 
-/**
- * Constructor for the RunningDynamics object takes an extension of the
- * @param listener
- * @returns  RunningDynamics 
-*/
-public function initialize(listener) { }
+    }
 
+    module Application {
 
-}
+            /**
+            * Retrieve the AppBase Object that is currentlyrunning.
+            * @returns  Toybox.Application.AppBase
+            */
+            public function getApp() { }
 
 
-public class RunningDynamicsData {
+            /**
+            * Load a resource from the executable.
+            * @param resource - (Toybox.Lang.Symbol)
+            * @returns 
+            */
+            public function loadResource(resource) { }
 
-/**
- * Filtered instantaneous cadence (0 - 255 strides/min).
- * @param 
- * @returns  Integer 
-*/
-public function cadence() { }
 
+        
+        public class AppBase {
 
-/**
- * Filtered instantaneous ground contact balance (0 - 100%, 0.03125%
- * @param 
- * @returns  Float 
-*/
-public function groundContactBalance() { }
+            /**
+            * Check if application trial messages are allowed.Returns true if the application should allow the productto push unlock instruction pages for locked apps.Returns true by default.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function allowTrialMessage() { }
 
 
-/**
- * Filtered instantaneous ground contact time (0 - 2047 ms).
- * @param 
- * @returns  Integer 
-*/
-public function groundContactTime() { }
+            /**
+            * Override to provide a WatchUi.View for a goal that has triggered within a watch face. If a goal is reached when a watch face is running, this function will be triggered. The type of goal that was met will be provided, and the AppBase should return a View that displays a goal reached message and/or animations for that goal. If a View is returned from this function, the main watch face view will be shutdown, and then new View will pushed. If this method is not overridden in the AppBase, or if it returns null, the native goal screens will be shown.
+            * @param goalType - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getGoalView(goalType) { }
 
 
-/**
- * Filtered instantaneous stance time percentage (0 - 100%, 0.25% precision).
- * @param 
- * @returns  Float 
-*/
-public function stanceTime() { }
+            /**
+            * Override to provide the initial WatchUi.View andWatchUi.InputDelegate of theapplication.Providing a WatchUi.InputDelegate is optional for widgets and watch-apps.For watch faces and data fields, an Array containing just a WatchUi.View should be returned as input is not available for these app types.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getInitialView() { }
 
 
-/**
- * Step count (rolls over!) (0 - 127 steps).
- * @param 
- * @returns  Integer 
-*/
-public function stepCount() { }
+            /**
+            * Get the data associated with a given key from the object store. Properties must first be set with setProperty() before they are can be obtained with getProperty. Note: Symbols can change from build to build and are not to be used for for Keys or Values.
+            * @param key - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function getProperty(key) { }
 
 
-/**
- * Step Length (0 - 8191 mm).
- * @param 
- * @returns  Integer 
-*/
-public function stepLength() { }
+            /**
+            * Get a ServiceDelegate to runbackground tasks for this app.When a ServiceDelegate is retrieved, the following will occur:The method triggered within the ServiceDelegate will be runThe background task will exit using Background.exit() or System.exit()The background task will be automatically terminated after 30 seconds if it is not exited by these methods
+            * @returns  Toybox.Lang.Array
+            */
+            public function getServiceDelegate() { }
 
 
-/**
- * Filtered instantaneous vertical oscillation (0 - 2047 mm, 0.25mm
- * @param 
- * @returns  Float 
-*/
-public function verticalOscillation() { }
+            /**
+            * Override to provide the settings WatchUi.View andWatchUi.InputDelegate of theapplication.This function is only applicable to Watchfaces and Datafields.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getSettingsView() { }
 
 
-/**
- * Vertical ratio (0 - 100%, 0.03125% precision).
- * @param 
- * @returns  Float 
-*/
-public function verticalRatio() { }
+            /**
+            * Get a SyncDelegate objectthat communicates sync status to the system for syncing contentto the device.Supported Devices:Captain MarvelD2™ AirD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk2 / Descent™ Mk2iEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 530Edge® 830fēnix® 5 Plusfēnix® 5S Plusfēnix® 5X Plusfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerFirst AvengerForerunner® 245 MusicForerunner® 645 MusicForerunner® 745Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® Sq. Music Editionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.Communications.SyncDelegate
+            */
+            public function getSyncDelegate() { }
 
 
-/**
- * True if walking, False if running.
- * @param 
- * @returns  Boolean 
-*/
-public function walkingFlag() { }
+            /**
+            * Override to return the number of days remaining in the trialIf a developer wishes to implement time-based app trials, theywill need to override this function to return the number of daysremaining in the trial. This function will be called on app startupto determine if a trial is active and push a notice to the user ofhow many days remain in the trial. Note that ifallowTrialMessage()is overridden to return false, no notifications will be displayed.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getTrialDaysRemaining() { }
 
 
-}
+            /**
+            * Check if the application is in trial mode.This will always return true for developmentbuild apps. If the app has been signed by the storeit will return the current unlock state of the app.This method should not be overridden or your trial mode functionalitycould cease to function correctly.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isTrial() { }
 
 
-public class RunningDynamicsListener {
+            /**
+            * Handle data passed from a ServiceDelegate to the application. When the Background process terminates, a data payload may be available. If the main application is active when this occurs, the data will be passed directly to the application's onBackgroundData() method. If the main application is not active, the data will be saved until the next time the application is launched and will be passed to the application after the onStart() method completes.
+            * @param data - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function onBackgroundData(data) { }
 
-/**
- * Constructor.
- * @param 
- * @returns  RunningDynamicsListener 
-*/
-public function initialize() { }
 
+            /**
+            * Method called at startup to allow handling of app initialization. Before the initial WatchUi.View is retrieved, onStart() is called. Application level settings can be initialized or retrieved from the object store before the initial View is created. This method must be overridden to handle your own app initialization.
+            * @param state - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function onStart(state) { }
 
-/**
- * Callback when running dynamics are updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onRunningDynamicsUpdate(data) { }
 
+            /**
+            * Override to handle application cleanup upon termination. If the application needs to save data to the object store it should be done in this function. Once the function is complete, the application will terminate.
+            * @param state - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function onStop(state) { }
 
-/**
- * Callback when sensor position is updated (max freq 1Hz).
- * @param data
- * @returns  Object 
-*/
-public function onSensorPositionUpdate(data) { }
 
+            /**
+            * Store the given data in the object. Keys can be of the following types: String Number Float Boolean Char Long Double Values can be of the following types: String Number Float Boolean Char Long Double Array Dictionary Array and Dictionary values may contain null values or any of the above listed types. There is a limit on the size of the Properties of 32 KB. If this limit is reached, the properties will not be saved or reloaded. Note: Background processes cannot save properties. Note: Symbols can change from build to build and are not to be used for for Keys or Values.
+            * @param key - The key used to store and retrieve the value from the object store (cannot be a Symbol);;value
+            * @param value -  the object store (cannot be a Symbol);;value
+            * @returns  
+            */
+            public function setProperty(key,value) { }
 
-}
 
+        }
 
-public class SensorPosition {
 
-/**
- * AntPlus.BODY_LOCATION_*.
- * @param 
- * @returns  Integer 
-*/
-public function bodyLocation() { }
+        public class AudioContentProviderApp {
 
+            /**
+            * Get a ContentDelegate for use by the system to get and iterate through media content on the device.
+            * @returns  
+            */
+            public function getContentDelegate() { }
 
-/**
- * AntPlus.SENSOR_ORIENTATION_*.
- * @param 
- * @returns  Integer 
-*/
-public function orientation() { }
 
+            /**
+            * Get the initial view for configuring playback.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getPlaybackConfigurationView() { }
 
-}
 
+            /**
+            * Get the initial view for configuring sync.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getSyncConfigurationView() { }
 
-public class Shifting {
 
-/**
- * Get current shifting system status Will not provide status for Shimano
- * @param 
- * @returns  ShiftingStatus 
-*/
-public function getShiftingStatus() { }
+            /**
+            * This has been deprecatedThis method will be removed in Connect IQ 6.0.0Get a SyncDelegate object thatcommunicates sync status to the system for syncing media content tothe device.
+            * @returns  Toybox.Media.SyncDelegate
+            */
+            public function getSyncDelegate() { }
 
 
-/**
- * Constructor for the Shifting object.
- * @param listener
- * @returns  Shifting 
-*/
-public function initialize(listener) { }
+        }
 
 
-}
+        public class ObjectStoreAccessException {
 
+        }
 
-public class ShiftingListener {
 
-/**
- * Constructor.
- * @param 
- * @returns  ShiftingListener 
-*/
-public function initialize() { }
+    }
 
+    module Properties {
 
-/**
- * Callback when shifting system status is changed.
- * @param data
- * @returns  Object 
-*/
-public function onShiftingUpdate(data) { }
+        public class InvalidKeyException {
 
+        }
 
-}
 
+    }
 
-public class ShiftingStatus {
+    module Storage {
 
-/**
- * Front derailleur status.
- * @param 
- * @returns  DerailleurStatus 
-*/
-public function frontDerailleur() { }
+    }
 
+    module Attention {
 
-/**
- * Rear derailleur status.
- * @param 
- * @returns  DerailleurStatus 
-*/
-public function rearDerailleur() { }
+        
+        public class ToneProfile {
 
+            /**
+            * Constructor
+            * @param aFrequency - (Toybox.Lang.Number)
+            * @param aDuration - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function initialize(aFrequency,aDuration) { }
 
-}
 
+        }
 
-public class SimulationSettings {
 
-/**
- * The simulated draft factor setting for simulation mode A draft factor of 0
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function draftFactor() { }
+        public class VibeProfile {
 
+            /**
+            * Constructor
+            * @param dutyCycleVal - (Toybox.Lang.Number)
+            * @param lengthVal - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function initialize(dutyCycleVal,lengthVal) { }
 
-/**
- * The slope (grade) setting of the simulated track.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function slope() { }
 
+        }
 
-/**
- * The simulated surface resistance coefficient for simulation mode.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function surfaceResistance() { }
 
+    }
 
-/**
- * The simulated wind resistance coefficient setting for simulation mode Wind
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function windResistance() { }
+    module Background {
 
+            /**
+            * Remove the active goal background event of specified type for the application.
+            * @param goalType - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function deleteGoalEvent(goalType) { }
 
-/**
- * The simulated wind speed setting for simulation mode.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function windSpeed() { }
 
+            /**
+            * Terminates the current background process. All background processes should call this method when they have completed the desired tasks. Data passed to this method will either be passed immediately to the active application if it is running, or will be saved and passed to the application the next time it runs. Data must be one of the following types: String Number Float Boolean Char Long Double Array Dictionary Arrays and Dictionaries may contain null values or any of the above listed types. If no data should be passed to the main process, null may be specified. This method will exit if called by a background process, but will do nothing if called by the main application process.
+            * @param backgroundData - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function exit(backgroundData) { }
 
-}
 
+            /**
+            * Get whether a background event is registered with registerForGoalEvent().
+            * @param goalType - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getGoalEventRegistered(goalType) { }
 
-public class TargetPowerSettings {
 
-/**
- * The target power set for the Fitness Equipment.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function targetPower() { }
+            /**
+            * Get the time the last temporal background event was triggered.This is useful for ensuring new events are not scheduled within the fiveminute minimum time allowed between temporal events.Example:Register a new temporal background event as soon as allowedusing Toybox.Background;using Toybox.Time;const FIVE_MINUTES = new Time.Duration(5 * 60);var lastTime = Background.getLastTemporalEventTime();if (lastTime != null) {// Events scheduled for a time in the past trigger immediatelyvar nextTime = lastTime.add(FIVE_MINUTES);Background.registerForTemporalEvent(nextTime);} else {Background.registerForTemporalEvent(Time.now());}
+            * @returns  Toybox.Time.Moment
+            */
+            public function getLastTemporalEventTime() { }
 
 
-}
+            /**
+            * Get whether a background event is registered withregisterForOAuthResponseEvent()
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function getOAuthResponseEventRegistered() { }
 
 
-public class TorqueEffectivenessPedalSmoothness {
+            /**
+            * Get whether a background event is registered withregisterForPhoneAppMessageEvent()Supported Devices:Approach® S60Approach® S62Captain MarvelD2™ AirD2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 130Edge® 130 Plusepix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 230Forerunner® 235Forerunner® 245Forerunner® 245 MusicForerunner® 630Forerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive®vívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function getPhoneAppMessageEventRegistered() { }
 
-/**
- * Left pedal smoothness if separate is supported, else it is the combined
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function leftOrCombinedPedalSmoothness() { }
 
+            /**
+            * Get whether a background event is registered withregisterForPushNotificationEvent()
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function getPushNotificationEventRegistered() { }
 
-/**
- * Left torque effectiveness.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function leftTorqueEffectiveness() { }
 
+            /**
+            * Get whether a background event is registered withregisterForSleepEvent().
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function getSleepEventRegistered() { }
 
-/**
- * Right pedal smoothness (%).
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function rightPedalSmoothness() { }
 
+            /**
+            * Get whether a background event is registered withregisterForStepsEvent().
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function getStepsEventRegistered() { }
 
-/**
- * Right torque effectiveness.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function rightTorqueEffectiveness() { }
 
+            /**
+            * Get the Moment or Duration with which a background event is registered byregisterForTemporalEvent().
+            * @returns  Toybox.Time.Moment, Toybox.Time.Duration
+            */
+            public function getTemporalEventRegisteredTime() { }
 
-/**
- * Define if pedal smoothness is separate.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function separatePedalSmoothnessSupport() { }
 
+            /**
+            * Get whether a background event is registered withregisterForWakeEvent().
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function getWakeEventRegistered() { }
 
-}
 
+            /**
+            * Register a background event that triggers when the user reaches a specified goal.
+            * @param goalType - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function registerForGoalEvent(goalType) { }
 
-public class UserSettings {
 
-/**
- * The bike weight set for simulation training mode.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function bikeWeight() { }
+            /**
+            * Register a background event that triggers at a specific time or at a regular interval. Temporal background events may be registered to run at a specific point in time by providing a Moment at which the event should trigger, or may be registered to run at a periodically by specifying an interval Duration. If a temporal event is scheduled for a time in the past, the event will trigger immediately. Temporal events cannot be set to occur less than 5 minutes after the last temporal event occurred. For watch-apps and widgets the 5 minute restriction is cleared on application startup if the event was specified using a Moment. Only one temporal event may be registered at a time. Calling registerForTemporalEvent will overwrite any previously registered temporal events.
+            * @param time - (Toybox.Time.Moment, Toybox.Time.Duration)
+            * @returns  
+            */
+            public function registerForTemporalEvent(time) { }
 
 
-/**
- * The gear ratio set for simulation training mode.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function gearRatio() { }
+            /**
+            * Display a confirmation dialog requesting to launch the application to which the background task belongs. If the dialog is confirmed, the application will open. If the dialog is declined, the application will not open and the dialog will be dismissed. This request is only valid for widget or device app background tasks, and will be ignored by watch face apps. Background.exit() must be called at some point in the background process after this method is invoked because the confirmation dialog will only trigger after the background task exits.
+            * @param message - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function requestApplicationWake(message) { }
 
 
-/**
- * The user weight set for simulation training mode.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function userWeight() { }
+        
+        public class ExitDataSizeLimitException {
 
+        }
 
-/**
- * The wheel diameter set for simulation training mode.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function wheelDiameter() { }
 
+        public class InvalidBackgroundTimeException {
 
-}
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-}
+        }
 
-module Application {
 
-public class AppBase {
+        public class MessageSizeLimitException {
 
-/**
- * Check if application trial messages are allowed.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function allowTrialMessage() { }
+        }
 
 
-/**
- * This method will be removed in Connect IQ 4.0.0
- * @param 
- * @returns  Object 
-*/
-public function clearProperties() { }
+    }
 
+    module BluetoothLowEnergy {
 
-/**
- * This method will be removed in Connect IQ 4.0.0
- * @param key
- * @returns  Object 
-*/
-public function deleteProperty(key) { }
+            /**
+            * Retrieves the CCCD Uuid
+            * @returns  Toybox.BluetoothLowEnergy.Uuid
+            */
+            public function cccdUuid() { }
 
 
-/**
- * Return user defined glance view for content preview purpose.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getGlanceView() { }
+            /**
+            * Accessor for determining the number of available connections
+            * @returns  Toybox.Lang.Number
+            */
+            public function getAvailableConnectionCount() { }
 
 
-/**
- * Override to provide a <span class='object_link'><a href="../WatchUi/View.html" title="Toybox::WatchUi::View (class)">WatchUi.View</a></span> for a goal that
- * @param goalType
- * @returns  Toybox::Lang::Array 
-*/
-public function getGoalView(goalType) { }
+            /**
+            * Retrieve an Iterator of all currently paired devices accessible to theApplication
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getPairedDevices() { }
 
 
-/**
- * Override to provide the initial <span class='object_link'><a href="../WatchUi/View.html" title="Toybox::WatchUi::View (class)">WatchUi.View</a></span> and
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getInitialView() { }
+            /**
+            * Converts long representation of a UUID to a Uuid object
+            * @param mostSigBits - (Toybox.Lang.Long)
+            * @param leastSigBits - (Toybox.Lang.Long)
+            * @returns 
+            */
+            public function longToUuid(mostSigBits,leastSigBits) { }
 
 
-/**
- * Get the data associated with a given key from the object store.
- * @param key
- * @returns  Toybox::Lang::Object 
-*/
-public function getProperty(key) { }
+            /**
+            * Pairs a peripheral device seen in scanning with the system. The BLE Subsystem will begin to search for the device specified by the scanResult parameter. Once the device is found and connected, onConnectedStateChanged() will be called on the registered BleDelegate with the associated device object This pairing does not persist across application instances.
+            * @param scanResult - (Toybox.BluetoothLowEnergy.ScanResult)
+            * @returns 
+            */
+            public function pairDevice(scanResult) { }
 
 
-/**
- * Get a <span class='object_link'><a href="../System/ServiceDelegate.html" title="Toybox::System::ServiceDelegate (class)">ServiceDelegate</a></span> to run background
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getServiceDelegate() { }
+            /**
+            * Starts the BLE Scanning Operations;;Once scanning is started onScanResults() will be called;;on the registered BleDelegate as Advertising data is received.
+            * @returns  
+            */
+            public function setScanState() { }
 
 
-/**
- * Get a <span class='object_link'><a href="../Communications/SyncDelegate.html" title="Toybox::Communications::SyncDelegate (class)">SyncDelegate</a></span> object that
- * @param 
- * @returns  Toybox::Communications::SyncDelegate 
-*/
-public function getSyncDelegate() { }
+            /**
+            * Converts the String Representation of a UUID into a Uuid Object
+            * @param str - (Toybox.Lang.String)
+            * @returns 
+            */
+            public function stringToUuid(str) { }
 
 
-/**
- * Override to return the number of days remaining in the trial.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getTrialDaysRemaining() { }
+        
+        public class BleDelegate {
 
+            /**
+            * After enabling notifications or indications on a characteristic by enabling the appropriate bit of the CCCD of the characteristic this function will be called after every change to the characteristic.
+            * @param characteristic - (Toybox.BluetoothLowEnergy.Characteristic)
+            * @param value - (Toybox.Lang.ByteArray)
+            * @returns  
+            */
+            public function onCharacteristicChanged(characteristic,value) { }
 
-/**
- * Check if the application is in trial mode.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isTrial() { }
 
+            /**
+            * After requesting a read operation on a characteristic using Characteristic.requestRead() this function will be called when the operation is completed.
+            * @param characteristic - (Toybox.BluetoothLowEnergy.Characteristic)
+            * @param status - (Toybox.Lang.Number)
+            * @param value - (Toybox.Lang.ByteArray)
+            * @returns  
+            */
+            public function onCharacteristicRead(characteristic,status,value) { }
 
-/**
- * This method will be removed in Connect IQ 3.0.0
- * @param 
- * @returns  Object 
-*/
-public function loadProperties() { }
 
+            /**
+            * After requesting a write operation on a characteristic using Characteristic.requestWrite() this function will be called when the operation is completed.
+            * @param characteristic - (Toybox.BluetoothLowEnergy.Characteristic)
+            * @param status - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onCharacteristicWrite(characteristic,status) { }
 
-/**
- * The callback method that is triggered in the background when the app is
- * @param 
- * @returns  Object 
-*/
-public function onAppInstall() { }
 
+            /**
+            * After pairing a device this will be called after the connection is made
+            * @param device - (Device)
+            * @param state -  was changed;;state
+            * @returns  
+            */
+            public function onConnectedStateChanged(device,state) { }
 
-/**
- * The callback method that is triggered in the background when the app is
- * @param 
- * @returns  Object 
-*/
-public function onAppUpdate() { }
 
+            /**
+            * After requesting a read operation on a descriptor using Descriptor.requestRead() this function will be called when the operation is completed.
+            * @param descriptor - (Toybox.BluetoothLowEnergy.Descriptor)
+            * @param status - (Toybox.Lang.Number)
+            * @param value - (Toybox.Lang.ByteArray)
+            * @returns  
+            */
+            public function onDescriptorRead(descriptor,status,value) { }
 
-/**
- * Handle data passed from a ServiceDelegate to the application.
- * @param data
- * @returns  Object 
-*/
-public function onBackgroundData(data) { }
 
+            /**
+            * After requesting a write operation on a descriptor using Descriptor.requestWrite() this function will be called when the operation is completed.
+            * @param descriptor - (Toybox.BluetoothLowEnergy.Descriptor)
+            * @param status - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onDescriptorWrite(descriptor,status) { }
 
-/**
- * Called when the application settings have been changed by Garmin Connect
- * @param 
- * @returns  Object 
-*/
-public function onSettingsChanged() { }
 
+            /**
+            * After Registering a UUID this callback will notify of the result of the registration request
+            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
+            * @param status - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onProfileRegister(uuid,status) { }
 
-/**
- * Method called at startup to allow handling of app initialization.
- * @param state
- * @returns  Object 
-*/
-public function onStart(state) { }
 
+            /**
+            * If a scan is running this will be called when new ScanResults are received
+            * @param scanResults - (Toybox.BluetoothLowEnergy.Iterator)
+            * @returns  
+            */
+            public function onScanResults(scanResults) { }
 
-/**
- * Override to handle application cleanup upon termination.
- * @param state
- * @returns  Object 
-*/
-public function onStop(state) { }
 
+            /**
+            * When the state of scanning is modified the system will call this function with the new state and a status indicating the result of the last call to BluetoothLowEnergy.setScanState().
+            * @param scanState - (Toybox.Lang.Number)
+            * @param status - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onScanStateChange(scanState,status) { }
 
-/**
- * This method will be removed in Connect IQ 3.0.0
- * @param 
- * @returns  Object 
-*/
-public function saveProperties() { }
 
+        }
 
-/**
- * Store the given data in the object.
- * @param key
- * @param  value
- * @returns  Object 
-*/
-public function setProperty(key, value) { }
 
+        public class Characteristic {
 
-/**
- * Validate a property being stored.
- * @param key
- * @param  value
- * @returns  Object 
-*/
-public function validateProperty(key, value) { }
+            /**
+            * Retrieves the Descriptor with a specified UUID
+            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
+            * @returns 
+            */
+            public function getDescriptor(uuid) { }
 
 
-}
+            /**
+            * Retrieves an Iterator over the Descriptorsdiscovered in the characteristicThis will only provide descriptors that have been registeredusing BluetoothLowEnergy.registerProfile()
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getDescriptors() { }
 
 
-public class AudioContentProviderApp {
+            /**
+            * Retrieves the Characteristic's ServiceRetrieve the Service that this characteristic belongs to
+            * @returns  Toybox.BluetoothLowEnergy.Service
+            */
+            public function getService() { }
 
-/**
- * Get a <span class='object_link'><a href="../Media/ContentDelegate.html" title="Toybox::Media::ContentDelegate (class)">ContentDelegate</a></span> for use by the
- * @param args
- * @returns  Toybox::Media::ContentDelegate 
-*/
-public function getContentDelegate(args) { }
 
+            /**
+            * Return the UUID of the Characteristic
+            * @returns  Toybox.BluetoothLowEnergy.Uuid
+            */
+            public function getUuid() { }
 
-/**
- * Get the initial view for configuring playback.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getPlaybackConfigurationView() { }
 
+            /**
+            * Requests a write operation Once the operation is completed BleDelegate.onCharacteristicWrite() will be called on the registered BleDelegate with the status of the operation Support for long writes is not implemented. Requesting a write on a characteristic longer than 20 bytes will cause a BluetoothLowEnergy.InvalidRequestException
+            * @param value - (Toybox.Lang.ByteArray)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function requestWrite(value,options) { }
 
-/**
- * Get audio provider icon information.
- * @param 
- * @returns  Toybox::Media::ProviderIconInfo 
-*/
-public function getProviderIconInfo() { }
 
+        }
 
-/**
- * Get the initial view for configuring sync.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getSyncConfigurationView() { }
 
+        public class Descriptor {
 
-/**
- * This method will be removed in Connect IQ 6.0.0
- * @param 
- * @returns  Toybox::Media::SyncDelegate 
-*/
-public function getSyncDelegate() { }
+            /**
+            * Retrieves the Descriptors CharacteristicRetrieve the Characteristic that this descriptor belongs to
+            * @returns  Toybox.BluetoothLowEnergy.Characteristic
+            */
+            public function getCharacteristic() { }
 
 
-/**
- * The AudioContentProviderApp constructor.
- * @param 
- * @returns  AudioContentProviderApp 
-*/
-public function initialize() { }
+            /**
+            * Returns the UUID of the Descriptor
+            * @returns  Toybox.BluetoothLowEnergy.Uuid
+            */
+            public function getUuid() { }
 
 
-}
+            /**
+            * Requests a write operation Writes the locally stored value to the remote descriptor. Once the operation is completed BleDelegate.onDescriptorWrite() will be called on the registered BleDelegate with the status of the operation Support for long writes is not implemented. Requesting a write on a characteristic longer than 20 bytes will cause a BluetoothLowEnergy.InvalidRequestException
+            * @param value - (Toybox.Lang.ByteArray)
+            * @returns  
+            */
+            public function requestWrite(value) { }
 
 
-public class ObjectStoreAccessException {
+        }
 
-/**
- * Constructor.
- * @param 
- * @returns  ObjectStoreAccessException 
-*/
-public function initialize() { }
 
+        public class DeviceConfig {
 
-}
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
 
-}
+        }
 
-module Properties {
 
-public class Properties {
+        public class DevicePairException {
 
-/**
- * InvalidKeyException constructor.
- * @param 
- * @returns  InvalidKeyException 
-*/
-public function initialize() { }
+        }
 
 
-}
+        public class InvalidRequestException {
 
+        }
 
-}
 
-module Storage {
+        public class HeartRateIterator {
 
-}
+            /**
+            * Get the maximum heart rate contained in this iterator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMax() { }
 
-module Attention {
 
-public class ToneProfile {
+            /**
+            * Get the minimum heart rate contained in this iterator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMin() { }
 
-/**
- * The duration of the vibration in milliseconds (ms).
- * @type Object
-*/
-public var duration;
 
+            /**
+            * Get the next entry in the iterator.This must be called to get the initial data from the iterator.
+            * @returns  Toybox.ActivityMonitor.HeartRateSample
+            */
+            public function next() { }
 
-/**
- * The frequency of the tone in hertz (hz).
- * @type Object
-*/
-public var frequency;
 
+        }
 
-/**
- * Create a new ToneProfile.
- * @type ToneProfile
-*/
-public var initialize;
 
+        public class ProfileRegistrationException {
 
-}
+        }
 
 
-public class VibeProfile {
+        public class ScanResult {
 
-/**
- * The strength of the vibration.
- * @type Object
-*/
-public var dutyCycle;
+            /**
+            * Compares the ScanResult to another object for equality
+            * @param other - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function equals(other) { }
 
 
-/**
- * Length of the vibration in milliseconds (ms).
- * @type Object
-*/
-public var length;
+            /**
+            * Gets the Advertised Appearance of the sensor
+            * @returns  Toybox.Lang.Number
+            */
+            public function getAppearance() { }
 
 
-/**
- * Create a new VibeProfile.
- * @type VibeProfile
-*/
-public var initialize;
+            /**
+            * Gets the advertised device nameIf no device name is advertised this function will return null
+            * @returns  Toybox.Lang.String
+            */
+            public function getDeviceName() { }
 
 
-}
+            /**
+            * Gets Manufacturer Specific Data for a given Manufacturer Manufacturer Specific Data is decoded according to the BLE Core Specification V4.0 Volume 3 Part C Section 18.11
+            * @param manufacturerId - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getManufacturerSpecificData(manufacturerId) { }
 
 
-}
+            /**
+            * Gets an iterator over all of the Manufacturer Specific Data ADEntries in the advertising packetManufacturer Specific Data is decoded according to the BLE CoreSpecification V4.0 Volume 3 Part C Section 18.11
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getManufacturerSpecificDataIterator() { }
 
-module Background {
 
-public class ExitDataSizeLimitException {
+            /**
+            * Gets the Raw Data that was retrieved in the advertising packet
+            * @returns  Toybox.Lang.ByteArray
+            */
+            public function getRawData() { }
 
-/**
- * Constructor.
- * @param 
- * @returns  ExitDataSizeLimitException 
-*/
-public function initialize() { }
 
+            /**
+            * Gets the received signal strength indication (RSSI) value of thereceived advertisement.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getRssi() { }
 
-}
 
+            /**
+            * Gets Service Data for a specific UUID Service data is decoded according to the BLE Core Specification V4.0 Volume 3 Part C Section 18.10
+            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
+            * @returns 
+            */
+            public function getServiceData(uuid) { }
 
-public class InvalidBackgroundTimeException {
 
-/**
- * Constructor.
- * @param msg
- * @returns  InvalidBackgroundTimeException 
-*/
-public function initialize(msg) { }
+            /**
+            * Gets service UUIDs advertised by the deviceIf the advertising data contains any service UUID values. They canbe accessed through this iterator. If there are no advertised UUIDsthis function will return an empty iterator.
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getServiceUuids() { }
 
 
-}
+            /**
+            * Check that advertised device BLE address matches
+            * @param address - (Toybox.Lang.ByteArray, Toybox.Lang.String)
+            * @returns 
+            */
+            public function hasAddress(address) { }
 
 
-public class MessageSizeLimitException {
+            /**
+            * Determines if another scan result represents the same device as another.
+            * @param other - (Toybox.BluetoothLowEnergy.ScanResult)
+            * @returns 
+            */
+            public function isSameDevice(other) { }
 
-/**
- * Constructor.
- * @param 
- * @returns  MessageSizeLimitException 
-*/
-public function initialize() { }
 
+        }
 
-}
 
+        public class Service {
 
-}
+            /**
+            * Retrieves the Characteristic with a specified UUID
+            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
+            * @returns 
+            */
+            public function getCharacteristic(uuid) { }
 
-module BluetoothLowEnergy {
 
-public class BleDelegate {
+            /**
+            * Retrieves an Iterator over the Characteristics in a ServiceThis will only provide characteristics that have been registeredusing BluetoothLowEnergy.registerProfile()
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getCharacteristics() { }
 
-/**
- * BleDelegate constructor.
- * @param 
- * @returns  BleDelegate 
-*/
-public function initialize() { }
 
+            /**
+            * Retrieves the Service's DeviceRetrieve the Device that this service belongs to
+            * @returns  Toybox.BluetoothLowEnergy.Device
+            */
+            public function getDevice() { }
 
-/**
- * After enabling notifications or indications on a characteristic by enabling
- * @param characteristic
- * @param  value
- * @returns  Object 
-*/
-public function onCharacteristicChanged(characteristic, value) { }
 
+            /**
+            * Returns the UUID of the service
+            * @returns  Toybox.BluetoothLowEnergy.Uuid
+            */
+            public function getUuid() { }
 
-/**
- * After requesting a read operation on a characteristic using
- * @param characteristic
- * @param  status
- * @param  value
- * @returns  Object 
-*/
-public function onCharacteristicRead(characteristic, status, value) { }
 
+        }
 
-/**
- * After requesting a write operation on a characteristic using
- * @param characteristic
- * @param  status
- * @returns  Object 
-*/
-public function onCharacteristicWrite(characteristic, status) { }
 
+        public class Uuid {
 
-/**
- * After pairing a device this will be called after the connection is made.
- * @param device
- * @param  state
- * @returns  Object 
-*/
-public function onConnectedStateChanged(device, state) { }
+            /**
+            * Compares the Uuid to another object for equality
+            * @param other - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function equals(other) { }
 
 
-/**
- * After requesting a read operation on a descriptor using
- * @param descriptor
- * @param  status
- * @param  value
- * @returns  Object 
-*/
-public function onDescriptorRead(descriptor, status, value) { }
+            /**
+            * Convert UUID to a Little Endian Byte Array
+            * @returns  Toybox.Lang.ByteArray
+            */
+            public function toByteArray() { }
 
 
-/**
- * After requesting a write operation on a descriptor using
- * @param descriptor
- * @param  status
- * @returns  Object 
-*/
-public function onDescriptorWrite(descriptor, status) { }
+            /**
+            * Convert a UUID to a String
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
-/**
- * After Registering a UUID this callback will notify of the result of the
- * @param uuid
- * @param  status
- * @returns  Object 
-*/
-public function onProfileRegister(uuid, status) { }
+        }
 
 
-/**
- * If a scan is running this will be called when new ScanResults are received.
- * @param scanResults
- * @returns  Object 
-*/
-public function onScanResults(scanResults) { }
+        public class UuidFormatException {
 
+        }
 
-/**
- * When the state of scanning is modified the system will call this function
- * @param scanState
- * @param  status
- * @returns  Object 
-*/
-public function onScanStateChange(scanState, status) { }
 
+    }
 
-}
+    module Communications {
 
+            /**
+            * Convert a URL String into a percent-encoded string. The reserved characters in the string will be replaced with their corresponding hex-value pairs. This follows the URI-encoding scheme as detailed by RFC 3986.
+            * @param url - (Toybox.Lang.String)
+            * @returns 
+            */
+            public function encodeURL(url) { }
 
-public class Characteristic {
 
-/**
- * Retrieves the Descriptor with a specified UUID.
- * @param uuid
- * @returns  Toybox::BluetoothLowEnergy::Descriptor 
-*/
-public function getDescriptor(uuid) { }
+            /**
+            * Generate the value for the "Authorization" header in an OAuth 1.0a request. The returned value can be set as the "Authorization" header for makeWebRequest().
+            * @param url - (Toybox.Lang.String)
+            * @param params - (Toybox.Lang.Dictionary)
+            * @param requestMethod - (Toybox.Lang.Number)
+            * @param signatureMethod - (Toybox.Lang.Number)
+            * @param token - (Toybox.Lang.String)
+            * @param tokenSecret - (Toybox.Lang.String)
+            * @param consumerKey - (Toybox.Lang.String)
+            * @param consumerSecret - (Toybox.Lang.String)
+            * @returns 
+            */
+            public function generateSignedOAuthHeader(url,params,requestMethod,signatureMethod,token,tokenSecret,consumerKey,consumerSecret) { }
 
 
-/**
- * Retrieves an Iterator over the <span class='object_link'><a href="Descriptor.html" title="Toybox::BluetoothLowEnergy::Descriptor (class)">Descriptors</a></span>
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Iterator 
-*/
-public function getDescriptors() { }
+            /**
+            * This has been deprecatedThis method will be removed in Connect IQ 4.0.0Get the MailboxIterator for this Application's mailbox.Supported Devices:Approach® S60Approach® S62Captain MarvelD2™ AirD2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 130Edge® 130 Plusepix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 230Forerunner® 235Forerunner® 245Forerunner® 245 MusicForerunner® 630Forerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive®vívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+            * @returns  Toybox.Communications.MailboxIterator
+            */
+            public function getMailbox() { }
 
 
-/**
- * Retrieves the Characteristic&#39;s Service.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Service 
-*/
-public function getService() { }
+            /**
+            * Request an image through Garmin Connect Mobile. GCM will scale and dither the image based on the capabilities of the device, but the user will be able to pass additional options (like dithering it down to a one color image)
+            * @param url - (Toybox.Lang.String)
+            * @param parameters - (Toybox.Lang.Dictionary)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @param responseCallback - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function makeImageRequest(url,parameters,options,responseCallback) { }
 
 
-/**
- * Return the UUID of the Characteristic.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Uuid 
-*/
-public function getUuid() { }
+            /**
+            * This has been deprecated This method will be removed in Connect IQ 4.0.0 To use Garmin Connect Mobile as a proxy to the web, use makeJsonRequest(). The request is asynchronous; the responseCallback will be called when the request returns.
+            * @param url - (Toybox.Lang.String)
+            * @param parameters - (Toybox.Lang.Dictionary)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @param responseCallback - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function makeJsonRequest(url,parameters,options,responseCallback) { }
 
 
-/**
- * Requests a read operation on the characteristic.
- * @param 
- * @returns  Object 
-*/
-public function requestRead() { }
+            /**
+            * Request an OAuth sign-in through Garmin Connect Mobile. A notification will trigger on the phone, that when clicked, provides a web view that shows requestUrl. If the user grants permission to the app, then the callback registered by registerForOAuthMessages() will be called with an OAuthMessage from the OAuth response.
+            * @param requestUrl - (Toybox.Lang.String)
+            * @param requestParams - (Toybox.Lang.Dictionary)
+            * @param resultUrl - (Toybox.Lang.String)
+            * @param resultType - (Toybox.Lang.Number)
+            * @param resultKeys - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function makeOAuthRequest(requestUrl,requestParams,resultUrl,resultType,resultKeys) { }
 
 
-/**
- * Requests a write operation.
- * @param value
- * @param  options
- * @returns  Object 
-*/
-public function requestWrite(value, options) { }
+            /**
+            * Use Garmin Connect Mobile as a proxy to the web. Web requests are asynchronous. The supplied response callback method will be called when the request returns.
+            * @param url - (Toybox.Lang.String)
+            * @param parameters - (Toybox.Lang.Dictionary)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @param responseCallback - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function makeWebRequest(url,parameters,options,responseCallback) { }
 
 
-}
+            /**
+            * Send a system notification to indicate overall sync progress.
+            * @param percentageComplete - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function notifySyncProgress(percentageComplete) { }
 
 
-public class Descriptor {
+            /**
+            * Request that GCM issue a phone notification that will open a web page. This method will push a phone notification that must be accepted by the user. If the used accepts it, a web page defined by this method will be opened in the default browser on the phone.
+            * @param url - (Toybox.Lang.String)
+            * @param params - (Toybox.Lang.Dictionary)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function openWebPage(url,params,options) { }
 
-/**
- * Retrieves the Descriptors Characteristic.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Characteristic 
-*/
-public function getCharacteristic() { }
 
+            /**
+            * Register a callback for receiving OAuth messages. The callback will be called once for each received OAuth message. If there are messages waiting for the app when this function is called, the callback will immediately be called once for each waiting message.
+            * @param method - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function registerForOAuthMessages(method) { }
 
-/**
- * Returns the UUID of the Descriptor.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Uuid 
-*/
-public function getUuid() { }
 
+            /**
+            * Register a callback for receiving Phone App messages. The callback will be called once for each message received. If there are messages waiting for the app when this function is called, the callback will immediately be called once for each waiting message.
+            * @param method - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function registerForPhoneAppMessages(method) { }
 
-/**
- * Requests a read operation on the descriptor.
- * @param 
- * @returns  Object 
-*/
-public function requestRead() { }
 
+            /**
+            * This has been deprecated This method will be removed in Connect IQ 4.0.0 Add a listener for mailbox events. The listener method is called whenever a new message is received.
+            * @param listener - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function setMailboxListener(listener) { }
 
-/**
- * Requests a write operation.
- * @param value
- * @returns  Object 
-*/
-public function requestWrite(value) { }
 
+            /**
+            * Send data across the the BLE link.
+            * @param content - (Toybox.Lang.Object)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @param listener - (Toybox.Communications.ConnectionListener)
+            * @returns  
+            */
+            public function transmit(content,options,listener) { }
 
-}
 
+        
+        public class ConnectionListener {
 
-public class DeviceConfig {
+        }
 
-/**
- * The unique device number (ANT-id).
- * @type Object
-*/
-public var deviceNumber;
 
+        public class MailboxIterator {
 
-/**
- * A 1-Byte device type identifier.
- * @type Object
-*/
-public var deviceType;
+        }
 
 
-/**
- * The Message period that the sensor uses.
- * @type Object
-*/
-public var messagePeriod;
+        public class Message {
 
+            /**
+            * Get the ANT data packet.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getPayload() { }
 
-/**
- * A 128 bit network key.
- * @type Object
-*/
-public var networkKey128Bit;
 
+            /**
+            * Set the ANT data packet.
+            * @param data - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function setPayload(data) { }
 
-/**
- * A 64 bit network key.
- * @type Object
-*/
-public var networkKey64Bit;
 
+        }
 
-/**
- * The radio frequency that the sensor operates on.
- * @type Object
-*/
-public var radioFrequency;
 
+        public class OAuthMessage {
 
-/**
- * The proximity threshold bin.
- * @type Object
-*/
-public var searchThreshold;
+            /**
+            * An HTTP response code (positive value) or BLE error code (negative value). Note: The value in this field is unreliable and should not be referenced. It is generally safer to examine the message payload to check the status of the response.  
+            * @type Toybox.Lang.Number
+            */
+            public var responseCode;
 
 
-/**
- * High Priority search timeout that a receiving channel will wait for in
- * @type Object
-*/
-public var searchTimeoutHighPriority;
+        }
 
 
-/**
- * The low Priority search timeout that a receiving channel will wait for in
- * @type Object
-*/
-public var searchTimeoutLowPriority;
+        public class PhoneAppMessage {
 
+        }
 
-/**
- * The manufacturer-specific transport type and extended device number.
- * @type Object
-*/
-public var transmissionType;
 
+        public class SyncDelegate {
 
-/**
- * The constructor for the device configuration object.
- * @type DeviceConfig
-*/
-public var initialize;
+            /**
+            * Check if a sync is needed.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isSyncNeeded() { }
 
 
-}
+        }
 
 
-public class DevicePairException {
+    }
 
-}
+    module Cryptography {
 
+        
+        public class Cipher {
 
-public class InvalidRequestException {
+            /**
+            * Decrypt data with the key, depending on how the cipher was initialized. Decryption can be broken up into two or more calls to decrypt(). For MODE_CBC, the ciphertext length (in bytes) must be a multiple of the block size.
+            * @param ciphertext - (Toybox.Lang.ByteArray)
+            * @returns 
+            */
+            public function decrypt(ciphertext) { }
 
-}
 
+        }
 
-public class HeartRateIterator {
 
-/**
- * Get the maximum heart rate contained in this iterator.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMax() { }
+        public class CipherBasedMessageAuthenticationCode {
 
+            /**
+            * Return the digest of the authentication code.The state of the object is reset and can be used to computea new authentication code with the same options.
+            * @returns  Toybox.Lang.ByteArray
+            */
+            public function digest() { }
 
-/**
- * Get the minimum heart rate contained in this iterator.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMin() { }
 
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-/**
- * Get the next entry in the iterator.
- * @param 
- * @returns  Toybox::ActivityMonitor::HeartRateSample 
-*/
-public function next() { }
 
+        }
 
-}
 
+        public class Hash {
 
-public class ProfileRegistrationException {
+            /**
+            * Get the current digest of the message that has been hashed.Note:This method resets the state of the Hash object, which can be used to compute a new hash
+            * @returns  Toybox.Lang.ByteArray
+            */
+            public function digest() { }
 
-}
 
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-public class ScanResult {
 
-/**
- * Gets the Advertised Appearance of the sensor.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getAppearance() { }
+        }
 
 
-/**
- * Gets the advertised device name.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function getDeviceName() { }
+        public class HashBasedMessageAuthenticationCode {
 
+            /**
+            * Return the digest of the authentication code.The state of the object is reset and can be used to computea new authentication code with the same options.
+            * @returns  Toybox.Lang.ByteArray
+            */
+            public function digest() { }
 
-/**
- * Gets Manufacturer Specific Data for a given Manufacturer.
- * @param manufacturerId
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function getManufacturerSpecificData(manufacturerId) { }
 
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-/**
- * Gets an iterator over all of the Manufacturer Specific Data AD Entries in
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Iterator 
-*/
-public function getManufacturerSpecificDataIterator() { }
 
+        }
 
-/**
- * Gets the Raw Data that was retrieved in the advertising packet.
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function getRawData() { }
 
+        public class InvalidBlockSizeException {
 
-/**
- * Gets the received signal strength indication (RSSI) value of the received
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getRssi() { }
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-/**
- * Gets Service Data for a specific UUID.
- * @param uuid
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function getServiceData(uuid) { }
+        }
 
 
-/**
- * Gets service UUIDs advertised by the device.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Iterator 
-*/
-public function getServiceUuids() { }
+        public class InvalidKeyException {
 
+        }
 
-/**
- * Determines if another scan result represents the same device as another.
- * @param other
- * @returns  Boolean 
-*/
-public function isSameDevice(other) { }
 
+        public class KeyAgreement {
 
-}
+            /**
+            * Add a public Key to KeyAgreement.
+            * @param key - (Toybox.Cryptography.Key)
+            * @returns  
+            */
+            public function addKey(key) { }
 
 
-public class Service {
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-/**
- * Retrieves the Characteristic with a specified UUID.
- * @param uuid
- * @returns  Toybox::BluetoothLowEnergy::Characteristic 
-*/
-public function getCharacteristic(uuid) { }
 
+        }
 
-/**
- * Retrieves an Iterator over the Characteristics in a Service.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Iterator 
-*/
-public function getCharacteristics() { }
 
+        public class KeyPair {
 
-/**
- * Retrieves the Service&#39;s Device.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Device 
-*/
-public function getDevice() { }
+            /**
+            * Get the private key.
+            * @returns  Toybox.Cryptography.Key
+            */
+            public function getPrivateKey() { }
 
 
-/**
- * Returns the UUID of the service.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Uuid 
-*/
-public function getUuid() { }
+            /**
+            * Constructor A KeyPair can be initialized from a private key by passing a private key ByteArray from an initialized Key object into the :privateKey option of the initialize method for this class. If no private key is provided, then both a private and public key will be generated using the required :algorithm option.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
 
-}
+        }
 
 
-public class Uuid {
+    }
 
-/**
- * Compares the Uuid to another object for equality.
- * @param other
- * @returns  Toybox::Lang::Boolean 
-*/
-public function equals(other) { }
+    module FitContributor {
 
+        
+        public class Field {
 
-/**
- * Retrieve a hash code of the UUID.
- * @param 
- * @returns  Object 
-*/
-public function hashCode() { }
+            /**
+            * Set the value to write to this Field.
+            * @param input - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function setData(input) { }
 
 
-/**
- * Convert UUID to a Little Endian Byte Array.
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function toByteArray() { }
+        }
 
 
-/**
- * Convert a UUID to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
+    }
 
+    module Graphics {
 
-}
+            /**
+            * Get a text string to fit in a specified area
+            * @param text - (Toybox.Lang.String)
+            * @param font - (Toybox.Lang.Number)
+            * @param width - (Toybox.Lang.Number)
+            * @param height - (Toybox.Lang.Number)
+            * @param truncate - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function fitTextToArea(text,font,width,height,truncate) { }
 
 
-public class UuidFormatException {
+            /**
+            * Get the recommended distance above the baseline for single spaced text. The base line is the line on which the text sits.
+            * @param font - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getFontAscent(font) { }
 
-}
 
+            /**
+            * Get the recommended distance below the baseline for single spaced text. The base line is the line on which the text sits.
+            * @param font - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getFontDescent(font) { }
 
-}
 
-module Communications {
+            /**
+            * Get the height (ascent plus descent) of the given font.
+            * @param font - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getFontHeight(font) { }
 
-public class ConnectionListener {
 
-/**
- * Callback when a communications operation completes.
- * @param 
- * @returns  Object 
-*/
-public function onComplete() { }
+        
+        public class BufferedBitmap {
 
+            /**
+            * Get the Dc to draw on the buffered bitmap.
+            * @returns  Toybox.Graphics.Dc
+            */
+            public function getDc() { }
 
-/**
- * Callback when a communications operation error occurs.
- * @param 
- * @returns  Object 
-*/
-public function onError() { }
 
+            /**
+            * null if this surface uses the system palette
+            * @returns  Toybox.Lang.Array
+            */
+            public function getPalette() { }
 
-}
 
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
-public class MailboxIterator {
 
-/**
- * Get the next message from the mailbox.
- * @param 
- * @returns  Object 
-*/
-public function next() { }
+        }
 
 
-}
+        public class Dc {
 
+            /**
+            * Draw an arc. 0 degrees: 3 o'clock position. 90 degrees: 12 o'clock position. 180 degrees: 9 o'clock position. 270 degrees: 6 o'clock position.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param r - ter;;r
+            * @param attr - (Toybox.Lang.Number)
+            * @param degreeStart - (Toybox.Lang.Number)
+            * @param degreeEnd - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function drawArc(x,y,r,attr,degreeStart,degreeEnd) { }
 
-public class Message {
 
-/**
- * The Unique device number (ANT-id).
- * @type Object
-*/
-public var deviceNumber;
+            /**
+            * Draw a bitmap to the screen.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param bitmap - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function drawBitmap(x,y,bitmap) { }
 
 
-/**
- * A 1-Byte device type identifier.
- * @type Object
-*/
-public var deviceType;
+            /**
+            * Draw an ellipse around a point.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param a - of the ellipse center;;a
+            * @param b - Toybox.Lang.Number)
+            * @returns  
+            */
+            public function drawEllipse(x,y,a,b) { }
 
 
-/**
- * Number of data bytes in the data payload (not including any extended data
- * @type Object
-*/
-public var length;
+            /**
+            * Draw a line between two points.
+            * @param x1 - (Toybox.Lang.Number)
+            * @param y1 - (Toybox.Lang.Number)
+            * @param x2 - (Toybox.Lang.Number)
+            * @param y2 - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function drawLine(x1,y1,x2,y2) { }
 
 
-/**
- * The Data Type Identifier.
- * @type Object
-*/
-public var messageId;
+            /**
+            * Draw a point on the screen.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function drawPoint(x,y) { }
 
 
-/**
- * The Received Signal Strength Indication.
- * @type Object
-*/
-public var rssi;
+            /**
+            * Draw a rectangle.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param width - (Toybox.Lang.Number)
+            * @param height - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function drawRectangle(x,y,width,height) { }
 
 
-/**
- * The time stamp of received message generated off of a 32.768 kHz clock.
- * @type Object
-*/
-public var timestamp;
+            /**
+            * Draw a rounded rectangle.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param width - (Toybox.Lang.Number)
+            * @param height - (Toybox.Lang.Number)
+            * @param radius - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function drawRoundedRectangle(x,y,width,height,radius) { }
 
 
-/**
- * The manufacturer-specific transport type and extended device number.
- * @type Object
-*/
-public var transmissionType;
+            /**
+            * Draw text at the given location. This method is not supported for anti-aliased fonts (including most built in fonts) for a BufferedBitmap that has a palette.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param font - (Toybox.WatchUi.FontResource)
+            * @param text - (Toybox.Lang.String)
+            * @param justification - ;The String to render. This can be a String loaded from resources or a hard coded String;;justification
+            * @returns  
+            */
+            public function drawText(x,y,font,text,justification) { }
 
 
-/**
- * Get the ANT data packet.
- * @type Toybox::Lang::Array
-*/
-public var getPayload;
+            /**
+            * Fill an ellipse with the foreground color.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param a - of the ellipse center;;a
+            * @param b - Toybox.Lang.Number)
+            * @returns  
+            */
+            public function fillEllipse(x,y,a,b) { }
 
 
-/**
- * Set the ANT data packet.
- * @type Object
-*/
-public var setPayload;
+            /**
+            * Fill a polygon with the foreground color.
+            * @param pts - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function fillPolygon(pts) { }
 
 
-}
+            /**
+            * Fill a rectangle with the foreground color.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param width - (Toybox.Lang.Number)
+            * @param height - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function fillRectangle(x,y,width,height) { }
 
 
-public class OAuthMessage {
+            /**
+            * Fill a rounded rectangle with the foreground color.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @param width - (Toybox.Lang.Number)
+            * @param height - (Toybox.Lang.Number)
+            * @param radius - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function fillRoundedRectangle(x,y,width,height,radius) { }
 
-/**
- * An HTTP response code (positive value) or BLE error code (negative value).
- * @type Toybox::Lang::Number
-*/
-public var responseCode;
 
+            /**
+            * Get the height of a font.
+            * @param font - (Toybox.WatchUi.FontResource)
+            * @returns 
+            */
+            public function getFontHeight(font) { }
 
-/**
- * Constructor.
- * @type OAuthMessage
-*/
-public var initialize;
 
+            /**
+            * Get the height of the display region that is available to the app.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getHeight() { }
 
-}
 
+            /**
+            * Get the width and height of a String. This takes new lines into account when determining the height. The width is the maximum width for a given line of the String. If a String has two newline characters (\\n) in it, the height would be for three lines and the width would be the width of the longest String.
+            * @param text - (Toybox.Lang.String)
+            * @param font - (Toybox.WatchUi.FontResource)
+            * @returns 
+            */
+            public function getTextDimensions(text,font) { }
 
-public class PhoneAppMessage {
 
-/**
- * Constructor.
- * @type PhoneAppMessage
-*/
-public var initialize;
+            /**
+            * Get the width of a String.
+            * @param text - (Toybox.Lang.String)
+            * @param font - (Toybox.WatchUi.FontResource)
+            * @returns 
+            */
+            public function getTextWidthInPixels(text,font) { }
 
 
-}
+            /**
+            * Get the width of the display region that is available to the app.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getWidth() { }
 
 
-public class SyncDelegate {
+            /**
+            * Enable anti-aliased drawing for primitives This method is not supported for a BufferedBitmap that has a palette.
+            * @param enabled - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function setAntiAlias(enabled) { }
 
-/**
- * Check if a sync is needed.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isSyncNeeded() { }
 
+            /**
+            * Set the current foreground and background colors.
+            * @param foreground - (Toybox.Lang.Number)
+            * @param background - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setColor(foreground,background) { }
 
-/**
- * Called when a sync is started by the system.
- * @param 
- * @returns  Object 
-*/
-public function onStartSync() { }
 
+            /**
+            * Set the width of a line.
+            * @param width - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setPenWidth(width) { }
 
-/**
- * Called when an active sync is cancelled.
- * @param 
- * @returns  Object 
-*/
-public function onStopSync() { }
 
+        }
 
-}
 
+        public class InvalidBitmapResourceException {
 
-}
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-module Cryptography {
 
-public class Cipher {
+        }
 
-/**
- * Decrypt data with the key, depending on how the cipher was initialized.
- * @param ciphertext
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function decrypt(ciphertext) { }
 
+        public class InvalidPaletteException {
 
-/**
- * Encrypt data with the key, depending on how the cipher was initialized.
- * @param plaintext
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function encrypt(plaintext) { }
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-/**
- * A new instance of Cipher.
- * @param options
- * @returns  Cipher 
-*/
-public function initialize(options) { }
+        }
 
 
-}
+    }
 
+    module Lang {
 
-public class CipherBasedMessageAuthenticationCode {
+            /**
+            * Create a formatted String by substituting the given parameters into the given format at the corresponding locations.
+            * @param format - (Toybox.Lang.String)
+            * @param parameters - (Toybox.Lang.Array)
+            * @returns 
+            */
+            public function format(format,parameters) { }
 
-/**
- * Return the digest of the authentication code.
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function digest() { }
 
+        
+        public class Array {
 
-/**
- * A new instance of CipherBasedMessageAuthenticationCode.
- * @param options
- * @returns  CipherBasedMessageAuthenticationCode 
-*/
-public function initialize(options) { }
+            /**
+            * Add an Object to the end of an Array. When adding an Object, the Array size is increased by one and the new Object is inserted at the new index.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function add(object) { }
 
 
-/**
- * Continue the computation of the CMAC by consuming the next chunk of data.
- * @param message
- * @returns  Object 
-*/
-public function update(message) { }
+            /**
+            * Add an Array of Objects to the end of an Array. When adding an Array of Objects, the Array is expanded by the size of the provided Array, and all of the new elements are inserted starting at the new index.
+            * @param array - (Toybox.Lang.Array)
+            * @returns 
+            */
+            public function addAll(array) { }
 
 
-}
+            /**
+            * Get the index of an Object within the Array.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function indexOf(object) { }
 
 
-public class Hash {
+            /**
+            * Remove an Object from an Array. If the passed Object is found, the Array size is decreased by one and elements beyond it are shifted to the next lower index. If the Array has multiple matches, the matching Object at the lowest index will be removed but the other matching Objects will not be removed. If no Object is given as an argument, the Array will remain unchanged and remove() will return false.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function remove(object) { }
 
-/**
- * Get the current digest of the message that has been hashed.
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function digest() { }
 
+            /**
+            * Remove Objects from an Array. For each instance of the Object that is found, the Array size is decreased by one and elements beyond it are shifted to the next lower index. If no Object is given as an argument, the Array will remain unchanged and removeAll() will return false.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function removeAll(object) { }
 
-/**
- * A new instance of Hash.
- * @param options
- * @returns  Hash 
-*/
-public function initialize(options) { }
 
+            /**
+            * Return a new Array that contains the elements of a source Array inreverse order.
+            * @returns  Toybox.Lang.Array
+            */
+            public function reverse() { }
 
-/**
- * Continue hashing of a message by consuming the next chunk of data.
- * @param message
- * @returns  Object 
-*/
-public function update(message) { }
 
+            /**
+            * Get the size of an Array.
+            * @returns  Toybox.Lang.Number
+            */
+            public function size() { }
 
-}
 
+            /**
+            * Get a new Array containing a portion of an existing Array.
+            * @param startIndex - (Toybox.Lang.Number)
+            * @param endIndex - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function slice(startIndex,endIndex) { }
 
-public class HashBasedMessageAuthenticationCode {
 
-/**
- * Return the digest of the authentication code.
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function digest() { }
+            /**
+            * Convert an Array to a String.This does not convert the elements of the Array into Strings, buttransforms the entire Array into a String.Example:using Toybox.System;var myArray = [1, 2, 3, 4, 5];System.println(myArray[1]);// prints 1var myString = myArray.toString();System.println(myString);// "[1, 2, 3, 4, 5]"System.println(myString[1]);// UnexpectedTypeExceptionSystem.println(myString.substring(0, 5));// "[1, 2"
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
-/**
- * A new instance of HashBasedMessageAuthenticationCode.
- * @param options
- * @returns  HashBasedMessageAuthenticationCode 
-*/
-public function initialize(options) { }
+        }
 
 
-/**
- * Continue computation of the HMAC by consuming the next chunk of data.
- * @param message
- * @returns  Object 
-*/
-public function update(message) { }
+        public class Boolean {
 
+        }
 
-}
 
+        public class ByteArray {
 
-public class InvalidBlockSizeException {
+            /**
+            * Add a byte to the end of a ByteArray. When adding a byte, the ByteArray size is increased and new bytes are inserted at the end.
+            * @param byte - (Toybox.Lang.Number, Toybox.Lang.Char)
+            * @returns 
+            */
+            public function add(byte) { }
 
-/**
- * A new instance of InvalidBlockSizeException.
- * @param msg
- * @returns  InvalidBlockSizeException 
-*/
-public function initialize(msg) { }
 
+            /**
+            * Get a hash code value for a ByteArray.
+            * @returns  Toybox.Lang.Number
+            */
+            public function hashCode() { }
 
-}
 
+            /**
+            * Get the index of a byte within the ByteArray.
+            * @param byte - (Toybox.Lang.Number, Toybox.Lang.Char)
+            * @returns 
+            */
+            public function indexOf(byte) { }
 
-public class Properties {
 
-/**
- * InvalidKeyException constructor.
- * @param 
- * @returns  InvalidKeyException 
-*/
-public function initialize() { }
+            /**
+            * Get the size of a ByteArray.
+            * @returns  Toybox.Lang.Number
+            */
+            public function size() { }
 
 
-}
+            /**
+            * Get a new ByteArray containing a portion of an existing ByteArray.
+            * @param startIndex - (Toybox.Lang.Number)
+            * @param endIndex - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function slice(startIndex,endIndex) { }
 
 
-public class KeyAgreement {
+            /**
+            * Convert a ByteArray to a String.This does not convert the elements of the ByteArray into Strings, buttransforms the entire ByteArray into a String.
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
-/**
- * Add a public <span class='object_link'><a href="Key.html" title="Toybox::Cryptography::Key (class)">Key</a></span> to KeyAgreement.
- * @param key
- * @returns  Object 
-*/
-public function addKey(key) { }
 
+        }
 
-/**
- * Generate a shared secret for the KeyAgreement.
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function generateSecret() { }
 
+        public class Characteristic {
 
-/**
- * A new instance of KeyAgreement.
- * @param options
- * @returns  KeyAgreement 
-*/
-public function initialize(options) { }
+            /**
+            * Retrieves the Descriptor with a specified UUID
+            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
+            * @returns 
+            */
+            public function getDescriptor(uuid) { }
 
 
-}
+            /**
+            * Retrieves an Iterator over the Descriptorsdiscovered in the characteristicThis will only provide descriptors that have been registeredusing BluetoothLowEnergy.registerProfile()
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getDescriptors() { }
 
 
-public class KeyPair {
+            /**
+            * Retrieves the Characteristic's ServiceRetrieve the Service that this characteristic belongs to
+            * @returns  Toybox.BluetoothLowEnergy.Service
+            */
+            public function getService() { }
 
-/**
- * Get the private key.
- * @param 
- * @returns  Toybox::Cryptography::Key 
-*/
-public function getPrivateKey() { }
 
+            /**
+            * Return the UUID of the Characteristic
+            * @returns  Toybox.BluetoothLowEnergy.Uuid
+            */
+            public function getUuid() { }
 
-/**
- * Get the public key.
- * @param 
- * @returns  Toybox::Cryptography::Key 
-*/
-public function getPublicKey() { }
 
+            /**
+            * Requests a write operation Once the operation is completed BleDelegate.onCharacteristicWrite() will be called on the registered BleDelegate with the status of the operation Support for long writes is not implemented. Requesting a write on a characteristic longer than 20 bytes will cause a BluetoothLowEnergy.InvalidRequestException
+            * @param value - (Toybox.Lang.ByteArray)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function requestWrite(value,options) { }
 
-/**
- * Returns a new instance of KeyPair.
- * @param options
- * @returns  KeyPair 
-*/
-public function initialize(options) { }
 
+        }
 
-}
 
+        public class Dictionary {
 
-}
+            /**
+            * Retrieve a value from a Dictionary for a given key.
+            * @param key - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function get(key) { }
 
-module FitContributor {
 
-public class Field {
+            /**
+            * Determine whether a key exists within a Dictionary.
+            * @param key - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function hasKey(key) { }
 
-/**
- * Set the value to write to this Field.
- * @param input
- * @returns  Object 
-*/
-public function setData(input) { }
 
+            /**
+            * Determine whether a Dictionary is empty.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isEmpty() { }
 
-}
 
+            /**
+            * Retrieve the keys in the Dictionary.
+            * @returns  Toybox.Lang.Array
+            */
+            public function keys() { }
 
-}
 
-module Graphics {
+            /**
+            * Place a value in the Dictionary with a given key.
+            * @param key - (Toybox.Lang.Object)
+            * @param value - g inserted into the Dictionary;;value
+            * @returns  
+            */
+            public function put(key,value) { }
 
-public class BufferedBitmap {
 
-/**
- * Get the Dc to draw on the buffered bitmap.
- * @param 
- * @returns  Toybox::Graphics::Dc 
-*/
-public function getDc() { }
+            /**
+            * Delete an item from a Dictionary.
+            * @param key - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function remove(key) { }
 
 
-/**
- * <code>null</code> if this surface uses the system palette.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getPalette() { }
+            /**
+            * Retrieve the number of elements in a Dictionary.
+            * @returns  Toybox.Lang.Number
+            */
+            public function size() { }
 
 
-/**
- * A new instance of BufferedBitmap.
- * @param options
- * @returns  BufferedBitmap 
-*/
-public function initialize(options) { }
+            /**
+            * Convert a Dictionary to a String.Due to the nature of hash tables, the order of Dictionary elements arenot guaranteed to match the insertion order when converting to a String.Example:using Toybox.System;myDict = {"One" => 1,"Two" => 2,"Three" => 3};System.println(myDict.get("One"));// prints 1var myString = myDict.toString();System.println(myString);// "{Two=>2, One=>1, Three=>}"System.println(myString.get("One"));// Symbol Not Found ErrorSystem.println(myString.substring(0, 5)); // "{Two="
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
-/**
- *   
- * @param palette
- * @returns  Object 
-*/
-public function setPalette(palette) { }
+            /**
+            * Retrieve the values in the Dictionary.
+            * @returns  Toybox.Lang.Array
+            */
+            public function values() { }
 
 
-}
+        }
 
 
-public class Dc {
+        public class Double {
 
-/**
- * Erase the screen using the background color.
- * @param 
- * @returns  Object 
-*/
-public function clear() { }
+            /**
+            * Get the absolute value of a Double.
+            * @returns  Toybox.Lang.Double
+            */
+            public function abs() { }
 
 
-/**
- * Reset the drawable area to the full area of the Dc.
- * @param 
- * @returns  Object 
-*/
-public function clearClip() { }
+            /**
+            * Test if an Object instance is equal to another instance of an Object.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function equals(object) { }
 
 
-/**
- * Draw an arc.
- * @param x
- * @param  y
- * @param  r
- * @param  attr
- * @param  degreeStart
- * @param  degreeEnd
- * @returns  Object 
-*/
-public function drawArc(x, y, r, attr, degreeStart, degreeEnd) { }
+            /**
+            * Format a Double using a formatting String. The formatting string is similar to that available in printf from the C stdio library, though the length option is not available: "%[flags][width][.precision]specifier" specifiers d or i - signed decimal integer e - scientific notation (mantissa/exponent) using 'e' character E - scientific notation (mantissa/exponent) using 'E' character f - decimal floating point o - signed octal u - unsigned decimal integer x - unsigned hexadecimal integer X - unsigned hexadecimal integer (capital letters) flags + - Prepends the result with a plus or minus sign ('+' or '-'), including positive numbers. By default, only negative numbers are preceded with a '-' sign. 0 - Left-pads the number with zeros (0) instead of spaces, where padding is specified (see width sub-specifier). width supports only numbers (* is not supported) .precision supports only numbers (* is not supported)
+            * @returns  
+            */
+            public function format() { }
 
 
-/**
- * Draw a bitmap to the screen.
- * @param x
- * @param  y
- * @param  bitmap
- * @returns  Object 
-*/
-public function drawBitmap(x, y, bitmap) { }
+            /**
+            * Convert a Double to a Double.
+            * @returns  Toybox.Lang.Double
+            */
+            public function toDouble() { }
 
 
-/**
- * Draw a circle around a point.
- * @param x
- * @param  y
- * @param  radius
- * @returns  Object 
-*/
-public function drawCircle(x, y, radius) { }
+            /**
+            * Convert a Double to a Float.
+            * @returns  Toybox.Lang.Float
+            */
+            public function toFloat() { }
 
 
-/**
- * Draw an ellipse around a point.
- * @param x
- * @param  y
- * @param  a
- * @param  b
- * @returns  Object 
-*/
-public function drawEllipse(x, y, a, b) { }
+            /**
+            * Convert a Double to a Long.
+            * @returns  Toybox.Lang.Long
+            */
+            public function toLong() { }
 
 
-/**
- * Draw a line between two points.
- * @param x1
- * @param  y1
- * @param  x2
- * @param  y2
- * @returns  Object 
-*/
-public function drawLine(x1, y1, x2, y2) { }
+            /**
+            * Convert a Double to a Number.The Double value will be rounded toward 0 upon conversion. For example,6.8 becomes 6 and -5.7 becomes -5.
+            * @returns  Toybox.Lang.Number
+            */
+            public function toNumber() { }
 
 
-/**
- * Draw a point on the screen.
- * @param x
- * @param  y
- * @returns  Object 
-*/
-public function drawPoint(x, y) { }
+            /**
+            * Convert a Double to a String.
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
-/**
- * Draw a rectangle.
- * @param x
- * @param  y
- * @param  width
- * @param  height
- * @returns  Object 
-*/
-public function drawRectangle(x, y, width, height) { }
+        }
 
 
-/**
- * Draw a rounded rectangle.
- * @param x
- * @param  y
- * @param  width
- * @param  height
- * @param  radius
- * @returns  Object 
-*/
-public function drawRoundedRectangle(x, y, width, height, radius) { }
+        public class EncryptionInvalidSettingsException {
 
+        }
 
-/**
- * Draw text at the given location.
- * @param x
- * @param  y
- * @param  font
- * @param  text
- * @param  justification
- * @returns  Object 
-*/
-public function drawText(x, y, font, text, justification) { }
 
+        public class Float {
 
-/**
- * Fill a circle with the foreground color.
- * @param x
- * @param  y
- * @param  radius
- * @returns  Object 
-*/
-public function fillCircle(x, y, radius) { }
+            /**
+            * Get the absolute value of a Float.
+            * @returns  Toybox.Lang.Float
+            */
+            public function abs() { }
 
 
-/**
- * Fill an ellipse with the foreground color.
- * @param x
- * @param  y
- * @param  a
- * @param  b
- * @returns  Object 
-*/
-public function fillEllipse(x, y, a, b) { }
+            /**
+            * Format a Float using a formatting String. The formatting string is similar to that available in printf from the C stdio library, though the length option is not available: "%[flags][width][.precision]specifier" specifiers d or i - signed decimal integer e - scientific notation (mantissa/exponent) using 'e' character E - scientific notation (mantissa/exponent) using 'E' character f - decimal floating point o - signed octal u - unsigned decimal integer x - unsigned hexadecimal integer X - unsigned hexadecimal integer (capital letters) flags + - Prepends the result with a plus or minus sign ('+' or '-'), including positive numbers. By default, only negative numbers are preceded with a '-' sign. 0 - Left-pads the number with zeros (0) instead of spaces, where padding is specified (see width sub-specifier). width supports only numbers (* is not supported) .precision supports only numbers (* is not supported)
+            * @returns  
+            */
+            public function format() { }
 
 
-/**
- * Fill a polygon with the foreground color.
- * @param pts
- * @returns  Object 
-*/
-public function fillPolygon(pts) { }
+            /**
+            * Convert a Float to a Double.
+            * @returns  Toybox.Lang.Double
+            */
+            public function toDouble() { }
 
 
-/**
- * Fill a rectangle with the foreground color.
- * @param x
- * @param  y
- * @param  width
- * @param  height
- * @returns  Object 
-*/
-public function fillRectangle(x, y, width, height) { }
+            /**
+            * Convert a Float to a Float.
+            * @returns  Toybox.Lang.Float
+            */
+            public function toFloat() { }
 
 
-/**
- * Fill a rounded rectangle with the foreground color.
- * @param x
- * @param  y
- * @param  width
- * @param  height
- * @param  radius
- * @returns  Object 
-*/
-public function fillRoundedRectangle(x, y, width, height, radius) { }
+            /**
+            * Convert a Float to a Long.
+            * @returns  Toybox.Lang.Long
+            */
+            public function toLong() { }
 
 
-/**
- * Get the height of a font.
- * @param font
- * @returns  Toybox::Lang::Number 
-*/
-public function getFontHeight(font) { }
+            /**
+            * Convert a Float to a Number.The Float value will be rounded toward 0 upon conversion. For example,6.8 becomes 6 and -5.7 becomes -5.
+            * @returns  Toybox.Lang.Number
+            */
+            public function toNumber() { }
 
 
-/**
- * Get the height of the display region that is available to the app.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getHeight() { }
+        }
 
 
-/**
- * Get the width and height of a String.
- * @param text
- * @param  font
- * @returns  Toybox::Lang::Array 
-*/
-public function getTextDimensions(text, font) { }
+        public class InvalidOptionsException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-/**
- * Get the width of a String.
- * @param text
- * @param  font
- * @returns  Toybox::Lang::Number 
-*/
-public function getTextWidthInPixels(text, font) { }
 
+        }
 
-/**
- * Get the width of the display region that is available to the app.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getWidth() { }
 
+        public class InvalidValueException {
 
-/**
- * Apply a clipping region to the Dc.
- * @param x
- * @param  y
- * @param  width
- * @param  height
- * @returns  Object 
-*/
-public function setClip(x, y, width, height) { }
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-/**
- * Set the current foreground and background colors.
- * @param foreground
- * @param  background
- * @returns  Object 
-*/
-public function setColor(foreground, background) { }
+        }
 
 
-/**
- * Set the width of a line.
- * @param width
- * @returns  Object 
-*/
-public function setPenWidth(width) { }
+        public class BacklightOnTooLongException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-}
 
+        }
 
-public class InvalidBitmapResourceException {
 
-/**
- * Constructor.
- * @param msg
- * @returns  InvalidBitmapResourceException 
-*/
-public function initialize(msg) { }
+        public class Method {
 
+            /**
+            * Get a hash code value for a Method.This computes a 32-bit Number that is typically used as an index whenplacing Objects into a Dictionary. Hash code values have the followingcharacteristics:The computed hash code is constant for the lifetime of an ObjectIf two Objects are equal, their hash codes will be equal
+            * @returns  Toybox.Lang.Number
+            */
+            public function hashCode() { }
 
-}
 
+            /**
+            * Constructor
+            * @param aClass - Classdef of method (e.g. Toybox::SensorHistory);;aMethod
+            * @param aMethod - ng.Symbol)
+            * @returns  
+            */
+            public function initialize(aClass,aMethod) { }
 
-public class InvalidPaletteException {
 
-/**
- * Constructor.
- * @param msg
- * @returns  InvalidPaletteException 
-*/
-public function initialize(msg) { }
+            /**
+            * Invoke a Method. Any arguments passed to this function will be forwarded to the invoked method.
+            * @returns  
+            */
+            public function invoke() { }
 
 
-}
+        }
 
 
-}
+        public class Number {
 
-module Lang {
+            /**
+            * Get the absolute value of a Number.
+            * @returns  Toybox.Lang.Number
+            */
+            public function abs() { }
 
-public class Array {
 
-/**
- * Add an Object to the end of an Array.
- * @param object
- * @returns  Toybox::Lang::Array 
-*/
-public function add(object) { }
+            /**
+            * Format a Number using a formatting String. The formatting string is similar to that available in printf from the C stdio library, though the length option is not available: "%[flags][width][.precision]specifier" specifiers d or i - signed decimal integer e - scientific notation (mantissa/exponent) using 'e' character E - scientific notation (mantissa/exponent) using 'E' character f - decimal floating point o - signed octal u - unsigned decimal integer x - unsigned hexadecimal integer X - unsigned hexadecimal integer (capital letters) flags + - Prepends the result with a plus or minus sign ('+' or '-'), including positive numbers. By default, only negative numbers are preceded with a '-' sign. 0 - Left-pads the number with zeros (0) instead of spaces, where padding is specified (see width sub-specifier). width supports only numbers (* is not supported) .precision supports only numbers (* is not supported) Example: Formatting time with leading zeros // Format the time to display "08:03:15" using Toybox.Lang ;var hours = 8 ;var minutes = 3 ;var seconds = 15 ;var myTime = Lang.format( "$1$:$2$:$3$", [hours.format("%02d"), minutes.format("%02d"), seconds.format("%02d")] );
+            * @returns  
+            */
+            public function format() { }
 
 
-/**
- * Add an Array of Objects to the end of an Array.
- * @param array
- * @returns  Toybox::Lang::Array 
-*/
-public function addAll(array) { }
+            /**
+            * Convert a Number to a Char.
+            * @returns  Toybox.Lang.Char
+            */
+            public function toChar() { }
 
 
-/**
- * Get the index of an Object within the Array.
- * @param object
- * @returns  Toybox::Lang::Number 
-*/
-public function indexOf(object) { }
+            /**
+            * Convert a Number to a Double.
+            * @returns  Toybox.Lang.Double
+            */
+            public function toDouble() { }
 
 
-/**
- * Remove an Object from an Array.
- * @param object
- * @returns  Toybox::Lang::Boolean 
-*/
-public function remove(object) { }
+            /**
+            * Convert a Number to a Float.
+            * @returns  Toybox.Lang.Float
+            */
+            public function toFloat() { }
 
 
-/**
- * Remove Objects from an Array.
- * @param object
- * @returns  Toybox::Lang::Boolean 
-*/
-public function removeAll(object) { }
+            /**
+            * Convert a Number to a Long.
+            * @returns  Toybox.Lang.Long
+            */
+            public function toLong() { }
 
 
-/**
- * Return a new Array that contains the elements of a source Array in reverse
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function reverse() { }
+            /**
+            * Convert a Number to a Number.
+            * @returns  Toybox.Lang.Number
+            */
+            public function toNumber() { }
 
 
-/**
- * Get the size of an Array.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function size() { }
+        }
 
 
-/**
- * Get a new Array containing a portion of an existing Array.
- * @param startIndex
- * @param  endIndex
- * @returns  Toybox::Lang::Array 
-*/
-public function slice(startIndex, endIndex) { }
+        public class ObjectStoreAccessException {
 
+        }
 
-/**
- * Convert an Array to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
 
+        public class OperationNotAllowedException {
 
-}
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-public class Boolean {
+        }
 
-}
 
+        public class SerializationException {
 
-public class ByteArray {
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-/**
- * Add a byte to the end of a ByteArray.
- * @param byte
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function add(byte) { }
 
+        }
 
-/**
- * Add a ByteArray or an <span class='object_link'><a href="Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of bytes to the end of a
- * @param array
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function addAll(array) { }
 
+        public class StorageFullException {
 
-/**
- * Decodes a portion of the array to a number based on a specified format.
- * @param format
- * @param  options
- * @returns  Toybox::Lang::Number, ... 
-*/
-public function decodeNumber(format, options) { }
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-/**
- * Encodes a number into the byte array.
- * @param value
- * @param  format
- * @param  options
- * @returns  Object 
-*/
-public function encodeNumber(value, format, options) { }
+        }
 
 
-/**
- * Test if an Object instance is equal to another instance of an Object.
- * @param object
- * @returns  Toybox::Lang::Boolean 
-*/
-public function equals(object) { }
+        public class String {
 
+            /**
+            * Test if an Object instance is equal to another instance of an Object.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function equals(object) { }
 
-/**
- * Get a hash code value for a ByteArray.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function hashCode() { }
 
+            /**
+            * Determine if the specified String exists in a String.
+            * @param string - (Toybox.Lang.String)
+            * @returns 
+            */
+            public function find(string) { }
 
-/**
- * Get the index of a byte within the ByteArray.
- * @param byte
- * @returns  Toybox::Lang::Number 
-*/
-public function indexOf(byte) { }
 
+            /**
+            * Get a hash code value for a String.
+            * @returns  Toybox.Lang.Number
+            */
+            public function hashCode() { }
 
-/**
- * Remove a byte from a ByteArray.
- * @param byte
- * @returns  Toybox::Lang::Boolean 
-*/
-public function remove(byte) { }
 
+            /**
+            * Get the number of characters in a String.
+            * @returns  Toybox.Lang.Number
+            */
+            public function length() { }
 
-/**
- * Remove bytes from a ByteArray.
- * @param byte
- * @returns  Toybox::Lang::Boolean 
-*/
-public function removeAll(byte) { }
 
+            /**
+            * Create a new String that contains the contents of the current String from a start position to an end position.
+            * @param startIndex - (Toybox.Lang.Number)
+            * @param endIndex - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function substring(startIndex,endIndex) { }
 
-/**
- * Return a new ByteArray that contains the elements of a source ByteArray in
- * @param 
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function reverse() { }
 
+            /**
+            * Convert a String to an Array of Char objects.
+            * @returns  Toybox.Lang.Array
+            */
+            public function toCharArray() { }
 
-/**
- * Get the size of a ByteArray.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function size() { }
 
+            /**
+            * Convert a String to a Double.If a String is in the numeric form of "123" or "123.45", convert itto a Double. Additional characters after the detected floating pointvalue will be ignored. Strings that cannot be interpreted as a Double,or whose value exceeds that which can be represented in a Double, willresult in a null value.Example:var myString;var myNum;myString = "123";myNum = myString.toDouble(); // myNum is 123.000000myString = "3.14"myNum = myString.toDouble(); // myNum is 3.140000myString = "192.168.0.1"myNum = myString.toDouble(); // myNum is 192.167999myString = "Hello There!"myNum = myString.toDouble(); // null
+            * @returns  Toybox.Lang.Double
+            */
+            public function toDouble() { }
 
-/**
- * Get a new ByteArray containing a portion of an existing ByteArray.
- * @param startIndex
- * @param  endIndex
- * @returns  Toybox::Lang::ByteArray 
-*/
-public function slice(startIndex, endIndex) { }
 
+            /**
+            * Convert a String to a Float.If a String is in the numeric form of "123" or "123.45", convert itto a Float. Additional characters after the detected floating pointvalue will be ignored. Strings that cannot be interpreted as a Float,or whose value exceeds that which can be represented in a Float, willresult in a null value.Example:var myString;var myNum;myString = "123";myNum = myString.toFloat(); // myNum is 123.000000myString = "3.14"myNum = myString.toFloat(); // myNum is 3.140000myString = "192.168.0.1"myNum = myString.toFloat(); // myNum is 192.167999myString = "Hello There!"myNum = myString.toFloat(); // null
+            * @returns  Toybox.Lang.Float
+            */
+            public function toFloat() { }
 
-/**
- * Convert a ByteArray to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
 
+            /**
+            * Convert a String to a Long.If a String is in the numeric form of "123", it can be converted toa Long. Additional characters after the detected number value willbe ignored. Strings that cannot be interpreted as a Long, or whosevalue exceeds that which can be represented in a Long, will resultin a null value.Example:var myString;var myNum;myString = "123";myNum = myString.toLong(); // myNum is 123myString = "3.14"myNum = myString.toLong(); // myNum is 3myString = "1200 E. 151st. Street"myNum = myString.toLong(); // myNum is 1200myString = "Hello There!"myNum = myString.toLong(); // null
+            * @returns  Toybox.Lang.Long
+            */
+            public function toLong() { }
 
-}
 
+            /**
+            * Convert a String to a Long using a specified base.
+            * @param base - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function toLongWithBase(base) { }
 
-public class Characteristic {
 
-/**
- * Retrieves the Descriptor with a specified UUID.
- * @param uuid
- * @returns  Toybox::BluetoothLowEnergy::Descriptor 
-*/
-public function getDescriptor(uuid) { }
+            /**
+            * Convert a String to lowercase.
+            * @returns  Toybox.Lang.String
+            */
+            public function toLower() { }
 
 
-/**
- * Retrieves an Iterator over the <span class='object_link'><a href="Descriptor.html" title="Toybox::BluetoothLowEnergy::Descriptor (class)">Descriptors</a></span>
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Iterator 
-*/
-public function getDescriptors() { }
+            /**
+            * Convert a String to a Number.If a String is in the numeric form of "123", it can be converted toa Number. Additional characters after the detected number value willbe ignored. Strings that cannot be interpreted as a Number, or whosevalue exceeds that which can be represented in a Number, will resultin a null value.Example:var myString;var myNum;myString = "123";myNum = myString.toNumber(); // myNum is 123myString = "3.14"myNum = myString.toNumber(); // myNum is 3myString = "1200 E. 151st. Street"myNum = myString.toNumber(); // myNum is 1200myString = "Hello There!"myNum = myString.toNumber(); // null
+            * @returns  Toybox.Lang.Number
+            */
+            public function toNumber() { }
 
 
-/**
- * Retrieves the Characteristic&#39;s Service.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Service 
-*/
-public function getService() { }
+            /**
+            * Convert a String to a Number using a specified base.
+            * @param base - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function toNumberWithBase(base) { }
 
 
-/**
- * Return the UUID of the Characteristic.
- * @param 
- * @returns  Toybox::BluetoothLowEnergy::Uuid 
-*/
-public function getUuid() { }
+            /**
+            * Convert a String to a String.
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
-/**
- * Requests a read operation on the characteristic.
- * @param 
- * @returns  Object 
-*/
-public function requestRead() { }
+            /**
+            * Convert a String to uppercase.
+            * @returns  Toybox.Lang.String
+            */
+            public function toUpper() { }
 
 
-/**
- * Requests a write operation.
- * @param value
- * @param  options
- * @returns  Object 
-*/
-public function requestWrite(value, options) { }
+            /**
+            * Convert a String to an Array of Number objects.Each Number represents one byte of the UTF-8 representation of the String.
+            * @returns  Toybox.Lang.Array
+            */
+            public function toUtf8Array() { }
 
 
-}
+        }
 
 
-public class Dictionary {
+        public class Symbol {
 
-/**
- * Retrieve a value from a Dictionary for a given key.
- * @param key
- * @returns  Toybox::Lang::Object 
-*/
-public function get(key) { }
+            /**
+            * Convert a Symbol to a NumberThis will return a number containing the integer value of the symbol.
+            * @returns  Toybox.Lang.Number
+            */
+            public function toNumber() { }
 
 
-/**
- * Determine whether a key exists within a Dictionary.
- * @param key
- * @returns  Toybox::Lang::Boolean 
-*/
-public function hasKey(key) { }
+            /**
+            * Convert a Symbol to a StringThis will return the string for the name of the symbol in development builds.Because Monkey C does not contain runtime reflection information in releasebuilds, the returned string will be different and will follow the format "symbol (num)".In this format, "num" is the integer value of the symbol.
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
-/**
- * Determine whether a Dictionary is empty.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isEmpty() { }
+        }
 
 
-/**
- * Retrieve the keys in the Dictionary.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function keys() { }
+        public class SymbolNotAllowedException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-/**
- * Place a value in the Dictionary with a given key.
- * @param key
- * @param  value
- * @returns  Object 
-*/
-public function put(key, value) { }
 
+        }
 
-/**
- * Delete an item from a Dictionary.
- * @param key
- * @returns  Object 
-*/
-public function remove(key) { }
 
+        public class UnexpectedTypeException {
 
-/**
- * Retrieve the number of elements in a Dictionary.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function size() { }
+            /**
+            * Constructor
+            * @param message - (Toybox.Lang.String)
+            * @param unused1 - Unused. Preserves argument count for compatibility;;unused2
+            * @param unused2 - ;The exception message;;unused1
+            * @returns  
+            */
+            public function initialize(message,unused1,unused2) { }
 
 
-/**
- * Convert a Dictionary to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
+        }
 
 
-/**
- * Retrieve the values in the Dictionary.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function values() { }
+        public class ValueOutOfBoundsException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-}
 
+        }
 
-public class Double {
 
-/**
- * Get the absolute value of a Double.
- * @param 
- * @returns  Toybox::Lang::Double 
-*/
-public function abs() { }
+        public class WeakReference {
 
+            /**
+            * Get the Object referenced by the WeakReference
+            * @returns  Toybox.Lang.Object
+            */
+            public function get() { }
 
-/**
- * Test if an Object instance is equal to another instance of an Object.
- * @param object
- * @returns  Toybox::Lang::Boolean 
-*/
-public function equals(object) { }
 
+            /**
+            * Determine whether a WeakReference is still alive.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function stillAlive() { }
 
-/**
- * Format a Double using a formatting String.
- * @param format
- * @returns  Toybox::Lang::String 
-*/
-public function format(format) { }
 
+        }
 
-/**
- * Convert a Double to a Double.
- * @param 
- * @returns  Toybox::Lang::Double 
-*/
-public function toDouble() { }
 
+    }
 
-/**
- * Convert a Double to a Float.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function toFloat() { }
+    module Math {
 
+            /**
+            * Get the arc cosine of an angle.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function acos(x) { }
 
-/**
- * Convert a Double to a Long.
- * @param 
- * @returns  Toybox::Lang::Long 
-*/
-public function toLong() { }
 
+            /**
+            * Get the arc sine of an angle.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function asin(x) { }
 
-/**
- * Convert a Double to a Number.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function toNumber() { }
 
+            /**
+            * Get the arc tangent of an angle.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function atan(x) { }
 
-/**
- * Convert a Double to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
 
+            /**
+            * Get the arc tangent of y/x in radians.
+            * @param y - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function atan2(y,x) { }
 
-}
 
+            /**
+            * Compute the ceiling of a value.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function ceil(x) { }
 
-public class EncryptionInvalidSettingsException {
 
-/**
- * Constructor.
- * @param 
- * @returns  EncryptionInvalidSettingsException 
-*/
-public function initialize() { }
+            /**
+            * Get the cosine of an angle.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function cos(x) { }
 
 
-}
+            /**
+            * Compute the floor of a value.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function floor(x) { }
 
 
-public class Float {
+            /**
+            * Get natural logarithm of a value
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function ln(x) { }
 
-/**
- * Get the absolute value of a Float.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function abs() { }
 
+            /**
+            * Get logarithm of a value using the specified base
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @param base - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function log(x,base) { }
 
-/**
- * Format a Float using a formatting String.
- * @param format
- * @returns  Toybox::Lang::String 
-*/
-public function format(format) { }
 
+            /**
+            * Get the arithmetic mean (average) of an array of data.
+            * @param data - (Toybox.Lang.Array)
+            * @returns 
+            */
+            public function mean(data) { }
 
-/**
- * Convert a Float to a Double.
- * @param 
- * @returns  Toybox::Lang::Double 
-*/
-public function toDouble() { }
 
+            /**
+            * Returns a pseudo-random Number. Use the srand() function to seed the random number generator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function rand() { }
 
-/**
- * Convert a Float to a Float.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function toFloat() { }
 
+            /**
+            * Round a value.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function round(x) { }
 
-/**
- * Convert a Float to a Long.
- * @param 
- * @returns  Toybox::Lang::Long 
-*/
-public function toLong() { }
 
+            /**
+            * Get the sine of an angle.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function sin(x) { }
 
-/**
- * Convert a Float to a Number.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function toNumber() { }
 
+            /**
+            * Calculate the square root of a value.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function sqrt(x) { }
 
-}
 
+            /**
+            * Seed the random number generator. Note: srand() does not return any value.
+            * @param seed - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function srand(seed) { }
 
-public class InvalidOptionsException {
 
-/**
- * InvalidOptionsException constructor.
- * @param msg
- * @returns  InvalidOptionsException 
-*/
-public function initialize(msg) { }
+            /**
+            * Get the standard deviation of a sample of population data.
+            * @param data - (Toybox.Lang.Array)
+            * @param xbar - (Toybox.Lang.Double)
+            * @returns 
+            */
+            public function stdev(data,xbar) { }
 
 
-}
+            /**
+            * Convert an angle from radians to degrees.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function toDegrees(x) { }
 
 
-public class InvalidValueException {
+            /**
+            * Convert an angle from degrees to radians.
+            * @param x - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Lang.Long, Toybox.Lang.Double)
+            * @returns 
+            */
+            public function toRadians(x) { }
 
-/**
- * A new instance of InvalidValueException.
- * @param msg
- * @returns  InvalidValueException 
-*/
-public function initialize(msg) { }
 
+            /**
+            * Get the sample variance of an array of data. Returns the sample variance with Bessel's correction.
+            * @param data - (Toybox.Lang.Array)
+            * @param xbar - (Toybox.Lang.Double)
+            * @returns 
+            */
+            public function variance(data,xbar) { }
 
-}
 
+        
+        public class Filter {
 
-public class Long {
+            /**
+            * Apply the Filter to an Array of samples. Note: An Exception will be thrown if the base Filter class version of this method is called.
+            * @param data - ;;data
+            * @returns 
+            */
+            public function apply(data) { }
 
-/**
- * Get the absolute value of a Long.
- * @param 
- * @returns  Toybox::Lang::Long 
-*/
-public function abs() { }
 
+        }
 
-/**
- * Test if an Object instance is equal to another instance of an Object.
- * @param object
- * @returns  Toybox::Lang::Boolean 
-*/
-public function equals(object) { }
 
+        public class FirFilter {
 
-/**
- * Format a Long using a formatting String.
- * @param format
- * @returns  Toybox::Lang::String 
-*/
-public function format(format) { }
+            /**
+            * 
+            * @param data
+            * @returns  
+            */
+            public function apply(data) { }
 
 
-/**
- * Convert a Long to a Double.
- * @param 
- * @returns  Toybox::Lang::Double 
-*/
-public function toDouble() { }
+            /**
+            * Constructor
+            * @param dictionary - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(dictionary) { }
 
 
-/**
- * Convert a Long to a Float.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function toFloat() { }
+        }
 
 
-/**
- * Convert a Long to a Long.
- * @param 
- * @returns  Toybox::Lang::Long 
-*/
-public function toLong() { }
+        public class IirFilter {
 
+            /**
+            * 
+            * @param data
+            * @returns  
+            */
+            public function apply(data) { }
 
-/**
- * Convert a Long to a Number.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function toNumber() { }
 
+            /**
+            * Constructor
+            * @param dictionary - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(dictionary) { }
 
-/**
- * Convert a Long to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
 
+        }
 
-}
 
+    }
 
-public class Method {
+    module Media {
 
-/**
- * Get a hash code value for a Method.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function hashCode() { }
+            /**
+            * Delete an individual cached media item.
+            * @param contentRef - (Toybox.Media.ContentRef)
+            * @returns  
+            */
+            public function deleteCachedItem(contentRef) { }
 
 
-/**
- * Method Constructor.
- * @param aClass
- * @param  aMethod
- * @returns  Method 
-*/
-public function initialize(aClass, aMethod) { }
+            /**
+            * Get the current size statistics of the media cache.
+            * @returns  Toybox.Media.CacheStatistics
+            */
+            public function getCacheStatistics() { }
 
 
-/**
- * Invoke a Method.
- * @param parameters
- * @returns  Toybox::Lang::Object 
-*/
-public function invoke(parameters) { }
+            /**
+            * Get a Content object by ID from what has been persisted on the system.
+            * @param contentRef - (Toybox.Media.ContentRef)
+            * @returns 
+            */
+            public function getCachedContentObj(contentRef) { }
 
 
-}
+            /**
+            * This has been deprecated This method will be removed in Connect IQ 6.0.0 Send a system notification to indicate overall sync progress.
+            * @param percentageComplete - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function notifySyncProgress(percentageComplete) { }
 
 
-public class Number {
+            /**
+            * Set the album art for the currently playing song
+            * @param albumArt - (Toybox.WatchUi.BitmapResource)
+            * @returns  
+            */
+            public function setAlbumArt(albumArt) { }
 
-/**
- * Get the absolute value of a Number.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function abs() { }
 
+            /**
+            * Exit the AudioContentProviderApp in its current mode and launch it in playback mode.
+            * @param args - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function startPlayback(args) { }
 
-/**
- * Format a Number using a formatting String.
- * @param format
- * @returns  Toybox::Lang::String 
-*/
-public function format(format) { }
 
+        
+        public class ActiveContent {
 
-/**
- * Convert a Number to a Char.
- * @param 
- * @returns  Toybox::Lang::Char 
-*/
-public function toChar() { }
+            /**
+            * Get the playback start position for media content
+            * @returns  Toybox.Lang.Number
+            */
+            public function getPlaybackStartPosition() { }
 
 
-/**
- * Convert a Number to a Double.
- * @param 
- * @returns  Toybox::Lang::Double 
-*/
-public function toDouble() { }
+            /**
+            * Constructor
+            * @param contentRef - (Toybox.Media.ContentRef)
+            * @param metadata - (Toybox.Media.ContentMetadata)
+            * @param playbackStartPos - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function initialize(contentRef,metadata,playbackStartPos) { }
 
 
-/**
- * Convert a Number to a Float.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function toFloat() { }
+        }
 
 
-/**
- * Convert a Number to a Long.
- * @param 
- * @returns  Toybox::Lang::Long 
-*/
-public function toLong() { }
+        public class AlbumArt {
 
+            /**
+            * The image format of the album art Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var image_format;
 
-/**
- * Convert a Number to a Number.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function toNumber() { }
 
+            /**
+            * Byte offset of the album art image within the audio file Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var image_offset;
 
-}
 
+        }
 
-public class ObjectStoreAccessException {
 
-/**
- * Constructor.
- * @param 
- * @returns  ObjectStoreAccessException 
-*/
-public function initialize() { }
+        public class AudioFormat {
 
+            /**
+            * The bit rate of the audio Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var bitRate;
 
-}
 
+            /**
+            * The number of channels Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var numChannels;
 
-public class OperationNotAllowedException {
 
-/**
- * OperationNotAllowedException constructor.
- * @param msg
- * @returns  OperationNotAllowedException 
-*/
-public function initialize(msg) { }
+            /**
+            * The sample rate of the audio in Hz Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var sampleRate;
 
 
-}
+        }
 
 
-public class SerializationException {
+        public class CacheStatistics {
 
-/**
- * A new instance of SerializationException.
- * @param msg
- * @returns  SerializationException 
-*/
-public function initialize(msg) { }
+            /**
+            * The capacity of the media cache  
+            * @type Toybox.Lang.Long
+            */
+            public var capacity;
 
 
-}
+            /**
+            * The current size of the media cache  
+            * @type Toybox.Lang.Long
+            */
+            public var size;
 
 
-public class StorageFullException {
+        }
 
-/**
- * StorageFullException constructor.
- * @param msg
- * @returns  StorageFullException 
-*/
-public function initialize(msg) { }
 
+        public class AudioContentProviderApp {
 
-}
+            /**
+            * Get a ContentDelegate for use by the system to get and iterate through media content on the device.
+            * @returns  
+            */
+            public function getContentDelegate() { }
 
 
-public class String {
+            /**
+            * Get the initial view for configuring playback.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getPlaybackConfigurationView() { }
 
-/**
- * Test if an Object instance is equal to another instance of an Object.
- * @param object
- * @returns  Toybox::Lang::Boolean 
-*/
-public function equals(object) { }
 
+            /**
+            * Get the initial view for configuring sync.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getSyncConfigurationView() { }
 
-/**
- * Determine if the specified String exists in a String.
- * @param string
- * @returns  Toybox::Lang::Number 
-*/
-public function find(string) { }
 
+            /**
+            * This has been deprecatedThis method will be removed in Connect IQ 6.0.0Get a SyncDelegate object thatcommunicates sync status to the system for syncing media content tothe device.
+            * @returns  Toybox.Media.SyncDelegate
+            */
+            public function getSyncDelegate() { }
 
-/**
- * Get a hash code value for a String.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function hashCode() { }
 
+        }
 
-/**
- * Get the number of characters in a String.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function length() { }
 
+        public class ContentDelegate {
 
-/**
- * Create a new String that contains the contents of the current String from a
- * @param startIndex
- * @param  endIndex
- * @returns  Toybox::Lang::String 
-*/
-public function substring(startIndex, endIndex) { }
+            /**
+            * Return a ContentIteratorobject for the system to use to iterate over media tracks.
+            * @returns  Toybox.Media.ContentIterator
+            */
+            public function getContentIterator() { }
 
 
-/**
- * Convert a String to an Array of Char objects.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function toCharArray() { }
+            /**
+            * Respond to a user ad click.
+            * @param adContext - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function onAdAction(adContext) { }
 
 
-/**
- * Convert a String to a Double.
- * @param 
- * @returns  Toybox::Lang::Double 
-*/
-public function toDouble() { }
+            /**
+            * Handle a CustomButton being selected in the Media Player
+            * @param button - (Toybox.Media.CustomButton)
+            * @returns  
+            */
+            public function onCustomButton(button) { }
 
 
-/**
- * Convert a String to a Float.
- * @param 
- * @returns  Toybox::Lang::Float 
-*/
-public function toFloat() { }
+            /**
+            * Handle a notification from a system that a song has been played.
+            * @param contentRefId - (Toybox.Lang.Object)
+            * @param songEvent - (Toybox.Lang.Number)
+            * @param playbackPosition - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onSong(contentRefId,songEvent,playbackPosition) { }
 
 
-/**
- * Convert a String to a Long.
- * @param 
- * @returns  Toybox::Lang::Long 
-*/
-public function toLong() { }
+            /**
+            * Respond to a thumbs-down action. The thumbs-down option is native to the device media player. When a user selects the thumbs-down function on the device, a corresponding onThumbsDown() event is sent to application.
+            * @param contentRefId - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function onThumbsDown(contentRefId) { }
 
 
-/**
- * Convert a String to a Long using a specified base.
- * @param base
- * @returns  Toybox::Lang::Long 
-*/
-public function toLongWithBase(base) { }
+            /**
+            * Respond to a thumbs-up action. The thumbs-up option is native to the device media player. When a user selects the thumbs-up function on the device, a corresponding onThumbsUp() event is sent to the application.
+            * @param contentRefId - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function onThumbsUp(contentRefId) { }
 
 
-/**
- * Convert a String to lowercase.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toLower() { }
+            /**
+            * Reset the ContentIteratorto the beginning of the current playlist.
+            * @returns  Toybox.Media.ContentIterator
+            */
+            public function resetContentIterator() { }
 
 
-/**
- * Convert a String to a Number.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function toNumber() { }
+        }
 
 
-/**
- * Convert a String to a Number using a specified base.
- * @param base
- * @returns  Toybox::Lang::Number 
-*/
-public function toNumberWithBase(base) { }
+        public class ContentIterator {
 
+            /**
+            * Determine if the the current track can be skipped.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function canSkip() { }
 
-/**
- * Convert a String to a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
 
+            /**
+            * Get the current media content object.
+            * @returns  Toybox.Media.Content
+            */
+            public function get() { }
 
-/**
- * Convert a String to uppercase.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toUpper() { }
 
+            /**
+            * Get the current media content playback profile
+            * @returns  Toybox.Media.PlaybackProfile
+            */
+            public function getPlaybackProfile() { }
 
-/**
- * Convert a String to an Array of Number objects.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function toUtf8Array() { }
 
+            /**
+            * Get the next media content object.
+            * @returns  Toybox.Media.Content
+            */
+            public function next() { }
 
-}
 
+            /**
+            * Get the next media content object without incrementing the iterator.
+            * @returns  Toybox.Media.Content
+            */
+            public function peekNext() { }
 
-public class Symbol {
 
-/**
- * Convert a Symbol to a Number.
- * @param 
- * @returns  Number 
-*/
-public function toNumber() { }
+            /**
+            * Get the previous media content object without decrementing the iterator.
+            * @returns  Toybox.Media.Content
+            */
+            public function peekPrevious() { }
 
 
-/**
- * Convert a Symbol to a String.
- * @param 
- * @returns  String 
-*/
-public function toString() { }
+            /**
+            * Get the previous media content object.
+            * @returns  Toybox.Media.Content
+            */
+            public function previous() { }
 
 
-}
+            /**
+            * Get the current repeat state
+            * @returns  Toybox.Lang.Number
+            */
+            public function repeatMode() { }
 
 
-public class SymbolNotAllowedException {
+            /**
+            * Determine if playback is currently set to shuffle.Returns true if shuffle is on, otherwise false.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function shuffling() { }
 
-/**
- * SymbolNotAllowedException constructor.
- * @param msg
- * @returns  SymbolNotAllowedException 
-*/
-public function initialize(msg) { }
 
+        }
 
-}
 
+        public class ContentMetadata {
 
-public class UnexpectedTypeException {
+            /**
+            * The album title  
+            * @type Toybox.Lang.String
+            */
+            public var album;
 
-/**
- * UnexpectedTypeException constructor.
- * @param message
- * @param  unused1
- * @param  unused2
- * @returns  UnexpectedTypeException 
-*/
-public function initialize(message, unused1, unused2) { }
 
+            /**
+            * The name of the artist  
+            * @type Toybox.Lang.String
+            */
+            public var artist;
 
-}
 
+            /**
+            * The genre  
+            * @type Toybox.Lang.String
+            */
+            public var genre;
 
-public class ValueOutOfBoundsException {
 
-/**
- * A new instance of ValueOutOfBoundsException.
- * @param msg
- * @returns  ValueOutOfBoundsException 
-*/
-public function initialize(msg) { }
+            /**
+            * The track title  
+            * @type Toybox.Lang.String
+            */
+            public var title;
 
 
-}
+            /**
+            * The track number  
+            * @type Toybox.Lang.Number
+            */
+            public var trackNumber;
 
 
-public class WeakReference {
+        }
 
-/**
- * Get the Object referenced by the WeakReference.
- * @param 
- * @returns  Toybox::Lang::Object 
-*/
-public function get() { }
 
+        public class ContentRef {
 
-/**
- * Determine whether a WeakReference is still alive.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function stillAlive() { }
+            /**
+            * Get the media content type.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getContentType() { }
 
 
-}
+            /**
+            * Get the content ref ID.
+            * @returns  Toybox.Lang.Object
+            */
+            public function getId() { }
 
 
-}
+            /**
+            * Constructor
+            * @param id - (Toybox.Lang.Object)
+            * @param type - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function initialize(id,type) { }
 
-module Math {
 
-public class Filter {
+        }
 
-/**
- * Apply the Filter to an Array of samples.
- * @param data
- * @returns  Object 
-*/
-public function apply(data) { }
 
+        public class ContentRefIterator {
 
-/**
- * Initialize the filter.
- * @param dictionary
- * @returns  Filter 
-*/
-public function initialize(dictionary) { }
+            /**
+            * Get the next Toybox::Media::ContentIterator
+            * @returns  Toybox.Media.ContentRefIterator
+            */
+            public function next() { }
 
 
-}
+        }
 
 
-public class FirFilter {
+        public class CustomButton {
 
-/**
- *   
- * @param data
- * @returns  Object 
-*/
-public function apply(data) { }
+            /**
+            * Called by the system to draw the button in the Media Player
+            * @param image - (Toybox.Lang.Number)
+            * @param highlighted - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function getImage(image,highlighted) { }
 
 
-/**
- * Initialize the FIR filter.
- * @param dictionary
- * @returns  FirFilter 
-*/
-public function initialize(dictionary) { }
+            /**
+            * Called by the system to determine if the current state of the button
+            * @returns  Toybox.Lang.Number
+            */
+            public function getState() { }
 
 
-}
+            /**
+            * Called by the system to draw the name of the button
+            * @param state - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getText(state) { }
 
 
-public class IirFilter {
+        }
 
-/**
- *   
- * @param data
- * @returns  Object 
-*/
-public function apply(data) { }
 
+        public class PlaybackProfile {
 
-/**
- * Initialize the IIR filter.
- * @param dictionary
- * @returns  IirFilter 
-*/
-public function initialize(dictionary) { }
+            /**
+            * Defines if the current song is skipped if a thumbs-down operation is given  
+            * @type Toybox.Lang.Boolean
+            */
+            public var attemptSkipAfterThumbsDown;
 
 
-}
+            /**
+            * Playback controls that should be rendered in the player. This is an Array that holds a combination of PLAYBACK_CONTROL_*, CustomButton, and SystemButton values defined by the developer. The values in this Array determine which native media player control options are rendered and available to the end user of the current device. The first entry in the array may be used as a hotkey in the media player. This is device dependent.  
+            * @type Toybox.Lang.Array
+            */
+            public var playbackControls;
 
 
-}
+            /**
+            * The number of seconds a song must play to trigger a "played" notification. A value of 0 means notify as soon as the song begins playing.  
+            * @type Toybox.Lang.Number
+            */
+            public var playbackNotificationThreshold;
 
-module Media {
 
-public class ActiveContent {
+            /**
+            * The colors for the media player. If set to null the default colors that are device-dependent will be used.  
+            * @type Toybox.Media.PlayerColors
+            */
+            public var playerColors;
 
-/**
- * Get the playback start position for media content.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getPlaybackStartPosition() { }
 
+            /**
+            * Defines if the system notifies the app when each song is played  
+            * @type Toybox.Lang.Boolean
+            */
+            public var requirePlaybackNotification;
 
-/**
- * The MediaContent constructor.
- * @param contentRef
- * @param  metadata
- * @param  playbackStartPos
- * @returns  ActiveContent 
-*/
-public function initialize(contentRef, metadata, playbackStartPos) { }
 
+            /**
+            * The amount of time a song must be played so that pressing back restarts the track and requires a second back press to skip to the previous track in seconds. If set to null a default value that is device-dependent will be used.  
+            * @type Toybox.Lang.Number
+            */
+            public var skipPreviousThreshold;
 
-}
 
+        }
 
-public class AlbumArt {
 
-/**
- * The image format of the album art.
- * @type Toybox::Lang::Number
-*/
-public var image_format;
+        public class PlayerColors {
 
+        }
 
-/**
- * Byte offset of the album art image within the audio file.
- * @type Toybox::Lang::Number
-*/
-public var image_offset;
 
+        public class ProviderIconInfo {
 
-}
+            /**
+            * Constructor
+            * @param icon - (Drawable, Toybox.Lang.Symbol)
+            * @param accentColor - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function initialize(icon,accentColor) { }
 
 
-public class AudioFormat {
+        }
 
-/**
- * The bit rate of the audio.
- * @type Toybox::Lang::Number
-*/
-public var bitRate;
 
+        public class SyncDelegate {
 
-/**
- * The number of channels.
- * @type Toybox::Lang::Number
-*/
-public var numChannels;
+            /**
+            * Check if a sync is needed.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isSyncNeeded() { }
 
 
-/**
- * The sample rate of the audio in Hz.
- * @type Toybox::Lang::Number
-*/
-public var sampleRate;
+        }
 
 
-}
+        public class SystemButton {
 
+            /**
+            * Called by the system to draw the button in the Media Player
+            * @param image - (Toybox.Lang.Number)
+            * @param state - (Toybox.Lang.Number)
+            * @param highlighted - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function getImage(image,state,highlighted) { }
 
-public class CacheStatistics {
 
-/**
- * The capacity of the media cache.
- * @type Toybox::Lang::Long
-*/
-public var capacity;
+            /**
+            * Constructor
+            * @param type - (Toybox.Lang.Number)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(type,options) { }
 
 
-/**
- * The current size of the media cache.
- * @type Toybox::Lang::Long
-*/
-public var size;
+        }
 
 
-}
+    }
 
+    module PersistedContent {
 
-public class AudioContentProviderApp {
+            /**
+            * Get the subset of courses installed on the system that are owned bythe applicationExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;// Get an iterator for all courses owned by this applicationvar iterator = PersistedContent.getAppCourses();Supported Devices:D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getAppCourses() { }
 
-/**
- * Get a <span class='object_link'><a href="../Media/ContentDelegate.html" title="Toybox::Media::ContentDelegate (class)">ContentDelegate</a></span> for use by the
- * @param args
- * @returns  Toybox::Media::ContentDelegate 
-*/
-public function getContentDelegate(args) { }
 
+            /**
+            * Get the subset of routes installed on the system that are owned bythe applicationExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;// Get an iterator for all routes owned by this applicationvar iterator = PersistedContent.getAppRoutes();Supported Devices:GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getAppRoutes() { }
 
-/**
- * Get the initial view for configuring playback.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getPlaybackConfigurationView() { }
 
+            /**
+            * Get the subset of tracks installed on the system that are owned bythe applicationExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;// Get an iterator for all tracks owned by this applicationvar iterator = PersistedContent.getAppTracks();Supported Devices:GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getAppTracks() { }
 
-/**
- * Get audio provider icon information.
- * @param 
- * @returns  Toybox::Media::ProviderIconInfo 
-*/
-public function getProviderIconInfo() { }
 
+            /**
+            * Get the subset of waypoints installed on the system that are owned bythe applicationExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;// Get an iterator for all waypoints owned by this applicationvar iterator = PersistedContent.getAppWaypoints();Supported Devices:Captain MarvelD2™ AirD2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Exploreepix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 230Forerunner® 235Forerunner® 245Forerunner® 245 MusicForerunner® 630Forerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getAppWaypoints() { }
 
-/**
- * Get the initial view for configuring sync.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getSyncConfigurationView() { }
 
+            /**
+            * Get the subset of workouts installed on the system that are owned bythe applicationExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;// Get an iterator for all workouts owned by this applicationvar iterator = PersistedContent.getAppWorkouts();Supported Devices:Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getAppWorkouts() { }
 
-/**
- * This method will be removed in Connect IQ 6.0.0
- * @param 
- * @returns  Toybox::Media::SyncDelegate 
-*/
-public function getSyncDelegate() { }
 
+            /**
+            * Get the courses installed on the systemExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;var iterator = PersistedContent.getCourses(); // Get the IteratorSupported Devices:D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getCourses() { }
 
-/**
- * The AudioContentProviderApp constructor.
- * @param 
- * @returns  AudioContentProviderApp 
-*/
-public function initialize() { }
 
+            /**
+            * Get the routes installed on the systemExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;var iterator = PersistedContent.getRoutes(); // Get the IteratorSupported Devices:GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getRoutes() { }
 
-}
 
+            /**
+            * Get the tracks installed on the systemExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;var iterator = PersistedContent.getTracks(); // Get the IteratorSupported Devices:GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getTracks() { }
 
-public class ContentDelegate {
 
-/**
- * Return a <span class='object_link'><a href="ContentIterator.html" title="Toybox::Media::ContentIterator (class)">ContentIterator</a></span> object for the
- * @param 
- * @returns  Toybox::Media::ContentIterator 
-*/
-public function getContentIterator() { }
+            /**
+            * Get the waypoints installed on the systemExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;var iterator = PersistedContent.getWaypoints(); // Get the IteratorSupported Devices:Captain MarvelD2™ AirD2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Exploreepix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 230Forerunner® 235Forerunner® 245Forerunner® 245 MusicForerunner® 630Forerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getWaypoints() { }
 
 
-/**
- * Respond to a user ad click.
- * @param adContext
- * @returns  Object 
-*/
-public function onAdAction(adContext) { }
+            /**
+            * Get the workouts installed on the systemExample:// Assumes content already saved on deviceusing Toybox.PersistedContent;var iterator = PersistedContent.getWorkouts(); // Get the IteratorSupported Devices:Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 4vívoactive® 4S
+            * @returns  Toybox.PersistedContent.Iterator
+            */
+            public function getWorkouts() { }
 
 
-/**
- * Handle a CustomButton being selected in the Media Player.
- * @param button
- * @returns  Object 
-*/
-public function onCustomButton(button) { }
+            /**
+            * Save a Location as a Waypoint to the device's location list
+            * @param location - (Toybox.Position.Location)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function saveWaypoint(location,options) { }
 
 
-/**
- * Respond to a command to change repeat mode.
- * @param 
- * @returns  Object 
-*/
-public function onRepeat() { }
+        
+        public class Course {
 
+            /**
+            * Get a unique serializable id
+            * @returns  Toybox.Lang.Number
+            */
+            public function getId() { }
 
-/**
- * Respond to a command to turn shuffle on or off.
- * @param 
- * @returns  Object 
-*/
-public function onShuffle() { }
 
+            /**
+            * Get a readable name for the content
+            * @returns  Toybox.Lang.String
+            */
+            public function getName() { }
 
-/**
- * Handle a notification from a system that a song has been played.
- * @param contentRefId
- * @param  songEvent
- * @param  playbackPosition
- * @returns  Object 
-*/
-public function onSong(contentRefId, songEvent, playbackPosition) { }
 
+        }
 
-/**
- * Respond to a thumbs-down action.
- * @param contentRefId
- * @returns  Object 
-*/
-public function onThumbsDown(contentRefId) { }
 
+        public class HeartRateIterator {
 
-/**
- * Respond to a thumbs-up action.
- * @param contentRefId
- * @returns  Object 
-*/
-public function onThumbsUp(contentRefId) { }
+            /**
+            * Get the maximum heart rate contained in this iterator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMax() { }
 
 
-/**
- * Reset the <span class='object_link'><a href="ContentIterator.html" title="Toybox::Media::ContentIterator (class)">ContentIterator</a></span> to the beginning
- * @param 
- * @returns  Toybox::Media::ContentIterator 
-*/
-public function resetContentIterator() { }
+            /**
+            * Get the minimum heart rate contained in this iterator.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMin() { }
 
 
-}
+            /**
+            * Get the next entry in the iterator.This must be called to get the initial data from the iterator.
+            * @returns  Toybox.ActivityMonitor.HeartRateSample
+            */
+            public function next() { }
 
 
-public class ContentIterator {
+        }
 
-/**
- * Determine if the the current track can be skipped.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function canSkip() { }
 
+        public class Route {
 
-/**
- * Get the current media content object.
- * @param 
- * @returns  Toybox::Media::Content 
-*/
-public function get() { }
+            /**
+            * Get a unique serializable id
+            * @returns  Toybox.Lang.Number
+            */
+            public function getId() { }
 
 
-/**
- * Get the current media content playback profile.
- * @param 
- * @returns  Toybox::Media::PlaybackProfile 
-*/
-public function getPlaybackProfile() { }
+            /**
+            * Get a readable name for the content
+            * @returns  Toybox.Lang.String
+            */
+            public function getName() { }
 
 
-/**
- * Get the next media content object.
- * @param 
- * @returns  Toybox::Media::Content 
-*/
-public function next() { }
+        }
 
 
-/**
- * Get the next media content object without incrementing the iterator.
- * @param 
- * @returns  Toybox::Media::Content 
-*/
-public function peekNext() { }
+        public class Track {
 
+            /**
+            * Get a unique serializable id
+            * @returns  Toybox.Lang.Number
+            */
+            public function getId() { }
 
-/**
- * Get the previous media content object without decrementing the iterator.
- * @param 
- * @returns  Toybox::Media::Content 
-*/
-public function peekPrevious() { }
 
+            /**
+            * Get a readable name for the content
+            * @returns  Toybox.Lang.String
+            */
+            public function getName() { }
 
-/**
- * Get the previous media content object.
- * @param 
- * @returns  Toybox::Media::Content 
-*/
-public function previous() { }
 
+        }
 
-/**
- * Get the current repeat state.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function repeatMode() { }
 
+        public class Waypoint {
 
-/**
- * Determine if playback is currently set to shuffle.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function shuffling() { }
+            /**
+            * Get a unique serializable id
+            * @returns  Toybox.Lang.Number
+            */
+            public function getId() { }
 
 
-}
+            /**
+            * Get a readable name for the content
+            * @returns  Toybox.Lang.String
+            */
+            public function getName() { }
 
 
-public class ContentMetadata {
+        }
 
-/**
- * The album title.
- * @type Toybox::Lang::String
-*/
-public var album;
 
+        public class WorkoutIntervalStep {
 
-/**
- * The name of the artist.
- * @type Toybox::Lang::String
-*/
-public var artist;
+            /**
+            * The step data for the active portion of the interval Returns: 
+            * @type Toybox.Activity.WorkoutStep
+            */
+            public var activeStep;
 
 
-/**
- * The genre.
- * @type Toybox::Lang::String
-*/
-public var genre;
+            /**
+            * The repetition number in the interval Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var repetitionNumber;
 
 
-/**
- * The track title.
- * @type Toybox::Lang::String
-*/
-public var title;
+            /**
+            * The step data for the rest portion of the interval Returns: 
+            * @type Toybox.Activity.WorkoutStep
+            */
+            public var restStep;
 
 
-/**
- * The track number.
- * @type Toybox::Lang::Number
-*/
-public var trackNumber;
+        }
 
 
-}
+    }
 
+    module PersistedLocations {
 
-public class ContentRef {
+            /**
+            * This has been deprecated This method will be removed in Connect IQ 4.0.0. Save a location (waypoint) to the device's location list
+            * @param location - (Toybox.Position.Location)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function persistLocation(location,options) { }
 
-/**
- * Get the media content type.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getContentType() { }
 
+        
+    }
 
-/**
- * Get the content ref ID.
- * @param 
- * @returns  Toybox::Lang::Object 
-*/
-public function getId() { }
+    module Position {
 
+            /**
+            * Create a bounding box from an array of Location objects.
+            * @param locations - (Toybox.Lang.Array)
+            * @returns 
+            */
+            public function createBoundingBox(locations) { }
 
-/**
- * The ContentRef constructor.
- * @param id
- * @param  type
- * @returns  ContentRef 
-*/
-public function initialize(id, type) { }
 
+            /**
+            * Request a Location event. Using this API requires enabling the Positioning Permission. Only Device Apps and Widgets may use this API. Note: Passing an options Dictionary is only supported with ConnectIQ 3.2.0 and later.
+            * @param options - (Toybox.Lang.Number, Toybox.Lang.Dictionary)
+            * @param listener - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function enableLocationEvents(options,listener) { }
 
-}
 
+            /**
+            * Convert a String to a Location object. The input String must be in one of the four formats described by the Position.GEO_* constants.
+            * @param string - (Toybox.Lang.String)
+            * @param format - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function parse(string,format) { }
 
-public class ContentRefIterator {
 
-/**
- * Get the next <span class='object_link'><a href="ContentIterator.html" title="Toybox::Media::ContentIterator (class)">ContentIterator</a></span>.
- * @param 
- * @returns  Toybox::Media::ContentRefIterator 
-*/
-public function next() { }
+        
+        public class Info {
 
+            /**
+            * The altitude above mean sea level in meters (m). Elevation is derived from the most accurate source: Barometer or GPS  
+            * @type Toybox.Lang.Float
+            */
+            public var altitude;
 
-}
 
+            /**
+            * The ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the pressure sensor. The data is smoothed by a two-stage filter to reduce noise and instantaneous variation.  
+            * @type Toybox.Lang.Float
+            */
+            public var ambientPressure;
 
-public class CustomButton {
 
-/**
- * Called by the system to draw the button in the Media Player.
- * @param image
- * @param  highlighted
- * @returns  Toybox::WatchUi::BitmapResource 
-*/
-public function getImage(image, highlighted) { }
+            /**
+            * The average cadence during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageCadence;
 
 
-/**
- * Called by the system to determine if the current state of the button.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getState() { }
+            /**
+            * The average swim stroke distance from the previous interval in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var averageDistance;
 
 
-/**
- * Called by the system to draw the name of the button.
- * @param state
- * @returns  Toybox::Lang::String 
-*/
-public function getText(state) { }
+            /**
+            * The average heart rate during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageHeartRate;
 
 
-}
+            /**
+            * The average power during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var averagePower;
 
 
-public class PlaybackProfile {
+            /**
+            * The average speed during the current activity in meters per second (mps). The average is computed as the elapsed 3-D accumulated distance divided by the elapsed time.  
+            * @type Toybox.Lang.Float
+            */
+            public var averageSpeed;
 
-/**
- * Defines if the current song is skipped if a thumbs-down operation is given.
- * @type Toybox::Lang::Boolean
-*/
-public var attemptSkipAfterThumbsDown;
 
+            /**
+            * The current bearing in radians. Bearing is the direction from your current location or position to the destination of navigation, dependent on your current location.  
+            * @type Toybox.Lang.Float
+            */
+            public var bearing;
 
-/**
- * Playback controls that should be rendered in the player.
- * @type Toybox::Lang::Array
-*/
-public var playbackControls;
 
+            /**
+            * The bearing from the starting location to the destination in radians. Bearing from start is the direction of desired track from the start of navigation to the destination in radians. This is only dependent on your location when a course is set, and it is not dependent on where you may have moved to during an activity  
+            * @type Toybox.Lang.Float
+            */
+            public var bearingFromStart;
 
-/**
- * The number of seconds a song must play to trigger a “played” notification.
- * @type Toybox::Lang::Number
-*/
-public var playbackNotificationThreshold;
 
+            /**
+            * The calories burned throughout the current activity in kilocalories (kcal).  
+            * @type Toybox.Lang.Number
+            */
+            public var calories;
 
-/**
- * The colors for the media player.
- * @type Toybox::Media::PlayerColors
-*/
-public var playerColors;
 
+            /**
+            * The current cadence in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentCadence;
 
-/**
- * Defines if the system notifies the app when each song is played.
- * @type Toybox::Lang::Boolean
-*/
-public var requirePlaybackNotification;
 
+            /**
+            * The true north referenced heading in radians. This provides compass orientation if it is supported by the device.  
+            * @type Toybox.Lang.Float
+            */
+            public var currentHeading;
 
-/**
- * The amount of time a song must be played so that pressing back restarts the
- * @type Toybox::Lang::Number
-*/
-public var skipPreviousThreshold;
 
+            /**
+            * The current heart rate in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentHeartRate;
 
-}
 
+            /**
+            * The current location. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var currentLocation;
 
-public class PlayerColors {
 
-/**
- * The background color for the media player.
- * @type Object
-*/
-public var backgroundColor;
+            /**
+            * The current GPS accuracy. GPS accuracy values range from 0-4. A value of 0 indicates an accuracy value is not available, while a value of 4 indicates a good GPS fix.  
+            * @type Toybox.Lang.Number
+            */
+            public var currentLocationAccuracy;
 
 
-/**
- * The foreground color for the media player.
- * @type Object
-*/
-public var foregroundColor;
+            /**
+            * The current oxygen saturation in percent (%)  
+            * @type Toybox.Lang.Number
+            */
+            public var currentOxygenSaturation;
 
 
-/**
- * The border color behind the currently selected icon.
- * @type Object
-*/
-public var highlightBorderColor;
+            /**
+            * The current power in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentPower;
 
 
-/**
- * The fill color behind the currently selected icon.
- * @type Object
-*/
-public var highlightFillColor;
+            /**
+            * The current speed in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var currentSpeed;
 
 
-/**
- * The color of the progress bar for total time.
- * @type Object
-*/
-public var progressBarBackgroundColor;
+            /**
+            * The distance to the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToDestination;
 
 
-/**
- * The color of the progress bar for elapsed time.
- * @type Object
-*/
-public var progressBarForegroundColor;
+            /**
+            * The distance to the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToNextPoint;
 
 
-/**
- * The color of the text in the media player.
- * @type Object
-*/
-public var textColor;
+            /**
+            * The elapsed distance of the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elapsedDistance;
 
 
-}
+            /**
+            * Elapsed time of the current activity in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var elapsedTime;
 
 
-public class ProviderIconInfo {
+            /**
+            * The elevation at the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtDestination;
 
-/**
- * The ProviderIconInfo constructor.
- * @param icon
- * @param  accentColor
- * @returns  ProviderIconInfo 
-*/
-public function initialize(icon, accentColor) { }
 
+            /**
+            * The elevation at the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtNextPoint;
 
-}
 
+            /**
+            * The current energy expenditure in kilocalories per minute (kcals/min). Energy expenditure is a metric developed by FirstBeat that provides an estimation of the calorie burn rate calculated from heart rate data.  
+            * @type Toybox.Lang.Float
+            */
+            public var energyExpenditure;
 
-public class SyncDelegate {
 
-/**
- * Check if a sync is needed.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isSyncNeeded() { }
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the frontDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurIndex;
 
 
-/**
- * Called when a sync is started by the system.
- * @param 
- * @returns  Object 
-*/
-public function onStartSync() { }
+            /**
+            * The front bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurMax;
 
 
-/**
- * Called when an active sync is cancelled.
- * @param 
- * @returns  Object 
-*/
-public function onStopSync() { }
+            /**
+            * The front bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurSize;
 
 
-}
+            /**
+            * The maximum cadence recorded during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxCadence;
 
 
-public class SystemButton {
+            /**
+            * The maximum heart rate recorded during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxHeartRate;
 
-/**
- * Called by the system to draw the button in the Media Player.
- * @param image
- * @param  state
- * @param  highlighted
- * @returns  Toybox::WatchUi::BitmapResource, Toybox::Lang::Number 
-*/
-public function getImage(image, state, highlighted) { }
 
+            /**
+            * The maximum power recorded during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxPower;
 
-/**
- * A new instance of SystemButton.
- * @param type
- * @param  options
- * @returns  SystemButton 
-*/
-public function initialize(type, options) { }
 
+            /**
+            * The maximum speed recorded during the current activity in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var maxSpeed;
 
-}
 
+            /**
+            * The mean sea level barometric pressure in Pascals (Pa). This returns barometric pressure calibrated to sea level. Since pressure varies dues to several factors, a GPS-based altitude must first be obtained, then the ambient (local) pressure is measured by the pressure sensor before conversion to a calibrated barometric pressure value.  
+            * @type Toybox.Lang.Float
+            */
+            public var meanSeaLevelPressure;
 
-}
 
-module PersistedContent {
+            /**
+            * The name of the destination.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfDestination;
 
-public class Course {
 
-/**
- * Get a unique serializable id.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getId() { }
+            /**
+            * The name of the next point.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfNextPoint;
 
 
-/**
- * Get a readable name for the content.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function getName() { }
+            /**
+            * The distance to the nearest point on the current course in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var offCourseDistance;
 
 
-/**
- * Remove a course.
- * @param 
- * @returns  Object 
-*/
-public function remove() { }
+            /**
+            * The raw ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the internal pressure sensor. The data is the temperature compensated information read directly from the internal sensor.  
+            * @type Toybox.Lang.Float
+            */
+            public var rawAmbientPressure;
 
 
-/**
- * Get a system intent for the content.
- * @param 
- * @returns  Toybox::System::Intent 
-*/
-public function toIntent() { }
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the rearDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurIndex;
 
 
-}
+            /**
+            * The rear bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurMax;
 
 
-public class HeartRateIterator {
+            /**
+            * The rear bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurSize;
 
-/**
- * Get the maximum heart rate contained in this iterator.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMax() { }
 
+            /**
+            * The starting location of the current activity. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var startLocation;
 
-/**
- * Get the minimum heart rate contained in this iterator.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMin() { }
 
+            /**
+            * The starting time of the current activity.  
+            * @type Toybox.Time.Moment
+            */
+            public var startTime;
 
-/**
- * Get the next entry in the iterator.
- * @param 
- * @returns  Toybox::ActivityMonitor::HeartRateSample 
-*/
-public function next() { }
 
+            /**
+            * The swim stroke type from the previous length. Swim stroke type values range from 0-6. Each Number value represents a different swim stroke type (e.g. freestyle, backstroke, etc.).  
+            * @type Toybox.Lang.Number
+            */
+            public var swimStrokeType;
 
-}
 
+            /**
+            * The SWOLF score from the previous length. SWOLF is an abbreviation for Swim-Golf, a measure of swimming efficiency. The score is obtained by adding the strokes per length to the total time of the length. For example, if it takes ten strokes and thirty seconds to swim a pool length, the SWOLF score is 40. Just like golf, a lower SWOLF score is better.  
+            * @type Toybox.Lang.Number
+            */
+            public var swimSwolf;
 
-public class Route {
 
-/**
- * Get a unique serializable id.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getId() { }
+            /**
+            * The recording timer state. The timer state ranges from 0-3. A value of 0 indicates that the timer is off and there is no active recording, while a value of 3 indicates timer is on and there is an active recording.  
+            * @type Toybox.Lang.Number
+            */
+            public var timerState;
 
 
-/**
- * Get a readable name for the content.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function getName() { }
+            /**
+            * The current Timer value in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var timerTime;
 
 
-/**
- * Remove a route.
- * @param 
- * @returns  Object 
-*/
-public function remove() { }
+            /**
+            * The total ascent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalAscent;
 
 
-/**
- * Get a system intent for the content.
- * @param 
- * @returns  Toybox::System::Intent 
-*/
-public function toIntent() { }
+            /**
+            * The total descent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalDescent;
 
 
-}
+            /**
+            * The current track in radians. Track is the direction of travel in radians based on GPS movement. If supported by the device, this provides compass orientation when stopped.  
+            * @type Toybox.Lang.Float
+            */
+            public var track;
 
 
-public class Track {
+            /**
+            * The Training Effect score of the current activity. Training Effect is a score developed by FirstBeat, which indicates an activity's level of effect on aerobic fitness. Scores range from 1.0 (easy) to 5.0 (overreaching).  
+            * @type Toybox.Lang.Float
+            */
+            public var trainingEffect;
 
-/**
- * Get a unique serializable id.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getId() { }
 
+        }
 
-/**
- * Get a readable name for the content.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function getName() { }
 
+        public class Location {
 
-/**
- * Remove a track.
- * @param 
- * @returns  Object 
-*/
-public function remove() { }
+            /**
+            * Get a Location object that is offset from the current position by a given distance and angle.
+            * @param angle - (Toybox.Lang.Float)
+            * @param distance - (Toybox.Lang.Float)
+            * @returns 
+            */
+            public function getProjectedLocation(angle,distance) { }
 
 
-/**
- * Get a system intent for the content.
- * @param 
- * @returns  Toybox::System::Intent 
-*/
-public function toIntent() { }
+            /**
+            * Constructor Create a Location based on a set of coordinates.
+            * @param options - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function initialize(options) { }
 
 
-}
+            /**
+            * Get a Location object's coordinates in degrees.Example:using Toybox.Position;using Toybox.System;Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));function onPosition(info) {var myLocation = info.position.toDegrees();System.println(myLocation[0]); // latitude (e.g. 38.856147)System.println(myLocation[1]); // longitude (e.g -94.800953)}
+            * @returns  Toybox.Lang.Array
+            */
+            public function toDegrees() { }
 
 
-public class Waypoint {
+            /**
+            * Get a String representation a Location object's coordinates.
+            * @param format - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function toGeoString(format) { }
 
-/**
- * Get a unique serializable id.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getId() { }
 
+            /**
+            * Get a location object's coordinates in radians.Example:using Toybox.Position;using Toybox.System;Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));function onPosition(info) {var myLocation = info.position.toRadians();System.println(myLocation[0]); // latitude (e.g. 0.678197)System.println(myLocation[1]); // longitude (e.g -1.654588)}
+            * @returns  Toybox.Lang.Array
+            */
+            public function toRadians() { }
 
-/**
- * Get a readable name for the content.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function getName() { }
 
+        }
 
-/**
- * Remove a waypoint.
- * @param 
- * @returns  Object 
-*/
-public function remove() { }
 
+    }
 
-/**
- * Get a system intent for the content.
- * @param 
- * @returns  Toybox::System::Intent 
-*/
-public function toIntent() { }
+    module Sensor {
 
+            /**
+            * Disable the given sensor type for use. Unlike the existing setEnabledSensors() function, this will not enable/disable other sensor types.
+            * @returns  
+            */
+            public function disableSensorType() { }
 
-}
 
+            /**
+            * Request sensor events from enabled sensors. Sensor events are retrieved from any enabled sensors at a rate of 1 Hz. The data retrieved from enabled sensors is passed to the listener Method provided as a parameter to this method.
+            * @param listener - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function enableSensorEvents(listener) { }
 
-public class Workout {
 
-/**
- * Get a unique serializable id.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getId() { }
+            /**
+            * Enable the given sensor type for use. Unlike the existing setEnabledSensors() function, this will not enable/disable other sensor types.
+            * @returns  
+            */
+            public function enableSensorType() { }
 
 
-/**
- * Get a readable name for the content.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function getName() { }
+            /**
+            * Get the current Sensor Sensor.Info.This is useful for retrieving the current sensor info either on demandor periodically within a Timer.Example:Get accelerometer data once per secondusing Toybox.Sensor;using Toybox.System;using Toybox.Timer;var dataTimer = new Timer.Timer();dataTimer.start(method(:timerCallback), 1000, true); // A one-second timerfunction timerCallback() {var sensorInfo = Sensor.getInfo();if (sensorInfo has :accel && sensorInfo.accel != null) {var accel = sensorInfo.accel;var xAccel = accel[0];var yAccel = accel[1];System.println("x: " + xAccel + ", y: " + yAccel);}}
+            * @returns  Toybox.Sensor.Info
+            */
+            public function getInfo() { }
 
 
-/**
- * Remove a workout.
- * @param 
- * @returns  Object 
-*/
-public function remove() { }
+            /**
+            * Get the maximum sample rate supported by the system.Example:using Toybox.Sensor;var maxSample = Sensor.getMaxSampleRate();Supported Devices:Approach® S62Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1030Edge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMaxSampleRate() { }
 
 
-/**
- * Get a system intent for the content.
- * @param 
- * @returns  Toybox::System::Intent 
-*/
-public function toIntent() { }
+            /**
+            * Retrieve the sensors that are currently registered. This function returns an iterator for the sensors that are considered to be `registered` if pairing information has been provided for it in Sensor settings.
+            * @param sensorType - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getRegisteredSensors(sensorType) { }
 
 
-}
+            /**
+            * Register a callback to fetch high-frequency data from various sensors. The callback will get invoked each time a new set of sensor data over the length of time specified in the period option is available. Note: Only one data request is allowed to be registered at a time. Subsequent calls to this function for the same sensor type will override previously registered requests.
+            * @param listener - (Toybox.Lang.Method)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function registerSensorDataListener(listener,options) { }
 
 
-}
+        
+        public class AccelerometerData {
 
-module PersistedLocations {
+            /**
+            * The Array of pitch values as Floats in degrees. Can be null. Pitch values are calculated with the equation atan2(y, sqrt(x^2 + z^2)).  
+            * @type Toybox.Lang.Array
+            */
+            public var pitch;
 
-}
 
-module Position {
+            /**
+            * The Array of vector power values as Numbers in millig-units. Can be null.  
+            * @type Toybox.Lang.Array
+            */
+            public var power;
 
-public class Info {
 
-/**
- * The altitude above mean sea level in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var altitude;
+            /**
+            * The Array of roll values as Floats in degrees. Can be null. Roll values are calculated with the equation atan2(-x, z).  
+            * @type Toybox.Lang.Array
+            */
+            public var roll;
 
 
-/**
- * The ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var ambientPressure;
+            /**
+            * The Array of x axis values as Numbers in millig-units.  
+            * @type Toybox.Lang.Array
+            */
+            public var x;
 
 
-/**
- * The average cadence during the current activity in revolutions per minute
- * @type Toybox::Lang::Number
-*/
-public var averageCadence;
+            /**
+            * The Array of y axis values as Numbers in millig-units.  
+            * @type Toybox.Lang.Array
+            */
+            public var y;
 
 
-/**
- * The average swim stroke distance from the previous interval in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var averageDistance;
+            /**
+            * The Array of z axis values as Numbers in millig-units.  
+            * @type Toybox.Lang.Array
+            */
+            public var z;
 
 
-/**
- * The average heart rate during the current activity in beats per minute
- * @type Toybox::Lang::Number
-*/
-public var averageHeartRate;
+        }
 
 
-/**
- * The average power during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var averagePower;
+        public class HeartRateData {
 
+            /**
+            * The most recent beat-to-beat interval data as an Array of Number objects in milliseconds (ms).  
+            * @type Toybox.Lang.Array
+            */
+            public var heartBeatIntervals;
 
-/**
- * The average speed during the current activity in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var averageSpeed;
 
+        }
 
-/**
- * The current bearing in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearing;
 
+        public class Info {
 
-/**
- * The bearing from the starting location to the destination in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearingFromStart;
+            /**
+            * The altitude above mean sea level in meters (m). Elevation is derived from the most accurate source: Barometer or GPS  
+            * @type Toybox.Lang.Float
+            */
+            public var altitude;
 
 
-/**
- * The calories burned throughout the current activity in kilocalories (kcal).
- * @type Toybox::Lang::Number
-*/
-public var calories;
+            /**
+            * The ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the pressure sensor. The data is smoothed by a two-stage filter to reduce noise and instantaneous variation.  
+            * @type Toybox.Lang.Float
+            */
+            public var ambientPressure;
 
 
-/**
- * The current cadence in revolutions per minute (rpm).
- * @type Toybox::Lang::Number
-*/
-public var currentCadence;
+            /**
+            * The average cadence during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageCadence;
 
 
-/**
- * The true north referenced heading in radians.
- * @type Toybox::Lang::Float
-*/
-public var currentHeading;
+            /**
+            * The average swim stroke distance from the previous interval in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var averageDistance;
 
 
-/**
- * The current heart rate in beats per minute (bpm).
- * @type Toybox::Lang::Number
-*/
-public var currentHeartRate;
+            /**
+            * The average heart rate during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageHeartRate;
 
 
-/**
- * The current location.
- * @type Toybox::Position::Location
-*/
-public var currentLocation;
+            /**
+            * The average power during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var averagePower;
 
 
-/**
- * The current GPS accuracy.
- * @type Toybox::Lang::Number
-*/
-public var currentLocationAccuracy;
+            /**
+            * The average speed during the current activity in meters per second (mps). The average is computed as the elapsed 3-D accumulated distance divided by the elapsed time.  
+            * @type Toybox.Lang.Float
+            */
+            public var averageSpeed;
 
 
-/**
- * The current power in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var currentPower;
+            /**
+            * The current bearing in radians. Bearing is the direction from your current location or position to the destination of navigation, dependent on your current location.  
+            * @type Toybox.Lang.Float
+            */
+            public var bearing;
 
 
-/**
- * The current speed in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var currentSpeed;
+            /**
+            * The bearing from the starting location to the destination in radians. Bearing from start is the direction of desired track from the start of navigation to the destination in radians. This is only dependent on your location when a course is set, and it is not dependent on where you may have moved to during an activity  
+            * @type Toybox.Lang.Float
+            */
+            public var bearingFromStart;
 
 
-/**
- * The distance to the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToDestination;
+            /**
+            * The calories burned throughout the current activity in kilocalories (kcal).  
+            * @type Toybox.Lang.Number
+            */
+            public var calories;
 
 
-/**
- * The distance to the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToNextPoint;
+            /**
+            * The current cadence in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentCadence;
 
 
-/**
- * The elapsed distance of the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elapsedDistance;
+            /**
+            * The true north referenced heading in radians. This provides compass orientation if it is supported by the device.  
+            * @type Toybox.Lang.Float
+            */
+            public var currentHeading;
 
 
-/**
- * Elapsed time of the current activity in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var elapsedTime;
+            /**
+            * The current heart rate in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentHeartRate;
 
 
-/**
- * The elevation at the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtDestination;
+            /**
+            * The current location. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var currentLocation;
 
 
-/**
- * The elevation at the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtNextPoint;
+            /**
+            * The current GPS accuracy. GPS accuracy values range from 0-4. A value of 0 indicates an accuracy value is not available, while a value of 4 indicates a good GPS fix.  
+            * @type Toybox.Lang.Number
+            */
+            public var currentLocationAccuracy;
 
 
-/**
- * The current energy expenditure in kilocalories per minute (kcals/min).
- * @type Toybox::Lang::Float
-*/
-public var energyExpenditure;
+            /**
+            * The current oxygen saturation in percent (%)  
+            * @type Toybox.Lang.Number
+            */
+            public var currentOxygenSaturation;
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurIndex;
+            /**
+            * The current power in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentPower;
 
 
-/**
- * The front bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurMax;
+            /**
+            * The current speed in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var currentSpeed;
 
 
-/**
- * The front bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurSize;
+            /**
+            * The distance to the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToDestination;
 
 
-/**
- * The maximum cadence recorded during the current activity in revolutions per
- * @type Toybox::Lang::Number
-*/
-public var maxCadence;
+            /**
+            * The distance to the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToNextPoint;
 
 
-/**
- * The maximum heart rate recorded during the current activity in beats per
- * @type Toybox::Lang::Number
-*/
-public var maxHeartRate;
+            /**
+            * The elapsed distance of the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elapsedDistance;
 
 
-/**
- * The maximum power recorded during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var maxPower;
+            /**
+            * Elapsed time of the current activity in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var elapsedTime;
 
 
-/**
- * The maximum speed recorded during the current activity in meters per second
- * @type Toybox::Lang::Float
-*/
-public var maxSpeed;
+            /**
+            * The elevation at the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtDestination;
 
 
-/**
- * The mean sea level barometric pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var meanSeaLevelPressure;
+            /**
+            * The elevation at the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtNextPoint;
 
 
-/**
- * The name of the destination.
- * @type Toybox::Lang::String
-*/
-public var nameOfDestination;
+            /**
+            * The current energy expenditure in kilocalories per minute (kcals/min). Energy expenditure is a metric developed by FirstBeat that provides an estimation of the calorie burn rate calculated from heart rate data.  
+            * @type Toybox.Lang.Float
+            */
+            public var energyExpenditure;
 
 
-/**
- * The name of the next point.
- * @type Toybox::Lang::String
-*/
-public var nameOfNextPoint;
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the frontDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurIndex;
 
 
-/**
- * The distance to the nearest point on the current course in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var offCourseDistance;
+            /**
+            * The front bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurMax;
 
 
-/**
- * The raw ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var rawAmbientPressure;
+            /**
+            * The front bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurSize;
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurIndex;
+            /**
+            * The maximum cadence recorded during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxCadence;
 
 
-/**
- * The rear bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurMax;
+            /**
+            * The maximum heart rate recorded during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxHeartRate;
 
 
-/**
- * The rear bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurSize;
+            /**
+            * The maximum power recorded during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxPower;
 
 
-/**
- * The starting location of the current activity.
- * @type Toybox::Position::Location
-*/
-public var startLocation;
+            /**
+            * The maximum speed recorded during the current activity in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var maxSpeed;
 
 
-/**
- * The starting time of the current activity.
- * @type Toybox::Time::Moment
-*/
-public var startTime;
+            /**
+            * The mean sea level barometric pressure in Pascals (Pa). This returns barometric pressure calibrated to sea level. Since pressure varies dues to several factors, a GPS-based altitude must first be obtained, then the ambient (local) pressure is measured by the pressure sensor before conversion to a calibrated barometric pressure value.  
+            * @type Toybox.Lang.Float
+            */
+            public var meanSeaLevelPressure;
 
 
-/**
- * The swim stroke type from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimStrokeType;
+            /**
+            * The name of the destination.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfDestination;
 
 
-/**
- * The SWOLF score from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimSwolf;
+            /**
+            * The name of the next point.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfNextPoint;
 
 
-/**
- * The recording timer state.
- * @type Toybox::Lang::Number
-*/
-public var timerState;
+            /**
+            * The distance to the nearest point on the current course in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var offCourseDistance;
 
 
-/**
- * The current Timer value in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var timerTime;
+            /**
+            * The raw ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the internal pressure sensor. The data is the temperature compensated information read directly from the internal sensor.  
+            * @type Toybox.Lang.Float
+            */
+            public var rawAmbientPressure;
 
 
-/**
- * The total ascent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalAscent;
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the rearDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurIndex;
 
 
-/**
- * The total descent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalDescent;
+            /**
+            * The rear bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurMax;
 
 
-/**
- * The current track in radians.
- * @type Toybox::Lang::Float
-*/
-public var track;
+            /**
+            * The rear bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurSize;
 
 
-/**
- * The Training Effect score of the current activity.
- * @type Toybox::Lang::Float
-*/
-public var trainingEffect;
+            /**
+            * The starting location of the current activity. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var startLocation;
 
 
-}
+            /**
+            * The starting time of the current activity.  
+            * @type Toybox.Time.Moment
+            */
+            public var startTime;
 
 
-public class Location {
+            /**
+            * The swim stroke type from the previous length. Swim stroke type values range from 0-6. Each Number value represents a different swim stroke type (e.g. freestyle, backstroke, etc.).  
+            * @type Toybox.Lang.Number
+            */
+            public var swimStrokeType;
 
-/**
- * Get a <span class='object_link'><a href="" title="Toybox::Position::Location (class)">Location</a></span> object that is offset from the
- * @param angle
- * @param  distance
- * @returns  Toybox::Position::Location 
-*/
-public function getProjectedLocation(angle, distance) { }
 
+            /**
+            * The SWOLF score from the previous length. SWOLF is an abbreviation for Swim-Golf, a measure of swimming efficiency. The score is obtained by adding the strokes per length to the total time of the length. For example, if it takes ten strokes and thirty seconds to swim a pool length, the SWOLF score is 40. Just like golf, a lower SWOLF score is better.  
+            * @type Toybox.Lang.Number
+            */
+            public var swimSwolf;
 
-/**
- * Create a Location based on a set of coordinates.
- * @param options
- * @returns  Location 
-*/
-public function initialize(options) { }
 
+            /**
+            * The recording timer state. The timer state ranges from 0-3. A value of 0 indicates that the timer is off and there is no active recording, while a value of 3 indicates timer is on and there is an active recording.  
+            * @type Toybox.Lang.Number
+            */
+            public var timerState;
 
-/**
- * Get a Location object&#39;s coordinates in degrees.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function toDegrees() { }
 
+            /**
+            * The current Timer value in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var timerTime;
 
-/**
- * Get a String representation a Location object&#39;s coordinates.
- * @param format
- * @returns  Toybox::Lang::String 
-*/
-public function toGeoString(format) { }
 
+            /**
+            * The total ascent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalAscent;
 
-/**
- * Get a location object&#39;s coordinates in radians.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function toRadians() { }
 
+            /**
+            * The total descent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalDescent;
 
-}
 
+            /**
+            * The current track in radians. Track is the direction of travel in radians based on GPS movement. If supported by the device, this provides compass orientation when stopped.  
+            * @type Toybox.Lang.Float
+            */
+            public var track;
 
-}
 
-module Sensor {
+            /**
+            * The Training Effect score of the current activity. Training Effect is a score developed by FirstBeat, which indicates an activity's level of effect on aerobic fitness. Scores range from 1.0 (easy) to 5.0 (overreaching).  
+            * @type Toybox.Lang.Float
+            */
+            public var trainingEffect;
 
-public class AccelerometerData {
 
-/**
- * The <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of pitch values as <span class='object_link'><a href="../Lang/Float.html" title="Toybox::Lang::Float (class)">Floats</a></span> in degrees.
- * @type Toybox::Lang::Array
-*/
-public var pitch;
+        }
 
 
-/**
- * The <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of vector power values as
- * @type Toybox::Lang::Array
-*/
-public var power;
+        public class SensorData {
 
+        }
 
-/**
- * The <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of roll values as <span class='object_link'><a href="../Lang/Float.html" title="Toybox::Lang::Float (class)">Floats</a></span> in degrees.
- * @type Toybox::Lang::Array
-*/
-public var roll;
 
+        public class TooManySensorDataListenersException {
 
-/**
- * The <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of x axis values as <span class='object_link'><a href="../Lang/Number.html" title="Toybox::Lang::Number (class)">Numbers</a></span> in millig-units.
- * @type Toybox::Lang::Array
-*/
-public var x;
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-/**
- * The <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of y axis values as <span class='object_link'><a href="../Lang/Number.html" title="Toybox::Lang::Number (class)">Numbers</a></span> in millig-units.
- * @type Toybox::Lang::Array
-*/
-public var y;
+        }
 
 
-/**
- * The <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of z axis values as <span class='object_link'><a href="../Lang/Number.html" title="Toybox::Lang::Number (class)">Numbers</a></span> in millig-units.
- * @type Toybox::Lang::Array
-*/
-public var z;
+    }
 
+    module SensorHistory {
 
-}
+            /**
+            * Get the elevation history for the given period, up to the last power cycle. This function always returns the most recent pressure samples. The time between each SensorSample in the iterator may be device dependent.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function getElevationHistory(options) { }
 
 
-public class HeartRateData {
+            /**
+            * Get the heart rate history for the given period, up to the last power cycle. This function always returns the most recent heart rate samples. The time between each SensorSample in the iterator may be device dependent.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function getHeartRateHistory(options) { }
 
-/**
- * The most recent beat-to-beat interval data as an <span class='object_link'><a href="../Lang/Array.html" title="Toybox::Lang::Array (class)">Array</a></span> of <span class='object_link'><a href="../Lang/Number.html" title="Toybox::Lang::Number (class)">Number</a></span> objects in milliseconds (ms).
- * @type Toybox::Lang::Array
-*/
-public var heartBeatIntervals;
 
+            /**
+            * Get the oxygen saturation history for the given period This function always returns the most recent sensor history samples. The time between each `SensorSample` in the iterator may be device dependent.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function getOxygenSaturationHistory(options) { }
 
-}
 
+            /**
+            * Get the pressure history for the given period, up to the last power cycle. This function always returns the most recent pressure samples. The time between each SensorSample in the iterator may be device dependent.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function getPressureHistory(options) { }
 
-public class Info {
 
-/**
- * The altitude above mean sea level in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var altitude;
+            /**
+            * Get the temperature history for the given period, up to the last power cycle. This function always returns the most recent temperature samples. The time between each SensorSample in the iterator may be device dependent.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function getTemperatureHistory(options) { }
 
 
-/**
- * The ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var ambientPressure;
+        
+        public class SensorHistoryIterator {
 
+            /**
+            * Get the maximum SensorSampledata value contained in this iterator.Example:Print out the maximum SensorSample data valueusing Toybox.SensorHistory;using Toybox.System;// Given a valid SensorHistoryIterator object, print out the// maximum sample value entry in the iteratorSystem.println(sensorIter.getMax().data);
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMax() { }
 
-/**
- * The average cadence during the current activity in revolutions per minute
- * @type Toybox::Lang::Number
-*/
-public var averageCadence;
 
+            /**
+            * Get the minimum SensorSampledata value contained in this iterator.Example:Print out the minimum SensorSample data valueusing Toybox.SensorHistory;using Toybox.System;// Given a valid SensorHistoryIterator object, print out the// minimum sample value entry in the iteratorSystem.println(sensorIter.getMin().data);
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMin() { }
 
-/**
- * The average swim stroke distance from the previous interval in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var averageDistance;
 
+            /**
+            * Get the Moment of the newestSensorSample in this iterator.Example:Print out the Moment of the newest SensorSampleusing Toybox.SensorHistory;using Toybox.System;// Given a valid SensorHistoryIterator object, print out the Moment// of the newest sample entry in the iteratorSystem.println(sensorIter.getNewestSampleTime());
+            * @returns  Toybox.Time.Moment
+            */
+            public function getNewestSampleTime() { }
 
-/**
- * The average heart rate during the current activity in beats per minute
- * @type Toybox::Lang::Number
-*/
-public var averageHeartRate;
 
+            /**
+            * Get the Moment of the oldestSensorSample in this iterator.Example:Print out the Moment of the oldest SensorSampleusing Toybox.SensorHistory;using Toybox.System;// Given a valid SensorHistoryIterator object, print out the Moment// of the oldest sample entry in the iteratorSystem.println(sensorIter.getOldestSampleTime());
+            * @returns  Toybox.Time.Moment
+            */
+            public function getOldestSampleTime() { }
 
-/**
- * The average power during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var averagePower;
 
+            /**
+            * Get the next SensorSampleentry in the iterator.This must be called to get the initial data from the iterator.Example:Print out the next SensorSample data valueusing Toybox.SensorHistory;using Toybox.System;// Given a valid SensorHistoryIterator object, print out the next// entry in the iteratorSystem.println(sensorIter.next().data);
+            * @returns  Toybox.SensorHistory.SensorSample
+            */
+            public function next() { }
 
-/**
- * The average speed during the current activity in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var averageSpeed;
 
+        }
 
-/**
- * The current bearing in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearing;
 
+        public class SensorSample {
 
-/**
- * The bearing from the starting location to the destination in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearingFromStart;
+            /**
+            * The Sensor sample. The Sensor sample may contain invalid data. Make sure to has check for invalid samples. If the samples do not contain data, they will return null.  
+            * @type Toybox.Lang.Number, Toybox.Lang.Float
+            */
+            public var data;
 
 
-/**
- * The calories burned throughout the current activity in kilocalories (kcal).
- * @type Toybox::Lang::Number
-*/
-public var calories;
+            /**
+            * The time of the Sensor sample.  
+            * @type Toybox.Time.Moment
+            */
+            public var when;
 
 
-/**
- * The current cadence in revolutions per minute (rpm).
- * @type Toybox::Lang::Number
-*/
-public var currentCadence;
+        }
 
 
-/**
- * The true north referenced heading in radians.
- * @type Toybox::Lang::Float
-*/
-public var currentHeading;
+    }
 
+    module SensorLogging {
 
-/**
- * The current heart rate in beats per minute (bpm).
- * @type Toybox::Lang::Number
-*/
-public var currentHeartRate;
+        
+        public class SensorLogger {
 
+            /**
+            * Get statistics for the data gathered in the current session.
+            * @returns  Toybox.SensorLogging.SensorLoggingStats
+            */
+            public function getStats() { }
 
-/**
- * The current location.
- * @type Toybox::Position::Location
-*/
-public var currentLocation;
 
+        }
 
-/**
- * The current GPS accuracy.
- * @type Toybox::Lang::Number
-*/
-public var currentLocationAccuracy;
 
+        public class SensorLoggingStats {
 
-/**
- * The current power in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var currentPower;
+            /**
+            * The total number of logged samples  
+            * @type Toybox.Lang.Number
+            */
+            public var sampleCount;
 
 
-/**
- * The current speed in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var currentSpeed;
+            /**
+            * The total number of seconds of logged data  
+            * @type Toybox.Lang.Number
+            */
+            public var samplePeriod;
 
 
-/**
- * The distance to the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToDestination;
+        }
 
 
-/**
- * The distance to the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToNextPoint;
+    }
 
+    module StringUtil {
 
-/**
- * The elapsed distance of the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elapsedDistance;
+            /**
+            * Given an Array of Char objects, return the String equivalent
+            * @param charArray - (Toybox.Lang.Array)
+            * @returns 
+            */
+            public function charArrayToString(charArray) { }
 
 
-/**
- * Elapsed time of the current activity in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var elapsedTime;
+            /**
+            * Convert a String or ByteArray representation to a String or ByteArray representation whose underlying byte format corresponds to the provided input options.
+            * @param input - (Toybox.Lang.String, Toybox.Lang.ByteArray)
+            * @param options - (Toybox.Lang.Dictionary);;:fromRepresentation
+            * @returns 
+            */
+            public function convertEncodedString(input,options) { }
 
 
-/**
- * The elevation at the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtDestination;
+            /**
+            * Given an Array of UTF-8 bytes, return the String equivalent
+            * @param utf8Array - (Toybox.Lang.Array)
+            * @returns 
+            */
+            public function utf8ArrayToString(utf8Array) { }
 
 
-/**
- * The elevation at the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtNextPoint;
+        
+        public class InvalidHexStringException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-/**
- * The current energy expenditure in kilocalories per minute (kcals/min).
- * @type Toybox::Lang::Float
-*/
-public var energyExpenditure;
 
+        }
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurIndex;
 
+    }
 
-/**
- * The front bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurMax;
+    module System {
 
+            /**
+            * Write an error to the console and exit the system. Note: There are never really too many bananas.
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function error(msg) { }
 
-/**
- * The front bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurSize;
 
+            /**
+            * Exit the current app and launch a new app. This may only be called by watch-apps and widgets, and may only target watch-apps (both native activities and Connect IQ apps) and widgets. This is an asynchronous request that presents a confirmation dialog to launch the Intent. If confirmed, the current app will exit. Otherwise, the app will continue to run without exiting.
+            * @param intent - (Toybox.System.Intent)
+            * @returns  
+            */
+            public function exitTo(intent) { }
 
-/**
- * The maximum cadence recorded during the current activity in revolutions per
- * @type Toybox::Lang::Number
-*/
-public var maxCadence;
 
+            /**
+            * Get the current device settings.Example:using Toybox.System;var mySettings = System.getDeviceSettings();
+            * @returns  Toybox.System.DeviceSettings
+            */
+            public function getDeviceSettings() { }
 
-/**
- * The maximum heart rate recorded during the current activity in beats per
- * @type Toybox::Lang::Number
-*/
-public var maxHeartRate;
 
+            /**
+            * Get the current system stats.Example:using Toybox.System;var myStats = System.getDeviceStats();
+            * @returns  Toybox.System.Stats
+            */
+            public function getSystemStats() { }
 
-/**
- * The maximum power recorded during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var maxPower;
 
+            /**
+            * Get the current millisecond timer value.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getTimer() { }
 
-/**
- * The maximum speed recorded during the current activity in meters per second
- * @type Toybox::Lang::Float
-*/
-public var maxSpeed;
 
+            /**
+            * Check the installation status of an app.
+            * @param uri - (Toybox.Lang.String)
+            * @returns 
+            */
+            public function isAppInstalled(uri) { }
 
-/**
- * The mean sea level barometric pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var meanSeaLevelPressure;
 
+            /**
+            * Print to the console with a line terminator.
+            * @param output - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function println(output) { }
 
-/**
- * The name of the destination.
- * @type Toybox::Lang::String
-*/
-public var nameOfDestination;
 
+        
+        public class AppNotInstalledException {
 
-/**
- * The name of the next point.
- * @type Toybox::Lang::String
-*/
-public var nameOfNextPoint;
+        }
 
 
-/**
- * The distance to the nearest point on the current course in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var offCourseDistance;
+        public class ClockTime {
 
+            /**
+            * The daylight savings time offset.  
+            * @type Toybox.Lang.Number
+            */
+            public var dst;
 
-/**
- * The raw ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var rawAmbientPressure;
 
+            /**
+            * The hour of the day based on a 24-hour clock.  
+            * @type Toybox.Lang.Number
+            */
+            public var hour;
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurIndex;
 
+            /**
+            * The minute of the current hour.  
+            * @type Toybox.Lang.Number
+            */
+            public var min;
 
-/**
- * The rear bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurMax;
 
+            /**
+            * The second of the current minute.  
+            * @type Toybox.Lang.Number
+            */
+            public var sec;
 
-/**
- * The rear bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurSize;
 
+            /**
+            * The time offset from UTC in seconds.  
+            * @type Toybox.Lang.Number
+            */
+            public var timeZoneOffset;
 
-/**
- * The starting location of the current activity.
- * @type Toybox::Position::Location
-*/
-public var startLocation;
 
+        }
 
-/**
- * The starting time of the current activity.
- * @type Toybox::Time::Moment
-*/
-public var startTime;
 
+        public class ConnectionInfo {
 
-/**
- * The swim stroke type from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimStrokeType;
+            /**
+            * The state of the connection. Returns: 
+            * @type Toybox.Lang.Number
+            */
+            public var state;
 
 
-/**
- * The SWOLF score from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimSwolf;
+        }
 
 
-/**
- * The recording timer state.
- * @type Toybox::Lang::Number
-*/
-public var timerState;
+        public class DeviceSettings {
 
+            /**
+            * The activity tracking setting mode.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var activityTrackingOn;
 
-/**
- * The current Timer value in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var timerTime;
 
+            /**
+            * The number of alarms set on the device.  
+            * @type Toybox.Lang.Number
+            */
+            public var alarmCount;
 
-/**
- * The total ascent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalAscent;
 
+            /**
+            * Indicates if any communication channel is connected and available for use.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var connectionAvailable;
 
-/**
- * The total descent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalDescent;
 
+            /**
+            * The state of connections available to the device.  
+            * @type Toybox.Lang.Dictionary
+            */
+            public var connectionInfo;
 
-/**
- * The current track in radians.
- * @type Toybox::Lang::Float
-*/
-public var track;
 
+            /**
+            * The distance unit setting mode.  
+            * @type Toybox.Lang.Number
+            */
+            public var distanceUnits;
 
-/**
- * The Training Effect score of the current activity.
- * @type Toybox::Lang::Float
-*/
-public var trainingEffect;
 
+            /**
+            * The Do Not Disturb setting mode. Not all devices support Do Not Disturb, so it's a good idea to perform a has check when attempting to use this value. Example: using Toybox.System; var mySettings = System.getDeviceSettings(); if (deviceSettings has :doNotDisturb) { var doNotDisturb = deviceSettings.doNotDisturb; }  
+            * @type Toybox.Lang.Boolean
+            */
+            public var doNotDisturb;
 
-}
 
+            /**
+            * The elevation unit setting mode.  
+            * @type Toybox.Lang.Number
+            */
+            public var elevationUnits;
 
-public class SensorData {
 
-/**
- * An <span class='object_link'><a href="AccelerometerData.html" title="Toybox::Sensor::AccelerometerData (class)">AccelerometerData</a></span> object.
- * @type Object
-*/
-public var accelerometerData;
+            /**
+            * The current firmware version of the device. Example: using Toybox.System; var mySettings = System.getDeviceSettings(); var version = mySettings.firmwareVersion; var versionString = Lang.format("$1$.$2$", version); System.println(versionString minor); // e.g. 2.50  
+            * @type Toybox.Lang.Array
+            */
+            public var firmwareVersion;
 
 
-/**
- * A <span class='object_link'><a href="HeartRateData.html" title="Toybox::Sensor::HeartRateData (class)">HeartRateData</a></span> object.
- * @type Object
-*/
-public var heartRateData;
+            /**
+            * The first day of the week.  
+            * @type Toybox.Lang.Number
+            */
+            public var firstDayOfWeek;
 
 
-}
+            /**
+            * The height unit setting mode.  
+            * @type Toybox.Lang.Number
+            */
+            public var heightUnits;
 
 
-public class TooManySensorDataListenersException {
+            /**
+            * The physical buttons supported by the device. This returns a bitwise binary of the enumerated values defined by the System.BUTTON_INPUT_* constants that match the available buttons on a particular device. For example, a vivoactive HR returns a value of 9, which indicates Select (1) and Menu (8) button support. A fenix 5, however, returns 11, indicating support for all available button types. Example: using Toybox.System; var mySettings = System.getDeviceSettings(); if ((mySettings.inputButtons & System.BUTTON_INPUT_MENU) != 0) { // Allow the use of the Menu button }  
+            * @type Toybox.Lang.Number
+            */
+            public var inputButtons;
 
-/**
- * Constructor.
- * @param msg
- * @returns  TooManySensorDataListenersException 
-*/
-public function initialize(msg) { }
 
+            /**
+            * The clock mode mode.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var is24Hour;
 
-}
 
+            /**
+            * Indicates if widget glances are enabled on the device. If glance mode is enabled, the system will pass up / down key events to a widget's base page. Otherwise, the system will mask them out.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var isGlanceModeEnabled;
 
-}
 
-module SensorHistory {
+            /**
+            * The availability of a touch screen on the device.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var isTouchScreen;
 
-public class SensorHistoryIterator {
 
-/**
- * Get the maximum <span class='object_link'><a href="SensorSample.html" title="Toybox::SensorHistory::SensorSample (class)">SensorSample</a></span> data
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMax() { }
+            /**
+            * The Connect IQ version supported by the device. Example: using Toybox.System; var mySettings = System.getDeviceSettings(); var version = mySettings.monkeyVersion; var versionString = Lang.format("$1$.$2$.$3$", version); System.println(versionString); //e.g. 2.2.5  
+            * @type Toybox.Lang.Array
+            */
+            public var monkeyVersion;
 
 
-/**
- * Get the minimum <span class='object_link'><a href="SensorSample.html" title="Toybox::SensorHistory::SensorSample (class)">SensorSample</a></span> data
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMin() { }
+            /**
+            * The number of active notifications.  
+            * @type Toybox.Lang.Number
+            */
+            public var notificationCount;
 
 
-/**
- * Get the <span class='object_link'><a href="../Time/Moment.html" title="Toybox::Time::Moment (class)">Moment</a></span> of the newest
- * @param 
- * @returns  Toybox::Time::Moment 
-*/
-public function getNewestSampleTime() { }
+            /**
+            * The pace unit setting mode.  
+            * @type Toybox.Lang.Number
+            */
+            public var paceUnits;
 
 
-/**
- * Get the <span class='object_link'><a href="../Time/Moment.html" title="Toybox::Time::Moment (class)">Moment</a></span> of the oldest
- * @param 
- * @returns  Toybox::Time::Moment 
-*/
-public function getOldestSampleTime() { }
+            /**
+            * The part number of the device.  
+            * @type Toybox.Lang.String
+            */
+            public var partNumber;
 
 
-/**
- * Get the next <span class='object_link'><a href="SensorSample.html" title="Toybox::SensorHistory::SensorSample (class)">SensorSample</a></span> entry in
- * @param 
- * @returns  Toybox::SensorHistory::SensorSample 
-*/
-public function next() { }
+            /**
+            * The phone connection status mode.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var phoneConnected;
 
 
-}
+            /**
+            * This flag indicates whether the device screen requires burn-in protection. Some screens require special drawing behavior when rendering content in always-on mode. If a screen requires burn-in protection the following rules must be followed: A maximum of ten-percent of the total available screen pixels can be in use at one time. Individual pixels can be on for no more than three update cycles when updating at once-per-minute intervals. If either condition is violated all screen pixels will be turned off until the device goes into high-power mode.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var requiresBurnInProtection;
 
 
-public class SensorSample {
+            /**
+            * The height of the device screen in pixels. In some cases, this can be useful to determine the device type at runtime. However, to get the height of the screen area currently available to an app, use Graphics.Dc.getHeight().  
+            * @type Toybox.Lang.Number
+            */
+            public var screenHeight;
 
-/**
- * The Sensor sample.
- * @type Toybox::Lang::Number, Toybox::Lang::Float
-*/
-public var data;
 
+            /**
+            * The screen shape of the device.  
+            * @type Toybox.Lang.Number
+            */
+            public var screenShape;
 
-/**
- * The time of the Sensor sample.
- * @type Toybox::Time::Moment
-*/
-public var when;
 
+            /**
+            * The width of the device screen in pixels. In some cases, this can be useful to determine the device type at runtime. However, to get the width of the screen area currently available to an app, use Graphics.Dc.getWidth().  
+            * @type Toybox.Lang.Number
+            */
+            public var screenWidth;
 
-}
 
+            /**
+            * The language being used by the system  
+            * @type Toybox.Lang.Number
+            */
+            public var systemLanguage;
 
-}
 
-module SensorLogging {
+            /**
+            * The temperature unit setting mode.  
+            * @type Toybox.Lang.Number
+            */
+            public var temperatureUnits;
 
-public class SensorLogger {
 
-/**
- * Get statistics for the data gathered in the current session.
- * @param 
- * @returns  SensorLoggingStats 
-*/
-public function getStats() { }
+            /**
+            * The tone setting mode.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var tonesOn;
 
 
-/**
- * A new instance of SensorLogger.
- * @param options
- * @returns  SensorLogger 
-*/
-public function initialize(options) { }
+            /**
+            * A unique alphanumeric device identifier. The value is unique for every app, but is stable on a device across uninstall and reinstall. Any use of this value for tracking user information must be in compliance with international privacy law. Example: using Toybox.System; var mySettings = System.getDeviceSettings(); var id = mySettings.uniqueIdentifier; if (id != null) { System.println(id); //e.g. ac915d426451c88e8ea691fa412f9af9c21b4d12 }  
+            * @type Toybox.Lang.String
+            */
+            public var uniqueIdentifier;
 
 
-}
+            /**
+            * The vibration setting mode.  
+            * @type Toybox.Lang.Boolean
+            */
+            public var vibrateOn;
 
 
-public class SensorLoggingStats {
+            /**
+            * The weight unit setting mode.  
+            * @type Toybox.Lang.Number
+            */
+            public var weightUnits;
 
-/**
- * The total number of logged samples.
- * @type Toybox::Lang::Number
-*/
-public var sampleCount;
 
+        }
 
-/**
- * The total number of seconds of logged data.
- * @type Toybox::Lang::Number
-*/
-public var samplePeriod;
 
+        public class Intent {
 
-/**
- * A new instance of SensorLoggingStats.
- * @type SensorLoggingStats
-*/
-public var initialize;
+            /**
+            * Constructor
+            * @param aURI - (Toybox.Lang.String)
+            * @param aArgs - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(aURI,aArgs) { }
 
 
-}
+        }
 
 
-}
+        public class PreviousOperationNotCompleteException {
 
-module StringUtil {
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-public class InvalidHexStringException {
 
-/**
- * A new instance of InvalidHexStringException.
- * @param msg
- * @returns  InvalidHexStringException 
-*/
-public function initialize(msg) { }
+        }
 
 
-}
+        public class ServiceDelegate {
 
+            /**
+            * The callback method that is triggered when an activity is completed
+            * @param activity - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function onActivityCompleted(activity) { }
 
-}
 
-module System {
+            /**
+            * A callback method that is triggered in the background when a fitness goal is reached.
+            * @param goalType - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onGoalReached(goalType) { }
 
-public class AppNotInstalledException {
 
-/**
- * AppNotInstalledException constructor.
- * @param 
- * @returns  AppNotInstalledException 
-*/
-public function initialize() { }
+            /**
+            * The callback method that is triggered when a phone app message arrives for this app
+            * @param msg - (Toybox.Communications.PhoneAppMessage)
+            * @returns  
+            */
+            public function onPhoneAppMessage(msg) { }
 
 
-}
+        }
 
 
-public class ClockTime {
+        public class SensorLoggingStats {
 
-/**
- * The daylight savings time offset.
- * @type Toybox::Lang::Number
-*/
-public var dst;
+            /**
+            * The total number of logged samples  
+            * @type Toybox.Lang.Number
+            */
+            public var sampleCount;
 
 
-/**
- * The hour of the day based on a 24-hour clock.
- * @type Toybox::Lang::Number
-*/
-public var hour;
+            /**
+            * The total number of seconds of logged data  
+            * @type Toybox.Lang.Number
+            */
+            public var samplePeriod;
 
 
-/**
- * The minute of the current hour.
- * @type Toybox::Lang::Number
-*/
-public var min;
+        }
 
 
-/**
- * The second of the current minute.
- * @type Toybox::Lang::Number
-*/
-public var sec;
+        public class UnexpectedAppTypeException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-/**
- * The time offset from UTC in seconds.
- * @type Toybox::Lang::Number
-*/
-public var timeZoneOffset;
 
+        }
 
-}
 
+    }
 
-public class ConnectionInfo {
+    module Test {
 
-/**
- * The state of the connection.
- * @type Toybox::Lang::Number
-*/
-public var state;
+            /**
+            * Throws an exception if the test is false.
+            * @param test - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function assert(test) { }
 
 
-}
+        
+        public class AssertException {
 
+            /**
+            * Constructor
+            * @param message - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(message) { }
 
-public class DeviceSettings {
 
-/**
- * The activity tracking setting mode.
- * @type Toybox::Lang::Boolean
-*/
-public var activityTrackingOn;
+        }
 
 
-/**
- * The number of alarms set on the device.
- * @type Toybox::Lang::Number
-*/
-public var alarmCount;
+        public class SensorLogger {
 
+            /**
+            * Get statistics for the data gathered in the current session.
+            * @returns  Toybox.SensorLogging.SensorLoggingStats
+            */
+            public function getStats() { }
 
-/**
- * Indicates if any communication channel is connected and available for use.
- * @type Toybox::Lang::Boolean
-*/
-public var connectionAvailable;
 
+        }
 
-/**
- * The state of connections available to the device.
- * @type Toybox::Lang::Dictionary
-*/
-public var connectionInfo;
 
+    }
 
-/**
- * The distance unit setting mode.
- * @type Toybox::Lang::Number
-*/
-public var distanceUnits;
+    module Time {
 
+            /**
+            * Get a Moment for the current time based on the specified source. This method behaves the same as Time.now(), but accepts an options argument that allows the time source to be selected.
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function getCurrentTime(options) { }
 
-/**
- * The Do Not Disturb setting mode.
- * @type Toybox::Lang::Boolean
-*/
-public var doNotDisturb;
 
+            /**
+            * Get a Moment for midnight today.Example:Using today() on December 31, 1989 at 5:00 pm CSTusing Toybox.Time;var now = new Time.Moment(Time.today().value()); // UNIX epoch 631087200
+            * @returns  Toybox.Time.Moment
+            */
+            public function today() { }
 
-/**
- * The elevation unit setting mode.
- * @type Toybox::Lang::Number
-*/
-public var elevationUnits;
 
+        
+        public class Duration {
 
-/**
- * The current firmware version of the device.
- * @type Toybox::Lang::Array
-*/
-public var firmwareVersion;
+            /**
+            * Add a Moment or another Duration to a Duration. When adding a Moment to a Duration, this method functions the same as the Moment.add() method.
+            * @param time - (Toybox.Time.Duration, Toybox.Time.Moment)
+            * @returns 
+            */
+            public function add(time) { }
 
 
-/**
- * The first day of the week.
- * @type Toybox::Lang::Number
-*/
-public var firstDayOfWeek;
+            /**
+            * Determine if a Duration is shorter or longer than another Duration. This computes a Number representing the difference between the two Duration objects in seconds. The subtract() method can also be used to get the absolute difference between two Duration objects.
+            * @param duration - (Toybox.Time.Duration)
+            * @returns 
+            */
+            public function compare(duration) { }
 
 
-/**
- * The height unit setting mode.
- * @type Toybox::Lang::Number
-*/
-public var heightUnits;
+            /**
+            * Divide a Duration by a value.
+            * @param value - (Toybox.Lang.Number, Toybox.Lang.Float)
+            * @returns 
+            */
+            public function divide(value) { }
 
 
-/**
- * The physical buttons supported by the device.
- * @type Toybox::Lang::Number
-*/
-public var inputButtons;
+            /**
+            * Determine if a Duration is longer than another Duration.
+            * @param duration - (Toybox.Time.Duration)
+            * @returns 
+            */
+            public function greaterThan(duration) { }
 
 
-/**
- * The clock mode mode.
- * @type Toybox::Lang::Boolean
-*/
-public var is24Hour;
+            /**
+            * Constructor
+            * @param value - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function initialize(value) { }
 
 
-/**
- * Indicates if widget glances are enabled on the device.
- * @type Toybox::Lang::Boolean
-*/
-public var isGlanceModeEnabled;
+            /**
+            * Determine if a Duration is shorter than another Duration.
+            * @param duration - (Toybox.Time.Duration)
+            * @returns 
+            */
+            public function lessThan(duration) { }
 
 
-/**
- * The availability of a touch screen on the device.
- * @type Toybox::Lang::Boolean
-*/
-public var isTouchScreen;
+            /**
+            * Multiply a Duration by a value.
+            * @param value - (Toybox.Lang.Number, Toybox.Lang.Float)
+            * @returns 
+            */
+            public function multiply(value) { }
 
 
-/**
- * The Connect IQ version supported by the device.
- * @type Toybox::Lang::Array
-*/
-public var monkeyVersion;
+            /**
+            * Get the absolute difference between two Duration objects. The computed Duration is always a positive value. The compare() method can also be used to get the difference between two Duration objects.
+            * @param duration - (Toybox.Time.Duration)
+            * @returns 
+            */
+            public function subtract(duration) { }
 
 
-/**
- * The number of active notifications.
- * @type Toybox::Lang::Number
-*/
-public var notificationCount;
+            /**
+            * Get the value of a Duration.
+            * @returns  Toybox.Lang.Number
+            */
+            public function value() { }
 
 
-/**
- * The pace unit setting mode.
- * @type Toybox::Lang::Number
-*/
-public var paceUnits;
+        }
 
 
-/**
- * The part number of the device.
- * @type Toybox::Lang::String
-*/
-public var partNumber;
+    }
 
+    module Gregorian {
 
-/**
- * The phone connection status mode.
- * @type Toybox::Lang::Boolean
-*/
-public var phoneConnected;
+        public class Info {
 
+            /**
+            * The altitude above mean sea level in meters (m). Elevation is derived from the most accurate source: Barometer or GPS  
+            * @type Toybox.Lang.Float
+            */
+            public var altitude;
 
-/**
- * This flag indicates whether the device screen requires burn-in protection.
- * @type Toybox::Lang::Boolean
-*/
-public var requiresBurnInProtection;
 
+            /**
+            * The ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the pressure sensor. The data is smoothed by a two-stage filter to reduce noise and instantaneous variation.  
+            * @type Toybox.Lang.Float
+            */
+            public var ambientPressure;
 
-/**
- * The height of the device screen in pixels.
- * @type Toybox::Lang::Number
-*/
-public var screenHeight;
 
+            /**
+            * The average cadence during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageCadence;
 
-/**
- * The screen shape of the device.
- * @type Toybox::Lang::Number
-*/
-public var screenShape;
 
+            /**
+            * The average swim stroke distance from the previous interval in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var averageDistance;
 
-/**
- * The width of the device screen in pixels.
- * @type Toybox::Lang::Number
-*/
-public var screenWidth;
 
+            /**
+            * The average heart rate during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var averageHeartRate;
 
-/**
- * The language being used by the system.
- * @type Toybox::Lang::Number
-*/
-public var systemLanguage;
 
+            /**
+            * The average power during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var averagePower;
 
-/**
- * The temperature unit setting mode.
- * @type Toybox::Lang::Number
-*/
-public var temperatureUnits;
 
+            /**
+            * The average speed during the current activity in meters per second (mps). The average is computed as the elapsed 3-D accumulated distance divided by the elapsed time.  
+            * @type Toybox.Lang.Float
+            */
+            public var averageSpeed;
 
-/**
- * The tone setting mode.
- * @type Object
-*/
-public var tonesOn;
 
+            /**
+            * The current bearing in radians. Bearing is the direction from your current location or position to the destination of navigation, dependent on your current location.  
+            * @type Toybox.Lang.Float
+            */
+            public var bearing;
 
-/**
- * A unique alphanumeric device identifier.
- * @type Toybox::Lang::String
-*/
-public var uniqueIdentifier;
 
+            /**
+            * The bearing from the starting location to the destination in radians. Bearing from start is the direction of desired track from the start of navigation to the destination in radians. This is only dependent on your location when a course is set, and it is not dependent on where you may have moved to during an activity  
+            * @type Toybox.Lang.Float
+            */
+            public var bearingFromStart;
 
-/**
- * The vibration setting mode.
- * @type Toybox::Lang::Boolean
-*/
-public var vibrateOn;
 
+            /**
+            * The calories burned throughout the current activity in kilocalories (kcal).  
+            * @type Toybox.Lang.Number
+            */
+            public var calories;
 
-/**
- * The weight unit setting mode.
- * @type Toybox::Lang::Number
-*/
-public var weightUnits;
 
+            /**
+            * The current cadence in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentCadence;
 
-}
 
+            /**
+            * The true north referenced heading in radians. This provides compass orientation if it is supported by the device.  
+            * @type Toybox.Lang.Float
+            */
+            public var currentHeading;
 
-public class Intent {
 
-/**
- *   
- * @type Object
-*/
-public var arguments;
+            /**
+            * The current heart rate in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentHeartRate;
 
 
-/**
- *   
- * @type Object
-*/
-public var uri;
+            /**
+            * The current location. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var currentLocation;
 
 
-/**
- * Create an Intent.
- * @type Intent
-*/
-public var initialize;
+            /**
+            * The current GPS accuracy. GPS accuracy values range from 0-4. A value of 0 indicates an accuracy value is not available, while a value of 4 indicates a good GPS fix.  
+            * @type Toybox.Lang.Number
+            */
+            public var currentLocationAccuracy;
 
 
-}
+            /**
+            * The current oxygen saturation in percent (%)  
+            * @type Toybox.Lang.Number
+            */
+            public var currentOxygenSaturation;
 
 
-public class PreviousOperationNotCompleteException {
+            /**
+            * The current power in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var currentPower;
 
-/**
- * PreviousOperationNotCompleteException constructor.
- * @param msg
- * @returns  PreviousOperationNotCompleteException 
-*/
-public function initialize(msg) { }
 
+            /**
+            * The current speed in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var currentSpeed;
 
-}
 
+            /**
+            * The distance to the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToDestination;
 
-public class ServiceDelegate {
 
-/**
- * The callback method that is triggered when an activity is completed.
- * @param activity
- * @returns  Object 
-*/
-public function onActivityCompleted(activity) { }
+            /**
+            * The distance to the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var distanceToNextPoint;
 
 
-/**
- * A callback method that is triggered in the background when a fitness goal
- * @param goalType
- * @returns  Object 
-*/
-public function onGoalReached(goalType) { }
+            /**
+            * The elapsed distance of the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elapsedDistance;
 
 
-/**
- * The callback method that is triggered in the background when an OAuth
- * @param 
- * @returns  Object 
-*/
-public function onOAuthResponse() { }
+            /**
+            * Elapsed time of the current activity in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var elapsedTime;
 
 
-/**
- * The callback method that is triggered in the background at the configured
- * @param 
- * @returns  Object 
-*/
-public function onSleepTime() { }
+            /**
+            * The elevation at the destination in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtDestination;
 
 
-/**
- * The callback method that is triggered in the background when a step goal is
- * @param 
- * @returns  Object 
-*/
-public function onSteps() { }
+            /**
+            * The elevation at the next point in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var elevationAtNextPoint;
 
 
-/**
- * A callback method that is triggered in the background when time-based
- * @param 
- * @returns  Object 
-*/
-public function onTemporalEvent() { }
+            /**
+            * The current energy expenditure in kilocalories per minute (kcals/min). Energy expenditure is a metric developed by FirstBeat that provides an estimation of the calorie burn rate calculated from heart rate data.  
+            * @type Toybox.Lang.Float
+            */
+            public var energyExpenditure;
 
 
-/**
- * A callback method that is triggered in the background at the configured
- * @param 
- * @returns  Object 
-*/
-public function onWakeTime() { }
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the frontDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurIndex;
 
 
-}
+            /**
+            * The front bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurMax;
 
 
-public class SensorLoggingStats {
+            /**
+            * The front bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var frontDerailleurSize;
 
-/**
- * The total number of logged samples.
- * @type Toybox::Lang::Number
-*/
-public var sampleCount;
 
+            /**
+            * The maximum cadence recorded during the current activity in revolutions per minute (rpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxCadence;
 
-/**
- * The total number of seconds of logged data.
- * @type Toybox::Lang::Number
-*/
-public var samplePeriod;
 
+            /**
+            * The maximum heart rate recorded during the current activity in beats per minute (bpm).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxHeartRate;
 
-/**
- * A new instance of SensorLoggingStats.
- * @type SensorLoggingStats
-*/
-public var initialize;
 
+            /**
+            * The maximum power recorded during the current activity in Watts (W).  
+            * @type Toybox.Lang.Number
+            */
+            public var maxPower;
 
-}
 
+            /**
+            * The maximum speed recorded during the current activity in meters per second (mps).  
+            * @type Toybox.Lang.Float
+            */
+            public var maxSpeed;
 
-public class UnexpectedAppTypeException {
 
-/**
- * UnexpectedAppTypeException constructor.
- * @param msg
- * @returns  UnexpectedAppTypeException 
-*/
-public function initialize(msg) { }
+            /**
+            * The mean sea level barometric pressure in Pascals (Pa). This returns barometric pressure calibrated to sea level. Since pressure varies dues to several factors, a GPS-based altitude must first be obtained, then the ambient (local) pressure is measured by the pressure sensor before conversion to a calibrated barometric pressure value.  
+            * @type Toybox.Lang.Float
+            */
+            public var meanSeaLevelPressure;
 
 
-}
+            /**
+            * The name of the destination.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfDestination;
 
 
-}
+            /**
+            * The name of the next point.  
+            * @type Toybox.Lang.String
+            */
+            public var nameOfNextPoint;
 
-module Test {
 
-public class AssertException {
+            /**
+            * The distance to the nearest point on the current course in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var offCourseDistance;
 
-/**
- * A new instance of AssertException.
- * @param message
- * @returns  AssertException 
-*/
-public function initialize(message) { }
 
+            /**
+            * The raw ambient pressure in Pascals (Pa). This returns ambient (local) barometric pressure as measured by the internal pressure sensor. The data is the temperature compensated information read directly from the internal sensor.  
+            * @type Toybox.Lang.Float
+            */
+            public var rawAmbientPressure;
 
-}
 
+            /**
+            * The current front bicycle derailleur index. Index values range from from 1 to the rearDerailleurMax.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurIndex;
 
-public class SensorLogger {
 
-/**
- * Get statistics for the data gathered in the current session.
- * @param 
- * @returns  SensorLoggingStats 
-*/
-public function getStats() { }
+            /**
+            * The rear bicycle derailleur maximum index.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurMax;
 
 
-/**
- * A new instance of SensorLogger.
- * @param options
- * @returns  SensorLogger 
-*/
-public function initialize(options) { }
+            /**
+            * The rear bicycle derailleur gear size in number of teeth.  
+            * @type Toybox.Lang.Number
+            */
+            public var rearDerailleurSize;
 
 
-}
+            /**
+            * The starting location of the current activity. This member will always provide a null value unless the Positioning Permission is enabled.  
+            * @type Toybox.Position.Location
+            */
+            public var startLocation;
 
 
-}
+            /**
+            * The starting time of the current activity.  
+            * @type Toybox.Time.Moment
+            */
+            public var startTime;
 
-module Time {
 
-public class Duration {
+            /**
+            * The swim stroke type from the previous length. Swim stroke type values range from 0-6. Each Number value represents a different swim stroke type (e.g. freestyle, backstroke, etc.).  
+            * @type Toybox.Lang.Number
+            */
+            public var swimStrokeType;
 
-/**
- * Add a <span class='object_link'><a href="Moment.html" title="Toybox::Time::Moment (class)">Moment</a></span> or another Duration to a Duration.
- * @param time
- * @returns  Toybox::Time::Duration, Toybox::Time::Moment 
-*/
-public function add(time) { }
 
+            /**
+            * The SWOLF score from the previous length. SWOLF is an abbreviation for Swim-Golf, a measure of swimming efficiency. The score is obtained by adding the strokes per length to the total time of the length. For example, if it takes ten strokes and thirty seconds to swim a pool length, the SWOLF score is 40. Just like golf, a lower SWOLF score is better.  
+            * @type Toybox.Lang.Number
+            */
+            public var swimSwolf;
 
-/**
- * Determine if a Duration is shorter or longer than another Duration.
- * @param duration
- * @returns  Toybox::Lang::Number 
-*/
-public function compare(duration) { }
 
+            /**
+            * The recording timer state. The timer state ranges from 0-3. A value of 0 indicates that the timer is off and there is no active recording, while a value of 3 indicates timer is on and there is an active recording.  
+            * @type Toybox.Lang.Number
+            */
+            public var timerState;
 
-/**
- * Divide a Duration by a value.
- * @param value
- * @returns  Toybox::Time::Duration 
-*/
-public function divide(value) { }
 
+            /**
+            * The current Timer value in milliseconds (ms).  
+            * @type Toybox.Lang.Number
+            */
+            public var timerTime;
 
-/**
- * Determine if a Duration is longer than another Duration.
- * @param duration
- * @returns  Toybox::Lang::Boolean 
-*/
-public function greaterThan(duration) { }
 
+            /**
+            * The total ascent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalAscent;
 
-/**
- * Creates a Duration object.
- * @param value
- * @returns  Toybox::Time::Duration 
-*/
-public function initialize(value) { }
 
+            /**
+            * The total descent during the current activity in meters (m).  
+            * @type Toybox.Lang.Float
+            */
+            public var totalDescent;
 
-/**
- * Determine if a Duration is shorter than another Duration.
- * @param duration
- * @returns  Toybox::Lang::Boolean 
-*/
-public function lessThan(duration) { }
 
+            /**
+            * The current track in radians. Track is the direction of travel in radians based on GPS movement. If supported by the device, this provides compass orientation when stopped.  
+            * @type Toybox.Lang.Float
+            */
+            public var track;
 
-/**
- * Multiply a Duration by a value.
- * @param value
- * @returns  Toybox::Time::Duration 
-*/
-public function multiply(value) { }
 
+            /**
+            * The Training Effect score of the current activity. Training Effect is a score developed by FirstBeat, which indicates an activity's level of effect on aerobic fitness. Scores range from 1.0 (easy) to 5.0 (overreaching).  
+            * @type Toybox.Lang.Float
+            */
+            public var trainingEffect;
 
-/**
- * Get the absolute difference between two Duration objects.
- * @param duration
- * @returns  Toybox::Time::Duration 
-*/
-public function subtract(duration) { }
 
+        }
 
-/**
- * Get the value of a Duration.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function value() { }
 
+        public class Moment {
 
-}
+            /**
+            * Add a Duration to a Moment. This method functions the same as the Duration.add() method when adding a Duration to a Moment.
+            * @param duration - (Toybox.Time.Duration)
+            * @returns 
+            */
+            public function add(duration) { }
 
 
-}
+            /**
+            * Determine if a Moment is before or after another Moment. This computes a Number representing the difference between the two Moment objects in seconds. The subtract() method can also be used to get the absolute Duration between two Moment objects.
+            * @param moment - (Toybox.Time.Moment)
+            * @returns 
+            */
+            public function compare(moment) { }
 
-module Gregorian {
 
-public class Info {
+            /**
+            * Determine if a Moment is greater than another Moment.
+            * @param moment - (Toybox.Time.Moment)
+            * @returns 
+            */
+            public function greaterThan(moment) { }
 
-/**
- * The altitude above mean sea level in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var altitude;
 
+            /**
+            * Constructor
+            * @param seconds - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function initialize(seconds) { }
 
-/**
- * The ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var ambientPressure;
 
+            /**
+            * Determine if a Moment is less than another Moment.
+            * @param moment - (Toybox.Time.Moment)
+            * @returns 
+            */
+            public function lessThan(moment) { }
 
-/**
- * The average cadence during the current activity in revolutions per minute
- * @type Toybox::Lang::Number
-*/
-public var averageCadence;
 
+            /**
+            * Subtract a Duration or Moment from a Moment. Note: Subtracting a Duration from a Moment was not supported until ConnectIQ 3.0.0. If backward compatibility is a concern, it may be best to add a negative Duration instead.
+            * @param subtrahend - (Toybox.Time.Moment, Toybox.Time.Duration)
+            * @returns 
+            */
+            public function subtract(subtrahend) { }
 
-/**
- * The average swim stroke distance from the previous interval in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var averageDistance;
 
+            /**
+            * Get the UTC value of a Moment.
+            * @returns  Toybox.Lang.Number
+            */
+            public function value() { }
 
-/**
- * The average heart rate during the current activity in beats per minute
- * @type Toybox::Lang::Number
-*/
-public var averageHeartRate;
 
+        }
 
-/**
- * The average power during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var averagePower;
 
+        public class RealTimeClockNotValidException {
 
-/**
- * The average speed during the current activity in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var averageSpeed;
+            /**
+            * 
+            * @param msg
+            * @returns  
+            */
+            public function initialize(msg) { }
 
 
-/**
- * The current bearing in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearing;
+        }
 
 
-/**
- * The bearing from the starting location to the destination in radians.
- * @type Toybox::Lang::Float
-*/
-public var bearingFromStart;
+    }
 
+    module Timer {
 
-/**
- * The calories burned throughout the current activity in kilocalories (kcal).
- * @type Toybox::Lang::Number
-*/
-public var calories;
+        
+        public class Timer {
 
+            /**
+            * Start the Timer.
+            * @param callback - (Toybox.Lang.Method)
+            * @param time - (Toybox.Lang.Number)
+            * @param repeat - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function start(callback,time,repeat) { }
 
-/**
- * The current cadence in revolutions per minute (rpm).
- * @type Toybox::Lang::Number
-*/
-public var currentCadence;
 
+        }
 
-/**
- * The true north referenced heading in radians.
- * @type Toybox::Lang::Float
-*/
-public var currentHeading;
 
+    }
 
-/**
- * The current heart rate in beats per minute (bpm).
- * @type Toybox::Lang::Number
-*/
-public var currentHeartRate;
+    module UserProfile {
 
+            /**
+            * Return the sport for which the current activity retrieves heart ratezone thresholds.If the active sport does not have sport specific zones, it will returnHR_ZONE_SPORT_GENERIC.Example:using Toybox.UserProfile;var profile = UserProfile.getCurrentSport();
+            * @returns  Toybox.Lang.Number
+            */
+            public function getCurrentSport() { }
 
-/**
- * The current location.
- * @type Toybox::Position::Location
-*/
-public var currentLocation;
 
+            /**
+            * Retrieve an Array of the current heart rate zone threshold values in beats per minute (bpm) The returned Array contains zone values as follows: min zone 1 - The minimum heart rate threshold for zone 1 max zone 1 - The maximum heart rate threshold for zone 1 max zone 2 - The maximum heart rate threshold for zone 2 max zone 3 - The maximum heart rate threshold for zone 3 max zone 4 - The maximum heart rate threshold for zone 4 max zone 5 - The maximum heart rate threshold for zone 5
+            * @param sport - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getHeartRateZones(sport) { }
 
-/**
- * The current GPS accuracy.
- * @type Toybox::Lang::Number
-*/
-public var currentLocationAccuracy;
 
+            /**
+            * Retrieve the current UserProfile.Profileobject.Example:using Toybox.UserProfile;var profile = UserProfile.getProfile();
+            * @returns  Toybox.UserProfile.Profile
+            */
+            public function getProfile() { }
 
-/**
- * The current power in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var currentPower;
 
+        
+        public class ProfileInfo {
 
-/**
- * The current speed in meters per second (mps).
- * @type Toybox::Lang::Float
-*/
-public var currentSpeed;
+            /**
+            * The profile name  
+            * @type Toybox.Lang.String
+            */
+            public var name;
 
 
-/**
- * The distance to the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToDestination;
+            /**
+            * An Activity.SPORT_* enum value  
+            * @type Toybox.Lang.Number
+            */
+            public var sport;
 
 
-/**
- * The distance to the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var distanceToNextPoint;
+            /**
+            * An Activity.SUB_SPORT_* enum value. Can be null.  
+            * @type Toybox.Lang.Number
+            */
+            public var subSport;
 
 
-/**
- * The elapsed distance of the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elapsedDistance;
+            /**
+            * An unique identifer of the profile  
+            * @type Toybox.Lang.ByteArray
+            */
+            public var uniqueIdentifier;
 
 
-/**
- * Elapsed time of the current activity in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var elapsedTime;
+        }
 
 
-/**
- * The elevation at the destination in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtDestination;
+    }
 
+    module WatchUi {
 
-/**
- * The elevation at the next point in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var elevationAtNextPoint;
+            /**
+            * Animate an Object. Animate works by changing an object property over time, such as the x-position of a Drawable. The animation starts after the call and runs the length of the specified period. During this time, the View object's onUpdate() method will be invoked at an increased rate to facilitate animation.
+            * @param object - (Toybox.Lang.Object)
+            * @param property - (Toybox.Lang.Symbol)
+            * @param type - (Toybox.Lang.Number)
+            * @param start - (Toybox.Lang.Number)
+            * @param stop - (Toybox.Lang.Number)
+            * @param period - (Toybox.Lang.Float)
+            * @param callback - (Toybox.Lang.Method)
+            * @returns  
+            */
+            public function animate(object,property,type,start,stop,period,callback) { }
 
 
-/**
- * The current energy expenditure in kilocalories per minute (kcals/min).
- * @type Toybox::Lang::Float
-*/
-public var energyExpenditure;
+            /**
+            * Load a resource from the executable.
+            * @param resource - (Toybox.Lang.Symbol)
+            * @returns 
+            */
+            public function loadResource(resource) { }
 
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurIndex;
+            /**
+            * Pop the current View from the View stack.
+            * @param transition - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function popView(transition) { }
 
 
-/**
- * The front bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurMax;
+            /**
+            * Pop the current View from the View stack and push a new one. Note: Prior to ConnectIQ 3.1, this method only supported switching to user-defined View objects, and would only accept InputDelegate or BehaviorDelegate objects as delegates for the pushed View.
+            * @param view - (Toybox.WatchUi.View)
+            * @param delegate - (Toybox.WatchUi.BehaviorDelegate, Toybox.WatchUi.InputDelegate)
+            * @param transition - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function switchToView(view,delegate,transition) { }
 
 
-/**
- * The front bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var frontDerailleurSize;
+        
+        public class AnimationDelegate {
 
+            /**
+            * Handle an Animation event.
+            * @param event - (Toybox.Lang.Number)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function onAnimationEvent(event,options) { }
 
-/**
- * The maximum cadence recorded during the current activity in revolutions per
- * @type Toybox::Lang::Number
-*/
-public var maxCadence;
 
+        }
 
-/**
- * The maximum heart rate recorded during the current activity in beats per
- * @type Toybox::Lang::Number
-*/
-public var maxHeartRate;
 
+        public class AnimationLayer - kopie {
 
-/**
- * The maximum power recorded during the current activity in Watts (W).
- * @type Toybox::Lang::Number
-*/
-public var maxPower;
+            /**
+            * Get the animation resource
+            * @returns  Toybox.WatchUi.AnimationResource
+            */
+            public function getResource() { }
 
 
-/**
- * The maximum speed recorded during the current activity in meters per second
- * @type Toybox::Lang::Float
-*/
-public var maxSpeed;
+            /**
+            * Constructor
+            * @param rez - (Toybox.Lang.Number, Toybox.WatchUi.AnimationResource)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(rez,options) { }
 
 
-/**
- * The mean sea level barometric pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var meanSeaLevelPressure;
+        }
 
 
-/**
- * The name of the destination.
- * @type Toybox::Lang::String
-*/
-public var nameOfDestination;
+        public class AnimationResource {
 
+            /**
+            * Get the color depth in terms of bit/pixel of the animation resource.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getColorDepth() { }
 
-/**
- * The name of the next point.
- * @type Toybox::Lang::String
-*/
-public var nameOfNextPoint;
 
+            /**
+            * Get the target frame rate of an animation resource.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getFrameRate() { }
 
-/**
- * The distance to the nearest point on the current course in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var offCourseDistance;
 
+            /**
+            * Get the height of an animation resource.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getHeight() { }
 
-/**
- * The raw ambient pressure in Pascals (Pa).
- * @type Toybox::Lang::Float
-*/
-public var rawAmbientPressure;
 
+            /**
+            * Get the number of frames of an animation resource.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getNumberOfFrames() { }
 
-/**
- * The current front bicycle derailleur index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurIndex;
 
+            /**
+            * Get the width of an animation resource.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getWidth() { }
 
-/**
- * The rear bicycle derailleur maximum index.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurMax;
 
+            /**
+            * Get info about an animation resource as a String.The info String is formatted as "Animation X x Y" where "X" is the widthof the animation and "Y" is the height.
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
-/**
- * The rear bicycle derailleur gear size in number of teeth.
- * @type Toybox::Lang::Number
-*/
-public var rearDerailleurSize;
 
+        }
 
-/**
- * The starting location of the current activity.
- * @type Toybox::Position::Location
-*/
-public var startLocation;
 
+        public class BehaviorDelegate {
 
-/**
- * The starting time of the current activity.
- * @type Toybox::Time::Moment
-*/
-public var startTime;
+            /**
+            * Represents the Back behavior.This is typically triggered by the back button(KEY_ESC).
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onBack() { }
 
 
-/**
- * The swim stroke type from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimStrokeType;
+            /**
+            * Represents the Menu behavior.This is typically triggered by the menu button(KEY_MENU).
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onMenu() { }
 
 
-/**
- * The SWOLF score from the previous length.
- * @type Toybox::Lang::Number
-*/
-public var swimSwolf;
+            /**
+            * Represents the Next behavior.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onNextMode() { }
 
 
-/**
- * The recording timer state.
- * @type Toybox::Lang::Number
-*/
-public var timerState;
+            /**
+            * Represents the Next Page behavior.This is typically triggered by the down button(KEY_DOWN) or by aSWIPE_UPSwipeEvent on a touch screen.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onNextPage() { }
 
 
-/**
- * The current Timer value in milliseconds (ms).
- * @type Toybox::Lang::Number
-*/
-public var timerTime;
+            /**
+            * Represents the Previous Mode behavior.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onPreviousMode() { }
 
 
-/**
- * The total ascent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalAscent;
+            /**
+            * Represents the Previous Page behavior.This is typically triggered by the up button(KEY_UP) or by aSWIPE_DOWNSwipeEvent on a touch screen.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onPreviousPage() { }
 
 
-/**
- * The total descent during the current activity in meters (m).
- * @type Toybox::Lang::Float
-*/
-public var totalDescent;
+            /**
+            * Represents the Selection behavior.This is typically triggered by the Start/Enter button(KEY_ENTER) or by aCLICK_TYPE_TAPClickEvent on a touch screen.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onSelect() { }
 
 
-/**
- * The current track in radians.
- * @type Toybox::Lang::Float
-*/
-public var track;
+        }
 
 
-/**
- * The Training Effect score of the current activity.
- * @type Toybox::Lang::Float
-*/
-public var trainingEffect;
+        public class BufferedBitmap {
 
+            /**
+            * Get the Dc to draw on the buffered bitmap.
+            * @returns  Toybox.Graphics.Dc
+            */
+            public function getDc() { }
 
-}
 
+            /**
+            * null if this surface uses the system palette
+            * @returns  Toybox.Lang.Array
+            */
+            public function getPalette() { }
 
-public class Moment {
 
-/**
- * Add a <span class='object_link'><a href="Duration.html" title="Toybox::Time::Duration (class)">Duration</a></span> to a Moment.
- * @param duration
- * @returns  Toybox::Time::Moment 
-*/
-public function add(duration) { }
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
 
-/**
- * Determine if a Moment is before or after another Moment.
- * @param moment
- * @returns  Toybox::Lang::Number 
-*/
-public function compare(moment) { }
+        }
 
 
-/**
- * Determine if a Moment is greater than another Moment.
- * @param moment
- * @returns  Toybox::Lang::Boolean 
-*/
-public function greaterThan(moment) { }
+        public class InvalidBitmapResourceException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-/**
- * Creates a Moment object.
- * @param seconds
- * @returns  Toybox::Time::Moment 
-*/
-public function initialize(seconds) { }
 
+        }
 
-/**
- * Determine if a Moment is less than another Moment.
- * @param moment
- * @returns  Toybox::Lang::Boolean 
-*/
-public function lessThan(moment) { }
 
+        public class CustomButton {
 
-/**
- * Subtract a <span class='object_link'><a href="Duration.html" title="Toybox::Time::Duration (class)">Duration</a></span> or <span class='object_link'><a href="" title="Toybox::Time::Moment (class)">Moment</a></span> from a Moment.
- * @param subtrahend
- * @returns  Toybox::Time::Duration, Toybox::Time::Moment 
-*/
-public function subtract(subtrahend) { }
+            /**
+            * Called by the system to draw the button in the Media Player
+            * @param image - (Toybox.Lang.Number)
+            * @param highlighted - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function getImage(image,highlighted) { }
 
 
-/**
- * Get the UTC value of a Moment.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function value() { }
+            /**
+            * Called by the system to determine if the current state of the button
+            * @returns  Toybox.Lang.Number
+            */
+            public function getState() { }
 
 
-}
+            /**
+            * Called by the system to draw the name of the button
+            * @param state - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getText(state) { }
 
 
-public class RealTimeClockNotValidException {
+        }
 
-/**
- * A new instance of RealTimeClockNotValidException.
- * @param msg
- * @returns  RealTimeClockNotValidException 
-*/
-public function initialize(msg) { }
 
+        public class CheckboxMenu {
 
-}
+            /**
+            * Add a CheckboxMenuItem to a CheckboxMenu.
+            * @param item - (Toybox.WatchUi.CheckboxMenuItem)
+            * @returns  
+            */
+            public function addItem(item) { }
 
 
-}
+        }
 
-module Timer {
 
-public class Timer {
+        public class CheckboxMenuItem {
 
-/**
- * Start the Timer.
- * @param callback
- * @param  time
- * @param  repeat
- * @returns  Object 
-*/
-public function start(callback, time, repeat) { }
+            /**
+            * Constructor
+            * @param label - (Toybox.Lang.String)
+            * @param subLabel - (Toybox.Lang.String)
+            * @param identifier - (Toybox.Lang.Object)
+            * @param checked - (Toybox.Lang.Boolean)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(label,subLabel,identifier,checked,options) { }
 
 
-/**
- * Stops the Timer from running.
- * @param 
- * @returns  Object 
-*/
-public function stop() { }
+            /**
+            * Get a CheckboxMenuItem state.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isChecked() { }
 
 
-}
+            /**
+            * Set a CheckboxMenuItem state.
+            * @param checked - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function setChecked(checked) { }
 
 
-}
+        }
 
-module UserProfile {
 
-public class ToneProfile {
+        public class ClickEvent {
 
-/**
- * The duration of the vibration in milliseconds (ms).
- * @type Object
-*/
-public var duration;
+            /**
+            * Get the coordinates of a click event.
+            * @returns  Toybox.Lang.Array
+            */
+            public function getCoordinates() { }
 
 
-/**
- * The frequency of the tone in hertz (hz).
- * @type Object
-*/
-public var frequency;
+            /**
+            * Get the type of click event.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getType() { }
 
 
-/**
- * Create a new ToneProfile.
- * @type ToneProfile
-*/
-public var initialize;
+        }
 
 
-}
+        public class Confirmation {
 
+            /**
+            * Constructor
+            * @param message - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(message) { }
 
-}
 
-module WatchUi {
+        }
 
-public class AnimationDelegate {
 
-/**
- * Handle an Animation event.
- * @param event
- * @param  options
- * @returns  Object 
-*/
-public function onAnimationEvent(event, options) { }
+        public class ConfirmationDelegate {
 
+            /**
+            * A confirmation selection was made. This method is called when a Confirmation response is selected, and receives the response as an argument. The response is either a CONFIRM_NO or CONFIRM_YES value.
+            * @param response - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onResponse(response) { }
 
-}
 
+        }
 
-public class AnimationLayer {
 
-/**
- * getDc will always return <code>null</code>, as the dc buffer of animations
- * @param 
- * @returns  Object 
-*/
-public function getDc() { }
+        public class CustomMenu {
 
+            /**
+            * Add a CustomMenuItem to a CustomMenu.
+            * @param item - (Toybox.WatchUi.CustomMenuItem)
+            * @returns  
+            */
+            public function addItem(item) { }
 
-/**
- * Get the animation resource.
- * @param 
- * @returns  Toybox::WatchUi::AnimationResource 
-*/
-public function getResource() { }
 
+            /**
+            * Draw the CustomMenu foreground. This is called after a menu's items and title have been rendered. It can be used to draw overlay content for the menu.
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function drawForeground(dc) { }
 
-/**
- * either an animation resource id or a <span class='object_link'><a href="AnimationResource.html" title="Toybox::WatchUi::AnimationResource (class)">WatchUi.AnimationResource</a></span>.
- * @param rez
- * @param  options
- * @returns  Toybox::WatchUi::Animation 
-*/
-public function initialize(rez, options) { }
 
+            /**
+            * Draw the CustomMenu title. This is called to render the menu title region.
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function drawTitle(dc) { }
 
-/**
- * Play animation, animation must be added to and not abandoned by the view
- * @param options
- * @returns  Toybox::Lang::Boolean 
-*/
-public function play(options) { }
 
+            /**
+            * Constructor
+            * @param itemHeight - (Toybox.Lang.Number)
+            * @param backgroundColor - (Toybox.Lang.Number)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(itemHeight,backgroundColor,options) { }
 
-/**
- * Stop a playing animation.
- * @param 
- * @returns  Object 
-*/
-public function stop() { }
 
+        }
 
-}
 
+        public class CustomMenuItem {
 
-public class AnimationResource {
+            /**
+            * Draw method for a CustomMenuItem. This is called when a menu item is rendering.
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function draw(dc) { }
 
-/**
- * Get the target frame rate of an animation resource.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getFrameRate() { }
 
+            /**
+            * Constructor
+            * @param identifier - (Toybox.Lang.Object)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(identifier,options) { }
 
-/**
- * Get the height of an animation resource.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getHeight() { }
 
+            /**
+            * Get the CustomMenuItem selected state.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isSelected() { }
 
-/**
- * Get the number of frames of an animation resource.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getNumberOfFrames() { }
 
+            /**
+            * Set a CustomMenuItem Drawable.
+            * @param drawable - (Toybox.WatchUi.Drawable)
+            * @returns  
+            */
+            public function setDrawable(drawable) { }
 
-/**
- * Get the width of an animation resource.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getWidth() { }
 
+        }
 
-/**
- * Get info about an animation resource as a String.
- * @param 
- * @returns  Toybox::Lang::String 
-*/
-public function toString() { }
 
+        public class DataField {
 
-}
+            /**
+            * Retrieve Activity.Info in a DataField. This method is called once per second and automatically provides Activity.Info to the DataField object for display or additional computation. It is necessary to override compute() when implementing a DataField.
+            * @param info - (Toybox.Activity.Info)
+            * @returns  
+            */
+            public function compute(info) { }
 
 
-public class BehaviorDelegate {
+            /**
+            * Create a new custom FIT Field. To record custom activity data to a FIT file, a new Field must first be created to allow Data Fields access to FIT recording without allowing access to the session. Once created, a Field is updated in the FIT file by changing the value of the data within the Field.
+            * @param name - (Toybox.Lang.String)
+            * @param fieldId - (Toybox.Lang.Number)
+            * @param type - (Toybox.Lang.Number)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns 
+            */
+            public function createField(name,fieldId,type,options) { }
 
-/**
- * A new instance of BehaviorDelegate.
- * @param 
- * @returns  BehaviorDelegate 
-*/
-public function initialize() { }
 
+            /**
+            * Get the current Data Field background color.Some devices provide a global Data Field background color setting.This method will return the current value of that setting as a valueof either Graphics.COLOR_WHITEor Graphics.COLOR_BLACK.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getBackgroundColor() { }
 
-/**
- * Represents the <em>Back</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onBack() { }
 
+            /**
+            * Get the screen regions that are obscured.Non-rectangular screens have certain portions of the screen obscured.For example, a round screen effectively cuts off the corners of asquare screen. This method returns a sum of the enumerated valuesdefined by the WatchUi.DataField.OBSCURE_* constants that match theobscured screen regions on the device. Use of this method is onlyvalid during the call to onUpdate().
+            * @returns  Toybox.Lang.Number
+            */
+            public function getObscurityFlags() { }
 
-/**
- * Represents the <em>Menu</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onMenu() { }
 
+            /**
+            * Show an alert.
+            * @param alertView - (Toybox.WatchUi.DataFieldAlert)
+            * @returns  
+            */
+            public function showAlert(alertView) { }
 
-/**
- * Represents the <em>Next</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onNextMode() { }
 
+        }
 
-/**
- * Represents the <em>Next</em> <em>Page</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onNextPage() { }
 
+        public class Drawable {
 
-/**
- * Represents the <em>Previous</em> <em>Mode</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onPreviousMode() { }
+            /**
+            * The clip height of the Drawable object.  
+            * @type Toybox.Lang.Number
+            */
+            public var height;
 
 
-/**
- * Represents the <em>Previous</em> <em>Page</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onPreviousPage() { }
+            /**
+            * The ID used to identify the Drawable object.  
+            * @type Toybox.Lang.String
+            */
+            public var identifier;
 
 
-/**
- * Represents the <em>Selection</em> behavior.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onSelect() { }
+            /**
+            * The absolute, on-screen x-coordinate of the Drawable object.  
+            * @type Toybox.Lang.Number
+            */
+            public var locX;
 
 
-}
+            /**
+            * The absolute, on-screen y-coordinate of the Drawable object.  
+            * @type Toybox.Lang.Number
+            */
+            public var locY;
 
 
-public class BufferedBitmap {
+            /**
+            * The clip width of the Drawable object.  
+            * @type Toybox.Lang.Number
+            */
+            public var width;
 
-/**
- * Get the Dc to draw on the buffered bitmap.
- * @param 
- * @returns  Toybox::Graphics::Dc 
-*/
-public function getDc() { }
 
+            /**
+            * Draw an object to the device context (Dc). This method assumes that the device context has already been configured to the proper settings.
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function draw(dc) { }
 
-/**
- * <code>null</code> if this surface uses the system palette.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getPalette() { }
 
+            /**
+            * Constructor
+            * @param settings - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(settings) { }
 
-/**
- * A new instance of BufferedBitmap.
- * @param options
- * @returns  BufferedBitmap 
-*/
-public function initialize(options) { }
 
+            /**
+            * Set the on-screen location for a Drawable object.
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setLocation(x,y) { }
 
-/**
- *   
- * @param palette
- * @returns  Object 
-*/
-public function setPalette(palette) { }
 
+            /**
+            * Set the size of a Drawable object.
+            * @param w - (Toybox.Lang.Number)
+            * @param h - th of the Drawable object;;h
+            * @returns  
+            */
+            public function setSize(w,h) { }
 
-}
 
+        }
 
-public class InvalidBitmapResourceException {
 
-/**
- * Constructor.
- * @param msg
- * @returns  InvalidBitmapResourceException 
-*/
-public function initialize(msg) { }
+        public class FontResource {
 
+        }
 
-}
 
+        public class GlanceView {
 
-public class CustomButton {
+        }
 
-/**
- * Called by the system to draw the button in the Media Player.
- * @param image
- * @param  highlighted
- * @returns  Toybox::WatchUi::BitmapResource 
-*/
-public function getImage(image, highlighted) { }
 
+        public class GlanceViewDelegate {
 
-/**
- * Called by the system to determine if the current state of the button.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getState() { }
+            /**
+            * Invoked when certain glance event occurs, none for now
+            * @returns  
+            */
+            public function onGlanceEvent() { }
 
 
-/**
- * Called by the system to draw the name of the button.
- * @param state
- * @returns  Toybox::Lang::String 
-*/
-public function getText(state) { }
+        }
 
 
-}
+        public class IconMenuItem {
 
+            /**
+            * Get IconMenuItem icon.
+            * @returns  Toybox.WatchUi.Drawable
+            */
+            public function getIcon() { }
 
-public class CheckboxMenu {
 
-/**
- * Add a CheckboxMenuItem to a CheckboxMenu.
- * @param item
- * @returns  Object 
-*/
-public function addItem(item) { }
+            /**
+            * Constructor
+            * @param label - (Toybox.Lang.String)
+            * @param subLabel - (Toybox.Lang.String)
+            * @param identifier - (Toybox.Lang.Object)
+            * @param icon - (Toybox.WatchUi.Drawable)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(label,subLabel,identifier,icon,options) { }
 
 
-/**
- * A new instance of CheckboxMenu.
- * @param options
- * @returns  CheckboxMenu 
-*/
-public function initialize(options) { }
+            /**
+            * Set the IconMenuItem icon.
+            * @param icon - (Toybox.WatchUi.Drawable, Toybox.Lang.Symbol)
+            * @returns  
+            */
+            public function setIcon(icon) { }
 
 
-}
+        }
 
 
-public class CheckboxMenuItem {
+        public class InputDelegate {
 
-/**
- * A new instance of CheckboxMenuItem.
- * @param label
- * @param  subLabel
- * @param  identifier
- * @param  checked
- * @param  options
- * @returns  CheckboxMenuItem 
-*/
-public function initialize(label, subLabel, identifier, checked, options) { }
+            /**
+            * A touch screen hold event has occurred. This is sent when the touch screen is touched and not released.
+            * @param clickEvent - (Toybox.WatchUi.ClickEvent)
+            * @returns 
+            */
+            public function onHold(clickEvent) { }
 
 
-/**
- * Get a CheckboxMenuItem state.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isChecked() { }
+            /**
+            * A physical button has been pressed and released. To find out which key was pressed, use KeyEvent.getKey() to get the button's WatchUi.KEY_* enum value.
+            * @param keyEvent - (Toybox.WatchUi.KeyEvent)
+            * @returns 
+            */
+            public function onKey(keyEvent) { }
 
 
-/**
- * Set a CheckboxMenuItem state.
- * @param checked
- * @returns  Object 
-*/
-public function setChecked(checked) { }
+            /**
+            * A physical button has been pressed down. To find out which key was pressed, use KeyEvent.getKey() to get the button's WatchUi.KEY_* enum value.
+            * @param keyEvent - (Toybox.WatchUi.KeyEvent)
+            * @returns 
+            */
+            public function onKeyPressed(keyEvent) { }
 
 
-}
+            /**
+            * A physical button has been released. To find out which key was pressed, use KeyEvent.getKey() to get the button's WatchUi.KEY_* enum value.
+            * @param keyEvent - (Toybox.WatchUi.KeyEvent)
+            * @returns 
+            */
+            public function onKeyReleased(keyEvent) { }
 
 
-public class ClickEvent {
+            /**
+            * A touch screen release event has occurred. This is only sent after an onHold() event, once the hold on the touch screen is released.
+            * @param clickEvent - (Toybox.WatchUi.ClickEvent)
+            * @returns 
+            */
+            public function onRelease(clickEvent) { }
 
-/**
- * Get the coordinates of a click event.
- * @param 
- * @returns  Toybox::Lang::Array 
-*/
-public function getCoordinates() { }
 
+            /**
+            * The state of a Selectable has changed.
+            * @param selectableEvent - (Toybox.WatchUi.SelectableEvent)
+            * @returns 
+            */
+            public function onSelectable(selectableEvent) { }
 
-/**
- * Get the type of click event.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getType() { }
 
+            /**
+            * A touch screen swipe event has occurred. This is sent when the touch screen is swiped.
+            * @param swipeEvent - (Toybox.WatchUi.SwipeEvent)
+            * @returns 
+            */
+            public function onSwipe(swipeEvent) { }
 
-}
 
+            /**
+            * A screen tap event has occurred. This is sent when the touch screen is tapped (a quick touch and release).
+            * @param clickEvent - (Toybox.WatchUi.ClickEvent)
+            * @returns 
+            */
+            public function onTap(clickEvent) { }
 
-public class Confirmation {
 
-/**
- * A new instance of Confirmation.
- * @param message
- * @returns  Confirmation 
-*/
-public function initialize(message) { }
+        }
 
 
-}
+        public class InvalidMenuItemTypeException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-public class ConfirmationDelegate {
 
-/**
- * A confirmation selection was made.
- * @param response
- * @returns  Object 
-*/
-public function onResponse(response) { }
+        }
 
 
-}
+        public class InvalidPointException {
 
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
 
-public class CustomMenu {
 
-/**
- * Add a CustomMenuItem to a CustomMenu.
- * @param item
- * @returns  Object 
-*/
-public function addItem(item) { }
+        }
 
 
-/**
- * Draw the CustomMenu footer.
- * @param dc
- * @returns  Object 
-*/
-public function drawFooter(dc) { }
+        public class InvalidSelectableStateException {
 
+        }
 
-/**
- * Draw the CustomMenu foreground.
- * @param dc
- * @returns  Object 
-*/
-public function drawForeground(dc) { }
 
+        public class KeyEvent {
 
-/**
- * Draw the CustomMenu title.
- * @param dc
- * @returns  Object 
-*/
-public function drawTitle(dc) { }
+            /**
+            * Get the key value of this event.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getKey() { }
 
 
-/**
- * A new instance of CustomMenu.
- * @param itemHeight
- * @param  backgroundColor
- * @param  options
- * @returns  CustomMenu 
-*/
-public function initialize(itemHeight, backgroundColor, options) { }
+            /**
+            * Get the type of click event.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getType() { }
 
 
-/**
- * Set the background color.
- * @param color
- * @returns  Object 
-*/
-public function setBackgroundColor(color) { }
+        }
 
 
-/**
- * Set the footer drawable.
- * @param drawable
- * @returns  Object 
-*/
-public function setFooter(drawable) { }
+        public class AnimationLayer - kopie {
 
+            /**
+            * Get the animation resource
+            * @returns  Toybox.WatchUi.AnimationResource
+            */
+            public function getResource() { }
 
-/**
- * Set the foreground drawable.
- * @param drawable
- * @returns  Object 
-*/
-public function setForeground(drawable) { }
 
+            /**
+            * Constructor
+            * @param rez - (Toybox.Lang.Number, Toybox.WatchUi.AnimationResource)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(rez,options) { }
 
-/**
- * Set the title drawable.
- * @param drawable
- * @returns  Object 
-*/
-public function setTitle(drawable) { }
 
+        }
 
-}
 
+        public class MapMarker {
 
-public class CustomMenuItem {
+            /**
+            * Get the location for the MapMarker.
+            * @returns  Toybox.Position.Location
+            */
+            public function getLocation() { }
 
-/**
- * Draw method for a CustomMenuItem.
- * @param dc
- * @returns  Object 
-*/
-public function draw(dc) { }
 
+            /**
+            * Constructor
+            * @param location - (Toybox.Position.Location)
+            * @returns  
+            */
+            public function initialize(location) { }
 
-/**
- * A new instance of CustomMenuItem.
- * @param identifier
- * @param  options
- * @returns  CustomMenuItem 
-*/
-public function initialize(identifier, options) { }
 
+        }
 
-/**
- * Get the CustomMenuItem focus state.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isFocused() { }
 
+        public class MapPolyline {
 
-/**
- * Get the CustomMenuItem selected state.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isSelected() { }
+            /**
+            * Add a Location or Locations to the MapPolyline object location Array.
+            * @param location - (Toybox.Position.Location, Toybox.Lang.Array)
+            * @returns  
+            */
+            public function addLocation(location) { }
 
 
-/**
- * Set a CustomMenuItem Drawable.
- * @param drawable
- * @returns  Object 
-*/
-public function setDrawable(drawable) { }
+            /**
+            * Get the Location object at a provided index in this MapPolyline object.
+            * @param index - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getLocation(index) { }
 
 
-}
+            /**
+            * Get the number of Location objects inthis MapPolyline object.
+            * @returns  Toybox.Lang.Number
+            */
+            public function numLocations() { }
 
 
-public class DataField {
+            /**
+            * Set the color of the MapPolyline to draw on the map.
+            * @param color - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setColor(color) { }
 
-/**
- * Retrieve <span class='object_link'><a href="../Activity/Info.html" title="Toybox::Activity::Info (class)">Activity.Info</a></span> in a DataField.
- * @param info
- * @returns  Object 
-*/
-public function compute(info) { }
 
+            /**
+            * Set the width of the MapPolyline to draw on the map.
+            * @param width - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setWidth(width) { }
 
-/**
- * Create a new custom FIT <span class='object_link'><a href="../FitContributor/Field.html" title="Toybox::FitContributor::Field (class)">Field</a></span>.
- * @param name
- * @param  fieldId
- * @param  type
- * @param  options
- * @returns  Toybox::FitContributor::Field 
-*/
-public function createField(name, fieldId, type, options) { }
 
+        }
 
-/**
- * Get the current Data Field background color.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getBackgroundColor() { }
 
+        public class MapTrackView {
 
-/**
- * Get the screen regions that are obscured.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getObscurityFlags() { }
+        }
 
 
-/**
- * A new instance of DataField.
- * @param 
- * @returns  DataField 
-*/
-public function initialize() { }
+        public class MapView {
 
+            /**
+            * Get the current mode for the map in this MapView.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getMapMode() { }
 
-/**
- * The device has transitioned to the next multisport leg.
- * @param 
- * @returns  Object 
-*/
-public function onNextMultisportLeg() { }
 
+            /**
+            * Add a MapMarker object or an Array of MapMarker objects to be rendered on the map.
+            * @param markers - (Toybox.WatchUi.MapMarker, Toybox.Lang.Array)
+            * @returns  
+            */
+            public function setMapMarker(markers) { }
 
-/**
- * A lap event has occurred.
- * @param 
- * @returns  Object 
-*/
-public function onTimerLap() { }
 
+            /**
+            * Select the area of the map to render on the screen with a bounding box. A redraw of the current underlying map data will occur, so calling this function inside of onUpdate() is discouraged as it could lead to map flicker.
+            * @param topLeft - (Toybox.Position.Location)
+            * @param bottomRight - (Toybox.Position.Location)
+            * @returns  
+            */
+            public function setMapVisibleArea(topLeft,bottomRight) { }
 
-/**
- * The activity timer is paused.
- * @param 
- * @returns  Object 
-*/
-public function onTimerPause() { }
 
+        }
 
-/**
- * The current activity has ended.
- * @param 
- * @returns  Object 
-*/
-public function onTimerReset() { }
 
+        public class CheckboxMenu {
 
-/**
- * The activity time has resumed.
- * @param 
- * @returns  Object 
-*/
-public function onTimerResume() { }
+            /**
+            * Add a CheckboxMenuItem to a CheckboxMenu.
+            * @param item - (Toybox.WatchUi.CheckboxMenuItem)
+            * @returns  
+            */
+            public function addItem(item) { }
 
 
-/**
- * The activity timer has started.
- * @param 
- * @returns  Object 
-*/
-public function onTimerStart() { }
+        }
 
 
-/**
- * The activity timer has stopped.
- * @param 
- * @returns  Object 
-*/
-public function onTimerStop() { }
+        public class Menu2 {
 
+            /**
+            * Add a MenuItem to a Menu2.
+            * @param item - (Toybox.WatchUi.MenuItem)
+            * @returns  
+            */
+            public function addItem(item) { }
 
-/**
- * The current workout step is complete.
- * @param 
- * @returns  Object 
-*/
-public function onWorkoutStepComplete() { }
 
+            /**
+            * Find a MenuItem by ID in a Menu2.
+            * @param identifier - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function findItemById(identifier) { }
 
-}
 
+            /**
+            * Get a MenuItem from a Menu2.
+            * @param index - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getItem(index) { }
 
-public class Drawable {
 
-/**
- * The clip height of the Drawable object.
- * @type Toybox::Lang::Number
-*/
-public var height;
+            /**
+            * Constructor
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(options) { }
 
 
-/**
- * The ID used to identify the Drawable object.
- * @type Toybox::Lang::String
-*/
-public var identifier;
+            /**
+            * Set the focus of a MenuItem in a Menu2.
+            * @param focus - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setFocus(focus) { }
 
 
-/**
- * The absolute, on-screen x-coordinate of the Drawable object.
- * @type Toybox::Lang::Number
-*/
-public var locX;
+        }
 
 
-/**
- * The absolute, on-screen y-coordinate of the Drawable object.
- * @type Toybox::Lang::Number
-*/
-public var locY;
+        public class Menu2InputDelegate {
 
+            /**
+            * A Menu2 MenuItem was selected.
+            * @param item - (Toybox.WatchUi.MenuItem)
+            * @returns  
+            */
+            public function onSelect(item) { }
 
-/**
- * The clip width of the Drawable object.
- * @type Toybox::Lang::Number
-*/
-public var width;
 
+            /**
+            * A Menu2 is preparing to wrap. This method is triggered on button-based products when the user attempts to navigate off the end of a menu. If this method returns false the list will not wrap to the opposite end. If this method is not overridden, it will return true and allow the menu to wrap.
+            * @param key - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function onWrap(key) { }
 
-/**
- * Draw an object to the device context (<span class='object_link'><a href="../Graphics/Dc.html" title="Toybox::Graphics::Dc (class)">Dc</a></span>).
- * @type Object
-*/
-public var draw;
 
+        }
 
-/**
- * A new instance of Drawable.
- * @type Drawable
-*/
-public var initialize;
 
+        public class MenuInputDelegate {
 
-/**
- * Set the on-screen location for a Drawable object.
- * @type Object
-*/
-public var setLocation;
+            /**
+            * A Menu item was chosen. This method is called when a Menu item has been selected, and receives the Menu item as an argument.
+            * @param item - (Toybox.Lang.Symbol)
+            * @returns  
+            */
+            public function onMenuItem(item) { }
 
 
-/**
- * Set the size of a Drawable object.
- * @type Object
-*/
-public var setSize;
+        }
 
 
-}
+        public class CheckboxMenuItem {
 
+            /**
+            * Constructor
+            * @param label - (Toybox.Lang.String)
+            * @param subLabel - (Toybox.Lang.String)
+            * @param identifier - (Toybox.Lang.Object)
+            * @param checked - (Toybox.Lang.Boolean)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(label,subLabel,identifier,checked,options) { }
 
-public class FontResource {
 
-}
+            /**
+            * Get a CheckboxMenuItem state.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isChecked() { }
 
 
-public class GlanceView {
+            /**
+            * Set a CheckboxMenuItem state.
+            * @param checked - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function setChecked(checked) { }
 
-/**
- * A new instance of GlanceView.
- * @param 
- * @returns  GlanceView 
-*/
-public function initialize() { }
 
+        }
 
-}
 
+        public class NumberPicker {
 
-public class GlanceViewDelegate {
+            /**
+            * Constructor
+            * @param mode - (Lang Number)
+            * @param initialValue - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Time.Duration)
+            * @returns  
+            */
+            public function initialize(mode,initialValue) { }
 
-/**
- * A new instance of GlanceViewDelegate.
- * @param 
- * @returns  GlanceViewDelegate 
-*/
-public function initialize() { }
 
+        }
 
-/**
- * Invoked when certain glance event occurs, none for now.
- * @param options
- * @returns  Object 
-*/
-public function onGlanceEvent(options) { }
 
+        public class NumberPickerDelegate {
 
-}
+            /**
+            * A number was entered in a NumberPicker. This method is called when a number has been specified by a NumberPicker, and receives the numeric value as an argument.
+            * @param value - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Time.Duration)
+            * @returns  
+            */
+            public function onNumberPicked(value) { }
 
 
-public class IconMenuItem {
+        }
 
-/**
- * Get IconMenuItem icon.
- * @param 
- * @returns  Toybox::WatchUi::Drawable 
-*/
-public function getIcon() { }
 
+        public class NumberPicker {
 
-/**
- * A new instance of IconMenuItem.
- * @param label
- * @param  subLabel
- * @param  identifier
- * @param  icon
- * @param  options
- * @returns  IconMenuItem 
-*/
-public function initialize(label, subLabel, identifier, icon, options) { }
+            /**
+            * Constructor
+            * @param mode - (Lang Number)
+            * @param initialValue - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Time.Duration)
+            * @returns  
+            */
+            public function initialize(mode,initialValue) { }
 
 
-/**
- * Set the IconMenuItem icon.
- * @param icon
- * @returns  Object 
-*/
-public function setIcon(icon) { }
+        }
 
 
-}
+        public class NumberPickerDelegate {
 
+            /**
+            * A number was entered in a NumberPicker. This method is called when a number has been specified by a NumberPicker, and receives the numeric value as an argument.
+            * @param value - (Toybox.Lang.Number, Toybox.Lang.Float, Toybox.Time.Duration)
+            * @returns  
+            */
+            public function onNumberPicked(value) { }
 
-public class InputDelegate {
 
-/**
- * A touch screen hold event has occurred.
- * @param clickEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onHold(clickEvent) { }
+        }
 
 
-/**
- * A physical button has been pressed and released.
- * @param keyEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onKey(keyEvent) { }
+        public class PickerFactory {
 
+            /**
+            * Generate a Drawable instance for an item.
+            * @param item - (Toybox.Lang.Number)
+            * @param isSelected - (Toybox.Lang.Boolean)
+            * @returns 
+            */
+            public function getDrawable(item,isSelected) { }
 
-/**
- * A physical button has been pressed down.
- * @param keyEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onKeyPressed(keyEvent) { }
 
+            /**
+            * Get the number of items in the PickerFactory.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getSize() { }
 
-/**
- * A physical button has been released.
- * @param keyEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onKeyReleased(keyEvent) { }
 
+            /**
+            * Return value for an item.
+            * @param item - (Toybox.Lang.Number)
+            * @returns 
+            */
+            public function getValue(item) { }
 
-/**
- * A touch screen release event has occurred.
- * @param clickEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onRelease(clickEvent) { }
 
+        }
 
-/**
- * The state of a <span class='object_link'><a href="Selectable.html" title="Toybox::WatchUi::Selectable (class)">Selectable</a></span> has changed.
- * @param selectableEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onSelectable(selectableEvent) { }
 
+        public class ProgressBar {
 
-/**
- * A touch screen swipe event has occurred.
- * @param swipeEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onSwipe(swipeEvent) { }
+            /**
+            * Constructor
+            * @param displayString - (Toybox.Lang.String)
+            * @param startValue - (Toybox.Lang.Float)
+            * @returns  
+            */
+            public function initialize(displayString,startValue) { }
 
 
-/**
- * A screen tap event has occurred.
- * @param clickEvent
- * @returns  Toybox::Lang::Boolean 
-*/
-public function onTap(clickEvent) { }
+            /**
+            * Set the string to display on the ProgressBar.
+            * @param displayString - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function setDisplayString(displayString) { }
 
 
-}
+            /**
+            * Set the value of the ProgressBar.
+            * @param progressValue - (Toybox.Lang.Float)
+            * @returns  
+            */
+            public function setProgress(progressValue) { }
 
 
-public class InvalidMenuItemTypeException {
+        }
 
-/**
- * A new instance of InvalidMenuItemTypeException.
- * @param msg
- * @returns  InvalidMenuItemTypeException 
-*/
-public function initialize(msg) { }
 
+        public class InvalidSelectableStateException {
 
-}
+        }
 
 
-public class InvalidPointException {
+        public class SelectableEvent {
 
-/**
- * A new instance of InvalidPointException.
- * @param msg
- * @returns  InvalidPointException 
-*/
-public function initialize(msg) { }
+            /**
+            * Get the instance of the manipulated Selectable.
+            * @returns  Toybox.Lang.Object
+            */
+            public function getInstance() { }
 
 
-}
+            /**
+            * Get the previous state of the Selectable that generated the event.
+            * @returns  Toybox.Lang.Symbol
+            */
+            public function getPreviousState() { }
 
 
-public class InvalidSelectableStateException {
+        }
 
-/**
- * A new instance of InvalidSelectableStateException.
- * @param 
- * @returns  InvalidSelectableStateException 
-*/
-public function initialize() { }
 
+        public class SimpleDataField {
 
-}
+            /**
+            * Retrieve Activity.Info in a SimpleDataField. This method is called once per second and automatically provides Activity.Info to the SimpleDataField object for display or additional computation. It is necessary to override compute() when implementing a SimpleDataField. The value to be displayed in the field must be returned by this method.
+            * @param info - (Toybox.Activity.Info)
+            * @returns  
+            */
+            public function compute(info) { }
 
 
-public class KeyEvent {
+        }
 
-/**
- * Get the key value of this event.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getKey() { }
 
+        public class SwipeEvent {
 
-/**
- * Get the type of click event.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getType() { }
+            /**
+            * Get the direction of the swipe.
+            * @returns  Toybox.Lang.Number
+            */
+            public function getDirection() { }
 
 
-}
+        }
 
 
-public class AnimationLayer {
+        public class Text {
 
-/**
- * getDc will always return <code>null</code>, as the dc buffer of animations
- * @param 
- * @returns  Object 
-*/
-public function getDc() { }
+            /**
+            * Draw Text to the device context (Dc).
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function draw(dc) { }
 
 
-/**
- * Get the animation resource.
- * @param 
- * @returns  Toybox::WatchUi::AnimationResource 
-*/
-public function getResource() { }
+            /**
+            * Constructor
+            * @param settings - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(settings) { }
 
 
-/**
- * either an animation resource id or a <span class='object_link'><a href="AnimationResource.html" title="Toybox::WatchUi::AnimationResource (class)">WatchUi.AnimationResource</a></span>.
- * @param rez
- * @param  options
- * @returns  Toybox::WatchUi::Animation 
-*/
-public function initialize(rez, options) { }
+            /**
+            * Set the background color of a Text object.
+            * @param color - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setBackgroundColor(color) { }
 
 
-/**
- * Play animation, animation must be added to and not abandoned by the view
- * @param options
- * @returns  Toybox::Lang::Boolean 
-*/
-public function play(options) { }
+            /**
+            * Set the color of a Text object.
+            * @param color - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setColor(color) { }
 
 
-/**
- * Stop a playing animation.
- * @param 
- * @returns  Object 
-*/
-public function stop() { }
+            /**
+            * Set the font face of a Text object.
+            * @param font - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setFont(font) { }
 
 
-}
+            /**
+            * Set the justification of a Text object.
+            * @param justification - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setJustification(justification) { }
 
 
-public class MapMarker {
+            /**
+            * Set the text string of a Text object.
+            * @param text - (Toybox.Lang.String, Toybox.Lang.Symbol)
+            * @returns  
+            */
+            public function setText(text) { }
 
-/**
- * Get the location for the MapMarker.
- * @param 
- * @returns  Toybox::Position::Location 
-*/
-public function getLocation() { }
 
+        }
 
-/**
- * A new instance of MapMarker.
- * @param location
- * @returns  MapMarker 
-*/
-public function initialize(location) { }
 
+        public class TextArea {
 
-/**
- * Set a bitmap icon to use for the MapMarker object on a
- * @param icon
- * @param  x
- * @param  y
- * @returns  Object 
-*/
-public function setIcon(icon, x, y) { }
+            /**
+            * Draw Text to the device context (Dc).
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function draw(dc) { }
 
 
-/**
- * Set a label for the map marker to draw on the map.
- * @param label
- * @returns  Object 
-*/
-public function setLabel(label) { }
+            /**
+            * Constructor
+            * @param settings - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(settings) { }
 
 
-}
+            /**
+            * Set the background color of a Text object.
+            * @param color - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setBackgroundColor(color) { }
 
 
-public class MapPolyline {
+        }
 
-/**
- * Add a Location or Locations to the MapPolyline object location
- * @param location
- * @returns  Object 
-*/
-public function addLocation(location) { }
 
+        public class TextPicker {
 
-/**
- * Clear all the <span class='object_link'><a href="../Position/Location.html" title="Toybox::Position::Location (class)">Location</a></span> objects from the
- * @param 
- * @returns  Object 
-*/
-public function clear() { }
+            /**
+            * Constructor
+            * @param initialText - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(initialText) { }
 
 
-/**
- * Get the <span class='object_link'><a href="../Position/Location.html" title="Toybox::Position::Location (class)">Location</a></span> object at a provided index in
- * @param index
- * @returns  Toybox::Position::Location 
-*/
-public function getLocation(index) { }
+        }
 
 
-/**
- * Get the number of <span class='object_link'><a href="../Position/Location.html" title="Toybox::Position::Location (class)">Location</a></span> objects in this
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function numLocations() { }
+        public class TextPickerDelegate {
 
+            /**
+            * A text string was entered into a TextPicker. This method is called when text has been specified by a TextPicker, and receives the text String as an argument.
+            * @param text - (Toybox.Lang.String)
+            * @param changed - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function onTextEntered(text,changed) { }
 
-/**
- * Set the color of the MapPolyline to draw on the map.
- * @param color
- * @returns  Object 
-*/
-public function setColor(color) { }
 
+        }
 
-/**
- * Set the width of the MapPolyline to draw on the map.
- * @param width
- * @returns  Object 
-*/
-public function setWidth(width) { }
 
+        public class ToggleMenuItem {
 
-}
+            /**
+            * Get a ToggleMenuItem label substring.
+            * @returns  Toybox.Lang.String, Toybox.Lang.Dictionary
+            */
+            public function getSubLabel() { }
 
 
-public class MapTrackView {
+            /**
+            * Constructor
+            * @param label - (Toybox.Lang.String)
+            * @param subLabel - (Toybox.Lang.String, Toybox.Lang.Dictionary)
+            * @param identifier - (Toybox.Lang.Object)
+            * @param enabled - (Toybox.Lang.Boolean)
+            * @param options - (Toybox.Lang.Dictionary)
+            * @returns  
+            */
+            public function initialize(label,subLabel,identifier,enabled,options) { }
 
-/**
- * A new instance of MapTrackView.
- * @param 
- * @returns  MapTrackView 
-*/
-public function initialize() { }
 
+            /**
+            * Get a ToggleMenuItem state.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isEnabled() { }
 
-}
 
+            /**
+            * Set a ToggleMenuItem state.
+            * @param enabled - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function setEnabled(enabled) { }
 
-public class MapView {
 
-/**
- * Clear all the objects from the map.
- * @param 
- * @returns  Object 
-*/
-public function clear() { }
+        }
 
 
-/**
- * Get the current mode for the map in this MapView.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getMapMode() { }
+        public class GlanceView {
 
+        }
 
-/**
- * A new instance of MapView.
- * @param 
- * @returns  MapView 
-*/
-public function initialize() { }
 
+        public class WatchFace {
 
-/**
- * Add a <span class='object_link'><a href="MapMarker.html" title="Toybox::WatchUi::MapMarker (class)">MapMarker</a></span> object or an
- * @param markers
- * @returns  Object 
-*/
-public function setMapMarker(markers) { }
+            /**
+            * Update a portion of the screen. Partial updates can be used to update a small part of the screen to allow for Always On Watch Faces. This method is called each second as long as the device power budget is not exceeded. It is important to update as small of a portion of the display as possible in this method to avoid exceeding the allowed power budget. To do this, the application must set the clipping region for the Graphics.Dc object using the setClip() method. Calls to System.println() and System.print() will not execute on devices when this function is being invoked, but can be used in the device simulator. If the call to this method exceeds the power budget of the device, the partial update will not draw and a call to onPowerBudgetExceeded() is made to report the limits that were exceeded. Note: See the Analog sample distributed with the SDK for an example of onPartialUpdate() using clipping regions
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns  
+            */
+            public function onPartialUpdate(dc) { }
 
 
-/**
- * Set the mode for the map in this MapView.
- * @param mode
- * @returns  Object 
-*/
-public function setMapMode(mode) { }
+        }
 
 
-/**
- * Select the area of the map to render on the screen with a bounding box.
- * @param topLeft
- * @param  bottomRight
- * @returns  Object 
-*/
-public function setMapVisibleArea(topLeft, bottomRight) { }
+        public class WatchFaceDelegate {
 
+            /**
+            * Handle a partial update exceeding the power budget. If the onPartialUpdate() callback of the associated WatchFace exceeds the power budget of the device, this method will be called with information about the limits that were exceeded.
+            * @param powerInfo - ;;powerInfo
+            * @returns  
+            */
+            public function onPowerBudgetExceeded(powerInfo) { }
 
-/**
- * Add <span class='object_link'><a href="MapPolyline.html" title="Toybox::WatchUi::MapPolyline (class)">MapPolyline</a></span> object to be rendered on the
- * @param polyline
- * @returns  Object 
-*/
-public function setPolyline(polyline) { }
 
+        }
 
-/**
- * Set the area on the screen to focus the map.
- * @param topLeftX
- * @param  topLeftY
- * @param  bottomRightX
- * @param  bottomRightY
- * @returns  Object 
-*/
-public function setScreenVisibleArea(topLeftX, topLeftY, bottomRightX, bottomRightY) { }
 
+        public class WatchFacePowerInfo {
 
-}
+            /**
+            * The average partial update execution time onPartialUpdate() took to complete.  
+            * @type Toybox.Lang.Float
+            */
+            public var executionTimeAverage;
 
 
-public class CheckboxMenu {
+            /**
+            * The maximum allowable partial update execution time onPartialUpdate() is allowed to take.  
+            * @type Toybox.Lang.Float
+            */
+            public var executionTimeLimit;
 
-/**
- * Add a CheckboxMenuItem to a CheckboxMenu.
- * @param item
- * @returns  Object 
-*/
-public function addItem(item) { }
 
+        }
 
-/**
- * A new instance of CheckboxMenu.
- * @param options
- * @returns  CheckboxMenu 
-*/
-public function initialize(options) { }
 
+    }
 
-}
-
-
-public class Menu2 {
-
-/**
- * Add a MenuItem to a Menu2.
- * @param item
- * @returns  Object 
-*/
-public function addItem(item) { }
-
-
-/**
- * Delete a MenuItem from a Menu2.
- * @param index
- * @returns  Object 
-*/
-public function deleteItem(index) { }
-
-
-/**
- * Find a MenuItem by ID in a Menu2.
- * @param identifier
- * @returns  Toybox::Lang::Number 
-*/
-public function findItemById(identifier) { }
-
-
-/**
- * Get a MenuItem from a Menu2.
- * @param index
- * @returns  Toybox::WatchUi::MenuItem 
-*/
-public function getItem(index) { }
-
-
-/**
- * A new instance of Menu2.
- * @param options
- * @returns  Menu2 
-*/
-public function initialize(options) { }
-
-
-/**
- * Set the focus of a MenuItem in a Menu2.
- * @param focus
- * @returns  Object 
-*/
-public function setFocus(focus) { }
-
-
-/**
- * Set a Menu2 title.
- * @param title
- * @returns  Object 
-*/
-public function setTitle(title) { }
-
-
-/**
- * Update a MenuItem in a Menu2.
- * @param item
- * @param  index
- * @returns  Object 
-*/
-public function updateItem(item, index) { }
-
-
-}
-
-
-public class Menu2InputDelegate {
-
-/**
- * A Menu2 Back key was pressed.
- * @param 
- * @returns  Object 
-*/
-public function onBack() { }
-
-
-/**
- * A Menu2 Done item was selected.
- * @param 
- * @returns  Object 
-*/
-public function onDone() { }
-
-
-/**
- * A CustomMenu footer was selected.
- * @param 
- * @returns  Object 
-*/
-public function onFooter() { }
-
-
-/**
- * A Menu2 MenuItem was selected.
- * @param item
- * @returns  Object 
-*/
-public function onSelect(item) { }
-
-
-/**
- * A CustomMenu title was selected.
- * @param 
- * @returns  Object 
-*/
-public function onTitle() { }
-
-
-/**
- * A Menu2 is preparing to wrap.
- * @param key
- * @returns  Object 
-*/
-public function onWrap(key) { }
-
-
-}
-
-
-public class MenuInputDelegate {
-
-/**
- * A Menu item was chosen.
- * @param item
- * @returns  Object 
-*/
-public function onMenuItem(item) { }
-
-
-}
-
-
-public class CheckboxMenuItem {
-
-/**
- * A new instance of CheckboxMenuItem.
- * @param label
- * @param  subLabel
- * @param  identifier
- * @param  checked
- * @param  options
- * @returns  CheckboxMenuItem 
-*/
-public function initialize(label, subLabel, identifier, checked, options) { }
-
-
-/**
- * Get a CheckboxMenuItem state.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isChecked() { }
-
-
-/**
- * Set a CheckboxMenuItem state.
- * @param checked
- * @returns  Object 
-*/
-public function setChecked(checked) { }
-
-
-}
-
-
-public class NumberPicker {
-
-/**
- * A new instance of NumberPicker.
- * @param mode
- * @param  initialValue
- * @returns  NumberPicker 
-*/
-public function initialize(mode, initialValue) { }
-
-
-}
-
-
-public class NumberPickerDelegate {
-
-/**
- * A number was entered in a NumberPicker.
- * @param value
- * @returns  Object 
-*/
-public function onNumberPicked(value) { }
-
-
-}
-
-
-public class NumberPicker {
-
-/**
- * A new instance of NumberPicker.
- * @param mode
- * @param  initialValue
- * @returns  NumberPicker 
-*/
-public function initialize(mode, initialValue) { }
-
-
-}
-
-
-public class NumberPickerDelegate {
-
-/**
- * A number was entered in a NumberPicker.
- * @param value
- * @returns  Object 
-*/
-public function onNumberPicked(value) { }
-
-
-}
-
-
-public class PickerFactory {
-
-/**
- * Generate a Drawable instance for an item.
- * @param item
- * @param  isSelected
- * @returns  Toybox::WatchUi::Drawable 
-*/
-public function getDrawable(item, isSelected) { }
-
-
-/**
- * Get the number of items in the PickerFactory.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getSize() { }
-
-
-/**
- * Return value for an item.
- * @param item
- * @returns  Toybox::Lang::Object 
-*/
-public function getValue(item) { }
-
-
-}
-
-
-public class ProgressBar {
-
-/**
- * A new instance of ProgressBar.
- * @param displayString
- * @param  startValue
- * @returns  ProgressBar 
-*/
-public function initialize(displayString, startValue) { }
-
-
-/**
- * Set the string to display on the ProgressBar.
- * @param displayString
- * @returns  Object 
-*/
-public function setDisplayString(displayString) { }
-
-
-/**
- * Set the value of the ProgressBar.
- * @param progressValue
- * @returns  Object 
-*/
-public function setProgress(progressValue) { }
-
-
-}
-
-
-public class InvalidSelectableStateException {
-
-/**
- * A new instance of InvalidSelectableStateException.
- * @param 
- * @returns  InvalidSelectableStateException 
-*/
-public function initialize() { }
-
-
-}
-
-
-public class SelectableEvent {
-
-/**
- * Get the instance of the manipulated <span class='object_link'><a href="Selectable.html" title="Toybox::WatchUi::Selectable (class)">Selectable</a></span>.
- * @param 
- * @returns  Toybox::Lang::Object 
-*/
-public function getInstance() { }
-
-
-/**
- * Get the previous state of the Selectable that generated the event.
- * @param 
- * @returns  Toybox::Lang::Symbol 
-*/
-public function getPreviousState() { }
-
-
-}
-
-
-public class SimpleDataField {
-
-/**
- * The field label String.
- * @type Object
-*/
-public var label;
-
-
-/**
- * Retrieve <span class='object_link'><a href="../Activity/Info.html" title="Toybox::Activity::Info (class)">Activity.Info</a></span> in a SimpleDataField.
- * @type Object
-*/
-public var compute;
-
-
-/**
- * A new instance of SimpleDataField.
- * @type SimpleDataField
-*/
-public var initialize;
-
-
-}
-
-
-public class SwipeEvent {
-
-/**
- * Get the direction of the swipe.
- * @param 
- * @returns  Toybox::Lang::Number 
-*/
-public function getDirection() { }
-
-
-}
-
-
-public class Text {
-
-/**
- * Draw Text to the device context (<span class='object_link'><a href="../Graphics/Dc.html" title="Toybox::Graphics::Dc (class)">Dc</a></span>).
- * @type Object
-*/
-public var draw;
-
-
-/**
- * A new instance of Text.
- * @type Text
-*/
-public var initialize;
-
-
-/**
- * Set the background color of a Text object.
- * @type Object
-*/
-public var setBackgroundColor;
-
-
-/**
- * Set the color of a Text object.
- * @type Object
-*/
-public var setColor;
-
-
-/**
- * Set the font face of a Text object.
- * @type Object
-*/
-public var setFont;
-
-
-/**
- * Set the justification of a Text object.
- * @type Object
-*/
-public var setJustification;
-
-
-/**
- * Set the text string of a Text object.
- * @type Object
-*/
-public var setText;
-
-
-}
-
-
-public class TextArea {
-
-/**
- * Draw Text to the device context (<span class='object_link'><a href="../Graphics/Dc.html" title="Toybox::Graphics::Dc (class)">Dc</a></span>).
- * @type Object
-*/
-public var draw;
-
-
-/**
- * A new instance of TextArea.
- * @type TextArea
-*/
-public var initialize;
-
-
-/**
- * Set the background color of a Text object.
- * @type Object
-*/
-public var setBackgroundColor;
-
-
-/**
- * Set the color of a Text object.
- * @type Object
-*/
-public var setColor;
-
-
-/**
- * Set the font face of a Text object.
- * @type Object
-*/
-public var setFont;
-
-
-/**
- * Set the justification of a Text object.
- * @type Object
-*/
-public var setJustification;
-
-
-/**
- * Set the text string of a Text object.
- * @type Object
-*/
-public var setText;
-
-
-}
-
-
-public class TextPicker {
-
-/**
- * A new instance of TextPicker.
- * @param initialText
- * @returns  TextPicker 
-*/
-public function initialize(initialText) { }
-
-
-}
-
-
-public class TextPickerDelegate {
-
-/**
- * Text entry has been canceled.
- * @param 
- * @returns  Object 
-*/
-public function onCancel() { }
-
-
-/**
- * A text string was entered into a TextPicker.
- * @param text
- * @param  changed
- * @returns  Object 
-*/
-public function onTextEntered(text, changed) { }
-
-
-}
-
-
-public class ToggleMenuItem {
-
-/**
- * Get a ToggleMenuItem label substring.
- * @param 
- * @returns  Toybox::Lang::String, Toybox::Lang::Dictionary 
-*/
-public function getSubLabel() { }
-
-
-/**
- * A new instance of ToggleMenuItem.
- * @param label
- * @param  subLabel
- * @param  identifier
- * @param  enabled
- * @param  options
- * @returns  ToggleMenuItem 
-*/
-public function initialize(label, subLabel, identifier, enabled, options) { }
-
-
-/**
- * Get a ToggleMenuItem state.
- * @param 
- * @returns  Toybox::Lang::Boolean 
-*/
-public function isEnabled() { }
-
-
-/**
- * Set a ToggleMenuItem state.
- * @param enabled
- * @returns  Object 
-*/
-public function setEnabled(enabled) { }
-
-
-/**
- * Set a ToggleMenuItem label substring.
- * @param subLabel
- * @returns  Object 
-*/
-public function setSubLabel(subLabel) { }
-
-
-}
-
-
-public class GlanceView {
-
-/**
- * A new instance of GlanceView.
- * @param 
- * @returns  GlanceView 
-*/
-public function initialize() { }
-
-
-}
-
-
-public class WatchFace {
-
-/**
- * A new instance of WatchFace.
- * @param 
- * @returns  WatchFace 
-*/
-public function initialize() { }
-
-
-/**
- * The device is entering low power mode.
- * @param 
- * @returns  Object 
-*/
-public function onEnterSleep() { }
-
-
-/**
- * The device is exiting low power mode.
- * @param 
- * @returns  Object 
-*/
-public function onExitSleep() { }
-
-
-/**
- * Update a portion of the screen.
- * @param dc
- * @returns  Object 
-*/
-public function onPartialUpdate(dc) { }
-
-
-}
-
-
-public class WatchFaceDelegate {
-
-/**
- * Handle a partial update exceeding the power budget.
- * @param powerInfo
- * @returns  Object 
-*/
-public function onPowerBudgetExceeded(powerInfo) { }
-
-
-}
-
-
-public class WatchFacePowerInfo {
-
-/**
- * The average partial update execution time
- * @type Toybox::Lang::Float
-*/
-public var executionTimeAverage;
-
-
-/**
- * The maximum allowable partial update execution time
- * @type Toybox::Lang::Float
-*/
-public var executionTimeLimit;
-
-
-}
-
-}
-}

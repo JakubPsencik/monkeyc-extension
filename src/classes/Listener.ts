@@ -48,14 +48,6 @@ export class Listener implements MonkeyCListener {
 	getAST() { return this.AST; }
 	getTestAST() { return this.testAST; }
 
-	/* hledám komentař které jsou v daném rozmezí, v daném kanálu */
-	/*getCommentsFromChannel(channel: number, functionDeclarationLine : number, range: number) : string { 
-		
-		return CommentShifter.tokens.getTokens().find(x => 
-			((x.channel === channel) && (x.line <= functionDeclarationLine && x.line > functionDeclarationLine-range))
-			 && (x.text?.startsWith('/**') && x.text.endsWith('/*')))!.text!;
-
-	}*/
 
 	getCommentsFromChannel(channel: number) {
 		let tokens : Token[] = [];
@@ -316,7 +308,7 @@ export class Listener implements MonkeyCListener {
 		this.AST.currentNode = statement;
 	}
 
-	exitStatement() {
+	exitStatement(context: StatementContext) {
 
 	}
 	

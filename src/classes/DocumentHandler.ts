@@ -45,8 +45,10 @@ export class DocumentHandler {
      *  *            AST - syntax tree
      */
     public abstractSyntaxTreeMap : Map<string, AST | any>;
+    
     /** holding comments from hidden channel */
     public abstractSyntaxTreeCommentaryMap : Map<string, Token[] | any>;
+
     public testAbstractSyntaxTreeMap : Map<string, AST | any>;
     
     private parser : MonkeyCParser;
@@ -416,6 +418,22 @@ export class DocumentHandler {
        return accessibleMembers;
     }
 
+    collectDataTypes() {
+        let rootFolderUri = vscode.workspace.workspaceFolders![0].uri;
+        const filePath = path.join(rootFolderUri.fsPath, ( "\/" + 'types.txt'));
+        let file = vscode.Uri.file(filePath);
+        const fileUri = vscode.Uri.parse(file.path);	
+        let types : string[] = readFileSync(fileUri.fsPath,'utf8').split("\r\n");
+
+        let types_arr : vscode.CompletionItem[] = [];
+
+        types.forEach(t => {
+            types_arr.push(new vscode.CompletionItem(t, vscode.CompletionItemKind.Class));
+        });
+
+        return types_arr;
+    }
+
     collectModules(module_: Node) {
         
         let accessibleMembers : vscode.CompletionItem[] = [];
@@ -459,9 +477,7 @@ export class DocumentHandler {
                 accessibleMembers.push(new vscode.CompletionItem(
                     variableName!,
                     vscode.CompletionItemKind.Class
-            ));
-            console.log(variableName);
-                
+            ));              
         }
        return accessibleMembers;
     }
@@ -472,6 +488,17 @@ export class DocumentHandler {
 		let comment = this.abstractSyntaxTreeCommentaryMap.get("Toybox.mc").find((x : Token) => 
 			((x.channel === channel) && (x.line <= functionDeclarationLine && x.line > functionDeclarationLine-range))
 			 && (x.text?.startsWith('/**') && x.text.endsWith('*/')))!.text!;
+
+        return comment;
+
+	}
+
+    /* hledám komentař datoveho typu které jsou v daném rozmezí, v daném kanálu */
+	getDataTypeCommentFromChannel(channel: number, startLine : number, range: number, fileName: string) : string { 
+		
+		let comment = this.abstractSyntaxTreeCommentaryMap.get(fileName).find((x : Token) => 
+			((x.channel === channel) && (x.line >= startLine && x.line < startLine+range))
+			 && (x.text?.includes('//Toybox.')))!.text!;
 
         return comment;
 
@@ -514,66 +541,102 @@ export class DocumentHandler {
         return undefined;
     }
 
-    findClassName(tree: Node[], variableName: string) {
+    findThroughComments(tree: Node[],i:number) {
+        let tmp;
+        let members = [];
+        let onCalled = "";
+        let called = "";
 
+        tmp = tree[i-1].getChildren()![2]!.getValue();
+        members = tmp!?.split('.');
+        members.forEach(mem => {
+            if(mem.includes('(') && mem.includes(')')) {
+                //hledam metodu hehe
+                let _classes = this.findClass(onCalled)?.getChildren()![3].getChildren()![1].getChildren();
+                let target = _classes?.find(x => x.getValue()?.includes(mem.substring(0,mem.indexOf('('))));
+                let funcDeclarationLine = target?.getContext()?._start.line!;
+                let cmnt = this.getCommentFromChannel(1,funcDeclarationLine,10);
+                called = cmnt.substring(cmnt.indexOf("@returns")+"@returns".length, cmnt.lastIndexOf("\n")).trim();
+                called = called.substring(called.lastIndexOf('::')+'::'.length);
+               
+                return called;
+                
+            } else {
+                onCalled = this.processClassName(this.extractFromDeclarationRule(tree, mem)!);
+            }
+        });
+       if(called.length > 0 ) { return called; }
+    }
+
+    findClassName(tree: Node[], variableName: string) {
+        const cursorPos = this.getCursorPosition();
         for(let i = 0; i < tree.length; i++) {
-            
             let ctx = tree[i] ? tree[i].getContext() : undefined;
-            if (ctx && (ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList)) { 
-                
-                //new instance initialization
-                if(ctx.text.includes('var'+variableName+'=') && ctx.text.includes('new')) {
-                    let tmp = "";
-                    if(ctx.text.includes('(') && ctx.text.includes(')'))
-                        tmp = ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
-                    else if((ctx.text.includes('[') && ctx.text.includes(']')) && (ctx.text.indexOf('[') < ctx.text.indexOf(']')))
-                        return "Array";
-                    if((variableName !== tmp) && ctx.text.includes(tmp)) 
-                        return tmp;
-                }
-              //finding through comments --> single method call
-            } else if (ctx && ctx.text.includes(variableName) && ctx.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration) {
-                let tmp;
-                let members = [];
-                let onCalled = "";
-                let called = "";
-                tmp = tree[i-1].getChildren()![2]!.getValue();
-                members = tmp!?.split('.');
-                members.forEach(mem => {
-                    if(mem.includes('(') && mem.includes(')')) {
-                        //hledam metodu hehe
-                        let _classes = this.findClass(onCalled)?.getChildren()![3].getChildren()![1].getChildren();
-                        let target = _classes?.find(x => x.getValue()?.includes(mem.substring(0,mem.indexOf('('))));
-                        let funcDeclarationLine = target?.getContext()?._start.line!;
-                        let cmnt = this.getCommentFromChannel(1,funcDeclarationLine,10);
-                        called = cmnt.substring(cmnt.indexOf("@returns")+"@returns".length, cmnt.lastIndexOf("\n")).trim();
-                        called = called.substring(called.lastIndexOf('::')+'::'.length);
-                       
-                        return called;
+            //context must not be undefined or null
+            if(ctx) {
+                //im considering only contexts, which are on the same line as mouse cursor
+                if((cursorPos.line+1) === ctx.start.line) {
+                    if ((ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_blockStatement || ctx.ruleIndex === MonkeyCParser.RULE_statement)) { 
+                    
+                        //new instance initialization
+                        if(ctx.text.includes('var'+variableName+'=') && ctx.text.includes('new')) {
+                            let tmp = "";
+                            if(ctx.text.includes('(') && ctx.text.includes(')'))
+                                tmp = ctx.text.substring(ctx.text.indexOf('new')+3, ctx.text.indexOf('('));
+                            else if((ctx.text.includes('[') && ctx.text.includes(']')) && (ctx.text.indexOf('[') < ctx.text.indexOf(']')))
+                                return "Array";
+                            if((variableName !== tmp) && ctx.text.includes(tmp)) 
+                                return tmp;
+                        } else if ((ctx.text.includes(variableName))) {
+                            let comment = this.getDataTypeCommentFromChannel(1,ctx._start.line,5,DocumentHandler.currentDocumentName);
+                            let _type = comment.substring(comment.lastIndexOf('.')+1);
+                            return _type;
+                        }                
+                    } 
+                    //finding through comments --> single method call
+                    else if ((ctx.text.includes(variableName) && ctx.text.includes('.') && ctx.text.includes('(') && ctx.text.includes(')')) && (ctx.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration || ctx.ruleIndex === MonkeyCParser.RULE_fullyQualifiedReferenceExpression)) {
+                        let tmp;
+                        let members = [];
+                        let onCalled = "";
+                        let called = "";
+                        tmp = tree[i-1].getChildren()![2]!.getValue();
+                        members = tmp!?.split('.');
+                        members.forEach(mem => {
+                            if(mem.includes('(') && mem.includes(')')) {
+                                //hledam metodu hehe
+                                let _classes = this.findClass(onCalled)?.getChildren()![3].getChildren()![1].getChildren();
+                                let target = _classes?.find(x => x.getValue()?.includes(mem.substring(0,mem.indexOf('('))));
+                                let funcDeclarationLine = target?.getContext()?._start.line!;
+                                let cmnt = this.getCommentFromChannel(1,funcDeclarationLine,10);
+                                called = cmnt.substring(cmnt.indexOf("@returns")+"@returns".length, cmnt.lastIndexOf("\n")).trim();                       
+                                called = called.substring(called.lastIndexOf('.')+'.'.length);
+                            
+                                return called;
+                                
+                            } else {
+                                onCalled = this.processClassName(this.extractFromDeclarationRule(tree, mem)!);
+                            }
+                        });
+                    if(called.length > 0 ) { return called; }
                         
-                    } else {
-                        onCalled = this.processClassName(this.extractFromDeclarationRule(tree, mem)!);
-                    }
-                });
-               if(called.length > 0 ) { return called; }
-                
-            } else if(ctx && ctx.text.includes(variableName + '=') && ctx.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration) {
-                try {
-                    let tmp; 
-                    tmp = tree[i-1].getChildren()![2].getType()!;
-                    /*if(tree[i].getChildren()!?.length > 2)
-                       
-                    else
-                        tmp = tree[i].getChildren()![1].getType()!;*/
-                    return RuleNames.ruleNamesDictionary[tmp-1];
-                } catch (error) {
-                    return undefined;
-                }
-              
-            }      
+                    } else if(ctx.text.includes(variableName + '=') && ctx.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration) {
+                        try {
+                            let tmp; 
+                            tmp = tree[i-1].getChildren()![2].getType()!;
+                            let val = RuleNames.ruleNamesDictionary[tmp-1];
+                            if(val !== 'IDENTIFIER')
+                                return val;
+                        } catch (error) {
+                            //return undefined;
+                            continue;
+                        }
+                    
+                    } 
+                }//end of position check condition
+            }//end of context check
         }
 
-        return undefined;
+    return undefined;
     }
 
 
@@ -631,7 +694,7 @@ export class DocumentHandler {
                 return name;
 
             case "FLOATLITERAL":
-                return "Float";                
+                return "Float";
 
             case "DOUBLELITERAL":
                 return "Double";
@@ -649,16 +712,20 @@ export class DocumentHandler {
 
     findModule(moduleName: string) {
         let modules : any[] =[];
-        let tree : Node[] = this.testAbstractSyntaxTreeMap.get("Toybox.mc_")!;
+        let tree : Node[] = this.abstractSyntaxTreeMap.get("Toybox.mc")!?.getParseTree();
         let tmp;
+
         for(let i = 0; i < tree.length; i++) {
-            if(!(tree[i] instanceof TerminalNode)) {
+            if(tree[i] !== null && tree[i]!?.getContext()!==undefined) {
+            
                 if (tree[i].getContext()!.ruleIndex === MonkeyCParser.RULE_moduleBodyMembers) {
                     tmp = tree[i];
-                    while(modules.length < tmp.getContext()!.childCount+1) {
+                    while(modules.length < tmp.getContext()!.childCount) {
                         i++;
-                        if(!(tree[i] instanceof TerminalNode)) {
+                        if(tree[i] !== null && tree[i]!?.getContext()!==undefined) {
+
                             if(tree[i].getContext()!.ruleIndex === MonkeyCParser.RULE_moduleBodyMember && tree[i].getValue()?.startsWith("module")) {
+                                
                                 modules.push(new vscode.CompletionItem(
                                     tree[i].getValue()!?.substring(tree[i].getValue()!?.indexOf("module") + ("module").length, tree[i].getValue()?.indexOf('{')),
                                     vscode.CompletionItemKind.Module
@@ -669,7 +736,7 @@ export class DocumentHandler {
 
                     break;
                 }              
-            }               
+            }
         }
         return modules;
     }
@@ -698,8 +765,8 @@ export class DocumentHandler {
                 } else {
                     if(modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("class")) {
                         classes.push(modules[i]);
-                    } else 
-                        return classes;
+                    } else {/*return classes;*/ }
+                        //
                 }
                 
             }

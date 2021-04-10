@@ -122,6 +122,29 @@ export function activate(context: vscode.ExtensionContext) {
 		'.' // triggered whenever any of these is being typed
 	);
 
+	const toyboxProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{
+			
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
+				if(linePrefix === "using")
+					return [new vscode.CompletionItem("Toybox", vscode.CompletionItemKind.Module)];
+				else if (linePrefix === "using Toybox.") {
+					return documentHandler.findModule("Toybox");
+					
+				} else if(linePrefix.startsWith("using Toybox.") && linePrefix.length > ("using Toybox.").length) {
+					let classes = documentHandler.findModuleBodyMembers(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
+					return documentHandler.collectClassesFromModules(classes!);
+				}
+
+				return undefined;
+					
+			}
+		},
+		' ','.' // triggered whenever a '.' is being typed
+	);
+
 	//instanced class variable
 	const accessibleMembersProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
@@ -160,29 +183,6 @@ export function activate(context: vscode.ExtensionContext) {
 		'.' // triggered whenever a '.' is being typed
 	);
 
-	const toyboxProvider = vscode.languages.registerCompletionItemProvider(
-		'monkeyc',
-		{
-
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
-				if(linePrefix === "using")
-					return [new vscode.CompletionItem("Toybox", vscode.CompletionItemKind.Module)];
-				else if (linePrefix === "using Toybox.") {
-					return documentHandler.findModule("Toybox");
-					//return documentHandler.collectModules(class_!);
-				} else if(linePrefix.startsWith("using Toybox.") && linePrefix.length > ("using Toybox.").length) {
-					let classes = documentHandler.findModuleBodyMembers(linePrefix.substring(linePrefix.indexOf('.')+1,linePrefix.lastIndexOf('.')));
-					return documentHandler.collectClassesFromModules(classes!);
-				}
-
-				return undefined;
-					
-			}
-		},
-		' ','.' // triggered whenever a '.' is being typed
-	);
-
 	/** provider for suggesting classes from imported modules (primarly from Toybox)... */
 	const importedMembersProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
@@ -190,7 +190,7 @@ export function activate(context: vscode.ExtensionContext) {
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
 				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
-				//linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','');
+				
 				if(linePrefix.endsWith('new')) {
 
 					//TODO
@@ -223,7 +223,69 @@ export function activate(context: vscode.ExtensionContext) {
 		' ' // triggered whenever a space is being typed
 	);
 
-	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider);
+
+	const curlyBracesProvider = vscode.languages.registerCompletionItemProvider('monkeyc', { provideCompletionItems() { return [ new vscode.CompletionItem('}') ]; } }, '{' );
+	
+	const provider1 = vscode.languages.registerCompletionItemProvider('plaintext', {
+
+		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+			// a simple completion item which inserts `Hello World!`
+			const simpleCompletion = new vscode.CompletionItem('Hello World!');
+
+			// a completion item that inserts its text as snippet,
+			// the `insertText`-property is a `SnippetString` which will be
+			// honored by the editor.
+			const snippetCompletion = new vscode.CompletionItem('Good part of the day');
+			snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
+			snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
+
+			// a completion item that can be accepted by a commit character,
+			// the `commitCharacters`-property is set which means that the completion will
+			// be inserted and then the character will be typed.
+			const commitCharacterCompletion = new vscode.CompletionItem('console');
+			commitCharacterCompletion.commitCharacters = ['.'];
+			commitCharacterCompletion.documentation = new vscode.MarkdownString('Press `.` to get `console.`');
+
+			// a completion item that retriggers IntelliSense when being accepted,
+			// the `command`-property is set which the editor will execute after 
+			// completion has been inserted. Also, the `insertText` is set so that 
+			// a space is inserted after `new`
+			const commandCompletion = new vscode.CompletionItem('new');
+			commandCompletion.kind = vscode.CompletionItemKind.Keyword;
+			commandCompletion.insertText = 'new ';
+			commandCompletion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+
+			// return all completion items as array
+			return [
+				simpleCompletion,
+				snippetCompletion,
+				commitCharacterCompletion,
+				commandCompletion
+			];
+		}
+	});
+
+	
+	const dataTypesProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+				let linePrefix = document.lineAt(position).text.substr(position.character-2).trim();
+
+				if(linePrefix === "//") {
+					return documentHandler.collectDataTypes();
+				}
+
+				return undefined;
+					
+			}
+		},
+		'/' // triggered whenever a '/' is being typed
+	);
+
+	context.subscriptions.push(provider1);
+	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, curlyBracesProvider, dataTypesProvider);
 }
 
 // this method is called when your extension is deactivated

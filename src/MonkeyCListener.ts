@@ -118,6 +118,7 @@ export interface MonkeyCListener extends ParseTreeListener {
 
 	//getCommentsFromChannel(channel: number, functionDeclarationLine : number, range: number) : string;
 	getCommentsFromChannel(channel: number) : Token[];
+
 	/**
 	 * Enter a parse tree produced by the `PostIncrementExpression`
 	 * labeled alternative in `MonkeyCParser.singleExpression`.

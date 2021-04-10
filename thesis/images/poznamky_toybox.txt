@@ -1,0 +1,2998 @@
+pro tridni promenne:
+		misto "Instance Member Summary" budu hledat "Instance Attribute Details"!!
+
+pro funkce:
+		misto "Instance Method Summary" budu hledat "Instance Method Details"!!
+
+
+
+Returns: || s parametrama: Parameters: --> Returns: || Example:
+
+
+
+
+/*from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from os import listdir
+from os.path import isfile, join
+
+
+def getTextFromHtml(url):
+  html = urlopen(url).read()
+  soup = BeautifulSoup(html, features="html.parser")
+
+  # kill all script and style elements
+  for script in soup(["script", "style"]):
+      script.extract()    # rip it out
+
+  # get text
+  text = soup.get_text()
+
+  # break into lines and remove leading and trailing space on each
+  lines = (line.strip() for line in text.splitlines())
+  # break multi-headlines into a line each
+  chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+  # drop blank lines
+  text = '\n'.join(chunk for chunk in chunks if chunk)
+
+  return text
+
+def writeToFile(filename, fileContent):
+  text_file = open(filename + ".txt", "w")
+  text_file.write(fileContent)
+  text_file.close()
+
+tbx = "Toybox/"
+
+#all folders
+folders = [folder for folder in listdir(tbx)]
+classes = [f for f in listdir(tbx) if isfile(join(tbx, f))]
+for c in folders:
+  classes += listdir(tbx+c)
+
+for c in classes:
+  output = getTextFromHtml(c)
+  writeToFile(c,output)
+
+for file in classes:
+  print(file)
+
+
+*/
+  
+    
+    
+     Toybox.Activity.Info 
+
+    
+    
+
+    
+      pathId = "Toybox.Activity.Info";
+      relpath = '../../';
+    
+    
+    
+ 
+
+ 
+
+  
+  
+
+
+
+
+
+
+  Class: Toybox.Activity.Info
+
+  
+  
+    
+  Inherits:
+  
+    Toybox.Lang.Object
+    
+      
+  
+    Toybox.Lang.Object
+  
+
+
+  
+    Toybox.Activity.Info
+  
+
+    
+    show all
+  
+
+  
+
+Overview
+
+
+
+  
+    
+      
+The Activity.Info class contains information about the current activity.
+
+This information can be retrieved with the
+getActivityInfo() method. Fields in
+this class may return null so should be checked for null values prior
+to use.
+
+
+
+    
+  
+
+
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Instance Member Summary collapse
+
+   
+  
+    altitude
+  
+
+
+  
+    
+
+The altitude above mean sea level in meters (m).
+
+
+
+    
+  
+
+  
+    ambientPressure
+  
+
+
+  
+    
+
+The ambient pressure in Pascals (Pa).
+
+
+
+    
+  
+
+  
+    averageCadence
+  
+
+
+  
+    
+
+The average cadence during the current activity in revolutions per minute (rpm).
+
+
+
+    
+  
+
+  
+    averageDistance
+  
+
+
+  
+    
+
+The average swim stroke distance from the previous interval in meters (m).
+
+
+
+    
+  
+
+  
+    averageHeartRate
+  
+
+
+  
+    
+
+The average heart rate during the current activity in beats per minute (bpm).
+
+
+
+    
+  
+
+  
+    averagePower
+  
+
+
+  
+    
+
+The average power during the current activity in Watts (W).
+
+
+
+    
+  
+
+  
+    averageSpeed
+  
+
+
+  
+    
+
+The average speed during the current activity in meters per second (mps).
+
+
+
+    
+  
+
+  
+    bearing
+  
+
+
+  
+    
+
+The current bearing in radians.
+
+
+
+    
+  
+
+  
+    bearingFromStart
+  
+
+
+  
+    
+
+The bearing from the starting location to the destination in radians.
+
+
+
+    
+  
+
+  
+    calories
+  
+
+
+  
+    
+
+The calories burned throughout the current activity in kilocalories (kcal).
+
+
+
+    
+  
+
+  
+    currentCadence
+  
+
+
+  
+    
+
+The current cadence in revolutions per minute (rpm).
+
+
+
+    
+  
+
+  
+    currentHeading
+  
+
+
+  
+    
+
+The true north referenced heading in radians.
+
+
+
+    
+  
+
+  
+    currentHeartRate
+  
+
+
+  
+    
+
+The current heart rate in beats per minute (bpm).
+
+
+
+    
+  
+
+  
+    currentLocation
+  
+
+
+  
+    
+
+The current location.
+
+
+
+    
+  
+
+  
+    currentLocationAccuracy
+  
+
+
+  
+    
+
+The current GPS accuracy.
+
+
+
+    
+  
+
+  
+    currentOxygenSaturation
+  
+
+
+  
+    
+
+The current oxygen saturation in percent (%).
+
+
+
+    
+  
+
+  
+    currentPower
+  
+
+
+  
+    
+
+The current power in Watts (W).
+
+
+
+    
+  
+
+  
+    currentSpeed
+  
+
+
+  
+    
+
+The current speed in meters per second (mps).
+
+
+
+    
+  
+
+  
+    distanceToDestination
+  
+
+
+  
+    
+
+The distance to the destination in meters (m).
+
+
+
+    
+  
+
+  
+    distanceToNextPoint
+  
+
+
+  
+    
+
+The distance to the next point in meters (m).
+
+
+
+    
+  
+
+  
+    elapsedDistance
+  
+
+
+  
+    
+
+The elapsed distance of the current activity in meters (m).
+
+
+
+    
+  
+
+  
+    elapsedTime
+  
+
+
+  
+    
+
+Elapsed time of the current activity in milliseconds (ms).
+
+
+
+    
+  
+
+  
+    elevationAtDestination
+  
+
+
+  
+    
+
+The elevation at the destination in meters (m).
+
+
+
+    
+  
+
+  
+    elevationAtNextPoint
+  
+
+
+  
+    
+
+The elevation at the next point in meters (m).
+
+
+
+    
+  
+
+  
+    energyExpenditure
+  
+
+
+  
+    
+
+The current energy expenditure in kilocalories per minute (kcals/min).
+
+
+
+    
+  
+
+  
+    frontDerailleurIndex
+  
+
+
+  
+    
+
+The current front bicycle derailleur index.
+
+
+
+    
+  
+
+  
+    frontDerailleurMax
+  
+
+
+  
+    
+
+The front bicycle derailleur maximum index.
+
+
+
+    
+  
+
+  
+    frontDerailleurSize
+  
+
+
+  
+    
+
+The front bicycle derailleur gear size in number of teeth.
+
+
+
+    
+  
+
+  
+    maxCadence
+  
+
+
+  
+    
+
+The maximum cadence recorded during the current activity in revolutions per minute (rpm).
+
+
+
+    
+  
+
+  
+    maxHeartRate
+  
+
+
+  
+    
+
+The maximum heart rate recorded during the current activity in beats per minute (bpm).
+
+
+
+    
+  
+
+  
+    maxPower
+  
+
+
+  
+    
+
+The maximum power recorded during the current activity in Watts (W).
+
+
+
+    
+  
+
+  
+    maxSpeed
+  
+
+
+  
+    
+
+The maximum speed recorded during the current activity in meters per second (mps).
+
+
+
+    
+  
+
+  
+    meanSeaLevelPressure
+  
+
+
+  
+    
+
+The mean sea level barometric pressure in Pascals (Pa).
+
+
+
+    
+  
+
+  
+    nameOfDestination
+  
+
+
+  
+    
+
+The name of the destination.
+
+
+
+    
+  
+
+  
+    nameOfNextPoint
+  
+
+
+  
+    
+
+The name of the next point.
+
+
+
+    
+  
+
+  
+    offCourseDistance
+  
+
+
+  
+    
+
+The distance to the nearest point on the current course in meters (m).
+
+
+
+    
+  
+
+  
+    rawAmbientPressure
+  
+
+
+  
+    
+
+The raw ambient pressure in Pascals (Pa).
+
+
+
+    
+  
+
+  
+    rearDerailleurIndex
+  
+
+
+  
+    
+
+The current front bicycle derailleur index.
+
+
+
+    
+  
+
+  
+    rearDerailleurMax
+  
+
+
+  
+    
+
+The rear bicycle derailleur maximum index.
+
+
+
+    
+  
+
+  
+    rearDerailleurSize
+  
+
+
+  
+    
+
+The rear bicycle derailleur gear size in number of teeth.
+
+
+
+    
+  
+
+  
+    startLocation
+  
+
+
+  
+    
+
+The starting location of the current activity.
+
+
+
+    
+  
+
+  
+    startTime
+  
+
+
+  
+    
+
+The starting time of the current activity.
+
+
+
+    
+  
+
+  
+    swimStrokeType
+  
+
+
+  
+    
+
+The swim stroke type from the previous length.
+
+
+
+    
+  
+
+  
+    swimSwolf
+  
+
+
+  
+    
+
+The SWOLF score from the previous length.
+
+
+
+    
+  
+
+  
+    timerState
+  
+
+
+  
+    
+
+The recording timer state.
+
+
+
+    
+  
+
+  
+    timerTime
+  
+
+
+  
+    
+
+The current Timer value in milliseconds (ms).
+
+
+
+    
+  
+
+  
+    totalAscent
+  
+
+
+  
+    
+
+The total ascent during the current activity in meters (m).
+
+
+
+    
+  
+
+  
+    totalDescent
+  
+
+
+  
+    
+
+The total descent during the current activity in meters (m).
+
+
+
+    
+  
+
+  
+    track
+  
+
+
+  
+    
+
+The current track in radians.
+
+
+
+    
+  
+
+  
+    trainingEffect
+  
+
+
+  
+    
+
+The Training Effect score of the current activity.
+
+
+
+    
+  
+
+
+
+
+ 
+    Instance Attribute Details
+    
+
+
+var altitude ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The altitude above mean sea level in meters (m).
+
+Elevation is derived from the most accurate source: Barometer or GPS
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var ambientPressure ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The ambient pressure in Pascals (Pa).
+
+This returns ambient (local) barometric pressure as measured by the
+pressure sensor. The data is smoothed by a two-stage filter to reduce
+noise and instantaneous variation.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.4.0
+
+
+
+
+  Supported Devices:
+  
+      Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 645Forerunner® 645 MusicForerunner® 745Forerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® Collectionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var averageCadence ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The average cadence during the current activity in revolutions per
+minute (rpm).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var averageDistance ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The average swim stroke distance from the previous interval in
+meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.2.2
+
+
+
+
+  Supported Devices:
+  
+      Approach® S60Approach® S62Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2ifēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var averageHeartRate ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The average heart rate during the current activity in beats per minute
+(bpm).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var averagePower ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The average power during the current activity in Watts (W).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830epix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var averageSpeed ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The average speed during the current activity in meters per second (mps).
+
+The average is computed as the elapsed 3-D accumulated distance
+divided by the elapsed time.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var bearing ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The current bearing in radians.
+
+Bearing is the direction from your current location or position to the
+destination of navigation, dependent on your current location.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var bearingFromStart ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The bearing from the starting location to the destination in radians.
+
+Bearing from start is the direction of desired track from the start
+of navigation to the destination in radians. This is only dependent
+on your location when a course is set, and it is not dependent on
+where you may have moved to during an activity
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var calories ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The calories burned throughout the current activity in kilocalories
+(kcal).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var currentCadence ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current cadence in revolutions per minute (rpm).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+  —
+  
+    
+(rpm)
+
+
+
+  
+
+    
+
+
+
+
+
+var currentHeading ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The true north referenced heading in radians.
+
+This provides compass orientation if it is supported by the device.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var currentHeartRate ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current heart rate in beats per minute (bpm).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var currentLocation ⇒ Toybox.Position.Location
+
+
+
+
+
+  
+    
+The current location.
+
+This member will always provide a null value unless the Positioning
+Permission is enabled.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Position.Location
+
+    
+
+
+
+
+
+var currentLocationAccuracy ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current GPS accuracy.
+
+GPS accuracy values range from 0-4. A value of 0 indicates an accuracy
+value is not available, while a value of 4 indicates a good GPS fix.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+  —
+  
+    
+A Position.QUALITY_* value
+
+
+
+  
+
+    
+
+
+
+
+
+var currentOxygenSaturation ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current oxygen saturation in percent (%)
+
+
+
+  
+
+
+
+
+
+Since:
+
+3.2.0
+
+
+
+
+  Supported Devices:
+  
+      Captain MarvelD2™ AirDarth Vader™Descent™ Mk2 / Descent™ Mk2ifēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 745Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 4vívoactive® 4S
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var currentPower ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current power in Watts (W).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830epix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var currentSpeed ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The current speed in meters per second (mps).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var distanceToDestination ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The distance to the destination in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var distanceToNextPoint ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The distance to the next point in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var elapsedDistance ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The elapsed distance of the current activity in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var elapsedTime ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+Elapsed time of the current activity in milliseconds (ms).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var elevationAtDestination ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The elevation at the destination in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var elevationAtNextPoint ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The elevation at the next point in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var energyExpenditure ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The current energy expenditure in kilocalories per minute (kcals/min).
+
+Energy expenditure is a metric developed by FirstBeat that provides
+an estimation of the calorie burn rate calculated from heart rate data.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.2.0
+
+
+
+
+  Supported Devices:
+  
+      Approach® S62Captain MarvelD2™ AirD2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Exploreepix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 230Forerunner® 235Forerunner® 245Forerunner® 245 MusicForerunner® 630Forerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive®vívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var frontDerailleurIndex ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current front bicycle derailleur index.
+
+Index values range from from 1 to the frontDerailleurMax.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var frontDerailleurMax ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The front bicycle derailleur maximum index.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var frontDerailleurSize ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The front bicycle derailleur gear size in number of teeth.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var maxCadence ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The maximum cadence recorded during the current activity in revolutions
+per minute (rpm).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var maxHeartRate ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The maximum heart rate recorded during the current activity in beats
+per minute (bpm).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var maxPower ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The maximum power recorded during the current activity in Watts (W).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830epix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var maxSpeed ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The maximum speed recorded during the current activity in meters per
+second (mps).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+  —
+  
+    
+(mps)
+
+
+
+  
+
+    
+
+
+
+
+
+var meanSeaLevelPressure ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The mean sea level barometric pressure in Pascals (Pa).
+
+This returns barometric pressure calibrated to sea level. Since pressure
+varies dues to several factors, a GPS-based altitude must first be
+obtained, then the ambient (local) pressure is measured by the pressure
+sensor before conversion to a calibrated barometric pressure value.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.4.0
+
+
+
+
+  Supported Devices:
+  
+      Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 645Forerunner® 645 MusicForerunner® 745Forerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® Collectionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var nameOfDestination ⇒ Toybox.Lang.String
+
+
+
+
+
+  
+    
+The name of the destination.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.String
+
+    
+
+
+
+
+
+var nameOfNextPoint ⇒ Toybox.Lang.String
+
+
+
+
+
+  
+    
+The name of the next point.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.String
+
+    
+
+
+
+
+
+var offCourseDistance ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The distance to the nearest point on the current course in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var rawAmbientPressure ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The raw ambient pressure in Pascals (Pa).
+
+This returns ambient (local) barometric pressure as measured by the
+internal pressure sensor. The data is the temperature compensated
+information read directly from the internal sensor.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.4.0
+
+
+
+
+  Supported Devices:
+  
+      Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 645Forerunner® 645 MusicForerunner® 745Forerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® Collectionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var rearDerailleurIndex ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current front bicycle derailleur index.
+
+Index values range from from 1 to the rearDerailleurMax.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var rearDerailleurMax ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The rear bicycle derailleur maximum index.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var rearDerailleurSize ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The rear bicycle derailleur gear size in number of teeth.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830fēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ Golfer
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var startLocation ⇒ Toybox.Position.Location
+
+
+
+
+
+  
+    
+The starting location of the current activity.
+
+This member will always provide a null value unless the Positioning
+Permission is enabled.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Position.Location
+
+    
+
+
+
+
+
+var startTime ⇒ Toybox.Time.Moment
+
+
+
+
+
+  
+    
+The starting time of the current activity.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Time.Moment
+
+    
+
+
+
+
+
+var swimStrokeType ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The swim stroke type from the previous length.
+
+Swim stroke type values range from 0-6. Each Number value represents
+a different swim stroke type (e.g. freestyle, backstroke, etc.).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.2.2
+
+
+
+
+  Supported Devices:
+  
+      Approach® S60Approach® S62Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2ifēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+  —
+  
+    
+An Activity.SWIM_STROKE_* value
+
+
+
+  
+
+    
+
+
+
+
+
+var swimSwolf ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The SWOLF score from the previous length.
+
+SWOLF is an abbreviation for Swim-Golf, a measure of swimming efficiency.
+The score is obtained by adding the strokes per length to the total
+time of the length. For example, if it takes ten strokes and thirty
+seconds to swim a pool length, the SWOLF score is 40. Just like golf,
+a lower SWOLF score is better.
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.2.2
+
+
+
+
+  Supported Devices:
+  
+      Approach® S60Approach® S62Captain MarvelD2™ AirD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2ifēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 245Forerunner® 245 MusicForerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 935Forerunner® 945MARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferRey™Venu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var timerState ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The recording timer state.
+
+The timer state ranges from 0-3. A value of 0 indicates that the
+timer is off and there is no active recording, while a value of 3
+indicates timer is on and there is an active recording.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+  —
+  
+    
+An Activity.TIMER_STATE_* value
+
+
+
+  
+
+    
+
+
+
+
+
+var timerTime ⇒ Toybox.Lang.Number
+
+
+
+
+
+  
+    
+The current Timer value in milliseconds (ms).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Number
+
+    
+
+
+
+
+
+var totalAscent ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The total ascent during the current activity in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var totalDescent ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The total descent during the current activity in meters (m).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.0.0
+
+
+
+
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var track ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The current track in radians.
+
+Track is the direction of travel in radians based on GPS movement.
+If supported by the device, this provides compass orientation when
+stopped.
+
+
+
+  
+
+
+
+
+
+Since:
+
+2.1.0
+
+
+
+
+  Supported Devices:
+  
+      D2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDescent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Explorefēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual PowerForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferMontana® 7 SeriesOregon® 7 SeriesRino® 7 Series
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+
+
+var trainingEffect ⇒ Toybox.Lang.Float
+
+
+
+
+
+  
+    
+The Training Effect score of the current activity.
+
+Training Effect is a score developed by FirstBeat, which indicates an
+activity's level of effect on aerobic fitness. Scores range from 1.0
+(easy) to 5.0 (overreaching).
+
+
+
+  
+
+
+
+
+
+Since:
+
+1.2.0
+
+
+
+
+  Supported Devices:
+  
+      Approach® S62Captain MarvelD2™ AirD2™ BravoD2™ Bravo TitaniumD2™ CharlieD2™ DeltaD2™ Delta PXD2™ Delta SDarth Vader™Descent™ Mk1Descent™ Mk2 / Descent™ Mk2iEdge® 1000 / ExploreEdge® 1030Edge® 1030 / BontragerEdge® 1030 PlusEdge® 130Edge® 130 PlusEdge® 520Edge® 520 PlusEdge® 530Edge® 820 / ExploreEdge® 830Edge® Exploreepix™fēnix® 3 / tactix® Bravo / quatix® 3fēnix® 3 HRfēnix® 5 / quatix® 5fēnix® 5 Plusfēnix® 5Sfēnix® 5S Plusfēnix® 5X / tactix® Charliefēnix® 5X Plusfēnix® 6 / 6 Solar / 6 Dual Powerfēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6fēnix® 6S / 6S Solar / 6S Dual Powerfēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Powerfēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Powerfēnix® ChronosFirst AvengerForerunner® 230Forerunner® 235Forerunner® 245Forerunner® 245 MusicForerunner® 630Forerunner® 645Forerunner® 645 MusicForerunner® 735xtForerunner® 745Forerunner® 920XTForerunner® 935Forerunner® 945GPSMAP® 66s / 66sr / 66stGPSMAP® 86s / 86sc / 86i / 86sciMARQ™ AdventurerMARQ™ AthleteMARQ™ AviatorMARQ® Captain / MARQ® Captain: American Magic EditionMARQ™ CommanderMARQ™ DriverMARQ™ ExpeditionMARQ™ GolferOregon® 7 SeriesRey™Rino® 7 SeriesVenu™Venu™ Mercedes-Benz® CollectionVenu® SqVenu® Sq. Music Editionvívoactive®vívoactive® 3vívoactive® 3 Mercedes-Benz® Collectionvívoactive® 3 Musicvívoactive® 3 Music LTEvívoactive® 4vívoactive® 4Svívoactive® HR
+  
+
+    Returns:
+    
+      
+  Toybox.Lang.Float
+
+    
+
+
+
+ 
+
+
+
+
+
+
+Generated Feb 12, 2021 12:28:02 PM
+
+
+

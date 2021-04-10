@@ -33,7 +33,6 @@ export class AST {
 
     }
 
-
     getParseTree() {
         return this.parseTree;
     }

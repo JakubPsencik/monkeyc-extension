@@ -1,30 +1,36 @@
-using Toybox.ActivityMonitor.ActiveMinutes;
+using Toybox.ActivityMonitor.HeartRateIterator;
+using Toybox.FitContributor.Field;
+using Toybox.Activity.Info;
+
 
 class A
 {
 
     function f() {       
 
-        var mMinutes = new ActiveMinutes();
-       
-        var tmp = 2;
-
-        var mTest1 = tmp.format();
-        mTest1 = tmp.format();
-        var mTest2;
-        mTest2 = mTest1.toFloat();
+        var activity = new Activity();
+        var info = new Info();
+        activity.   //Toybox.Activity
+        var mIterator = new HeartRateIterator();
         
-        var mTest3 = tmp.toNumber();
-        mTest3.toString();
-        var mTest3 = (mTest3.toNumber()).toDouble();
+        /*mám řešit jenom deklarace, tzn. budu se odrážet tady od tohoto ↓↓↓*/
+        var tmp = 2; 
+        var hovno = tmp.abs();   //Toybox.Lang.Number
+
+        tmp2 = "fasdfa";
+        
+        //tady si dám komentář. že to bude např. string -> a už to bude našeptávat String;
+        var tmp3 = tmp2.toNumber();       //Toybox.Lang.String
+        var tpm4 = tmp3.     //Toybox.Lang.Number
+
+        
+        var mTest = [1,2,3,4];
+        mTest.removeAll();  //Toybox.Lang.Array
 
     }
 
-
-    function() {
-    
-    
-    }
 }
+
+
 
 
