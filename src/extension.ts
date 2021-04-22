@@ -151,8 +151,14 @@ export function activate(context: vscode.ExtensionContext) {
 		{ 
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
-				let linePrefix = document.lineAt(position).text.substr(0, position.character);
-				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();				
+				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
+				//let arr = linePrefix.split(['.',',']); 	
+				var arr = linePrefix.match(/(\w)/g);
+				var tmp = linePrefix.match("[^a-zA-Z0-9+]");
+				
+				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();	
+				var s = 'x + y ( z )';
+				
 				let className = documentHandler.findClassName(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix);
 				console.log(linePrefix + ": " + className);
 				let class_ = documentHandler.findClass(className!);
@@ -223,57 +229,44 @@ export function activate(context: vscode.ExtensionContext) {
 		' ' // triggered whenever a space is being typed
 	);
 
-
 	const curlyBracesProvider = vscode.languages.registerCompletionItemProvider('monkeyc', { provideCompletionItems() { return [ new vscode.CompletionItem('}') ]; } }, '{' );
-	
-	const provider1 = vscode.languages.registerCompletionItemProvider('plaintext', {
 
-		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+	//instanced class variable
+	const multilineCommentProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc',
+		{ 
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
-			// a simple completion item which inserts `Hello World!`
-			const simpleCompletion = new vscode.CompletionItem('Hello World!');
+				let linePrefix = document.lineAt(position).text.substr(0, position.character);
+				linePrefix = linePrefix.substring(linePrefix.lastIndexOf("/**"));
 
-			// a completion item that inserts its text as snippet,
-			// the `insertText`-property is a `SnippetString` which will be
-			// honored by the editor.
-			const snippetCompletion = new vscode.CompletionItem('Good part of the day');
-			snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
-			snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
+				let emptyComment = new vscode.CompletionItem("/** */",vscode.CompletionItemKind.Text);
+				emptyComment.detail = "empty multiline comment.";
+				emptyComment.insertText = "\n *\n *\n */";
 
-			// a completion item that can be accepted by a commit character,
-			// the `commitCharacters`-property is set which means that the completion will
-			// be inserted and then the character will be typed.
-			const commitCharacterCompletion = new vscode.CompletionItem('console');
-			commitCharacterCompletion.commitCharacters = ['.'];
-			commitCharacterCompletion.documentation = new vscode.MarkdownString('Press `.` to get `console.`');
+				let dataTypeComment = new vscode.CompletionItem("/** @type */",vscode.CompletionItemKind.Text);
+				dataTypeComment.detail = "data type comment.";
+				dataTypeComment.insertText = "\n * @type \n */";
 
-			// a completion item that retriggers IntelliSense when being accepted,
-			// the `command`-property is set which the editor will execute after 
-			// completion has been inserted. Also, the `insertText` is set so that 
-			// a space is inserted after `new`
-			const commandCompletion = new vscode.CompletionItem('new');
-			commandCompletion.kind = vscode.CompletionItemKind.Keyword;
-			commandCompletion.insertText = 'new ';
-			commandCompletion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+				if(linePrefix === "/**") {
+					return [emptyComment, dataTypeComment];
+				}
 
-			// return all completion items as array
-			return [
-				simpleCompletion,
-				snippetCompletion,
-				commitCharacterCompletion,
-				commandCompletion
-			];
-		}
-	});
-
+				return undefined;
+			}
+		},
+		'*' // triggered whenever a '.' is being typed
+	);
 	
 	const dataTypesProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc',
 		{
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-				let linePrefix = document.lineAt(position).text.substr(position.character-2).trim();
+				let beginSlash = document.lineAt(position.line-1).text.trim();
+				let linePrefix = document.lineAt(position).text.trim();
+				let endSlash = document.lineAt(position.line+1).text.trim();
 
-				if(linePrefix === "//") {
+				if(beginSlash === "/**" && linePrefix.includes("* @type") && endSlash === "*/") {
 					return documentHandler.collectDataTypes();
 				}
 
@@ -281,11 +274,10 @@ export function activate(context: vscode.ExtensionContext) {
 					
 			}
 		},
-		'/' // triggered whenever a '/' is being typed
+		' ' // triggered whenever a '/' is being typed
 	);
 
-	context.subscriptions.push(provider1);
-	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, curlyBracesProvider, dataTypesProvider);
+	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, curlyBracesProvider, dataTypesProvider, multilineCommentProvider);
 }
 
 // this method is called when your extension is deactivated

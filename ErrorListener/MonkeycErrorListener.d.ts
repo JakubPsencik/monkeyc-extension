@@ -5,10 +5,7 @@
 import { ANTLRErrorListener } from "../node_modules/antlr4ts/ANTLRErrorListener";
 import { RecognitionException } from "../node_modules/antlr4ts/RecognitionException";
 import { Recognizer } from "../node_modules/antlr4ts/Recognizer";
-/**
- *
- * @author Sam Harwell
- */
+
 export declare class MonkeycErrorListener implements ANTLRErrorListener<any> {
     /**
      * Provides a default instance of {@link ConsoleErrorListener}.

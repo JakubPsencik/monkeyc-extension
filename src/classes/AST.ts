@@ -32,7 +32,10 @@ export class AST {
         this.root= new Node(undefined,undefined,undefined,undefined,undefined);
 
     }
-
+    /**\n 
+     *\n 
+     *\n 
+     */
     getParseTree() {
         return this.parseTree;
     }

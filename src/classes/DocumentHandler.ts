@@ -496,11 +496,26 @@ export class DocumentHandler {
     /* hledám komentař datoveho typu které jsou v daném rozmezí, v daném kanálu */
 	getDataTypeCommentFromChannel(channel: number, startLine : number, range: number, fileName: string) : string { 
 		
-		let comment = this.abstractSyntaxTreeCommentaryMap.get(fileName).find((x : Token) => 
-			((x.channel === channel) && (x.line >= startLine && x.line < startLine+range))
-			 && (x.text?.includes('//Toybox.')))!.text!;
+        let tree = this.abstractSyntaxTreeCommentaryMap.get(fileName);
+        let founded = false;
+        let res = "";
+        for (let i = 0; i < tree.length; i++) {
+            if(founded) { break; }
+            if((tree[i].channel === channel) && (tree[i].line <= startLine && tree[i].line > startLine-range)
+             && (tree[i].text?.startsWith("/**") && tree[i].text?.includes('* @type ') && tree[i].text?.endsWith("*/"))) {
+                res = tree[i].text;
+                founded = true;
 
-        return comment;
+            }
+            
+            
+        }
+        
+		/*let comment = this.abstractSyntaxTreeCommentaryMap.get(fileName).find((x : Token) => 
+			((x.channel === channel) && (x.line >= startLine && x.line < startLine+range))
+			 && (x.text?.includes('//Toybox.')))!.text!;*/
+
+        return res;
 
 	}
     
@@ -575,7 +590,7 @@ export class DocumentHandler {
             //context must not be undefined or null
             if(ctx) {
                 //im considering only contexts, which are on the same line as mouse cursor
-                if((cursorPos.line+1) === ctx.start.line) {
+                //if((cursorPos.line+1) === ctx.start.line) {
                     if ((ctx.ruleIndex === MonkeyCParser.RULE_variableDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList || ctx.ruleIndex === MonkeyCParser.RULE_blockStatement || ctx.ruleIndex === MonkeyCParser.RULE_statement)) { 
                     
                         //new instance initialization
@@ -587,9 +602,14 @@ export class DocumentHandler {
                                 return "Array";
                             if((variableName !== tmp) && ctx.text.includes(tmp)) 
                                 return tmp;
+                        //this condition covers fiding data type of variables from comments above them.
                         } else if ((ctx.text.includes(variableName))) {
-                            let comment = this.getDataTypeCommentFromChannel(1,ctx._start.line,5,DocumentHandler.currentDocumentName);
+                            let comment = this.getDataTypeCommentFromChannel(1,ctx._start.line-1,5,DocumentHandler.currentDocumentName);
                             let _type = comment.substring(comment.lastIndexOf('.')+1);
+                            //'String \r\n         */'
+                            var tmp = _type.match("[^A-Za-z0-9]+");
+                            _type = _type.replace(tmp![0],"");
+                            
                             return _type;
                         }                
                     } 
@@ -632,7 +652,7 @@ export class DocumentHandler {
                         }
                     
                     } 
-                }//end of position check condition
+                //}//end of position check condition
             }//end of context check
         }
 
@@ -754,8 +774,10 @@ export class DocumentHandler {
                     
         }
         let founded = false;
+        let moduleCompleted = false;
         for(let i = 0; i < modules.length; i++) {  
             
+            if(moduleCompleted) { break; }
 
             if(modules[i] !== undefined) {
                 if(!founded) {
@@ -763,10 +785,16 @@ export class DocumentHandler {
                     if(identifier === moduleName)
                         founded = true;
                 } else {
-                    if(modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("class")) {
-                        classes.push(modules[i]);
-                    } else {/*return classes;*/ }
-                        //
+                    if(modules[i].getValue()?.includes("module") && modules[i].getChildren()?.length === 2) {
+                        moduleCompleted = true;
+                    }
+                    if(!moduleCompleted) {
+                        if(modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("class")) {
+                            classes.push(modules[i]);
+                        } else {/*return classes;*/ }
+                            //
+                    }
+                    
                 }
                 
             }

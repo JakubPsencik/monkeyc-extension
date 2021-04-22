@@ -1,0 +1,316 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{jetbrains}{misc}{}
+      \list{publisher}{1}{%
+        {JetBrains s.r.o.}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{JetBrains}
+      \field{title}{Essential tools for software developers and teams}
+      \verb{urlraw}
+      \verb https://www.jetbrains.com/
+      \endverb
+      \verb{url}
+      \verb https://www.jetbrains.com/
+      \endverb
+    \endentry
+    \entry{marketplace}{misc}{}
+      \list{publisher}{1}{%
+        {Microsoft Corporation}%
+      }
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Marketplace}
+      \field{title}{Visual Studio Marketplace}
+      \verb{urlraw}
+      \verb https://marketplace.visualstudio.com/vscode
+      \endverb
+      \verb{url}
+      \verb https://marketplace.visualstudio.com/vscode
+      \endverb
+    \endentry
+    \entry{monkeyc_2021}{misc}{}
+      \list{publisher}{1}{%
+        {Garmin LTD or Its Subsidiaries}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Monkey C}
+      \field{title}{Hello Monkey C!}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://developer.garmin.com/connect-iq/monkey-c/
+      \endverb
+      \verb{url}
+      \verb https://developer.garmin.com/connect-iq/monkey-c/
+      \endverb
+    \endentry
+    \entry{GARMIN_OFFICIAL}{misc}{}
+      \list{publisher}{1}{%
+        {Garmin Ltd.}%
+      }
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Garmin International | Home}
+      \field{title}{Garmin International: Home}
+      \verb{urlraw}
+      \verb https://www.garmin.com/en-US/
+      \endverb
+      \verb{url}
+      \verb https://www.garmin.com/en-US/
+      \endverb
+    \endentry
+    \entry{Garmin_Connect_IQ}{misc}{}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{DC Rainmaker}
+      \field{month}{1}
+      \field{title}{Garmin Connect IQ: An in-depth introduction to the platform you can now use today}
+      \field{year}{2015}
+      \verb{urlraw}
+      \verb https://www.dcrainmaker.com/2015/01/connect-iq-intro.html
+      \endverb
+      \verb{url}
+      \verb https://www.dcrainmaker.com/2015/01/connect-iq-intro.html
+      \endverb
+    \endentry
+    \entry{věnsek_2019}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=db938082c114bd88dfb59eef842725d8}{%
+           family={Věnsek},
+           familyi={V\bibinitperiod},
+           given={Tomáš},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{db938082c114bd88dfb59eef842725d8}
+      \strng{fullhash}{db938082c114bd88dfb59eef842725d8}
+      \strng{bibnamehash}{db938082c114bd88dfb59eef842725d8}
+      \strng{authorbibnamehash}{db938082c114bd88dfb59eef842725d8}
+      \strng{authornamehash}{db938082c114bd88dfb59eef842725d8}
+      \strng{authorfullhash}{db938082c114bd88dfb59eef842725d8}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Konfigurovatelná aplikace hodinek pro platformu Garmin Connect IQ}
+      \field{year}{2019}
+      \field{pages}{19}
+      \range{pages}{1}
+    \endentry
+    \entry{abelson1996structure}{book}{}
+      \name{author}{2}{}{%
+        {{hash=9d498f19d0ecec78ed8839d5d872ba8b}{%
+           family={Abelson},
+           familyi={A\bibinitperiod},
+           given={Harold},
+           giveni={H\bibinitperiod}}}%
+        {{hash=8b6dca222a717cf221b28f2c044f22a4}{%
+           family={Sussman},
+           familyi={S\bibinitperiod},
+           given={Gerald\bibnamedelima Jay},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The MIT Press}%
+      }
+      \strng{namehash}{6f8b9bf092cd07ee63aaa94c1c005cf5}
+      \strng{fullhash}{6f8b9bf092cd07ee63aaa94c1c005cf5}
+      \strng{bibnamehash}{6f8b9bf092cd07ee63aaa94c1c005cf5}
+      \strng{authorbibnamehash}{6f8b9bf092cd07ee63aaa94c1c005cf5}
+      \strng{authornamehash}{6f8b9bf092cd07ee63aaa94c1c005cf5}
+      \strng{authorfullhash}{6f8b9bf092cd07ee63aaa94c1c005cf5}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Structure and interpretation of computer programs}
+      \field{year}{1996}
+    \endentry
+    \entry{VSCODE_2020}{misc}{}
+      \list{publisher}{1}{%
+        {Wikimedia Foundation}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{6}
+      \field{title}{Visual Studio Code}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://cs.wikipedia.org/wiki/Visual_Studio_Code
+      \endverb
+      \verb{url}
+      \verb https://cs.wikipedia.org/wiki/Visual_Studio_Code
+      \endverb
+    \endentry
+    \entry{TypeScript_wikipedia_2020}{misc}{}
+      \list{publisher}{1}{%
+        {Wikimedia Foundation}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{8}
+      \field{title}{TypeScript}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://cs.wikipedia.org/wiki/TypeScript
+      \endverb
+      \verb{url}
+      \verb https://cs.wikipedia.org/wiki/TypeScript
+      \endverb
+    \endentry
+    \entry{ANTLR_2021}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c47f872d41a4441186be0d66723a9e57}{%
+           family={Parr},
+           familyi={P\bibinitperiod},
+           given={Terence},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{fullhash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{bibnamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authorbibnamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authornamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authorfullhash}{c47f872d41a4441186be0d66723a9e57}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{journaltitle}{ANTLR}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://www.antlr.org/
+      \endverb
+      \verb{url}
+      \verb https://www.antlr.org/
+      \endverb
+    \endentry
+    \entry{Interpret_2020}{misc}{}
+      \list{publisher}{1}{%
+        {Wikimedia Foundation}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{6}
+      \field{title}{Interpret (software)}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://cs.wikipedia.org/wiki/Interpret_(software)
+      \endverb
+      \verb{url}
+      \verb https://cs.wikipedia.org/wiki/Interpret_(software)
+      \endverb
+    \endentry
+    \entry{ANTLR_PG_20}{inbook}{}
+      \name{author}{1}{}{%
+        {{hash=c47f872d41a4441186be0d66723a9e57}{%
+           family={Parr},
+           familyi={P\bibinitperiod},
+           given={Terence},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pragmatic Bookshelf}%
+      }
+      \strng{namehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{fullhash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{bibnamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authorbibnamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authornamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authorfullhash}{c47f872d41a4441186be0d66723a9e57}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{booktitle}{Definitive ANTLR 4 reference}
+      \field{year}{2013}
+      \field{pages}{20}
+      \range{pages}{1}
+    \endentry
+    \entry{ANTLR_PG_10}{inbook}{}
+      \name{author}{1}{}{%
+        {{hash=c47f872d41a4441186be0d66723a9e57}{%
+           family={Parr},
+           familyi={P\bibinitperiod},
+           given={Terence},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pragmatic Bookshelf}%
+      }
+      \strng{namehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{fullhash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{bibnamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authorbibnamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authornamehash}{c47f872d41a4441186be0d66723a9e57}
+      \strng{authorfullhash}{c47f872d41a4441186be0d66723a9e57}
+      \field{extraname}{3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{booktitle}{Definitive ANTLR 4 reference}
+      \field{year}{2013}
+      \field{pages}{10}
+      \range{pages}{1}
+    \endentry
+    \entry{mike_lischke}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c4da78dc073e8bb28839e6697df254fd}{%
+           family={Mike-Lischke},
+           familyi={M\bibinithyphendelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4da78dc073e8bb28839e6697df254fd}
+      \strng{fullhash}{c4da78dc073e8bb28839e6697df254fd}
+      \strng{bibnamehash}{c4da78dc073e8bb28839e6697df254fd}
+      \strng{authorbibnamehash}{c4da78dc073e8bb28839e6697df254fd}
+      \strng{authornamehash}{c4da78dc073e8bb28839e6697df254fd}
+      \strng{authorfullhash}{c4da78dc073e8bb28839e6697df254fd}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{GitHub}
+      \field{title}{mike-lischke/antlr4-c3}
+      \verb{urlraw}
+      \verb https://github.com/mike-lischke/antlr4-c3
+      \endverb
+      \verb{url}
+      \verb https://github.com/mike-lischke/antlr4-c3
+      \endverb
+    \endentry
+  \enddatalist
+  \missing{src:comment}
+\endrefsection
+\endinput
+

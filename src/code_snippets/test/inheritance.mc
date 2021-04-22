@@ -1,32 +1,19 @@
-using Toybox.ActivityMonitor.HeartRateIterator;
-using Toybox.FitContributor.Field;
-using Toybox.Activity.Info;
-
 
 class A
 {
-
     function f() {       
 
-        var activity = new Activity();
-        var info = new Info();
-        activity.   //Toybox.Activity
-        var mIterator = new HeartRateIterator();
-        
-        /*mám řešit jenom deklarace, tzn. budu se odrážet tady od tohoto ↓↓↓*/
-        var tmp = 2; 
-        var hovno = tmp.abs();   //Toybox.Lang.Number
+        /**
+         * @type Toybox.Lang.Number
+         */
+        var tmp = 2;
 
-        tmp2 = "fasdfa";
-        
-        //tady si dám komentář. že to bude např. string -> a už to bude našeptávat String;
-        var tmp3 = tmp2.toNumber();       //Toybox.Lang.String
-        var tpm4 = tmp3.     //Toybox.Lang.Number
+        /**
+         * @type Toybox.Lang.Double 
+         */
+        var val1 = tmp.toDouble();
 
-        
-        var mTest = [1,2,3,4];
-        mTest.removeAll();  //Toybox.Lang.Array
-
+        //var val2 = val1. tmp.toNumber();
     }
 
 }
