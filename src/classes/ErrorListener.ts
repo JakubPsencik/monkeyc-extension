@@ -18,9 +18,9 @@ export class MyErrorListener extends MonkeycErrorListener {
 
 	getSyntaxErrors() {
 
-		this.syntaxErrors.forEach(err => {
+		/*this.syntaxErrors.forEach(err => {
 			console.log('document: ', err.document, ' | ', 'line: ', err.line, '\n');
-		});
+		});*/
 		return this.syntaxErrors;
 	}
 

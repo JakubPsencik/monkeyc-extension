@@ -13,7 +13,6 @@ class A
          */
         var val1 = tmp.toDouble();
 
-        //var val2 = val1. tmp.toNumber();
     }
 
 }

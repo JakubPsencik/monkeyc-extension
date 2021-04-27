@@ -49,7 +49,7 @@ export class DocumentHandler {
     /** holding comments from hidden channel */
     public abstractSyntaxTreeCommentaryMap : Map<string, Token[] | any>;
 
-    public testAbstractSyntaxTreeMap : Map<string, AST | any>;
+    public importedModulesMap : Map<string, string[]>;
     
     private parser : MonkeyCParser;
 
@@ -61,7 +61,7 @@ export class DocumentHandler {
         this.documentAutocompleteMap = new Map();
         this.abstractSyntaxTreeMap = new Map();
         this.abstractSyntaxTreeCommentaryMap = new Map();
-        this.testAbstractSyntaxTreeMap = new Map();
+        this.importedModulesMap = new Map();
         this.parser = undefined!;
         this.errorListener = new MyErrorListener();
 
@@ -103,8 +103,7 @@ export class DocumentHandler {
                     this.abstractSyntaxTreeMap.set(documents[i][0], new AST(documents[i][0]));
                     this.abstractSyntaxTreeCommentaryMap.set(documents[i][0], []);
                     
-                    inputStream = new ANTLRInputStream(readFileSync(fileUri.fsPath, 'utf-8'));
-                    
+                    inputStream = new ANTLRInputStream(readFileSync(fileUri.fsPath, 'utf-8'));                   
                     
                     lexer = new MonkeyCLexer(inputStream);
                     lexer.removeErrorListeners();
@@ -116,14 +115,16 @@ export class DocumentHandler {
                     this.parser.addErrorListener(this.errorListener);
                     parseTree = this.parser.program();
                     let shifter = new CommentShifter(tokenStream);
-                    console.log('about to parse: ', documents[i][0]);
+                    //console.log('about to parse: ', documents[i][0]);
                     ParseTreeWalker.DEFAULT.walk(listener,parseTree);
                     ParseTreeWalker.DEFAULT.walk(shifter,parseTree);
                     this.abstractSyntaxTreeCommentaryMap.set(documents[i][0], listener.getCommentsFromChannel(1));
-                    this.provideAutocomplete(this.parser, listener, parseTree,documents[i][0]);	
-                    console.log('[parseAllDocuments] parsing document: ',documents[i][0]);
+                    if(DocumentHandler.currentDocumentName.toLowerCase() !== "toybox.mc") {
+                        this.provideAutocomplete(this.parser, listener, parseTree,documents[i][0]);	
+                    }
+                    //console.log('[parseAllDocuments] parsing document: ',documents[i][0]);
                     this.updateCollection(activeDocument, documents[i][0], this.errorListener.getSyntaxErrors());                   
-                    console.log('------------------------------------------');
+                    //console.log('------------------------------------------');
                     
                 }
             }	
@@ -161,10 +162,12 @@ export class DocumentHandler {
             parseTree = this.parser.program();
             ParseTreeWalker.DEFAULT.walk(listener,parseTree);
 
-            this.provideAutocomplete(this.parser, listener, parseTree, DocumentHandler.currentDocumentName);	
-            console.log('[parseCurrentDocument] parsing document: ', DocumentHandler.currentDocumentName);
+            if(DocumentHandler.currentDocumentName.toLowerCase() !== "toybox.mc") {
+                this.provideAutocomplete(this.parser, listener, parseTree, DocumentHandler.currentDocumentName);	
+            }
+            //console.log('[parseCurrentDocument] parsing document: ', DocumentHandler.currentDocumentName);
             this.updateCollection(activeDocument, DocumentHandler.currentDocumentName, this.errorListener.getSyntaxErrors());
-            console.log('------------------------------------------');
+            //console.log('------------------------------------------');
         }
         
     }
@@ -195,8 +198,26 @@ export class DocumentHandler {
         this.documentAutocompleteMap.get(documentName)?.set("keywords",new vscode.CompletionList(completionStrings,false));
     
         this.abstractSyntaxTreeMap.set(documentName, listener.getAST());
+        let importedModules = this.collectImportedModules();
+        let imported_ : vscode.CompletionItem[] = [];
+        importedModules.forEach(m => {
+            let txt : string = m.getValue();
+            let count = 0;
+            for(let i = 0; i < txt.length; i++) {
+                if (txt[i] === '.') count++;
+            }
+            let name = "";
+            if(count === 1) { 
+                name = txt.substring(txt.indexOf("Toybox.") + "Toybox.".length,txt.indexOf(';')); 
+                imported_.push(new vscode.CompletionItem(name, vscode.CompletionItemKind.Module));
+            }
+            else if(count === 2) { 
+                name = txt.substring(txt.lastIndexOf('.') + 1,txt.indexOf(';')); 
+                imported_.push(new vscode.CompletionItem(name, vscode.CompletionItemKind.Class));
+            }                                       
+        });
 
-        this.testAbstractSyntaxTreeMap.set((documentName+'_'), listener.getTestAST());
+        this.documentAutocompleteMap.get(documentName)?.set("modules",new vscode.CompletionList(imported_,false));
         let tree = this.abstractSyntaxTreeMap.get(documentName)!?.getParseTree();
         
         this.collectLocalVariables(tree,pos,documentName);
@@ -220,7 +241,10 @@ export class DocumentHandler {
 
                 try {
                     if(tree[i]!==null) {
-                        while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
+                        if(tree[i]!?.getValue() === '}' && tree[i].getParent()?.getId() === blockId) { 
+                            break;
+                        }
+                        //while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
                         
                             ctx = tree[i].getContext();
                             
@@ -246,11 +270,11 @@ export class DocumentHandler {
                                 i++;
                             }							
                         }	
-                    }
+                    //}//while end
                         
                     
                 } catch (error) {
-                    console.log(error);
+                    //console.log(error);
                     //print error message and continue
                 }				
             }	
@@ -266,47 +290,53 @@ export class DocumentHandler {
         for(let i = 0; i < tree.length; i++) {
             
             let ctx = tree[i] ? tree[i].getContext() : undefined; 
+            let classBodyId;
             if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
     
-                let classBodyId = tree[i].getId();
+                classBodyId = tree[i].getId();
                 /* check every node in current scope */
-                    
-                try {
-                    if(tree[i]!==null) {
-                        while(tree[i] && !(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
-                        
-                            ctx = tree[i].getContext();
-                            
-                            if(ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
-            
-                                if(ctx._start.line <= position.line) {
-                                    
-                                    let variableName ="";
-                                    if(ctx.text?.includes("=")) {
-                                        variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
-                                    } else {
-                                        variableName = ctx.text;
-                                    }	
+            }
 
-                                        classVariables.push(new vscode.CompletionItem(
-                                            variableName,
-                                            vscode.CompletionItemKind.Field
-                                        ));																								
-                                    }
-                                    /* skip 1 node with same context */	
-                                    i+=2;
-            
-                                } else {								
-                                i++;
-                            }							
-                        }
+            try {
+                if(tree[i]!==null) {
+                    if(tree[i]!?.getValue() === '}' && tree[i].getParent()?.getId() === classBodyId) { 
+                        break;
                     }
- 
-                } catch (error) {
-                    console.log(error);
-                    //print error message and continue
-                }	
+                    //while(tree[i] && !(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
+                    
+                        ctx = tree[i].getContext();
+                        
+                        if(ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+        
+                            if(ctx._start.line <= position.line) {
+                                
+                                let variableName ="";
+                                if(ctx.text?.includes("=")) {
+                                    variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+                                } else {
+                                    variableName = ctx.text;
+                                }	
+                                    let variable = new vscode.CompletionItem(
+                                        variableName,
+                                        vscode.CompletionItemKind.Field
+                                    );
+
+                                    classVariables.push(variable);																								
+                                }
+                                /* skip 1 node with same context */	
+                                i+=2;
+        
+                            } else {								
+                            //i++;
+                        }							
+                    //} while end
+                }
+
+            } catch (error) {
+                //console.log(error);
+                //print error message and continue
             }	
+            	
         }
 
         this.documentAutocompleteMap.get(documentName)?.set("classVariables",new vscode.CompletionList(classVariables,false));
@@ -352,7 +382,7 @@ export class DocumentHandler {
                         
                     
                 } catch (error) {
-                    console.log(error);
+                    //console.log(error);
                     //print error message and continue
                 }					
             }	
@@ -368,8 +398,10 @@ export class DocumentHandler {
         let accessibleMembers : vscode.CompletionItem[] = [];
         let classBodyMembers;
         let classValue = class_.getValue()!;
+        let className = classValue.substring(classValue.indexOf("class") + "class".length,classValue.indexOf('{'));
         let parentClass;
         let classes_ = [];
+        let member;
         classes_.push(class_);
         if(classValue.includes('extends')) {
            classValue = classValue.substring(classValue.indexOf('extends') + 'extends'.length, classValue.indexOf('{'));
@@ -393,19 +425,27 @@ export class DocumentHandler {
                     let ctx = classBodyMembers[i].getChildren()![0];
                     if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
                         if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
-                            let variableName = ctx.getChildren()![3].getValue();                                                               
-                            accessibleMembers.push(new vscode.CompletionItem(
+                            let variableName = ctx.getChildren()![3].getValue();      
+                            member = new vscode.CompletionItem(
                                 variableName!,
                                 vscode.CompletionItemKind.Field
-                            )); 
+                            ); 
+                            let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
+                            let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,false);
+                            member.documentation = new vscode.MarkdownString(markdownDescription);                                                     
+                            accessibleMembers.push(member); 
                         }
                     } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
                         if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {
-                            let variableName = ctx.getChildren()![2].getValue();                                                               
-                            accessibleMembers.push(new vscode.CompletionItem(
+                            let variableName = ctx.getChildren()![2].getValue();   
+                            member = new vscode.CompletionItem(
                                 variableName!,
                                 vscode.CompletionItemKind.Function
-                            ));
+                            );
+                            let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
+                            let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,true);
+                            member.documentation = new vscode.MarkdownString(markdownDescription);                                                           
+                            accessibleMembers.push(member);
                         }
                     }
                 }
@@ -470,26 +510,110 @@ export class DocumentHandler {
         
         let accessibleMembers : vscode.CompletionItem[] = [];
 
-        //collect fields
+        //collect classes
         for(let i = 0; i < classes.length; i++) {
-            
-            let variableName = classes[i].getChildren()![0].getChildren()![1].getValue();                                                               
+            if(classes[i].getValue()?.substring(0,classes[i].getValue()?.indexOf('{')).includes("class")) {
+                let variableName = classes[i].getChildren()![0].getChildren()![1].getValue();                                                               
                 accessibleMembers.push(new vscode.CompletionItem(
                     variableName!,
                     vscode.CompletionItemKind.Class
-            ));              
+                ));    
+            }
+                      
         }
        return accessibleMembers;
     }
 
+    collectFunctionsFromModules(moduleName : string, functions: Node[]) {
+        
+        let accessibleMembers : vscode.CompletionItem[] = [];
+
+        //collect functions
+        for(let i = 0; i < functions.length; i++) {
+            if((functions[i].getValue()?.substring(0,functions[i].getValue()?.indexOf('{')).includes("function"))) {
+                let variableName = functions[i].getChildren()![0].getChildren()![2].getValue();  
+                let member = new vscode.CompletionItem(variableName!, vscode.CompletionItemKind.Function);
+                let cmt = this.getCommentFromChannel(1,functions[i].getContext()!.start.line,10); 
+                let markdownDescription = this.makeMarkdownDescription(moduleName, variableName!, cmt,true);
+                member.documentation = new vscode.MarkdownString(markdownDescription);
+                accessibleMembers.push(member);  
+            }
+                        
+        }
+       return accessibleMembers;
+    }
+
+    makeMarkdownDescription(moduleName: string, variableName: string, cmnt : string, isFunction : boolean) {
+
+        let description = "";
+        let params = "";
+        let ret = "";
+        let final_desc = "";
+
+        let arr : string[] = [];
+
+        if(isFunction) {
+            cmnt = cmnt.replace("/**\n            * ", "").trim();
+            description = cmnt.substring(0, cmnt.indexOf('.')+1);
+            if(cmnt.includes("@param")) {
+                params = cmnt.substring(cmnt.indexOf("@param"),cmnt.indexOf("@returns"));
+                arr = params.split("@param");
+                for(let i = 1; i < arr.length; i++) {
+                    arr[i] = "**" + arr[i].replace("(","").replace(')',"").substring(0,arr[i].lastIndexOf("\n")).trim();
+                    arr[i] = arr[i].replace(" -","** -");
+                }
+            }
+            ret += "***" + cmnt.substring(cmnt.indexOf("@returns") + "@returns".length, cmnt.lastIndexOf("\n")).trim() + "***";
+
+            if(ret.length <= 6) {
+                ret = "***void***";
+            }
+
+            final_desc += ret + " " + "**" + moduleName + "**" + "." + variableName + "()\n\n" + "*" + description + "*\n";
+            for(let i = 1; i < arr.length; i++) {
+                final_desc += "* " + arr[i] + "\n";
+            }
+
+        } else {
+
+            cmnt = cmnt.replace("/**\n            * ", "").trim();
+            description = cmnt.substring(0, cmnt.indexOf('.')+1);
+            ret += "***" + cmnt.substring(cmnt.indexOf("@type") + "@type".length, cmnt.lastIndexOf("\n")).trim() + "***";
+
+            if(ret.length <= 6) {
+                ret = "***void***";
+            }
+
+            final_desc += ret + " " + "**" + moduleName + "**" + "." + variableName + "()\n\n" + "*" + description + "*\n";
+
+        }
+     
+        return final_desc;
+    }
+    
+    
     /* hledám komentař které jsou v daném rozmezí, v daném kanálu */
 	getCommentFromChannel(channel: number, functionDeclarationLine : number, range: number) : string { 
 		
-		let comment = this.abstractSyntaxTreeCommentaryMap.get("Toybox.mc").find((x : Token) => 
+		/*let comment = this.abstractSyntaxTreeCommentaryMap.get("Toybox.mc").find((x : Token) => 
 			((x.channel === channel) && (x.line <= functionDeclarationLine && x.line > functionDeclarationLine-range))
-			 && (x.text?.startsWith('/**') && x.text.endsWith('*/')))!.text!;
+			 && (x.text?.startsWith('/**') && x.text.endsWith('*¨/')))!.text!;*/
 
-        return comment;
+        //return comment;
+
+        let tree = this.abstractSyntaxTreeCommentaryMap.get("Toybox.mc");
+        let founded = false;
+        let res = "";
+        for (let i = 0; i < tree.length; i++) {
+            if(founded) { break; }
+            if((tree[i].channel === channel) && (tree[i].line <= functionDeclarationLine && tree[i].line > functionDeclarationLine-range)
+             && (tree[i].text?.startsWith("/**") && tree[i].text?.endsWith("*/"))) {
+                res = tree[i].text;
+                founded = true;
+            }
+        }
+
+        return res;
 
 	}
 
@@ -510,10 +634,6 @@ export class DocumentHandler {
             
             
         }
-        
-		/*let comment = this.abstractSyntaxTreeCommentaryMap.get(fileName).find((x : Token) => 
-			((x.channel === channel) && (x.line >= startLine && x.line < startLine+range))
-			 && (x.text?.includes('//Toybox.')))!.text!;*/
 
         return res;
 
@@ -605,12 +725,14 @@ export class DocumentHandler {
                         //this condition covers fiding data type of variables from comments above them.
                         } else if ((ctx.text.includes(variableName))) {
                             let comment = this.getDataTypeCommentFromChannel(1,ctx._start.line-1,5,DocumentHandler.currentDocumentName);
-                            let _type = comment.substring(comment.lastIndexOf('.')+1);
-                            //'String \r\n         */'
-                            var tmp = _type.match("[^A-Za-z0-9]+");
-                            _type = _type.replace(tmp![0],"");
-                            
-                            return _type;
+                            if(comment.length > 0) {
+                                let _type = comment.substring(comment.lastIndexOf('.')+1);                                                       
+                                var tmp = _type.match("[^A-Za-z0-9]+");
+                                _type = _type.replace(tmp![0],"");
+                                return _type;
+                            } else {
+                                return undefined;
+                            }
                         }                
                     } 
                     //finding through comments --> single method call
@@ -652,7 +774,7 @@ export class DocumentHandler {
                         }
                     
                     } 
-                //}//end of position check condition
+               // }//end of position check condition
             }//end of context check
         }
 
@@ -683,7 +805,7 @@ export class DocumentHandler {
                 if(classes[i].getChildren()![1].getValue() === className)                
                     return classes[i];
             } catch (error) {
-                console.log(error);
+                //console.log(error);
                 //
             }
         }
@@ -763,7 +885,7 @@ export class DocumentHandler {
 
     findModuleBodyMembers(moduleName: string) {
         let modules : Node[] =[];
-        let classes : Node[] = []; 
+        let bodyMembers : Node[] = []; 
         let tree = this.abstractSyntaxTreeMap.get("Toybox.mc")!?.getParseTree();
         for(let i = 0; i < tree.length; i++) {
             if(tree[i] !== null)
@@ -789,18 +911,18 @@ export class DocumentHandler {
                         moduleCompleted = true;
                     }
                     if(!moduleCompleted) {
-                        if(modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("class")) {
-                            classes.push(modules[i]);
-                        } else {/*return classes;*/ }
-                            //
+                        if(modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("class") || 
+                          (modules[i].getValue()?.substring(0,modules[i].getValue()?.indexOf('{')).includes("function"))) {
+                            bodyMembers.push(modules[i]);
+                        }
                     }
                     
                 }
                 
             }
         }
-        if(classes.length <= 0 ) return undefined;
-        else return classes;
+        if(bodyMembers.length <= 0 ) { return undefined; }
+        else { return bodyMembers; }
     }
 
     collectImportedModules() {

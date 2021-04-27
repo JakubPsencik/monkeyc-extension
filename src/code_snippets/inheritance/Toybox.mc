@@ -6003,6 +6003,20 @@ module Toybox {
             public function registerSensorDataListener(listener,options) { }
 
 
+            /**
+            * Enable sensors for use. This will enable both connected ANT+ sensors and system sensors if possible.
+            * @param sensors - (Toybox.Lang.Array)
+            * @returns  
+            */
+            public function setEnabledSensors(sensors) { }
+
+
+            /**
+            * Unregister a previously registered data listener.
+            * @returns  
+            */
+            public function unregisterSensorDataListener() { }
+
         
         public class AccelerometerData {
 
@@ -6640,6 +6654,13 @@ module Toybox {
 
 
             /**
+            * Get the current clock time.
+            * @returns  Toybox.System.ClockTime
+            */
+            public function getClockTime() { }
+
+
+            /**
             * Get the current device settings.Example:using Toybox.System;var mySettings = System.getDeviceSettings();
             * @returns  Toybox.System.DeviceSettings
             */
@@ -6666,6 +6687,14 @@ module Toybox {
             * @returns 
             */
             public function isAppInstalled(uri) { }
+
+
+            /**
+            * Print to the console.
+            * @param output - (Toybox.Lang.Object)
+            * @returns  
+            */
+            public function print(output) { }
 
 
             /**
@@ -7735,7 +7764,7 @@ module Toybox {
         }
 
 
-        public class AnimationLayer - kopie {
+        public class AnimationLayer {
 
             /**
             * Get the animation resource
@@ -8385,22 +8414,67 @@ module Toybox {
         }
 
 
-        public class AnimationLayer - kopie {
+        public class Layer {
 
             /**
-            * Get the animation resource
-            * @returns  Toybox.WatchUi.AnimationResource
+            * Layer identifier, can be null
+            * @returns  Toybox.Lang.Number, Toybox.Lang.Object
             */
-            public function getResource() { }
+            public function getId() { }
 
 
             /**
-            * Constructor
-            * @param rez - (Toybox.Lang.Number, Toybox.WatchUi.AnimationResource)
-            * @param options - (Toybox.Lang.Dictionary)
+            * Get X-axis absolute draw offset relative to the screen origin
+            * @returns  Toybox.Lang.Number
+            */
+            public function getX() { }
+
+
+            /**
+            * Get Y-axis absolute draw offset relative to the screen origin
+            * @returns  Toybox.Lang.Number
+            */
+            public function getY() { }
+
+
+            /**
+            * 
             * @returns  
             */
-            public function initialize(rez,options) { }
+            public function initialize() { }
+
+
+            /**
+            * Set draw offset relative to the screen origin
+            * @param x - (Toybox.Lang.Number)
+            * @param y - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setLocation(x,y) { }
+
+
+            /**
+            * Set visibility of the layer, if the layer hasn't been added to a view, or the view isn't on top of view stack, the value will be saved.
+            * @param visible - (Toybox.Lang.Boolean)
+            * @returns  
+            */
+            public function setVisible(visible) { }
+
+
+            /**
+            * Set X-axis absolute draw offset relative to the screen origin
+            * @param x - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setX(x) { }
+
+
+            /**
+            * Set Y-axis absolute draw offset relative to the screen origin
+            * @param y - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function setY(y) { }
 
 
         }
@@ -8997,4 +9071,214 @@ module Toybox {
 
 
     }
+
+    module Weather {
+    
+            /**
+            * Get the most recently cached weather conditions
+            * @returns  Toybox.Weather.CurrentConditions
+            */
+            public function getCurrentConditions() { }
+
+
+            /**
+            * Get the daily forecast
+            * @returns  Toybox.Weather.DailyForecast
+            */
+            public function getDailyForecast() { }
+
+
+            /**
+            * Get the hourly forecast
+            * @returns  Toybox.Weather.HourlyForecast
+            */
+            public function getHourlyForecast() { }
+    
+
+        public class CurrentConditions {
+
+        /**
+        * The current weather condition  
+        * @type Toybox.Lang.Number
+        */
+        public var condition;
+
+
+        /**
+        * The wind chill or heat index, in Celsius  
+        * @type Toybox.Lang.Number
+        */
+        public var feelsLikeTemperature;
+
+
+        /**
+        * The forecasted high temperature for the day in Celsius  
+        * @type Toybox.Lang.Number
+        */
+        public var highTemperature;
+
+
+        /**
+        * The forecasted low temperature for the day in Celsius  
+        * @type Toybox.Lang.Number
+        */
+        public var lowTemperature;
+
+
+        /**
+        * Textual description of the observation location. If the app does not have the position permission then this will be null.  
+        * @type Toybox.Lang.String
+        */
+        public var observationLocationName;
+
+
+        /**
+        * Location where the conditions were observed. If the app does not have the position permission then this will be null.  
+        * @type Toybox.Position.Location
+        */
+        public var observationLocationPosition;
+
+
+        /**
+        * UTC time the conditions were observed  
+        * @type Toybox.Time.Moment
+        */
+        public var observationTime;
+
+
+        /**
+        * The chance of precipitation [0-100%]  
+        * @type Toybox.Lang.Number
+        */
+        public var precipitationChance;
+
+
+        /**
+        * The relative humidity [0-100%]  
+        * @type Toybox.Lang.Number
+        */
+        public var relativeHumidity;
+
+
+        /**
+        * The current temperature in Celsius  
+        * @type Toybox.Lang.Number
+        */
+        public var temperature;
+
+
+        /**
+        * The wind bearing in degrees. North = 0, East = 90, South = 180, West = 270  
+        * @type Toybox.Lang.Number
+        */
+        public var windBearing;
+
+
+        /**
+        * The current wind speed in meters per second  
+        * @type Toybox.Lang.Float
+        */
+        public var windSpeed;
+
+
+        }
+
+
+        public class DailyForecast {
+
+            /**
+            * The weather condition  
+            * @type Toybox.Lang.Number
+            */
+            public var condition;
+
+
+            /**
+            * The time the forecast is valid in UTC time  
+            * @type Toybox.Time.Moment
+            */
+            public var forecastTime;
+
+
+            /**
+            * The low temperature in Celsius  
+            * @type Toybox.Lang.Number
+            */
+            public var highTemperature;
+
+
+            /**
+            * The low temperature in Celsius  
+            * @type Toybox.Lang.Number
+            */
+            public var lowTemperature;
+
+
+            /**
+            * The chance of precipitation [0-100%]  
+            * @type Toybox.Lang.Number
+            */
+            public var precipitationChance;
+
+
+        }
+
+
+        public class HourlyForecast {
+
+            /**
+            * The weather condition  
+            * @type Toybox.Lang.Number
+            */
+            public var condition;
+
+
+            /**
+            * The time the forecast is valid in UTC time  
+            * @type Toybox.Time.Moment
+            */
+            public var forecastTime;
+
+
+            /**
+            * The chance of precipitation [0-100%]  
+            * @type Toybox.Lang.Number
+            */
+            public var precipitationChance;
+
+
+            /**
+            * The relative humidity [0-100%]  
+            * @type Toybox.Lang.Number
+            */
+            public var relativeHumidity;
+
+
+            /**
+            * The current temperature in Celsius  
+            * @type Toybox.Lang.Number
+            */
+            public var temperature;
+
+
+            /**
+            * The wind bearing in degrees. North = 0, East = 90, South = 180, West = 270  
+            * @type Toybox.Lang.Number
+            */
+            public var windBearing;
+
+
+            /**
+            * The current wind speed in meters per second  
+            * @type Toybox.Lang.Float
+            */
+            public var windSpeed;
+
+
+        }
+
+
+    }
+
+}
 

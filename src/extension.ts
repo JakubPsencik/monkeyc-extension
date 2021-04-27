@@ -74,6 +74,17 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	); 
 
+	const importedModulesProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc', 
+		{
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {			
+				
+				const doc = DocumentHandler.currentDocumentName;
+				return documentHandler.documentAutocompleteMap.get(doc)?.get("modules");								
+			}
+		}
+	);
+
 	const localVariableProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc', 
 		{
@@ -152,18 +163,31 @@ export function activate(context: vscode.ExtensionContext) {
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
 				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
-				//let arr = linePrefix.split(['.',',']); 	
-				var arr = linePrefix.match(/(\w)/g);
-				var tmp = linePrefix.match("[^a-zA-Z0-9+]");
 				
-				linePrefix = linePrefix.substr(linePrefix.indexOf('=')+1).replace('.','').trim();	
-				var s = 'x + y ( z )';
-				
-				let className = documentHandler.findClassName(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix);
-				console.log(linePrefix + ": " + className);
+				//if line prefix consists of more operations
+				if(linePrefix.includes(' ')) {
+					linePrefix = [...linePrefix].reverse().join("");
+					linePrefix = linePrefix.substring(1,linePrefix.indexOf(' '));
+					linePrefix = [...linePrefix].reverse().join("");
+				} else {
+					linePrefix = linePrefix.substring(0,linePrefix.lastIndexOf('.'));
+				}
+			
+				let className; 
+				className = documentHandler.findClassName(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix);
+				if(className === undefined) {
+					linePrefix = linePrefix.substring(linePrefix.indexOf(' ')+1);
+					let bodyMembers = documentHandler.findModuleBodyMembers(linePrefix);
+					let classes = documentHandler.collectClassesFromModules(bodyMembers!);
+					let functions = documentHandler.collectFunctionsFromModules(linePrefix, bodyMembers!);
+					let result = Array.prototype.concat(functions,classes);
+					return result;
+				}
+
+				//console.log(linePrefix + ": " + className);
 				let class_ = documentHandler.findClass(className!);
 				if(linePrefix === '.') { return undefined; }
-				console.log('[collected by: accessibleMembersProvider]');
+				//console.log('[collected by: accessibleMembersProvider]');
 				return documentHandler.collectAccessibleMembers(class_!);
 			}
 		},
@@ -180,7 +204,7 @@ export function activate(context: vscode.ExtensionContext) {
 				if(linePrefix === '.') { return undefined; }
 				if(documentHandler.isInherited(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix) === true) {
 					let class_ = documentHandler.findClass(linePrefix);
-					console.log('[collected by: inheritedMembersProvider]');
+					//console.log('[collected by: inheritedMembersProvider]');
 					return documentHandler.collectAccessibleMembers(class_!);
 				} else { return undefined; }
 
@@ -219,8 +243,12 @@ export function activate(context: vscode.ExtensionContext) {
 							tmp.forEach(x => { importedModulesValues.push(x); });
 														
 					}
-					
-					return documentHandler.collectClassesFromModules(importedModulesValues);
+					let completionItems = documentHandler.collectClassesFromModules(importedModulesValues);
+
+					const doc = DocumentHandler.currentDocumentName;
+					//let importedModules =  documentHandler.documentAutocompleteMap.get(doc)?.get("modules");
+
+					return completionItems;
 					
 				} else { return undefined; }
 
@@ -230,6 +258,17 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	const curlyBracesProvider = vscode.languages.registerCompletionItemProvider('monkeyc', { provideCompletionItems() { return [ new vscode.CompletionItem('}') ]; } }, '{' );
+	const normalBracesProvider = vscode.languages.registerCompletionItemProvider(
+		'monkeyc', 
+		{ 
+			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) { 
+		
+				let linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
+				if(linePrefix.endsWith('(')) { return [ new vscode.CompletionItem(' )') ]; }
+				return undefined;
+			}
+		}, '(' 	
+	);
 
 	//instanced class variable
 	const multilineCommentProvider = vscode.languages.registerCompletionItemProvider(
@@ -277,7 +316,30 @@ export function activate(context: vscode.ExtensionContext) {
 		' ' // triggered whenever a '/' is being typed
 	);
 
-	context.subscriptions.push(keywordsProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, curlyBracesProvider, dataTypesProvider, multilineCommentProvider);
+	const provider1 = vscode.languages.registerCompletionItemProvider('plaintext', {
+
+		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+
+			// a completion item that inserts its text as snippet,
+			// the `insertText`-property is a `SnippetString` which will be
+			// honored by the editor.
+			const snippetCompletion = new vscode.CompletionItem('registerSensorDataListener');
+			snippetCompletion.insertText = new vscode.SnippetString('registerSensorDataListener(listener,options)');
+			snippetCompletion.documentation = new vscode.MarkdownString("***void*** **Sensor**.registerSensorDataListener()\n\n"+
+			"*Register a callback to fetch high-frequency data from various sensors.*\n" +
+            "* **listener** - Toybox.Lang.Method\n" +
+            "* **options** - Toybox.Lang.Dictionary");
+			
+
+			// return all completion items as array
+			return [
+				snippetCompletion
+			];
+		}
+	});
+
+	context.subscriptions.push(provider1, keywordsProvider, importedModulesProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, curlyBracesProvider, normalBracesProvider, dataTypesProvider, multilineCommentProvider);
 }
 
 // this method is called when your extension is deactivated

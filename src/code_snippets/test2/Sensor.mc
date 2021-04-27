@@ -8,10 +8,13 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.Time;
 using Toybox.Time.Gregorian;
 using Toybox.Sensor;
 using Toybox.Application;
 using Toybox.Position;
+using Toybox.Timer;
+using Toybox.Activity.Info;
 
 class SensorTester extends WatchUi.View
 {
@@ -25,16 +28,18 @@ class SensorTester extends WatchUi.View
         Sensor.setEnabledSensors( [Sensor.SENSOR_HEARTRATE] );
         Sensor.enableSensorEvents( method(:onSnsr) );
         HR_graph = new LineGraph( 20, 10, Graphics.COLOR_RED );
+        
+        Sensor.enableSensorEvents( method( :onSnsr));
 
         string_HR = "---bpm";
     }
-
+    
     //! Handle the update event
     function onUpdate(dc)
     {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
-
+        
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT );
 
         dc.drawText(dc.getWidth() / 2, 90, Graphics.FONT_LARGE, string_HR, Graphics.TEXT_JUSTIFY_CENTER);
