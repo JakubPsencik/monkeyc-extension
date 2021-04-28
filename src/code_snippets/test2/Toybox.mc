@@ -2598,7 +2598,19 @@ module Toybox {
 
     module Attention {
 
+        public class BacklightOnTooLongException {
+
+            /**
+            * Constructor
+            * @param msg - (Toybox.Lang.String)
+            * @returns  
+            */
+            public function initialize(msg) { }
+
+
+        }
         
+
         public class ToneProfile {
 
             /**
@@ -2974,14 +2986,35 @@ module Toybox {
         }
 
 
-        public class DeviceConfig {
+        public class Device {
 
             /**
-            * Constructor
-            * @param options - (Toybox.Lang.Dictionary)
-            * @returns  
+            * Retrieves the Name of the sensor according to the device name thatis available in the GAP Service
+            * @returns  Toybox.Lang.String
             */
-            public function initialize(options) { }
+            public function getName() { }
+
+
+            /**
+            * Retrieves the service with a specified UUID If access to a specific service is required, use this function to directly access the service based on a UUID.
+            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
+            * @returns 
+            */
+            public function getService(uuid) { }
+
+
+            /**
+            * Retrieves an Iterator over the services provided by the device.This will only provide Services that have been registeredusing BluetoothLowEnergy.registerProfile()
+            * @returns  Toybox.BluetoothLowEnergy.Iterator
+            */
+            public function getServices() { }
+
+
+            /**
+            * Gets the connected status of the device
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function isConnected() { }
 
 
         }
@@ -2993,32 +3026,6 @@ module Toybox {
 
 
         public class InvalidRequestException {
-
-        }
-
-
-        public class HeartRateIterator {
-
-            /**
-            * Get the maximum heart rate contained in this iterator.
-            * @returns  Toybox.Lang.Number
-            */
-            public function getMax() { }
-
-
-            /**
-            * Get the minimum heart rate contained in this iterator.
-            * @returns  Toybox.Lang.Number
-            */
-            public function getMin() { }
-
-
-            /**
-            * Get the next entry in the iterator.This must be called to get the initial data from the iterator.
-            * @returns  Toybox.ActivityMonitor.HeartRateSample
-            */
-            public function next() { }
-
 
         }
 
@@ -3911,7 +3918,7 @@ module Toybox {
         }
 
 
-        public class Boolean {
+        public class Boolean extends Object {
 
         }
 
@@ -3967,44 +3974,34 @@ module Toybox {
         }
 
 
-        public class Characteristic {
+        public class Char {
 
             /**
-            * Retrieves the Descriptor with a specified UUID
-            * @param uuid - (Toybox.BluetoothLowEnergy.Uuid)
-            * @returns 
+            * Convert a Char to lowercase.
+            * @returns  Toybox.Lang.Char
             */
-            public function getDescriptor(uuid) { }
-
-
-            /**
-            * Retrieves an Iterator over the Descriptorsdiscovered in the characteristicThis will only provide descriptors that have been registeredusing BluetoothLowEnergy.registerProfile()
-            * @returns  Toybox.BluetoothLowEnergy.Iterator
-            */
-            public function getDescriptors() { }
+            public function toLower() { }
 
 
             /**
-            * Retrieves the Characteristic's ServiceRetrieve the Service that this characteristic belongs to
-            * @returns  Toybox.BluetoothLowEnergy.Service
+            * Convert a Char to a Number.
+            * @returns  Toybox.Lang.Number
             */
-            public function getService() { }
+            public function toNumber() { }
 
 
             /**
-            * Return the UUID of the Characteristic
-            * @returns  Toybox.BluetoothLowEnergy.Uuid
+            * Convert a Char to a String.
+            * @returns  Toybox.Lang.String
             */
-            public function getUuid() { }
+            public function toString() { }
 
 
             /**
-            * Requests a write operation Once the operation is completed BleDelegate.onCharacteristicWrite() will be called on the registered BleDelegate with the status of the operation Support for long writes is not implemented. Requesting a write on a characteristic longer than 20 bytes will cause a BluetoothLowEnergy.InvalidRequestException
-            * @param value - (Toybox.Lang.ByteArray)
-            * @param options - (Toybox.Lang.Dictionary)
-            * @returns  
+            * Convert a Char to uppercase.
+            * @returns  Toybox.Lang.Char
             */
-            public function requestWrite(value,options) { }
+            public function toUpper() { }
 
 
         }
@@ -4223,14 +4220,63 @@ module Toybox {
         }
 
 
-        public class BacklightOnTooLongException {
+        public class Long {
 
             /**
-            * Constructor
-            * @param msg - (Toybox.Lang.String)
+            * Get the absolute value of a Long.
+            * @returns  Toybox.Lang.Long
+            */
+            public function abs() { }
+
+
+            /**
+            * Test if an Object instance is equal to another instance of an Object.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function equals(object) { }
+
+
+            /**
+            * Format a Long using a formatting String. The formatting string is similar to that available in printf from the C stdio library, though the length option is not available: "%[flags][width][.precision]specifier" specifiers d or i - signed decimal integer e - scientific notation (mantissa/exponent) using 'e' character E - scientific notation (mantissa/exponent) using 'E' character f - decimal floating point o - signed octal u - unsigned decimal integer x - unsigned hexadecimal integer X - unsigned hexadecimal integer (capital letters) flags + - Prepends the result with a plus or minus sign ('+' or '-'), including positive numbers. By default, only negative numbers are preceded with a '-' sign. 0 - Left-pads the number with zeros (0) instead of spaces, where padding is specified (see width sub-specifier). width supports only numbers (* is not supported) .precision supports only numbers (* is not supported)
             * @returns  
             */
-            public function initialize(msg) { }
+            public function format() { }
+
+
+            /**
+            * Convert a Long to a Double.
+            * @returns  Toybox.Lang.Double
+            */
+            public function toDouble() { }
+
+
+            /**
+            * Convert a Long to a Float.
+            * @returns  Toybox.Lang.Float
+            */
+            public function toFloat() { }
+
+
+            /**
+            * Convert a Long to a Long.
+            * @returns  Toybox.Lang.Long
+            */
+            public function toLong() { }
+
+
+            /**
+            * Convert a Long to a Number.
+            * @returns  Toybox.Lang.Number
+            */
+            public function toNumber() { }
+
+
+            /**
+            * Convert a Long to a String.
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
 
 
         }
@@ -4313,6 +4359,48 @@ module Toybox {
             * @returns  Toybox.Lang.Number
             */
             public function toNumber() { }
+
+
+        }
+
+
+        public class Object {
+
+            /**
+            * Test if an Object instance is equal to another instance of an Object.
+            * @param object - (Toybox.Lang.Object)
+            * @returns 
+            */
+            public function equals(object) { }
+
+
+            /**
+            * Get a hash code value for an Object.This computes a 32-bit Number that is typically used as an index whenplacing Objects into a Dictionary. Hash code values have the followingcharacteristics:The computed hash code is constant for the lifetime of an ObjectIf two Objects are equal, their hash codes will be equal
+            * @returns  Toybox.Lang.Number
+            */
+            public function hashCode() { }
+
+
+            /**
+            * Retrieve a callback to a Method. This is typically used when supplying a callback function to another method.
+            * @param methodName - (Toybox.Lang.Symbol)
+            * @returns 
+            */
+            public function method(methodName) { }
+
+
+            /**
+            * Convert an Object to a String.Example:var myNumber = 3219;var myString = myNumber.toString();
+            * @returns  Toybox.Lang.String
+            */
+            public function toString() { }
+
+
+            /**
+            * Get a WeakReference to an Object.A weak reference is an object that keeps a reference to an object butdoes not increment the reference count. This means the object referencecan be destroyed, so is a case that should be handled.Note:Immutable types (Number, Float, Long, Double, Boolean, String) will return their values. Other Object types will return a WeakReference object.
+            * @returns  Toybox.Lang.WeakReference
+            */
+            public function weak() { }
 
 
         }

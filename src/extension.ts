@@ -1,11 +1,8 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as os from "os";
-import { spawn } from 'child_process';
 import { DocumentHandler } from './classes/DocumentHandler';
-import * as http from 'http';
-import { readFile, readFileSync } from 'fs';
-import { Node } from './classes/Node';
+
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var clang = require("clang-format");
@@ -29,7 +26,6 @@ export function activate(context: vscode.ExtensionContext) {
 			} else {
 				exe = path.join(exePackageLocation, `/bin/${os.platform()}_${os.arch()}/clang-format`);				
 			}
-			var child = spawn(exe, [document.fileName, "-i", "--style=file", "--fallback-style=google"]);
 			return [];
 		}
 	});
@@ -124,13 +120,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 				const linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
 
-				if (linePrefix.endsWith('self.') || linePrefix.endsWith('me.')) 
+				if (linePrefix.endsWith('self.') || linePrefix.endsWith('me.')) {
 					return documentHandler.documentAutocompleteMap.get(doc)?.get("functions");
+				} else if(linePrefix.includes("method") && linePrefix.includes(':')) {
+					return documentHandler.documentAutocompleteMap.get(doc)?.get("callbackFunctions");
+				}
+
 
 				return undefined;
 			}
 		},
-		'.' // triggered whenever any of these is being typed
+		'.', ':' // triggered whenever any of these is being typed
 	);
 
 	const toyboxProvider = vscode.languages.registerCompletionItemProvider(
@@ -257,6 +257,7 @@ export function activate(context: vscode.ExtensionContext) {
 		' ' // triggered whenever a space is being typed
 	);
 
+	const methodKeywordProvider = vscode.languages.registerCompletionItemProvider('monkeyc', { provideCompletionItems() { return [ new vscode.CompletionItem("method",vscode.CompletionItemKind.Method) ]; } });
 	const curlyBracesProvider = vscode.languages.registerCompletionItemProvider('monkeyc', { provideCompletionItems() { return [ new vscode.CompletionItem('}') ]; } }, '{' );
 	const normalBracesProvider = vscode.languages.registerCompletionItemProvider(
 		'monkeyc', 
@@ -339,7 +340,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	context.subscriptions.push(provider1, keywordsProvider, importedModulesProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, curlyBracesProvider, normalBracesProvider, dataTypesProvider, multilineCommentProvider);
+	context.subscriptions.push(provider1, keywordsProvider, importedModulesProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, methodKeywordProvider, curlyBracesProvider, normalBracesProvider, dataTypesProvider, multilineCommentProvider);
 }
 
 // this method is called when your extension is deactivated

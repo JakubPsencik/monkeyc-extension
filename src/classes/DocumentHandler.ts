@@ -223,6 +223,7 @@ export class DocumentHandler {
         this.collectLocalVariables(tree,pos,documentName);
         this.collectClassVariables(tree,pos,documentName);
         this.collectFunctions(tree,pos,documentName);
+        this.collectCallbackFunctions(tree,pos,documentName);
     
     }
 
@@ -382,13 +383,59 @@ export class DocumentHandler {
                         
                     
                 } catch (error) {
-                    //console.log(error);
+                    console.log(error);
                     //print error message and continue
                 }					
             }	
         }
     
         this.documentAutocompleteMap.get(documentName)?.set("functions",new vscode.CompletionList(functions,false));
+    }
+
+    collectCallbackFunctions(tree: Node[], position : CaretPosition, documentName: string) {
+        
+        let functions : vscode.CompletionItem[] = [];
+        let classBodyId;
+        for(let i = 0; i < tree.length; i++) {
+            
+            let ctx = tree[i] ? tree[i].getContext() : undefined;
+                
+            if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_classBody) {
+    
+                classBodyId = tree[i].getId();
+                /* check every node in current scope */
+            }
+            
+            try {
+                if(tree[i]!==null) {
+                    while(tree[i] && !(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === classBodyId)) {
+                        
+                        ctx = tree[i].getContext();
+                        
+                        if(ctx?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+        
+                            //if(ctx._start.line <= position.line) {
+                            let  variableName = ctx.getChild(2).text;                                                               
+                            functions.push(new vscode.CompletionItem(variableName,vscode.CompletionItemKind.Function));																							
+                            //}
+                            /* skip 1 node with same context */	
+                            i+=4;	
+        
+                        } else {	 i++;		}					
+                           
+                       	 			
+                    }//while end	
+                }
+                    
+                
+            } catch (error) {
+                //console.log(error);
+                //print error message and continue
+            }					
+            	
+        }
+    
+        this.documentAutocompleteMap.get(documentName)?.set("callbackFunctions",new vscode.CompletionList(functions,false));
     }
  
     collectAccessibleMembers(class_: Node) {
@@ -433,7 +480,7 @@ export class DocumentHandler {
                             let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
                             let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,false);
                             member.documentation = new vscode.MarkdownString(markdownDescription);                                                     
-                            accessibleMembers.push(member); 
+                            accessibleMembers.push(member);
                         }
                     } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
                         if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {

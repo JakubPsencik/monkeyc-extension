@@ -8,6 +8,7 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.Lang.Object;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
 using Toybox.Sensor;
@@ -28,9 +29,6 @@ class SensorTester extends WatchUi.View
         Sensor.setEnabledSensors( [Sensor.SENSOR_HEARTRATE] );
         Sensor.enableSensorEvents( method(:onSnsr) );
         HR_graph = new LineGraph( 20, 10, Graphics.COLOR_RED );
-        
-        Sensor.enableSensorEvents( method( :onSnsr));
-
         string_HR = "---bpm";
     }
     
@@ -73,7 +71,7 @@ class SensorTest extends Application.AppBase
     function initialize() {
         AppBase.initialize();
     }
-
+    
     function onStart(state)
     {
         return false;
@@ -88,4 +86,5 @@ class SensorTest extends Application.AppBase
     {
         return false;
     }
+
 }
