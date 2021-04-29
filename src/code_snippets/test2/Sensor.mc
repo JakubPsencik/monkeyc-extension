@@ -4,6 +4,7 @@
 //! Application Developer Agreement.
 //!
 
+using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.System;
@@ -12,14 +13,29 @@ using Toybox.Lang.Object;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
 using Toybox.Sensor;
-using Toybox.Application;
+
 using Toybox.Position;
 using Toybox.Timer;
 using Toybox.Activity.Info;
 
 class SensorTester extends WatchUi.View
 {
+
+    /**
+     * @type 
+     */
+    public var publicVar;
+    protected var protectedVar;
+
+
+    /**
+     * @type Toybox.Lang.String 
+     */
     var string_HR;
+
+    /**
+     * @type Toybox.Graphics 
+     */
     var HR_graph;
 
     //! Constructor
@@ -30,6 +46,8 @@ class SensorTester extends WatchUi.View
         Sensor.enableSensorEvents( method(:onSnsr) );
         HR_graph = new LineGraph( 20, 10, Graphics.COLOR_RED );
         string_HR = "---bpm";
+
+           
     }
     
     //! Handle the update event
@@ -52,9 +70,9 @@ class SensorTester extends WatchUi.View
         if( sensor_info.heartRate != null )
         {
             string_HR = HR.toString() + "bpm";
-
+        
             //Add value to graph
-            HR_graph.addItem(HR);
+            HR_graph.addItem(HR);            
         }
         else
         {
@@ -85,6 +103,35 @@ class SensorTest extends Application.AppBase
     function onStop(state)
     {
         return false;
+    }
+
+    function f() {
+    
+    /**
+     * @type      
+     */
+    var mVal;       
+
+    Sensor.registerSensorDataListener
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
     }
 
 }

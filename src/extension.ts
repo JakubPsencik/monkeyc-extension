@@ -4,7 +4,7 @@ import * as os from "os";
 import { DocumentHandler } from './classes/DocumentHandler';
 
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var clang = require("clang-format");
 let collection = vscode.languages.createDiagnosticCollection('monkeyc-collection');
 let documentHandler : DocumentHandler;
@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.workspace.onDidOpenTextDocument(() => {
 
 		
-		documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName)?.clear();
+		documentHandler.diagnosticMap.get(DocumentHandler.currentDocumentName)?.clear();
 
 		if(!started) {
 			vscode.window.showInformationMessage('Extension started!');
@@ -43,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
 			documentHandler.parseCurrentDocument();			
 		}
 		
-		collection = documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName) as vscode.DiagnosticCollection;
+		collection = documentHandler.diagnosticMap.get(DocumentHandler.currentDocumentName) as vscode.DiagnosticCollection;
 		context.subscriptions.push(collection);
 		
 	});
@@ -51,9 +51,9 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.workspace.onDidChangeTextDocument(() => {
 
 		
-		documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName)?.clear();
+		documentHandler.diagnosticMap.get(DocumentHandler.currentDocumentName)?.clear();
 		documentHandler.parseCurrentDocument();
-		collection = documentHandler.diagnosticCollection.get(DocumentHandler.currentDocumentName) as vscode.DiagnosticCollection;
+		collection = documentHandler.diagnosticMap.get(DocumentHandler.currentDocumentName) as vscode.DiagnosticCollection;
 		
 		context.subscriptions.push(collection);
 		
@@ -87,7 +87,8 @@ export function activate(context: vscode.ExtensionContext) {
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {			
 				
 				const doc = DocumentHandler.currentDocumentName;
-				return documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables");								
+				let variables = documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables")?.items.filter(x => (x.detail === undefined));
+				return variables;								
 			}
 		}
 	);
@@ -103,7 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 				if(linePrefix === '.') { return undefined; }
 				if (linePrefix.endsWith('self.') || linePrefix.endsWith('me.')) 
-					return documentHandler.documentAutocompleteMap.get(doc)?.get("classVariables");
+					return documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables")?.items.filter(x => (x.detail !== undefined));
 	
 				return undefined;
 			}
@@ -122,7 +123,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 				if (linePrefix.endsWith('self.') || linePrefix.endsWith('me.')) {
 					return documentHandler.documentAutocompleteMap.get(doc)?.get("functions");
-				} else if(linePrefix.includes("method") && linePrefix.includes(':')) {
+				} else if(linePrefix.includes(':')) {
 					return documentHandler.documentAutocompleteMap.get(doc)?.get("callbackFunctions");
 				}
 
@@ -185,7 +186,14 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 
 				//console.log(linePrefix + ": " + className);
-				let class_ = documentHandler.findClass(className!);
+				let class_ = documentHandler.findClass(className!); 
+				if(class_ === undefined) {
+					let bodyMembers = documentHandler.findModuleBodyMembers(className);
+					let classes = documentHandler.collectClassesFromModules(bodyMembers!);
+					let functions = documentHandler.collectFunctionsFromModules(className, bodyMembers!);
+					let result = Array.prototype.concat(functions,classes);
+					return result;
+				}
 				if(linePrefix === '.') { return undefined; }
 				//console.log('[collected by: accessibleMembersProvider]');
 				return documentHandler.collectAccessibleMembers(class_!);
@@ -232,9 +240,9 @@ export function activate(context: vscode.ExtensionContext) {
 					let importedModules = documentHandler.collectImportedModules();
 					let importedModulesValues : any[] = [];
 					
-					for(let i = 0; i < importedModules.length; i++) {
+					for(let i = 0; i < importedModules!.length; i++) {
 
-						let nodeValue = importedModules[i].getValue();
+						let nodeValue = importedModules![i].getValue();
 						let moduleValue = nodeValue!.substring(nodeValue!.indexOf('.')+1,nodeValue!.lastIndexOf('.'));
 						if(moduleValue === '.') moduleValue =  nodeValue!.substring(nodeValue!.indexOf('.')+1,nodeValue!.lastIndexOf(';'));
 						let tmp = documentHandler.findModuleBodyMembers(moduleValue);
@@ -317,30 +325,7 @@ export function activate(context: vscode.ExtensionContext) {
 		' ' // triggered whenever a '/' is being typed
 	);
 
-	const provider1 = vscode.languages.registerCompletionItemProvider('plaintext', {
-
-		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-
-
-			// a completion item that inserts its text as snippet,
-			// the `insertText`-property is a `SnippetString` which will be
-			// honored by the editor.
-			const snippetCompletion = new vscode.CompletionItem('registerSensorDataListener');
-			snippetCompletion.insertText = new vscode.SnippetString('registerSensorDataListener(listener,options)');
-			snippetCompletion.documentation = new vscode.MarkdownString("***void*** **Sensor**.registerSensorDataListener()\n\n"+
-			"*Register a callback to fetch high-frequency data from various sensors.*\n" +
-            "* **listener** - Toybox.Lang.Method\n" +
-            "* **options** - Toybox.Lang.Dictionary");
-			
-
-			// return all completion items as array
-			return [
-				snippetCompletion
-			];
-		}
-	});
-
-	context.subscriptions.push(provider1, keywordsProvider, importedModulesProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, methodKeywordProvider, curlyBracesProvider, normalBracesProvider, dataTypesProvider, multilineCommentProvider);
+	context.subscriptions.push(keywordsProvider, importedModulesProvider, localVariableProvider,classVariableProvider, functionProvider, accessibleMembersProvider,inheritedMembersProvider, toyboxProvider, importedMembersProvider, methodKeywordProvider, curlyBracesProvider, normalBracesProvider, dataTypesProvider, multilineCommentProvider);
 }
 
 // this method is called when your extension is deactivated

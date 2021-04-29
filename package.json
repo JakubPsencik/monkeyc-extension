@@ -3,7 +3,7 @@
 	"displayName": "monkeyc-extension",
 	"description": "Syntactic analysis of code written in MonkeyC",
 	"publisher": "JakubPsencik",
-	"version": "1.0.9",
+	"version": "1.1.0",
 	"engines": {
 		"vscode": "^1.49.0"
 	},

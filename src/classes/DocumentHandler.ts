@@ -25,7 +25,7 @@ export class DocumentHandler {
     static currentDocumentName : string;
         
     /** collection stores all errors for each    */
-    public diagnosticCollection : Map<string, vscode.DiagnosticCollection>;
+    public diagnosticMap : Map<string, vscode.DiagnosticCollection>;
     /**
      * Map which stores suggested words for autocomplete
      
@@ -48,8 +48,6 @@ export class DocumentHandler {
     
     /** holding comments from hidden channel */
     public abstractSyntaxTreeCommentaryMap : Map<string, Token[] | any>;
-
-    public importedModulesMap : Map<string, string[]>;
     
     private parser : MonkeyCParser;
 
@@ -57,11 +55,10 @@ export class DocumentHandler {
 
     constructor() {
 
-        this.diagnosticCollection = new Map();
+        this.diagnosticMap = new Map();
         this.documentAutocompleteMap = new Map();
         this.abstractSyntaxTreeMap = new Map();
         this.abstractSyntaxTreeCommentaryMap = new Map();
-        this.importedModulesMap = new Map();
         this.parser = undefined!;
         this.errorListener = new MyErrorListener();
 
@@ -98,13 +95,12 @@ export class DocumentHandler {
                     let file = vscode.Uri.file(filePath);
                     const fileUri = vscode.Uri.parse(file.path);	
     
-                    this.diagnosticCollection.set(documents[i][0], vscode.languages.createDiagnosticCollection(documents[i][0].toString()));
+                    this.diagnosticMap.set(documents[i][0], vscode.languages.createDiagnosticCollection(documents[i][0].toString()));
                     this.documentAutocompleteMap.set(documents[i][0], new Map());
                     this.abstractSyntaxTreeMap.set(documents[i][0], new AST(documents[i][0]));
                     this.abstractSyntaxTreeCommentaryMap.set(documents[i][0], []);
                     
                     inputStream = new ANTLRInputStream(readFileSync(fileUri.fsPath, 'utf-8'));                   
-                    
                     lexer = new MonkeyCLexer(inputStream);
                     lexer.removeErrorListeners();
                     lexer.addErrorListener(this.errorListener);
@@ -115,9 +111,11 @@ export class DocumentHandler {
                     this.parser.addErrorListener(this.errorListener);
                     parseTree = this.parser.program();
                     let shifter = new CommentShifter(tokenStream);
-                    //console.log('about to parse: ', documents[i][0]);
+                    //parse tree for source code
                     ParseTreeWalker.DEFAULT.walk(listener,parseTree);
+                    //parse tree for comments
                     ParseTreeWalker.DEFAULT.walk(shifter,parseTree);
+
                     this.abstractSyntaxTreeCommentaryMap.set(documents[i][0], listener.getCommentsFromChannel(1));
                     if(DocumentHandler.currentDocumentName.toLowerCase() !== "toybox.mc") {
                         this.provideAutocomplete(this.parser, listener, parseTree,documents[i][0]);	
@@ -160,7 +158,9 @@ export class DocumentHandler {
             this.parser.addErrorListener(this.errorListener);
 
             parseTree = this.parser.program();
+            let shifter = new CommentShifter(tokenStream);
             ParseTreeWalker.DEFAULT.walk(listener,parseTree);
+            ParseTreeWalker.DEFAULT.walk(shifter,parseTree);
 
             if(DocumentHandler.currentDocumentName.toLowerCase() !== "toybox.mc") {
                 this.provideAutocomplete(this.parser, listener, parseTree, DocumentHandler.currentDocumentName);	
@@ -200,7 +200,7 @@ export class DocumentHandler {
         this.abstractSyntaxTreeMap.set(documentName, listener.getAST());
         let importedModules = this.collectImportedModules();
         let imported_ : vscode.CompletionItem[] = [];
-        importedModules.forEach(m => {
+        importedModules!.forEach(m => {
             let txt : string = m.getValue();
             let count = 0;
             for(let i = 0; i < txt.length; i++) {
@@ -235,47 +235,57 @@ export class DocumentHandler {
             
             let ctx = tree[i] ? tree[i].getContext() : undefined;
               
-            if (ctx && ctx.ruleIndex === MonkeyCParser.RULE_block && (position.line > ctx._start.line && position.line < ctx._stop!.line)) {
+            if (ctx && /*(ctx.ruleIndex === MonkeyCParser.RULE_classBody || ctx.ruleIndex === MonkeyCParser.RULE_block)) &&*/ (position.line > ctx._start.line /*&& position.line < ctx._stop!.line*/)) {
                 
                 let blockId = tree[i].getId();
                 /* check every node in current scope */
 
                 try {
                     if(tree[i]!==null) {
-                        if(tree[i]!?.getValue() === '}' && tree[i].getParent()?.getId() === blockId) { 
+                        /*if(tree[i]!?.getValue() === '}' && tree[i].getParent()?.getId() === blockId) { 
                             break;
-                        }
+                        }*/
                         //while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
                         
                             ctx = tree[i].getContext();
                             
-                            if(ctx?.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration && (tree[i].getChildren()!?.length <= 1)) {
+                            if((ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList && tree[i].getChildren()!?.length > 0) /*|| (ctx?.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration || ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration) /* && (tree[i].getChildren()!?.length <= 1)*/) {
             
                                 if(ctx._start.line <= position.line) {
                                     
                                     let variableName = "";
+                                    let modifier = "";
+                                    
                                     if(ctx.text?.includes("=")) {
-                                        variableName = ctx.text.substring(0,ctx.text?.indexOf('='));
+                                        variableName = ctx.text.substring(ctx.text.indexOf("var") + "var".length,ctx.text?.indexOf('='));
                                     } else {
-                                        variableName = ctx.text;
-                                    }											
-                                        completionStrings.push(new vscode.CompletionItem(
+                                        variableName = ctx.text.substring(ctx.text.indexOf("var") + "var".length, ctx.text.indexOf(';'));
+                                    }	
+
+                                        let variable = new vscode.CompletionItem(
                                             variableName,
                                             vscode.CompletionItemKind.Variable
-                                        ));																								
+                                        );
+                                        
+                                        if(!ctx.text.startsWith("var")) {
+                                            modifier = ctx.text.substring(0, ctx.text.indexOf("var"));
+                                            variable.detail = modifier + " " + "variable";
+                                        }
+
+                                        completionStrings.push(variable);																								
                                     }
                                     /* skip 1 node with same context */	
                                     i+=2;	
             
                                 } else {								
-                                i++;
+                                //i++;
                             }							
                         }	
                     //}//while end
                         
                     
                 } catch (error) {
-                    //console.log(error);
+                    console.log(error);
                     //print error message and continue
                 }				
             }	
@@ -421,7 +431,9 @@ export class DocumentHandler {
                             /* skip 1 node with same context */	
                             i+=4;	
         
-                        } else {	 i++;		}					
+                        } else {	 
+                            i++;		
+                        }					
                            
                        	 			
                     }//while end	
@@ -671,15 +683,13 @@ export class DocumentHandler {
         let founded = false;
         let res = "";
         for (let i = 0; i < tree.length; i++) {
+            //console.log(tree[i].text);
             if(founded) { break; }
             if((tree[i].channel === channel) && (tree[i].line <= startLine && tree[i].line > startLine-range)
              && (tree[i].text?.startsWith("/**") && tree[i].text?.includes('* @type ') && tree[i].text?.endsWith("*/"))) {
                 res = tree[i].text;
                 founded = true;
-
             }
-            
-            
         }
 
         return res;
@@ -975,6 +985,7 @@ export class DocumentHandler {
     collectImportedModules() {
 
         let tree = this.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree();
+        if(tree === undefined) { return []; }
         var modules = [], i;
         for(let i = 0; i < tree.length; i++)
             if (tree[i] && tree[i].getContext()!?.ruleIndex === MonkeyCParser.RULE_usingDeclaration)
@@ -1017,7 +1028,7 @@ export class DocumentHandler {
             
         });
 
-        this.diagnosticCollection.get(fileName)?.set(document.uri, tmp);      
+        this.diagnosticMap.get(fileName)?.set(document.uri, tmp);      
     }
 
     computeTokenIndex(parseTree: ParseTree, caretPosition: CaretPosition): number | undefined {

@@ -1,0 +1,71 @@
+% Nejprve uvedeme tridu dokumentu s volbami
+\documentclass[czech,bachelor]{diploma}
+% Dalsi doplnujici baliky maker
+\usepackage[autostyle=true,czech=quotes]{csquotes} % korektni sazba uvozovek, podpora pro balik biblatex
+\usepackage[backend=biber, style=iso-numeric, alldates=iso]{biblatex} % bibliografie
+\usepackage{dcolumn} % sloupce tabulky s ciselnymi hodnotami
+\usepackage{subfig} % makra pro "podobrazky" a "podtabulky"
+\usepackage[cpp]{diplomalst}
+
+% Zadame pozadovane vstupy pro generovani titulnich stran.
+\ThesisAuthor{Jakub Pšenčík}
+
+\ThesisSupervisor{Ing. Jan Janoušek}
+
+\CzechThesisTitle{Podpora jazyka Monkey C v prostředí VS Code}
+
+\EnglishThesisTitle{Monkey C Language Support in VS Code}
+
+\SubmissionYear{2021}
+
+% Pokud nechceme nikomu dekovat makro zapoznamkujeme.
+\Acknowledgement{Rád bych na tomto místě poděkoval svému vedoucímu práce Ing. Janu Janouškovi za odborné a metodické vedení, ochotu a pomoc v průběhu vypracovávání práce.}
+
+\CzechAbstract{V této bakalářské práci se budu zabývat vývojem rozšíření pro Visual Studio Code, jenž bude poskytovat plnou podporu jazyka Monkey C. Součástí práce bude bude představení prostředí Visual Studio Code a problematika vývoje rozšíření v tomto prostředí. Představen bude, mimo jiné, také jazyk Monkey C. V další části práce se budu zabývat nástrojem ANTLR, díky kterému jsme schopni generovat vlastní překladač jazyka pomocí bezkontextové gramatiky, parsováním kódu a jeho syntaktickou analýzou. Závěrem bude výsledné rozšíření testováno.}
+
+\CzechKeywords{bakalářská práce, rozšíření, Monkey C, Typescript, parser}
+
+\EnglishAbstract{In this bachelor thesis I will deal with the development of extension for Visual Sstudio Code, which will provide full support for Monkey C language. The work will include an introduction to the Visual Studio Code environment and the development of extensions in this environment. Among other things, the Monkey C language will be introduced. In the next part of the work I will describe the ANTLR tool, used to generate our own language compiler using context-free grammar, code parsing and its syntactic analysis. Finally, the resulting extension will be tested.}
+
+\EnglishKeywords{bachelor thesis, extension, Monkey C, Typescript, parser}
+
+\AddAcronym{ANTLR}{ANother Tool for Language Recognition}
+\AddAcronym{AST}{Abstract syntax tree}
+\AddAcronym{VS Code}{Visual Studio Code}
+\AddAcronym{API}{Application Programming Interface}
+
+% odkaz na literaturu
+\addbibresource{Citace.bib}
+
+% Novy druh tabulkoveho sloupce, ve kterem jsou cisla zarovnana podle desetinne carky
+\newcolumntype{d}[1]{D{,}{,}{#1}}
+
+% Zacatek dokumentu
+\begin{document}
+
+% Nechame vysazet titulni strany.
+\MakeTitlePages
+
+% Jsou v praci obrazky? Pokud ano vysazime jejich seznam a odstrankujeme.
+% Pokud ne smazeme nasledujici dve makra.
+\listoffigures
+\clearpage
+
+% Jsou v praci tabulky? Pokud ano vysazime jejich seznam a odstrankujeme.
+% Pokud ne smazeme nasledujici dve makra.
+\listoftables
+\clearpage
+
+% A nasleduje text zaverecne prace.
+\input{Chapters/1_Uvod.tex}
+\input{Chapters/2_JazykMonkeyC.tex}
+\input{Chapters/3_ProblematikaVyvojeRozsireni.tex}
+\input{Chapters/4_Syntakticka&SemantickaAnalyzaKodu.tex}
+\input{Chapters/5_Navrh&Implementace.tex}
+\input{Chapters/6_TestovaniVyslednehoReseni.tex}
+\input{Chapters/7_zaver.tex}
+
+% Seznam literatury
+\printbibliography[title={Literatura}, heading=bibintoc]
+
+\end{document}
