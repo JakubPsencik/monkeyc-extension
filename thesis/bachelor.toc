@@ -64,9 +64,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {6}Testování výsledného řešení}{36}{chapter.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Závěr}{37}{chapter.7}%
+\contentsline {chapter}{\numberline {7}Závěr}{38}{chapter.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Literatura}{39}{chapter*.25}%
+\contentsline {chapter}{Literatura}{40}{chapter*.26}%
 \babel@toc {czech}{}
 \babel@toc {czech}{}
 \babel@toc {czech}{}
@@ -115,3 +115,9 @@
 \babel@toc {czech}{}
 \babel@toc {czech}{}
 \babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Přílohy}{41}{chapter*.26}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Testovací zdrojové kódy}{42}{appendix.A}%

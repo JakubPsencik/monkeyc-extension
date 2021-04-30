@@ -2173,7 +2173,8 @@
     <bcf:citekey order="32">syntax_highlight</bcf:citekey>
     <bcf:citekey order="33">fedora</bcf:citekey>
     <bcf:citekey order="34">mike_lischke</bcf:citekey>
-    <bcf:citekey order="35">GARMIN_OFFICIAL</bcf:citekey>
+    <bcf:citekey order="35">api_docs</bcf:citekey>
+    <bcf:citekey order="36">GARMIN_OFFICIAL</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

@@ -3538,6 +3538,7 @@ module Toybox {
 
     module Graphics {
 
+
             /**
             * Get a text string to fit in a specified area
             * @param text - (Toybox.Lang.String)
@@ -3603,6 +3604,20 @@ module Toybox {
 
 
         public class Dc {
+
+            /**
+            * Erase the screen using the background color.
+            * @returns  
+            */
+            public function clear() { }
+
+
+            /**
+            * Reset the drawable area to the full area of the Dc.
+            * @returns  
+            */
+            public function clearClip() { }
+
 
             /**
             * Draw an arc. 0 degrees: 3 o'clock position. 90 degrees: 12 o'clock position. 180 degrees: 9 o'clock position. 270 degrees: 6 o'clock position.
@@ -9126,6 +9141,96 @@ module Toybox {
             * @returns  
             */
             public function setEnabled(enabled) { }
+
+
+        }
+
+
+        public class View {
+
+            /**
+            * Add a WatchUi.Layer on the top of view's layer stack. Users do not need to draw the layer on the screen manually, instead, once a layer is added to the view, the system will draw all layers during screen updates which include View update (e.g. onUpdate/onPartialUpdate) and animation playback.
+            * @param layer - (Toybox.WatchUi.Layer)
+            * @returns 
+            */
+            public function addLayer(layer) { }
+
+
+            /**
+            * Clear all layers that are added to the view.
+            * @returns 
+            */
+            public function clearLayers() { }
+
+
+            /**
+            * Find a Drawable by its ID. A common use for this method is to get layout information to format dynamic content, such as a string that updates at runtime.
+            * @param identifier - (Toybox.Lang.String)
+            * @returns Toybox.Lang.Number
+            */
+            public function findDrawableById(identifier) { }
+
+
+            /**
+            * Return the index of the layer from the bottom of the view layer stack
+            * @param layer - a WatchUi.Layer a layer ojbect;;Returns:;;Toybox.Lang.Number
+            * @returns Toybox.WatchUi.Layer
+            */
+            public function getLayerIndex(layer) { }
+
+
+            /**
+            * Get a copy of the layer stack currently added to the view, sorted by the drawing order, i.e. from the bottom to the top.
+            * @returns Toybox.WatchUi.Layer
+            */
+            public function getLayers() { }
+
+            
+            /**
+            * Constructor.
+            * @returns 
+            */
+            public function initialize() { }
+
+
+            /**
+            * Insert the layer at the given index in the layer stack, this will stop animation playback.
+            * @param layer - (Toybox.WatchUi.Layer)
+            * @param idx - (Toybox.Lang.Number)
+            * @returns  
+            */
+            public function insertLayer(layer,idx) { }
+
+
+            /**
+            * The entry point for the View. onLayout() is called before the View is shown to load resources and set up the layout of the View.
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns 
+            */
+            public function onLayout(dc) { }
+
+
+            /**
+            * Show the View.This is called when the View is brought into the foreground. Resourcesshould be loaded into system memory for use in the View at this point.
+            * @returns  Toybox.Lang.Boolean
+            */
+            public function onShow() { }
+
+
+            /**
+            * Update the View. This is called when a View is brought to the foreground, after the call to onShow(). While a View is active, this method is generally used to update dynamic content in the View. There are also some special cases when it will be invoked: On WatchUi.requestUpdate() calls within Widgets and Watch Apps Once per minute in Watch Faces when in low power mode Once per second in Watch Faces when in high power mode Once per second in Data Fields At an increased rate while an animation is active More than one call to onUpdate() may occur during View transitions If a class that extends View does not implement this function then any Drawable objects contained in the View will automatically be drawn.
+            * @param dc - (Toybox.Graphics.Dc)
+            * @returns 
+            */
+            public function onUpdate(dc) { }
+
+
+            /**
+            * Remove a layer from the view layer stack, this will stop animation playback.
+            * @param layer - a WatchUi.Layer to remove from the layer stack.;;Returns:;;Toybox.Lang.Boolean
+            * @returns  
+            */
+            public function removeLayer(layer) { }
 
 
         }

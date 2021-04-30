@@ -505,7 +505,7 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  classBodyNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(0).text,
+			/*value of the context: */  "{",
 										context.start.type
 		
 		);
@@ -531,7 +531,7 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  classBodyNode,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(2).text,
+			/*value of the context: */  "}",
 										context.start.type
 		
 		);
@@ -613,7 +613,7 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  block,
 			/*no children for leafs */  undefined,
-			/*value of the context: */  context.getChild(0).text,
+			/*value of the context: */  "{",
 										context.start.type
 		
 		);
@@ -833,7 +833,7 @@ export class Listener implements MonkeyCListener {
 			/* context of this node: */ undefined,
 			/* parent of this node: */  this.AST.currentNode,
 			/*1..n children: */         undefined,
-			/*value of the context: */  context._parent?.getChild(1).text,
+			/*value of the context: */  ";",
 										context.start.type
 		
 		);

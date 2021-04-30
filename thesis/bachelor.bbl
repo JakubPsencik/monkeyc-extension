@@ -502,6 +502,22 @@
       \verb https://github.com/mike-lischke/antlr4-c3
       \endverb
     \endentry
+    \entry{api_docs}{misc}{}
+      \list{publisher}{1}{%
+        {Garmin Ltd.}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Toybox}
+      \field{title}{API Documentation}
+      \verb{urlraw}
+      \verb https://developer.garmin.com/connect-iq/api-docs/
+      \endverb
+      \verb{url}
+      \verb https://developer.garmin.com/connect-iq/api-docs/
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

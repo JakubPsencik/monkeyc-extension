@@ -1,0 +1,5 @@
+[0] Config.pm:311> INFO - This is Biber 2.16
+[0] Config.pm:314> INFO - Logfile is 'bachelor.tex.blg'
+[136] biber-MSWIN64:340> INFO - === 
+[464] Utils.pm:411> ERROR - Cannot find 'bachelor.tex.bcf'!
+[465] Biber.pm:132> INFO - ERRORS: 1

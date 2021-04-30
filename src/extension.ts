@@ -87,7 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
 			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {			
 				
 				const doc = DocumentHandler.currentDocumentName;
-				let variables = documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables")?.items.filter(x => (x.detail === undefined));
+				let variables = documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables")?.items.filter(x => !(x.detail === "public" || x.detail === "protected" ));
 				return variables;								
 			}
 		}
@@ -103,9 +103,10 @@ export function activate(context: vscode.ExtensionContext) {
 				const linePrefix = document.lineAt(position).text.substr(0, position.character).trim();
 
 				if(linePrefix === '.') { return undefined; }
-				if (linePrefix.endsWith('self.') || linePrefix.endsWith('me.')) 
-					return documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables")?.items.filter(x => (x.detail !== undefined));
-	
+				if (linePrefix.endsWith('self.') || linePrefix.endsWith('me.')) {	
+					let variables = documentHandler.documentAutocompleteMap.get(doc)?.get("localVariables")?.items.filter(x => (x.detail?.includes("public variable") || x.detail?.includes("protected variable") ));
+					return variables;
+				}		
 				return undefined;
 			}
 		},
@@ -174,8 +175,11 @@ export function activate(context: vscode.ExtensionContext) {
 					linePrefix = linePrefix.substring(0,linePrefix.lastIndexOf('.'));
 				}
 			
+				if(linePrefix.includes('.')) { linePrefix = linePrefix.substring(linePrefix.indexOf('.')+1);}
+
 				let className; 
 				className = documentHandler.findClassName(documentHandler.abstractSyntaxTreeMap.get(DocumentHandler.currentDocumentName)!?.getParseTree(), linePrefix);
+				if(className?.includes('.')) { className = className.substring(className.indexOf('.')+1);}
 				if(className === undefined) {
 					linePrefix = linePrefix.substring(linePrefix.indexOf(' ')+1);
 					let bodyMembers = documentHandler.findModuleBodyMembers(linePrefix);

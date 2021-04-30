@@ -6,7 +6,7 @@
 \usepackage{dcolumn} % sloupce tabulky s ciselnymi hodnotami
 \usepackage{subfig} % makra pro "podobrazky" a "podtabulky"
 \usepackage[cpp]{diplomalst}
-
+\usepackage[a-1b]{pdfx}
 % Zadame pozadovane vstupy pro generovani titulnich stran.
 \ThesisAuthor{Jakub Pšenčík}
 
@@ -21,11 +21,11 @@
 % Pokud nechceme nikomu dekovat makro zapoznamkujeme.
 \Acknowledgement{Rád bych na tomto místě poděkoval svému vedoucímu práce Ing. Janu Janouškovi za odborné a metodické vedení, ochotu a pomoc v průběhu vypracovávání práce.}
 
-\CzechAbstract{V této bakalářské práci se budu zabývat vývojem rozšíření pro Visual Studio Code, jenž bude poskytovat plnou podporu jazyka Monkey C. Součástí práce bude bude představení prostředí Visual Studio Code a problematika vývoje rozšíření v tomto prostředí. Představen bude, mimo jiné, také jazyk Monkey C. V další části práce se budu zabývat nástrojem ANTLR, díky kterému jsme schopni generovat vlastní překladač jazyka pomocí bezkontextové gramatiky, parsováním kódu a jeho syntaktickou analýzou. Závěrem bude výsledné rozšíření testováno.}
+\CzechAbstract{V této bakalářské práci se budu zabývat vývojem rozšíření pro Visual Studio Code, jenž bude poskytovat podporu pro jazyk Monkey C. V teoretické části dojde k představení prostředí Visual Studio Code a nahlédnutí do problematiky vývoje rozšíření v tomto prostředí. Dále bude představen také jazyk Monkey C. V praktické části práce bude popsán nástroj ANTLR, který je schopen generovat vlastní překladač jazyka pomocí bezkontextové gramatiky, parsováním kódu a jeho syntaktickou analýzou. Dále bude v praktické části rozebrán návrh a implementace rozšíření, společně s popisem jednotlivých jeho částí. Závěrem bude výsledné rozšíření testováno a výsledky zhodnoceny.}
 
 \CzechKeywords{bakalářská práce, rozšíření, Monkey C, Typescript, parser}
 
-\EnglishAbstract{In this bachelor thesis I will deal with the development of extension for Visual Sstudio Code, which will provide full support for Monkey C language. The work will include an introduction to the Visual Studio Code environment and the development of extensions in this environment. Among other things, the Monkey C language will be introduced. In the next part of the work I will describe the ANTLR tool, used to generate our own language compiler using context-free grammar, code parsing and its syntactic analysis. Finally, the resulting extension will be tested.}
+\EnglishAbstract{In this bachelor thesis I will deal with the development of extension for Visual Sstudio Code, which will provide full support for Monkey C language. In thoretical part will be introduced Visual Studio Code environment and insight into the development of extensions in this environment.The practical part of the thesis will describe the ANTLR tool, which is able to generate its own language compiler using context-free grammar, code parsing and its syntactic analysis. Furthermore, the practical part will discuss the design and implementation of the extension, along with a description of its individual parts. Finally, the resulting extension will be tested and the results evaluated.}
 
 \EnglishKeywords{bachelor thesis, extension, Monkey C, Typescript, parser}
 
@@ -67,5 +67,13 @@
 
 % Seznam literatury
 \printbibliography[title={Literatura}, heading=bibintoc]
+
+% Prilohy
+\appendix
+% Priloha vlozena primo do hlavniho LaTeX souboru. Ne vsechny prilohy je nutne mit ve zvlastnich souborech.
+\chapter{Testovací zdrojové kódy}
+\lstinputlisting[label=testSrc1:Sensor,caption={Testovací zdrojový kód 1}]{SourceCodes/Sensor.mc}
+
+\lstinputlisting[label=testSrc2:BurstChnl,caption={Testovací zdrojový kód 2}]{SourceCodes/BurstChannelManager.mc}
 
 \end{document}

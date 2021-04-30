@@ -235,55 +235,66 @@ export class DocumentHandler {
             
             let ctx = tree[i] ? tree[i].getContext() : undefined;
               
-            if (ctx && /*(ctx.ruleIndex === MonkeyCParser.RULE_classBody || ctx.ruleIndex === MonkeyCParser.RULE_block)) &&*/ (position.line > ctx._start.line /*&& position.line < ctx._stop!.line*/)) {
+            if (ctx && (position.line > ctx._start.line)) {
                 
-                let blockId = tree[i].getId();
-                /* check every node in current scope */
-
                 try {
                     if(tree[i]!==null) {
-                        /*if(tree[i]!?.getValue() === '}' && tree[i].getParent()?.getId() === blockId) { 
-                            break;
-                        }*/
-                        //while(!(tree[i].getValue() === '}' && tree[i].getParent()?.getId() === blockId)) {
-                        
+                       
                             ctx = tree[i].getContext();
                             
-                            if((ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList && tree[i].getChildren()!?.length > 0) /*|| (ctx?.ruleIndex === MonkeyCParser.RULE_varOrFieldDeclaration || ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclaration) /* && (tree[i].getChildren()!?.length <= 1)*/) {
+                            if((ctx?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList && tree[i].getChildren()!?.length > 0)) 
+                            {
             
-                                if(ctx._start.line <= position.line) {
+                                if(ctx._start.line <= position.line) 
+                                {
                                     
                                     let variableName = "";
                                     let modifier = "";
                                     
                                     if(ctx.text?.includes("=")) {
                                         variableName = ctx.text.substring(ctx.text.indexOf("var") + "var".length,ctx.text?.indexOf('='));
-                                    } else {
+                                    } 
+                                    else {
                                         variableName = ctx.text.substring(ctx.text.indexOf("var") + "var".length, ctx.text.indexOf(';'));
                                     }	
 
-                                        let variable = new vscode.CompletionItem(
-                                            variableName,
-                                            vscode.CompletionItemKind.Variable
-                                        );
-                                        
-                                        if(!ctx.text.startsWith("var")) {
-                                            modifier = ctx.text.substring(0, ctx.text.indexOf("var"));
-                                            variable.detail = modifier + " " + "variable";
-                                        }
-
-                                        completionStrings.push(variable);																								
+                                    let variable = new vscode.CompletionItem(
+                                        variableName,
+                                        vscode.CompletionItemKind.Variable
+                                    );
+                                    
+                                    if(!ctx.text.startsWith("var")) {
+                                        modifier = ctx.text.substring(0, ctx.text.indexOf("var"));
+                                        variable.detail = modifier + " " + "variable";
                                     }
+
+                                    completionStrings.push(variable);	
+
+                                }
                                     /* skip 1 node with same context */	
                                     i+=2;	
             
-                                } else {								
-                                //i++;
-                            }							
-                        }	
-                    //}//while end
-                        
-                    
+                            } 
+                            else if((ctx?.ruleIndex === MonkeyCParser.RULE_constDeclaration && tree[i].getChildren()!?.length === 0))
+                            {	
+                            
+                                let modifier = "const";
+                                let variableName = ctx.text.substring(ctx.text.indexOf("const") + "const".length, ctx.text.indexOf("="));  
+
+                                let variable = new vscode.CompletionItem(
+                                    variableName,
+                                    vscode.CompletionItemKind.Constant
+                                );
+
+                                variable.detail = modifier + " " + "variable";
+
+                                completionStrings.push(variable);	
+                            
+                            }						
+                                
+                             						
+                    }	
+ 
                 } catch (error) {
                     console.log(error);
                     //print error message and continue
@@ -471,7 +482,7 @@ export class DocumentHandler {
         for(let j = 0; j < classes_.length; j++) {
 
             if(classes_[j]!.getChildren()!?.length >= 5)
-                classBodyMembers = classes_[j]!.getChildren()![5].getChildren()![1].getChildren()!;
+                classBodyMembers = classes_[j]!.getChildren()![3].getChildren()![1].getChildren()!;
             else
                 classBodyMembers = classes_[j]!.getChildren()![3].getChildren()![1].getChildren()!;
             
@@ -479,35 +490,38 @@ export class DocumentHandler {
 
             //collect fields
             for(let i = 0; i < classBodyMembers.length; i++) {
-                if(classBodyMembers[i].getContext()!.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
+                if(classBodyMembers[i].getContext()! !== undefined) {
+                    if(classBodyMembers[i].getContext()!.ruleIndex === MonkeyCParser.RULE_classBodyMember) {
                     
-                    let ctx = classBodyMembers[i].getChildren()![0];
-                    if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
-                        if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
-                            let variableName = ctx.getChildren()![3].getValue();      
-                            member = new vscode.CompletionItem(
-                                variableName!,
-                                vscode.CompletionItemKind.Field
-                            ); 
-                            let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
-                            let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,false);
-                            member.documentation = new vscode.MarkdownString(markdownDescription);                                                     
-                            accessibleMembers.push(member);
-                        }
-                    } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
-                        if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {
-                            let variableName = ctx.getChildren()![2].getValue();   
-                            member = new vscode.CompletionItem(
-                                variableName!,
-                                vscode.CompletionItemKind.Function
-                            );
-                            let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
-                            let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,true);
-                            member.documentation = new vscode.MarkdownString(markdownDescription);                                                           
-                            accessibleMembers.push(member);
+                        let ctx = classBodyMembers[i].getChildren()![0];
+                        if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_fieldDeclarationList) {
+                            if(ctx.getChildren()![0].getValue() === 'public' || ctx.getChildren()![0].getValue() === 'protected' || ctx.getChildren()![0].getValue() === '') {
+                                let variableName = ctx.getChildren()![3].getValue();      
+                                member = new vscode.CompletionItem(
+                                    variableName!,
+                                    vscode.CompletionItemKind.Field
+                                ); 
+                                let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
+                                let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,false);
+                                member.documentation = new vscode.MarkdownString(markdownDescription);                                                     
+                                accessibleMembers.push(member);
+                            }
+                        } else if(ctx.getContext()?.ruleIndex === MonkeyCParser.RULE_functionDeclaration) {
+                            if(ctx.getChildren()![1].getValue() === 'public' || ctx.getChildren()![1].getValue() === 'protected' || ctx.getChildren()![1].getValue() === '') {
+                                let variableName = ctx.getChildren()![2].getValue();   
+                                member = new vscode.CompletionItem(
+                                    variableName!,
+                                    vscode.CompletionItemKind.Function
+                                );
+                                let cmt = this.getCommentFromChannel(1,ctx.getContext()!.start.line,10); 
+                                let markdownDescription = this.makeMarkdownDescription(className, variableName!, cmt,true);
+                                member.documentation = new vscode.MarkdownString(markdownDescription);                                                           
+                                accessibleMembers.push(member);
+                            }
                         }
                     }
                 }
+
                     
             }
 

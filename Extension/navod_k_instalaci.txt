@@ -1,0 +1,3 @@
+Návod k instalaci:
+-------------------------------
+Instalace na zařízení se provádí spuštěním následujícího příkazu v terminálu (ve složce s rozšířením): code --install-extension monkeyc-extension-(cislo-verze).vsix
